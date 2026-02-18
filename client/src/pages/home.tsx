@@ -1,0 +1,299 @@
+import { ArrowDown, ArrowRight, Rocket, Globe, Search, Layers } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+
+const projects = [
+  {
+    name: "GrowthRocket",
+    label: "AEO",
+    tagline: "Get recommended by AI.",
+    description:
+      "Answer Engine Optimization for B2B SaaS. We make sure AI search engines understand, trust, and recommend your brand.",
+    status: "Established",
+    statusColor: "text-emerald-400",
+    url: "https://growthrocket.ai",
+    icon: Rocket,
+  },
+  {
+    name: "Entities.org",
+    label: "REGISTRY",
+    tagline: "Structured facts, open data.",
+    description:
+      "A canonical entity registry built for machines. Structured, verified data so AI engines always get the right company — not the wrong one.",
+    status: "Growing",
+    statusColor: "text-blue-400",
+    url: "https://entities.org",
+    icon: Globe,
+  },
+  {
+    name: "WhatisBest.com",
+    label: "ANSWERS",
+    tagline: "The best tool for the job.",
+    description:
+      "The go-to answer engine for B2B SaaS buyers. Structured, expert-vetted comparisons built to surface in AI search results.",
+    status: "Launching",
+    statusColor: "text-amber-400",
+    url: "https://whatisbest.com",
+    icon: Search,
+  },
+  {
+    name: "AnswerStack.io",
+    label: "AUTHORITY",
+    tagline: "Less noise, more signal.",
+    description:
+      "The structured authority hub for the age of AI search. Schema-rich, expert-vetted content that AI engines cite as a credible source.",
+    status: "In Development",
+    statusColor: "text-neutral-400",
+    url: "https://answerstack.io",
+    icon: Layers,
+  },
+];
+
+function HeroParticles() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {Array.from({ length: 20 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-white/[0.03] animate-float-particle"
+          style={{
+            width: `${Math.random() * 3 + 1}px`,
+            height: `${Math.random() * 3 + 1}px`,
+            left: `${Math.random() * 100}%`,
+            bottom: `${Math.random() * 20}%`,
+            ["--duration" as string]: `${Math.random() * 10 + 10}s`,
+            ["--delay" as string]: `${Math.random() * 8}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function HeroGlow() {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/[0.015] blur-[120px] animate-subtle-glow" />
+      <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-white/[0.08] to-transparent" />
+    </div>
+  );
+}
+
+function Navbar() {
+  return (
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 md:px-10"
+      style={{ backdropFilter: "blur(12px)", backgroundColor: "hsl(220 10% 6% / 0.8)" }}
+      data-testid="navbar"
+    >
+      <a
+        href="/"
+        className="text-sm font-semibold tracking-tight text-foreground"
+        data-testid="link-home"
+      >
+        Brandvious <span className="font-normal text-muted-foreground">Digital</span>
+      </a>
+      <a href="#projects">
+        <Button variant="outline" size="sm" data-testid="button-explore">
+          Explore
+          <ArrowDown className="w-3 h-3" />
+        </Button>
+      </a>
+    </nav>
+  );
+}
+
+function Hero() {
+  return (
+    <section
+      className="relative flex flex-col items-center justify-center min-h-screen px-6 text-center"
+      data-testid="section-hero"
+    >
+      <HeroGlow />
+      <HeroParticles />
+
+      <div className="relative z-10 max-w-2xl mx-auto">
+        <div className="mb-8">
+          <Badge
+            variant="outline"
+            className="text-[11px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
+            data-testid="badge-brandvious"
+          >
+            Brandvious Digital
+          </Badge>
+        </div>
+
+        <h1
+          className="text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+          data-testid="text-headline"
+        >
+          Fair. Factual.{" "}
+          <br className="hidden sm:block" />
+          Friendly.
+        </h1>
+
+        <p
+          className="mt-5 text-base leading-relaxed text-muted-foreground max-w-md mx-auto sm:text-lg"
+          data-testid="text-subheadline"
+        >
+          Building products that make the internet work
+          <br className="hidden sm:block" />
+          for both humans and machines.
+        </p>
+
+        <div className="mt-10">
+          <a href="#projects">
+            <Button variant="outline" data-testid="button-explore-projects">
+              Explore the Projects
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </a>
+        </div>
+      </div>
+
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
+        <span className="text-[10px] tracking-[0.2em] uppercase">Explore</span>
+        <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
+      </div>
+    </section>
+  );
+}
+
+function ProjectCard({
+  project,
+  index,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+}) {
+  const Icon = project.icon;
+
+  return (
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block rounded-xl border border-border/60 bg-card/50 p-6 transition-colors duration-200 hover-elevate"
+      data-testid={`card-project-${index}`}
+    >
+      <div className="flex items-start justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center justify-center w-9 h-9 rounded-md border border-border/60 bg-background/50">
+            <Icon className="w-4 h-4 text-muted-foreground" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2.5 flex-wrap">
+              <h3 className="text-base font-semibold text-foreground" data-testid={`text-project-name-${index}`}>
+                {project.name}
+              </h3>
+              <Badge
+                variant="outline"
+                className={`text-[10px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
+                data-testid={`badge-status-${index}`}
+              >
+                {project.status}
+              </Badge>
+            </div>
+            <span className="text-xs tracking-wider uppercase text-muted-foreground/60 mt-0.5 block">
+              {project.label}
+            </span>
+          </div>
+        </div>
+        <ArrowRight className="w-4 h-4 text-muted-foreground/40 opacity-0 group-hover:opacity-100 transition-opacity duration-200 mt-2 flex-shrink-0 invisible group-hover:visible" />
+      </div>
+
+      <p className="mt-4 text-sm font-medium text-foreground/90" data-testid={`text-project-tagline-${index}`}>
+        {project.tagline}
+      </p>
+      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground" data-testid={`text-project-description-${index}`}>
+        {project.description}
+      </p>
+    </a>
+  );
+}
+
+function Projects() {
+  return (
+    <section
+      id="projects"
+      className="relative px-6 py-24 md:py-32"
+      data-testid="section-projects"
+    >
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-4">
+          <Badge
+            variant="outline"
+            className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
+          >
+            The Products
+          </Badge>
+        </div>
+
+        <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-projects-heading">
+          What we're building.
+        </h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg" data-testid="text-projects-subheading">
+          Each product starts from the same conviction: the internet should be fair for
+          people, factual for machines, and friendly for both.
+        </p>
+
+        <div className="mt-12 flex flex-col gap-4">
+          {projects.map((project, i) => (
+            <ProjectCard key={project.name} project={project} index={i} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Thesis() {
+  return (
+    <section className="relative px-6 py-24 md:py-32" data-testid="section-thesis">
+      <div className="max-w-2xl mx-auto">
+        <div className="border-t border-border/40 pt-16">
+          <p className="text-lg font-medium leading-relaxed text-foreground/80 sm:text-xl" data-testid="text-thesis">
+            AI is changing how people find, trust, and choose.
+            <br className="hidden sm:block" />
+            <span className="text-muted-foreground">
+              {" "}
+              We build the products that make sure the answers are right.
+            </span>
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
+      <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <span className="text-sm font-semibold text-foreground">
+            Brandvious <span className="font-normal text-muted-foreground">Digital</span>
+          </span>
+          <p className="mt-1 text-xs text-muted-foreground/60">
+            Fair. Factual. Friendly.
+          </p>
+        </div>
+        <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
+          &copy; {new Date().getFullYear()} Brandvious Digital. All rights reserved.
+        </p>
+      </div>
+    </footer>
+  );
+}
+
+export default function Home() {
+  return (
+    <div className="min-h-screen bg-background">
+      <Navbar />
+      <Hero />
+      <Projects />
+      <Thesis />
+      <Footer />
+    </div>
+  );
+}
