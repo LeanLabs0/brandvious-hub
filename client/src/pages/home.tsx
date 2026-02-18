@@ -460,6 +460,9 @@ function Projects() {
                     <span className="text-sm font-semibold text-foreground" data-testid={`text-project-name-${realIndex}`}>
                       {project.name}
                     </span>
+                    <span className="text-[10px] text-muted-foreground/50 tracking-wider uppercase">
+                      {project.label}
+                    </span>
                     <Badge
                       variant="outline"
                       className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
