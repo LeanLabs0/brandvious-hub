@@ -319,9 +319,7 @@ function Beliefs() {
             Consensus is King.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto">
-            AI is rewriting how people find, trust, and choose.
-            <br />
-            Brandvious products deliver factual data in a way that LLMs can ingest and cite with ease.
+            AI is rewriting how people find, trust, and choose. Brandvious delivers factual brand data that LLMs can ingest and cite with ease.
           </p>
         </div>
 
