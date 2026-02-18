@@ -357,18 +357,34 @@ function ClosingStatement() {
 function Footer() {
   return (
     <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
-      <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div>
-          <span className="text-sm font-semibold text-foreground">
-            Brandvious <span className="font-normal text-muted-foreground">Digital</span>
-          </span>
-          <p className="mt-1 text-xs text-muted-foreground/60">
-            Fair. Factual. Functional for AI.
+      <div className="max-w-2xl mx-auto">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div>
+            <span className="text-sm font-semibold text-foreground">
+              Brandvious<span className="font-normal text-muted-foreground">, Inc.</span>
+            </span>
+            <p className="mt-1 text-xs text-muted-foreground/60">
+              Fair. Factual. Functional for AI.
+            </p>
+          </div>
+          <div className="text-right">
+            <a
+              href="tel:+19138716500"
+              className="text-xs text-muted-foreground/60 block"
+              data-testid="link-phone"
+            >
+              1-913-871-6500
+            </a>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground/40" data-testid="text-address">
+            16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
+          </p>
+          <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
+            &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
           </p>
         </div>
-        <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
-          &copy; {new Date().getFullYear()} Brandvious Digital. All rights reserved.
-        </p>
       </div>
     </footer>
   );
