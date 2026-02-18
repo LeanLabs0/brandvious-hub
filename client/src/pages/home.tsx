@@ -76,21 +76,21 @@ const projects = [
   },
 ];
 
-const principles = [
+const beliefs = [
   {
     number: "01",
-    title: "The Internet Has a Trust Problem",
-    body: "People ask AI for answers. AI pulls from the internet. But most of the internet wasn't built for accuracy — it was built for clicks. That gap between what people need and what machines find is where misinformation thrives.",
+    title: "Fair",
+    body: "The internet should give every business a fair shot at being found — not just the ones with the biggest ad budgets. We build products that level the playing field by making accurate information easier to surface.",
   },
   {
     number: "02",
-    title: "Machines Need Structure, Not Noise",
-    body: "AI engines don't read websites the way people do. They need structured, verified, schema-rich data to return confident answers. Most content on the web gives them noise. We build signal.",
+    title: "Factual",
+    body: "AI engines are only as good as the data they pull from. We build structured, verified, machine-readable sources — so the answers AI gives are grounded in facts, not noise.",
   },
   {
     number: "03",
-    title: "Better Inputs, Better Answers",
-    body: "When the source material is fair, factual, and machine-readable, AI gives better answers. Better answers mean better decisions. That's the outcome we're building toward — one product at a time.",
+    title: "Functional",
+    body: "The internet wasn't designed for machines to read. We're changing that. Every product we ship makes web content more structured, more accessible, and more useful — for humans and AI alike.",
   },
 ];
 
@@ -292,14 +292,14 @@ function PrincipleVisual3() {
   );
 }
 
-function Principles() {
+function Beliefs() {
   const visuals = [<PrincipleVisual1 />, <PrincipleVisual2 />, <PrincipleVisual3 />];
 
   return (
     <section
       id="principles"
       className="relative px-6 py-24 md:py-32"
-      data-testid="section-principles"
+      data-testid="section-beliefs"
     >
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16">
@@ -308,40 +308,39 @@ function Principles() {
               variant="outline"
               className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
             >
-              The Thesis
+              The Mission
             </Badge>
           </div>
 
           <h2
             className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
-            data-testid="text-principles-heading"
+            data-testid="text-beliefs-heading"
           >
-            Why we build.
+            What we believe.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto">
-            AI is rewriting how people find, trust, and choose. These are the beliefs
-            behind every product we ship.
+            Three beliefs that guide every product we build.
           </p>
         </div>
 
         <div className="flex flex-col gap-24">
-          {principles.map((p, i) => {
+          {beliefs.map((b, i) => {
             const isEven = i % 2 === 1;
             return (
               <div
-                key={p.number}
+                key={b.number}
                 className={`flex flex-col gap-8 md:gap-12 ${isEven ? "md:flex-row-reverse" : "md:flex-row"} items-center`}
-                data-testid={`principle-${i}`}
+                data-testid={`belief-${i}`}
               >
                 <div className="flex-1 w-full">
                   <span className="text-4xl font-bold text-border/60 font-mono select-none block mb-4">
-                    {p.number}
+                    {b.number}
                   </span>
-                  <h3 className="text-xl font-semibold text-foreground mb-3" data-testid={`text-principle-title-${i}`}>
-                    {p.title}
+                  <h3 className="text-xl font-semibold text-foreground mb-3" data-testid={`text-belief-title-${i}`}>
+                    {b.title}
                   </h3>
-                  <p className="text-sm leading-relaxed text-muted-foreground" data-testid={`text-principle-body-${i}`}>
-                    {p.body}
+                  <p className="text-sm leading-relaxed text-muted-foreground" data-testid={`text-belief-body-${i}`}>
+                    {b.body}
                   </p>
                 </div>
                 <div className="flex-1 w-full max-w-xs md:max-w-sm">
@@ -542,7 +541,7 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
-      <Principles />
+      <Beliefs />
       <Projects />
       <ClosingStatement />
       <Footer />
