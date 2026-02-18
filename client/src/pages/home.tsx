@@ -161,8 +161,8 @@ function Navbar() {
         Brandvious <span className="font-normal text-muted-foreground">Digital</span>
       </a>
       <a href="#projects">
-        <Button variant="outline" size="sm" data-testid="button-explore">
-          Explore
+        <Button variant="outline" size="sm" data-testid="button-projects">
+          Projects
           <ArrowDown className="w-3 h-3" />
         </Button>
       </a>
@@ -219,7 +219,6 @@ function Hero() {
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-        <span className="text-[10px] tracking-[0.2em] uppercase">Explore</span>
         <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
       </div>
     </section>
