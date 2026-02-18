@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Rocket, Globe, Search, Layers } from "lucide-react";
+import { ArrowDown, ArrowRight, Rocket, Globe, Trophy, Layers } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -34,7 +34,7 @@ const projects = [
     status: "Launching",
     statusColor: "text-amber-400",
     url: "https://whatisbest.com",
-    icon: Search,
+    icon: Trophy,
   },
   {
     name: "AnswerStack.io",
@@ -46,6 +46,24 @@ const projects = [
     statusColor: "text-neutral-400",
     url: "https://answerstack.io",
     icon: Layers,
+  },
+];
+
+const principles = [
+  {
+    number: "01",
+    title: "The Internet Has a Trust Problem",
+    body: "People ask AI for answers. AI pulls from the internet. But most of the internet wasn't built for accuracy — it was built for clicks. That gap between what people need and what machines find is where misinformation thrives.",
+  },
+  {
+    number: "02",
+    title: "Machines Need Structure, Not Noise",
+    body: "AI engines don't read websites the way people do. They need structured, verified, schema-rich data to return confident answers. Most content on the web gives them noise. We build signal.",
+  },
+  {
+    number: "03",
+    title: "Better Inputs, Better Answers",
+    body: "When the source material is fair, factual, and machine-readable, AI gives better answers. Better answers mean better decisions. That's the outcome we're building toward — one product at a time.",
   },
 ];
 
@@ -75,6 +93,27 @@ function HeroGlow() {
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-white/[0.015] blur-[120px] animate-subtle-glow" />
       <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-white/[0.08] to-transparent" />
+    </div>
+  );
+}
+
+function IconBar() {
+  return (
+    <div className="flex items-center gap-2 mb-10" data-testid="icon-bar">
+      {projects.map((project, i) => {
+        const Icon = project.icon;
+        return (
+          <a
+            key={project.name}
+            href={`#project-${i}`}
+            className="flex items-center justify-center w-12 h-12 rounded-xl border border-border/60 bg-card/80 transition-colors duration-200 hover-elevate"
+            title={project.name}
+            data-testid={`icon-bar-${i}`}
+          >
+            <Icon className="w-5 h-5 text-muted-foreground" />
+          </a>
+        );
+      })}
     </div>
   );
 }
@@ -112,7 +151,9 @@ function Hero() {
       <HeroGlow />
       <HeroParticles />
 
-      <div className="relative z-10 max-w-2xl mx-auto">
+      <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
+        <IconBar />
+
         <div className="mb-8">
           <Badge
             variant="outline"
@@ -140,7 +181,7 @@ function Hero() {
         </p>
 
         <div className="mt-10">
-          <a href="#projects">
+          <a href="#principles">
             <Button variant="outline" data-testid="button-explore-projects">
               Explore the Projects
               <ArrowRight className="w-4 h-4" />
@@ -157,6 +198,56 @@ function Hero() {
   );
 }
 
+function Principles() {
+  return (
+    <section
+      id="principles"
+      className="relative px-6 py-24 md:py-32"
+      data-testid="section-principles"
+    >
+      <div className="max-w-2xl mx-auto">
+        <div className="mb-4">
+          <Badge
+            variant="outline"
+            className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
+          >
+            The Thesis
+          </Badge>
+        </div>
+
+        <h2
+          className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+          data-testid="text-principles-heading"
+        >
+          Why we build.
+        </h2>
+        <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
+          AI is rewriting how people find, trust, and choose. These are the beliefs
+          behind every product we ship.
+        </p>
+
+        <div className="mt-16 flex flex-col gap-16">
+          {principles.map((p, i) => (
+            <div key={p.number} className="flex gap-6" data-testid={`principle-${i}`}>
+              <span className="text-3xl font-bold text-border/80 font-mono flex-shrink-0 mt-0.5 select-none">
+                {p.number}
+              </span>
+              <div>
+                <h3 className="text-lg font-semibold text-foreground" data-testid={`text-principle-title-${i}`}>
+                  {p.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground" data-testid={`text-principle-body-${i}`}>
+                  {p.body}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ProjectCard({
   project,
   index,
@@ -168,6 +259,7 @@ function ProjectCard({
 
   return (
     <a
+      id={`project-${index}`}
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
@@ -231,8 +323,8 @@ function Projects() {
           What we're building.
         </h2>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg" data-testid="text-projects-subheading">
-          Each product starts from the same conviction: the internet should be fair for
-          people, factual for machines, and friendly for both.
+          Each product tackles a different piece of the same problem. Together, they
+          make the internet more useful — for people and for AI.
         </p>
 
         <div className="mt-12 flex flex-col gap-4">
@@ -245,17 +337,15 @@ function Projects() {
   );
 }
 
-function Thesis() {
+function ClosingStatement() {
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-thesis">
+    <section className="relative px-6 py-24 md:py-32" data-testid="section-closing">
       <div className="max-w-2xl mx-auto">
         <div className="border-t border-border/40 pt-16">
-          <p className="text-lg font-medium leading-relaxed text-foreground/80 sm:text-xl" data-testid="text-thesis">
+          <p className="text-lg font-medium leading-relaxed text-foreground/80 sm:text-xl" data-testid="text-closing">
             AI is changing how people find, trust, and choose.
-            <br className="hidden sm:block" />
             <span className="text-muted-foreground">
-              {" "}
-              We build the products that make sure the answers are right.
+              {" "}We build the products that make sure the answers are right.
             </span>
           </p>
         </div>
@@ -273,7 +363,7 @@ function Footer() {
             Brandvious <span className="font-normal text-muted-foreground">Digital</span>
           </span>
           <p className="mt-1 text-xs text-muted-foreground/60">
-            Fair. Factual. Friendly.
+            Fair. Factual. Functional for AI.
           </p>
         </div>
         <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
@@ -289,8 +379,9 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <Principles />
       <Projects />
-      <Thesis />
+      <ClosingStatement />
       <Footer />
     </div>
   );
