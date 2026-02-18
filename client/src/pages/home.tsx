@@ -368,12 +368,18 @@ function ProjectCard({
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-border/60 bg-card/50 p-5 transition-colors duration-200 hover-elevate"
+      className="group relative flex flex-col rounded-xl border border-border/60 bg-card/50 p-6 transition-all duration-300 hover-elevate overflow-visible"
       data-testid={`card-project-${index}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/60 bg-background/50">
-          <Icon className="w-4 h-4 text-muted-foreground" />
+      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          boxShadow: "0 0 30px -5px hsl(0 0% 100% / 0.04), inset 0 1px 0 0 hsl(0 0% 100% / 0.06)",
+        }}
+      />
+
+      <div className="relative flex items-center justify-between gap-2 mb-5 flex-wrap">
+        <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-border/50 bg-background/60 group-hover:border-border transition-colors duration-300">
+          <Icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300" />
         </div>
         <Badge
           variant="outline"
@@ -384,20 +390,26 @@ function ProjectCard({
         </Badge>
       </div>
 
-      <h3 className="text-base font-semibold text-foreground" data-testid={`text-project-name-${index}`}>
-        {project.name}
-      </h3>
-      <p className="mt-1 text-xs text-muted-foreground/60 tracking-wider uppercase">
-        {project.label}
-      </p>
+      <div className="relative">
+        <h3 className="text-lg font-semibold text-foreground" data-testid={`text-project-name-${index}`}>
+          {project.name}
+        </h3>
+        <p className="mt-1 text-[10px] text-muted-foreground/50 tracking-wider uppercase">
+          {project.label}
+        </p>
 
-      <p className="mt-3 text-sm leading-relaxed text-muted-foreground flex-1" data-testid={`text-project-description-${index}`}>
-        {project.description}
-      </p>
+        <p className="mt-2 text-sm font-medium text-foreground/70" data-testid={`text-project-tagline-${index}`}>
+          {project.tagline}
+        </p>
 
-      <div className="mt-4 pt-3 border-t border-border/30 flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-foreground/70 transition-colors">
-        Visit Site
-        <ArrowRight className="w-3 h-3" />
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground/70 flex-1" data-testid={`text-project-description-${index}`}>
+          {project.description}
+        </p>
+
+        <div className="mt-5 pt-3 border-t border-border/20 flex items-center gap-1.5 text-xs text-muted-foreground/50 group-hover:text-foreground/60 transition-colors duration-300">
+          Visit Site
+          <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+        </div>
       </div>
     </a>
   );
@@ -448,18 +460,23 @@ function Projects() {
                 href={project.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center gap-4 rounded-xl border border-border/40 bg-card/30 px-5 py-4 transition-colors duration-200 hover-elevate"
+                className="group relative flex items-center gap-5 rounded-xl border border-border/40 bg-card/30 px-6 py-5 transition-all duration-300 hover-elevate overflow-visible"
                 data-testid={`card-project-${realIndex}`}
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/30 flex-shrink-0">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
+                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{
+                    boxShadow: "0 0 25px -5px hsl(0 0% 100% / 0.03), inset 0 1px 0 0 hsl(0 0% 100% / 0.04)",
+                  }}
+                />
+                <div className="relative flex items-center justify-center w-10 h-10 rounded-xl border border-border/40 bg-background/40 flex-shrink-0 group-hover:border-border/60 transition-colors duration-300">
+                  <Icon className="w-5 h-5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors duration-300" />
                 </div>
-                <div className="flex-1 min-w-0">
+                <div className="relative flex-1 min-w-0">
                   <div className="flex items-center gap-2.5 flex-wrap">
-                    <span className="text-sm font-semibold text-foreground" data-testid={`text-project-name-${realIndex}`}>
+                    <span className="text-base font-semibold text-foreground" data-testid={`text-project-name-${realIndex}`}>
                       {project.name}
                     </span>
-                    <span className="text-[10px] text-muted-foreground/50 tracking-wider uppercase">
+                    <span className="text-[10px] text-muted-foreground/40 tracking-wider uppercase">
                       {project.label}
                     </span>
                     <Badge
@@ -470,11 +487,14 @@ function Projects() {
                       {project.status}
                     </Badge>
                   </div>
-                  <p className="mt-0.5 text-sm text-muted-foreground" data-testid={`text-project-description-${realIndex}`}>
+                  <p className="mt-1 text-sm font-medium text-foreground/60">
+                    {project.tagline}
+                  </p>
+                  <p className="mt-1 text-sm text-muted-foreground/60" data-testid={`text-project-description-${realIndex}`}>
                     {project.description}
                   </p>
                 </div>
-                <ArrowRight className="w-4 h-4 text-muted-foreground/30 flex-shrink-0 invisible group-hover:visible" />
+                <ArrowRight className="relative w-4 h-4 text-muted-foreground/20 flex-shrink-0 invisible group-hover:visible transition-transform duration-300 group-hover:translate-x-0.5" />
               </a>
             );
           })}
