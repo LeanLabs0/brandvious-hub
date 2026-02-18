@@ -1,7 +1,7 @@
 import {
   ArrowDown,
   ArrowRight,
-  Rocket,
+  Braces,
   Globe,
   Trophy,
   Layers,
@@ -20,15 +20,15 @@ import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    name: "GrowthRocket",
-    label: "AEO",
-    tagline: "Get recommended by AI.",
+    name: "SchemaRocket",
+    label: "STRUCTURED DATA",
+    tagline: "Get structured data that powers AI.",
     description:
-      "Answer Engine Optimization for B2B SaaS. We make sure AI search engines understand, trust, and recommend your brand.",
+      "Structured data and schema markup that makes your brand machine-readable — so AI engines can understand, trust, and recommend you.",
     status: "Established",
     statusColor: "text-emerald-400",
-    url: "https://growthrocket.ai",
-    icon: Rocket,
+    url: "https://schemarocket.ai",
+    icon: Braces,
   },
   {
     name: "Entities.org",
