@@ -1,4 +1,4 @@
-import { ArrowDown, ArrowRight, Rocket, Globe, Trophy, Layers } from "lucide-react";
+import { ArrowDown, ArrowRight, Rocket, Globe, Trophy, Layers, Radar } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
@@ -46,6 +46,17 @@ const projects = [
     statusColor: "text-neutral-400",
     url: "https://answerstack.io",
     icon: Layers,
+  },
+  {
+    name: "ReviewRadar.com",
+    label: "TRUST",
+    tagline: "What's actually happening now.",
+    description:
+      "Review sites are biased and built on stale data. ReviewRadar indexes what's happening lately — pulling from leading review platforms and gathering real-time sentiment from communities.",
+    status: "Backlog",
+    statusColor: "text-neutral-500",
+    url: "https://reviewradar.com",
+    icon: Radar,
   },
 ];
 
