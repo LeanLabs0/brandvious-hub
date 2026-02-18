@@ -43,7 +43,7 @@ const projects = [
   },
   {
     name: "WhatisBest.com",
-    label: "ANSWERS",
+    label: "COMPARISONS",
     tagline: "The best tool for the job.",
     description:
       "The go-to answer engine for B2B SaaS buyers. Structured, expert-vetted comparisons built to surface in AI search results.",
@@ -54,7 +54,7 @@ const projects = [
   },
   {
     name: "AnswerStack.io",
-    label: "AUTHORITY",
+    label: "ANSWERS",
     tagline: "Less noise, more signal.",
     description:
       "The structured authority hub for the age of AI search. Schema-rich, expert-vetted content that AI engines cite as a credible source.",
