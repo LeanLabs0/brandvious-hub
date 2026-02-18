@@ -129,16 +129,14 @@ function Hero() {
         >
           Fair. Factual.{" "}
           <br className="hidden sm:block" />
-          Friendly.
+          Functional for AI.
         </h1>
 
         <p
           className="mt-5 text-base leading-relaxed text-muted-foreground max-w-md mx-auto sm:text-lg"
           data-testid="text-subheadline"
         >
-          Building products that make the internet work
-          <br className="hidden sm:block" />
-          for both humans and machines.
+          Brandvious builds products that make the internet work better.
         </p>
 
         <div className="mt-10">
