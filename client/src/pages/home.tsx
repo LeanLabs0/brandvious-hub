@@ -316,10 +316,12 @@ function Beliefs() {
             className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
             data-testid="text-beliefs-heading"
           >
-            What we believe.
+            Consensus is King.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto">
-            Three beliefs that guide every product we build.
+            AI is rewriting how people find, trust, and choose.
+            <br />
+            Brandvious products deliver factual data in a way that LLMs can ingest and cite with ease.
           </p>
         </div>
 
