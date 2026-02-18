@@ -428,11 +428,11 @@ function Projects() {
           </div>
 
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-projects-heading">
-            What we're building.
+            Building the Internet AI Deserves.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto" data-testid="text-projects-subheading">
-            Each product tackles a different piece of the same problem. Together, they
-            make the internet more useful — for people and for AI.
+            Every product below exists to solve one problem: making the internet more
+            structured, more accurate, and more useful — so AI can give people better answers.
           </p>
         </div>
 
