@@ -426,11 +426,10 @@ function Projects() {
           </div>
 
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-projects-heading">
-            Building the Internet AI Deserves.
+            Structuring the Web for the AI Era.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto" data-testid="text-projects-subheading">
-            Every product below exists to solve one problem: making the internet more
-            structured, more accurate, and more useful — so AI can give people better answers.
+            Structured data. Accurate facts. Better answers.
           </p>
         </div>
 
