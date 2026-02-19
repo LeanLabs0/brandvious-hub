@@ -187,7 +187,7 @@ function Navbar() {
   const { theme } = useTheme();
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 md:px-10"
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
       style={{
         backdropFilter: "blur(12px)",
         backgroundColor:
@@ -197,14 +197,16 @@ function Navbar() {
       }}
       data-testid="navbar"
     >
-      <a
-        href="/"
-        className="text-sm font-semibold tracking-tight text-foreground"
-        data-testid="link-home"
-      >
-        Brandvious <span className="font-normal text-muted-foreground">Digital</span>
-      </a>
-      <ThemeToggle />
+      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
+        <a
+          href="/"
+          className="text-sm font-semibold tracking-tight text-foreground"
+          data-testid="link-home"
+        >
+          Brandvious <span className="font-normal text-muted-foreground">Digital</span>
+        </a>
+        <ThemeToggle />
+      </div>
     </nav>
   );
 }
