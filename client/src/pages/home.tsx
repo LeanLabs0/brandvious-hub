@@ -156,12 +156,6 @@ function Navbar() {
       >
         Brandvious <span className="font-normal text-muted-foreground">Digital</span>
       </a>
-      <a href="#projects">
-        <Button variant="outline" size="sm" data-testid="button-projects">
-          Projects
-          <ArrowDown className="w-3 h-3" />
-        </Button>
-      </a>
     </nav>
   );
 }
@@ -204,14 +198,6 @@ function Hero() {
           Brandvious builds products that make the internet work better.
         </p>
 
-        <div className="mt-10">
-          <a href="#principles">
-            <Button variant="outline" data-testid="button-explore-projects">
-              Explore the Projects
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </a>
-        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
