@@ -660,39 +660,54 @@ function Footer() {
 }
 
 function SparkleBackground() {
+  const entities = [
+    { top: "8%", left: "15%", size: 900, blur: 140, drift: "entity-drift-1", duration: "28s", delay: "0s",
+      outer: "rgba(120, 40, 180, 0.30)", inner: "rgba(180, 100, 255, 0.45)" },
+    { top: "35%", left: "65%", size: 750, blur: 120, drift: "entity-drift-2", duration: "34s", delay: "2s",
+      outer: "rgba(90, 20, 150, 0.25)", inner: "rgba(150, 70, 220, 0.40)" },
+    { top: "65%", left: "25%", size: 850, blur: 130, drift: "entity-drift-3", duration: "30s", delay: "5s",
+      outer: "rgba(100, 30, 160, 0.28)", inner: "rgba(160, 80, 240, 0.42)" },
+    { top: "20%", left: "80%", size: 600, blur: 110, drift: "entity-drift-1", duration: "36s", delay: "8s",
+      outer: "rgba(80, 15, 140, 0.22)", inner: "rgba(140, 60, 210, 0.35)" },
+    { top: "75%", left: "70%", size: 700, blur: 125, drift: "entity-drift-2", duration: "32s", delay: "4s",
+      outer: "rgba(110, 35, 170, 0.24)", inner: "rgba(170, 90, 250, 0.38)" },
+  ];
+
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div
-        className="absolute top-[5%] left-[10%] w-[1200px] h-[1200px] rounded-full blur-[200px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(120, 40, 180, 0.35) 0%, rgba(80, 20, 140, 0.15) 40%, transparent 70%)" }}
-      />
-      <div
-        className="absolute top-[30%] right-[5%] w-[1000px] h-[1000px] rounded-full blur-[180px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(100, 20, 160, 0.28) 0%, rgba(60, 10, 100, 0.12) 40%, transparent 70%)", animationDelay: "3s" }}
-      />
-      <div
-        className="absolute top-[60%] left-[30%] w-[1100px] h-[1100px] rounded-full blur-[190px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(140, 50, 200, 0.30) 0%, rgba(90, 30, 150, 0.12) 40%, transparent 70%)", animationDelay: "6s" }}
-      />
-      <div
-        className="absolute bottom-[5%] right-[20%] w-[800px] h-[800px] rounded-full blur-[160px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(110, 30, 170, 0.25) 0%, rgba(70, 15, 120, 0.10) 40%, transparent 70%)", animationDelay: "9s" }}
-      />
-      <div
-        className="absolute top-[15%] left-[60%] w-[900px] h-[900px] rounded-full blur-[170px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(130, 40, 190, 0.22) 0%, transparent 60%)", animationDelay: "4s" }}
-      />
-      {Array.from({ length: 100 }).map((_, i) => (
+      {entities.map((e, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-purple-300/[0.12] animate-float-particle"
+          className="absolute rounded-full"
           style={{
-            width: `${Math.random() * 4 + 1.5}px`,
-            height: `${Math.random() * 4 + 1.5}px`,
+            top: e.top,
+            left: e.left,
+            width: `${e.size}px`,
+            height: `${e.size}px`,
+            filter: `blur(${e.blur}px)`,
+            animation: `${e.drift} ${e.duration} ${e.delay} infinite ease-in-out`,
+          }}
+        >
+          <div
+            className="absolute inset-0 rounded-full"
+            style={{
+              background: `radial-gradient(circle, ${e.inner} 0%, ${e.outer} 30%, transparent 65%)`,
+              animation: `entity-pulse ${parseInt(e.duration) * 0.4}s ${e.delay} infinite ease-in-out`,
+            }}
+          />
+        </div>
+      ))}
+      {Array.from({ length: 80 }).map((_, i) => (
+        <div
+          key={`p-${i}`}
+          className="absolute rounded-full bg-purple-300/[0.10] animate-float-particle"
+          style={{
+            width: `${Math.random() * 3 + 1}px`,
+            height: `${Math.random() * 3 + 1}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            ["--duration" as string]: `${Math.random() * 12 + 8}s`,
-            ["--delay" as string]: `${Math.random() * 10}s`,
+            ["--duration" as string]: `${Math.random() * 15 + 10}s`,
+            ["--delay" as string]: `${Math.random() * 12}s`,
           }}
         />
       ))}
