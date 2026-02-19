@@ -76,17 +76,17 @@ const beliefs = [
   {
     number: "01",
     title: "Fair",
-    body: "The internet should give every business a fair shot at being found — not just the ones with the biggest ad budgets. We build products that level the playing field by making accurate information easier to surface.",
+    body: "The internet should give every business a fair shot — not just the ones with the biggest ad budgets. Our products make accurate information easier to surface.",
   },
   {
     number: "02",
     title: "Factual",
-    body: "AI engines are only as good as the data they pull from. We build structured, verified, machine-readable sources — so the answers AI gives are grounded in facts, not noise.",
+    body: "AI is only as good as its sources. We provide structured, verified, machine-readable data — so AI answers are grounded in citable facts.",
   },
   {
     number: "03",
     title: "Functional",
-    body: "The internet wasn't designed for machines to read. We're changing that. Every product we ship makes web content more structured, more accessible, and more useful — for humans and AI alike.",
+    body: "Every product we ship makes web content more structured and useful — for humans and AI alike.",
   },
 ];
 
