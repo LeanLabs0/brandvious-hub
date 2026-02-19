@@ -9,6 +9,7 @@ import Entities from "@/pages/entities";
 import Schema from "@/pages/schema";
 import WhatisBest from "@/pages/whatisbest";
 import AnswerStack from "@/pages/answerstack";
+import ReviewRadar from "@/pages/reviewradar";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/schema" component={Schema} />
       <Route path="/whatisbest" component={WhatisBest} />
       <Route path="/answerstack" component={AnswerStack} />
+      <Route path="/reviewradar" component={ReviewRadar} />
       <Route component={NotFound} />
     </Switch>
   );

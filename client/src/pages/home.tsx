@@ -71,7 +71,7 @@ const projects = [
       "Review sites are biased and stale. ReviewRadar pulls real-time sentiment from leading platforms and communities.",
     status: "Backlog",
     statusColor: "text-neutral-500",
-    url: "https://reviewradar.com",
+    url: "/reviewradar",
     icon: Radar,
   },
 ];
