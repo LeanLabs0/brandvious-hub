@@ -76,17 +76,17 @@ const beliefs = [
   {
     number: "01",
     title: "Fair",
-    body: "The internet should give every business a fair shot — not just the ones with the biggest ad budgets. Our products make accurate information easier to surface.",
+    body: "The internet should give every business a fair shot, not just the ones with the biggest ad budgets. Our products make accurate information easier to surface.",
   },
   {
     number: "02",
     title: "Factual",
-    body: "AI is only as good as its sources. We provide structured, verified, machine-readable data — so AI answers are grounded in citable facts.",
+    body: "AI is only as good as its sources. We provide structured, verified, machine-readable data so AI answers are grounded in citable facts.",
   },
   {
     number: "03",
     title: "Functional",
-    body: "Every product we ship makes web content more structured and useful — for humans and AI alike.",
+    body: "Every product we ship makes web content more structured and useful for humans and AI alike.",
   },
 ];
 
