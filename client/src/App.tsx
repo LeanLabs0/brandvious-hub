@@ -14,6 +14,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/entities" component={Entities} />
+      <Route path="/entitiespreview" component={Entities} />
       <Route path="/schema" component={Schema} />
       <Route component={NotFound} />
     </Switch>
