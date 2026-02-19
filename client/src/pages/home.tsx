@@ -663,27 +663,35 @@ function SparkleBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div
-        className="absolute top-[10%] left-[20%] w-[900px] h-[900px] rounded-full blur-[180px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.14) 0%, rgba(60, 10, 90, 0.06) 50%, transparent 70%)" }}
+        className="absolute top-[5%] left-[10%] w-[1200px] h-[1200px] rounded-full blur-[200px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(120, 40, 180, 0.35) 0%, rgba(80, 20, 140, 0.15) 40%, transparent 70%)" }}
       />
       <div
-        className="absolute top-[50%] right-[10%] w-[700px] h-[700px] rounded-full blur-[160px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(80, 20, 120, 0.10) 0%, rgba(50, 10, 80, 0.04) 50%, transparent 70%)", animationDelay: "5s" }}
+        className="absolute top-[30%] right-[5%] w-[1000px] h-[1000px] rounded-full blur-[180px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(100, 20, 160, 0.28) 0%, rgba(60, 10, 100, 0.12) 40%, transparent 70%)", animationDelay: "3s" }}
       />
       <div
-        className="absolute bottom-[10%] left-[40%] w-[600px] h-[600px] rounded-full blur-[140px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(120, 40, 160, 0.08) 0%, transparent 60%)", animationDelay: "8s" }}
+        className="absolute top-[60%] left-[30%] w-[1100px] h-[1100px] rounded-full blur-[190px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(140, 50, 200, 0.30) 0%, rgba(90, 30, 150, 0.12) 40%, transparent 70%)", animationDelay: "6s" }}
       />
-      {Array.from({ length: 50 }).map((_, i) => (
+      <div
+        className="absolute bottom-[5%] right-[20%] w-[800px] h-[800px] rounded-full blur-[160px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(110, 30, 170, 0.25) 0%, rgba(70, 15, 120, 0.10) 40%, transparent 70%)", animationDelay: "9s" }}
+      />
+      <div
+        className="absolute top-[15%] left-[60%] w-[900px] h-[900px] rounded-full blur-[170px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(130, 40, 190, 0.22) 0%, transparent 60%)", animationDelay: "4s" }}
+      />
+      {Array.from({ length: 100 }).map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-purple-300/[0.06] animate-float-particle"
+          className="absolute rounded-full bg-purple-300/[0.12] animate-float-particle"
           style={{
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
+            width: `${Math.random() * 4 + 1.5}px`,
+            height: `${Math.random() * 4 + 1.5}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            ["--duration" as string]: `${Math.random() * 15 + 12}s`,
+            ["--duration" as string]: `${Math.random() * 12 + 8}s`,
             ["--delay" as string]: `${Math.random() * 10}s`,
           }}
         />
