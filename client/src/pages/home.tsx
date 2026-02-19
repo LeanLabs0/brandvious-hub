@@ -31,7 +31,7 @@ const projects = [
       "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
     status: "Established",
     statusColor: "text-emerald-400",
-    url: "https://schemarocket.ai",
+    url: "/schema",
     icon: Braces,
   },
   {
@@ -41,7 +41,7 @@ const projects = [
       "A canonical entity registry for machines. Verified data so AI always gets the right company.",
     status: "Growing",
     statusColor: "text-blue-400",
-    url: "https://entities.org",
+    url: "/entities",
     icon: Globe,
   },
   {
@@ -390,11 +390,11 @@ function ProjectCard({
   visual: React.ReactNode;
 }) {
   const { theme } = useTheme();
+  const isInternal = project.url.startsWith("/");
   return (
     <a
       href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...(isInternal ? {} : { target: "_blank", rel: "noopener noreferrer" })}
       className={`group flex flex-col rounded-xl border p-6 transition-all duration-300 hover-elevate overflow-visible card-glow ${
         theme === "sparkle"
           ? "border-purple-900/20 bg-card/40"
