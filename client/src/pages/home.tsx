@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -8,12 +9,10 @@ import {
   Radar,
   Bot,
   Database,
-  FileSearch,
   Shield,
-  Zap,
-  BarChart3,
   MessageSquare,
   CheckCircle2,
+  ChevronDown,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -354,70 +353,82 @@ function Beliefs() {
   );
 }
 
-function ProjectCard({
+function ProjectAccordionItem({
   project,
   index,
+  isOpen,
+  onToggle,
 }: {
   project: (typeof projects)[0];
   index: number;
+  isOpen: boolean;
+  onToggle: () => void;
 }) {
   const Icon = project.icon;
 
   return (
-    <a
-      href={project.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group relative flex flex-col rounded-xl border border-border/60 bg-card/50 p-6 transition-all duration-300 hover-elevate overflow-visible"
+    <div
+      className="border-b border-border/30 last:border-b-0"
       data-testid={`card-project-${index}`}
     >
-      <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+      <button
+        onClick={onToggle}
+        className="w-full flex items-center justify-between gap-4 py-5 px-1 text-left transition-colors duration-200 group"
+        data-testid={`button-toggle-project-${index}`}
+      >
+        <div className="flex items-center gap-4 flex-wrap">
+          <span className="text-base font-semibold text-foreground sm:text-lg" data-testid={`text-project-name-${index}`}>
+            {project.name}
+          </span>
+          <span className="text-[10px] text-muted-foreground/40 tracking-wider uppercase hidden sm:inline">
+            {project.label}
+          </span>
+          <Badge
+            variant="outline"
+            className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate no-default-active-elevate`}
+            data-testid={`badge-status-${index}`}
+          >
+            {project.status}
+          </Badge>
+        </div>
+        <ChevronDown
+          className={`w-4 h-4 text-muted-foreground/40 flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
+        />
+      </button>
+
+      <div
+        className="grid transition-all duration-400 ease-in-out"
         style={{
-          boxShadow: "0 0 30px -5px hsl(0 0% 100% / 0.04), inset 0 1px 0 0 hsl(0 0% 100% / 0.06)",
+          gridTemplateRows: isOpen ? "1fr" : "0fr",
         }}
-      />
-
-      <div className="relative flex items-center justify-between gap-2 mb-5 flex-wrap">
-        <div className="flex items-center justify-center w-10 h-10 rounded-xl border border-border/50 bg-background/60 group-hover:border-border transition-colors duration-300">
-          <Icon className="w-5 h-5 text-muted-foreground group-hover:text-foreground/80 transition-colors duration-300" />
-        </div>
-        <Badge
-          variant="outline"
-          className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
-          data-testid={`badge-status-${index}`}
-        >
-          {project.status}
-        </Badge>
-      </div>
-
-      <div className="relative">
-        <h3 className="text-lg font-semibold text-foreground" data-testid={`text-project-name-${index}`}>
-          {project.name}
-        </h3>
-        <p className="mt-1 text-[10px] text-muted-foreground/50 tracking-wider uppercase">
-          {project.label}
-        </p>
-
-        <p className="mt-2 text-sm font-medium text-foreground/70" data-testid={`text-project-tagline-${index}`}>
-          {project.tagline}
-        </p>
-
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground/70 flex-1" data-testid={`text-project-description-${index}`}>
-          {project.description}
-        </p>
-
-        <div className="mt-5 pt-3 border-t border-border/20 flex items-center gap-1.5 text-xs text-muted-foreground/50 group-hover:text-foreground/60 transition-colors duration-300">
-          Visit Site
-          <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
+      >
+        <div className="overflow-hidden">
+          <div className="pb-6 px-1">
+            <p className="text-sm font-medium text-foreground/70 mb-2" data-testid={`text-project-tagline-${index}`}>
+              {project.tagline}
+            </p>
+            <p className="text-sm leading-relaxed text-muted-foreground/60 max-w-xl" data-testid={`text-project-description-${index}`}>
+              {project.description}
+            </p>
+            <a
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:text-foreground group/link"
+              data-testid={`link-visit-${index}`}
+            >
+              Visit Site
+              <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5" />
+            </a>
+          </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 }
 
 function Projects() {
-  const topProjects = projects.slice(0, 3);
-  const bottomProjects = projects.slice(3);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section
@@ -425,8 +436,8 @@ function Projects() {
       className="relative px-6 py-24 md:py-32"
       data-testid="section-projects"
     >
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-12">
+      <div className="max-w-3xl mx-auto">
+        <div className="text-center mb-14">
           <div className="mb-4">
             <Badge
               variant="outline"
@@ -444,60 +455,16 @@ function Projects() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {topProjects.map((project, i) => (
-            <ProjectCard key={project.name} project={project} index={i} />
+        <div className="border-t border-border/30">
+          {projects.map((project, i) => (
+            <ProjectAccordionItem
+              key={project.name}
+              project={project}
+              index={i}
+              isOpen={openIndex === i}
+              onToggle={() => setOpenIndex(openIndex === i ? null : i)}
+            />
           ))}
-        </div>
-
-        <div className="mt-4 flex flex-col gap-3">
-          {bottomProjects.map((project, i) => {
-            const realIndex = i + 3;
-            const Icon = project.icon;
-            return (
-              <a
-                key={project.name}
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group relative flex items-center gap-5 rounded-xl border border-border/40 bg-card/30 px-6 py-5 transition-all duration-300 hover-elevate overflow-visible"
-                data-testid={`card-project-${realIndex}`}
-              >
-                <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-                  style={{
-                    boxShadow: "0 0 25px -5px hsl(0 0% 100% / 0.03), inset 0 1px 0 0 hsl(0 0% 100% / 0.04)",
-                  }}
-                />
-                <div className="relative flex items-center justify-center w-10 h-10 rounded-xl border border-border/40 bg-background/40 flex-shrink-0 group-hover:border-border/60 transition-colors duration-300">
-                  <Icon className="w-5 h-5 text-muted-foreground/60 group-hover:text-muted-foreground transition-colors duration-300" />
-                </div>
-                <div className="relative flex-1 min-w-0">
-                  <div className="flex items-center gap-2.5 flex-wrap">
-                    <span className="text-base font-semibold text-foreground" data-testid={`text-project-name-${realIndex}`}>
-                      {project.name}
-                    </span>
-                    <span className="text-[10px] text-muted-foreground/40 tracking-wider uppercase">
-                      {project.label}
-                    </span>
-                    <Badge
-                      variant="outline"
-                      className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
-                      data-testid={`badge-status-${realIndex}`}
-                    >
-                      {project.status}
-                    </Badge>
-                  </div>
-                  <p className="mt-1 text-sm font-medium text-foreground/60">
-                    {project.tagline}
-                  </p>
-                  <p className="mt-1 text-sm text-muted-foreground/60" data-testid={`text-project-description-${realIndex}`}>
-                    {project.description}
-                  </p>
-                </div>
-                <ArrowRight className="relative w-4 h-4 text-muted-foreground/20 flex-shrink-0 invisible group-hover:visible transition-transform duration-300 group-hover:translate-x-0.5" />
-              </a>
-            );
-          })}
         </div>
       </div>
     </section>
