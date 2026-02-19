@@ -566,20 +566,20 @@ function Footer() {
               Fair. Factual. Functional.
             </p>
           </div>
-          <div className="text-right">
+        </div>
+        <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="space-y-1">
+            <p className="text-xs text-muted-foreground/40" data-testid="text-address">
+              16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
+            </p>
             <a
               href="tel:+19138716500"
-              className="text-xs text-muted-foreground/60 block"
+              className="text-xs text-muted-foreground/40 block"
               data-testid="link-phone"
             >
               1-913-871-6500
             </a>
           </div>
-        </div>
-        <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <p className="text-xs text-muted-foreground/40" data-testid="text-address">
-            16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
-          </p>
           <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
             &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
           </p>
