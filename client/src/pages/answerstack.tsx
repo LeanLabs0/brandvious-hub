@@ -1,28 +1,240 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  ArrowDown,
-  ArrowRight,
-  Layers,
-  Bot,
-  MessageSquare,
-  FileText,
   Search,
-  Globe,
-  Database,
-  Check,
-  X,
   Sun,
   Moon,
   Sparkles,
-  BookOpen,
+  ChevronRight,
+  ChevronDown,
+  Calendar,
+  User,
+  Clock,
+  Database,
   Link2,
-  RefreshCw,
-  Shield,
-  Fingerprint,
+  MessageSquare,
+  BookOpen,
+  Globe,
+  ArrowRight,
+  ExternalLink,
+  Tag,
+  Layers,
+  Check,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+
+interface FaqEntry {
+  id: string;
+  question: string;
+  answer: string;
+  linkedEntities: { name: string; id: string; fact: string }[];
+  author: string;
+  authorRole: string;
+  updated: string;
+  sources: string[];
+}
+
+interface FaqTopic {
+  id: string;
+  title: string;
+  description: string;
+  site: string;
+  entryCount: number;
+  lastUpdated: string;
+  faqs: FaqEntry[];
+}
+
+const FAQ_TOPICS: FaqTopic[] = [
+  {
+    id: "crm-selection",
+    title: "CRM Selection",
+    description: "Frequently asked questions about choosing the right CRM for your business, enriched with verified entity data.",
+    site: "leanlabs.com/faq",
+    entryCount: 5,
+    lastUpdated: "2026-02-12",
+    faqs: [
+      {
+        id: "crm-1",
+        question: "What CRM is best for mid-market SaaS companies?",
+        answer: "HubSpot is the most common choice for mid-market SaaS companies scaling from 50–500 employees. Founded in 2006 in Cambridge, MA, HubSpot offers an all-in-one CRM with native marketing automation, a strong free tier, and Breeze AI features launched in late 2025. For enterprise teams (500+) needing deep customization, Salesforce (est. 1999, San Francisco) remains the standard with its AppExchange ecosystem and Einstein AI platform.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | Cambridge, MA | NYSE: HUBS | 7,000+ employees" },
+          { name: "Salesforce", id: "salesforce", fact: "Founded 1999 | San Francisco, CA | NYSE: CRM | 73,000+ employees" },
+        ],
+        author: "Sarah Chen",
+        authorRole: "B2B SaaS Analyst",
+        updated: "2026-02-12",
+        sources: ["entities.org/entity/hubspot", "entities.org/entity/salesforce", "leanlabs.com/faq"],
+      },
+      {
+        id: "crm-2",
+        question: "How much does HubSpot CRM cost?",
+        answer: "HubSpot CRM offers a free tier with core CRM functionality for unlimited users. Paid plans start at $15/month per user for Starter, $800/month for Professional (5 users included), and $3,600/month for Enterprise (10 users included). Contact-based pricing applies to marketing features. As of February 2026, HubSpot has over 200,000 customers across 135+ countries.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | Cambridge, MA | 200,000+ customers globally" },
+        ],
+        author: "Sarah Chen",
+        authorRole: "B2B SaaS Analyst",
+        updated: "2026-02-10",
+        sources: ["entities.org/entity/hubspot", "hubspot.com/pricing"],
+      },
+      {
+        id: "crm-3",
+        question: "What's the difference between HubSpot and Salesforce?",
+        answer: "HubSpot (est. 2006, Cambridge MA) is built for mid-market growth teams with native marketing automation, an intuitive UI, and a strong free tier. Salesforce (est. 1999, San Francisco) serves enterprise with deeper customization, the AppExchange marketplace (5,000+ apps), and industry-specific solutions. Both are CRM platforms, but HubSpot prioritizes ease of use while Salesforce prioritizes configurability. Salesforce acquired Slack in 2021 for $27.7B, adding workplace collaboration to its ecosystem.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | Cambridge, MA | All-in-one CRM platform" },
+          { name: "Salesforce", id: "salesforce", fact: "Founded 1999 | San Francisco, CA | World's largest CRM" },
+          { name: "Slack", id: "slack", fact: "Acquired by Salesforce in 2021 for $27.7B" },
+        ],
+        author: "Sarah Chen",
+        authorRole: "B2B SaaS Analyst",
+        updated: "2026-02-12",
+        sources: ["entities.org/entity/hubspot", "entities.org/entity/salesforce"],
+      },
+      {
+        id: "crm-4",
+        question: "Do I need a CRM if I already have a marketing automation tool?",
+        answer: "Yes. Marketing automation handles campaigns, email sequences, and lead scoring. A CRM manages the full customer lifecycle — deals, pipeline, contacts, and revenue tracking. Most modern platforms combine both: HubSpot bundles CRM + marketing in one platform. Marketo (Adobe, est. 2006, San Jose) is marketing-only and requires a separate CRM like Salesforce. For companies under 50 employees, a combined platform typically reduces tool sprawl and integration costs.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | All-in-one CRM + marketing platform" },
+          { name: "Marketo", id: "marketo", fact: "Founded 2006 | San Jose, CA | Acquired by Adobe" },
+        ],
+        author: "Marcus Rivera",
+        authorRole: "Product Ops Consultant",
+        updated: "2026-01-28",
+        sources: ["entities.org/entity/hubspot", "leanlabs.com/faq"],
+      },
+      {
+        id: "crm-5",
+        question: "What CRM integrates best with HubSpot partner agencies?",
+        answer: "HubSpot's own CRM integrates natively with the HubSpot Solutions Partner ecosystem. Diamond Partners like Lean Labs (est. 2013, Overland Park, KS), Bluleadz (est. 2009, Tampa, FL), and SmartBug Media (est. 2007, Newport Beach, CA) specialize in HubSpot implementations. Elite Partners like New Breed Revenue (est. 2002, Burlington, VT) offer the most advanced HubSpot services. All partners are certified through HubSpot Academy.",
+        linkedEntities: [
+          { name: "Lean Labs", id: "lean-labs", fact: "Founded 2013 | Overland Park, KS | HubSpot Diamond Partner" },
+          { name: "Bluleadz", id: "bluleadz", fact: "Founded 2009 | Tampa, FL | HubSpot Diamond Partner" },
+          { name: "SmartBug Media", id: "smartbug", fact: "Founded 2007 | Newport Beach, CA | HubSpot Diamond Partner" },
+          { name: "New Breed Revenue", id: "new-breed", fact: "Founded 2002 | Burlington, VT | HubSpot Elite Partner" },
+        ],
+        author: "Sarah Chen",
+        authorRole: "B2B SaaS Analyst",
+        updated: "2026-02-13",
+        sources: ["entities.org/entity/lean-labs", "entities.org/entity/bluleadz", "entities.org/entity/smartbug-media"],
+      },
+    ],
+  },
+  {
+    id: "marketing-automation",
+    title: "Marketing Automation",
+    description: "Common questions about marketing automation platforms, workflows, and lead nurturing — answered with structured entity data.",
+    site: "smartbugmedia.com/faq",
+    entryCount: 4,
+    lastUpdated: "2026-02-08",
+    faqs: [
+      {
+        id: "ma-1",
+        question: "What is marketing automation?",
+        answer: "Marketing automation is software that automates repetitive marketing tasks like email campaigns, social media posting, and lead scoring. The category was pioneered by platforms like Marketo (est. 2006, acquired by Adobe), Pardot (now Salesforce Marketing Cloud Account Engagement), and HubSpot Marketing Hub. Modern platforms use AI for predictive lead scoring, content optimization, and behavioral triggers. The global marketing automation market is valued at approximately $6.6B as of 2025.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | Marketing Hub is part of CRM platform" },
+          { name: "Marketo", id: "marketo", fact: "Founded 2006 | Acquired by Adobe in 2018 for $4.75B" },
+        ],
+        author: "Dana Kim",
+        authorRole: "Email Marketing Strategist",
+        updated: "2026-02-08",
+        sources: ["entities.org/entity/hubspot", "smartbugmedia.com/faq"],
+      },
+      {
+        id: "ma-2",
+        question: "HubSpot Marketing Hub vs Marketo: which is better?",
+        answer: "HubSpot Marketing Hub wins for growing teams that want ease and speed — workflow builder is visual, CRM integration is native, and time-to-value is fast. Marketo (Adobe) wins for enterprise teams with complex multi-touch attribution needs, advanced lead scoring models, and account-based marketing programs. HubSpot starts at free; Marketo pricing is custom (estimated $1,000+/month). HubSpot has 200,000+ customers; Marketo serves approximately 5,000 enterprise accounts.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Founded 2006 | 200,000+ customers | Free tier available" },
+          { name: "Marketo", id: "marketo", fact: "Founded 2006 | ~5,000 enterprise accounts | Adobe ecosystem" },
+        ],
+        author: "Sarah Chen",
+        authorRole: "B2B SaaS Analyst",
+        updated: "2026-02-01",
+        sources: ["entities.org/entity/hubspot", "entities.org/entity/marketo"],
+      },
+      {
+        id: "ma-3",
+        question: "What's the best email marketing platform for e-commerce?",
+        answer: "Klaviyo (est. 2012, Boston, MA) is the clear leader for e-commerce email marketing, with deep Shopify and WooCommerce integrations, revenue attribution per email, and predictive analytics. Mailchimp (est. 2001, Atlanta, GA) is a broader all-purpose marketing platform better suited for SMBs that aren't primarily e-commerce. Klaviyo's pricing starts free (up to 250 contacts) and scales with list size; Mailchimp also offers a free tier up to 500 contacts.",
+        linkedEntities: [
+          { name: "Klaviyo", id: "klaviyo", fact: "Founded 2012 | Boston, MA | E-commerce email leader" },
+          { name: "Mailchimp", id: "mailchimp", fact: "Founded 2001 | Atlanta, GA | Acquired by Intuit in 2021" },
+        ],
+        author: "Dana Kim",
+        authorRole: "Email Marketing Strategist",
+        updated: "2026-01-28",
+        sources: ["entities.org/entity/klaviyo", "entities.org/entity/mailchimp"],
+      },
+      {
+        id: "ma-4",
+        question: "How do I set up lead scoring?",
+        answer: "Lead scoring assigns point values to prospect actions (email opens, page visits, form fills) and attributes (job title, company size, industry) to prioritize sales outreach. In HubSpot, lead scoring is available in Professional and Enterprise tiers through the predictive lead scoring tool or custom score properties. In Marketo, lead scoring is a core feature with behavior scores and demographic scores tracked separately. Best practice is to start with 5–10 scoring criteria and refine quarterly based on conversion data.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "Lead scoring available in Professional+ tiers" },
+          { name: "Marketo", id: "marketo", fact: "Advanced lead scoring with behavior + demographic models" },
+        ],
+        author: "Marcus Rivera",
+        authorRole: "Product Ops Consultant",
+        updated: "2026-01-20",
+        sources: ["entities.org/entity/hubspot", "smartbugmedia.com/faq"],
+      },
+    ],
+  },
+  {
+    id: "website-growth",
+    title: "Growth-Driven Website Design",
+    description: "Questions about growth-driven design methodology, website optimization, and conversion rate strategies.",
+    site: "leanlabs.com/faq",
+    entryCount: 3,
+    lastUpdated: "2026-02-05",
+    faqs: [
+      {
+        id: "gdd-1",
+        question: "What is growth-driven design?",
+        answer: "Growth-driven design (GDD) is a systematic approach to website development that uses data and continuous experimentation instead of traditional big-bang redesigns. Pioneered by HubSpot and agencies like Lean Labs (est. 2013, Overland Park, KS), GDD launches with a focused 'launch pad' site in 60–90 days, then iterates monthly based on analytics and user behavior. Traditional redesigns take 6–12 months and become outdated quickly; GDD treats the website as a living asset.",
+        linkedEntities: [
+          { name: "Lean Labs", id: "lean-labs", fact: "Founded 2013 | B2B SaaS growth marketing agency" },
+          { name: "HubSpot", id: "hubspot", fact: "Pioneered inbound + GDD methodology" },
+        ],
+        author: "Marcus Rivera",
+        authorRole: "Product Ops Consultant",
+        updated: "2026-02-05",
+        sources: ["entities.org/entity/lean-labs", "leanlabs.com/faq"],
+      },
+      {
+        id: "gdd-2",
+        question: "How long does a website redesign take?",
+        answer: "Traditional website redesigns take 3–12 months depending on scope. Growth-driven design launches a focused site in 60–90 days. Agency timelines vary: Lean Labs (Overland Park, KS) typically delivers launch pad sites in 8–10 weeks. SmartBug Media (Newport Beach, CA) quotes 8–12 weeks for full HubSpot CMS builds. New Breed Revenue (Burlington, VT) targets 6–8 weeks for revenue-focused sites. All timelines assume content is provided by the client.",
+        linkedEntities: [
+          { name: "Lean Labs", id: "lean-labs", fact: "Launch pad: 8–10 weeks | Growth-driven design" },
+          { name: "SmartBug Media", id: "smartbug", fact: "Full build: 8–12 weeks | HubSpot CMS" },
+          { name: "New Breed Revenue", id: "new-breed", fact: "Revenue site: 6–8 weeks | Revenue performance" },
+        ],
+        author: "Marcus Rivera",
+        authorRole: "Product Ops Consultant",
+        updated: "2026-01-30",
+        sources: ["entities.org/entity/lean-labs", "entities.org/entity/smartbug-media"],
+      },
+      {
+        id: "gdd-3",
+        question: "What CMS should I use for a B2B SaaS website?",
+        answer: "For HubSpot-integrated companies, HubSpot CMS Hub is the most seamless choice — it unifies content, CRM data, and personalization. WordPress remains the most widely used CMS (43% of all websites) but requires plugins for CRM integration. Webflow is popular for design-focused teams but lacks native CRM features. The choice depends on your tech stack: if you're already using HubSpot for marketing, CMS Hub reduces integration overhead significantly.",
+        linkedEntities: [
+          { name: "HubSpot", id: "hubspot", fact: "CMS Hub is part of the HubSpot platform" },
+        ],
+        author: "Marcus Rivera",
+        authorRole: "Product Ops Consultant",
+        updated: "2026-01-25",
+        sources: ["entities.org/entity/hubspot", "leanlabs.com/faq"],
+      },
+    ],
+  },
+];
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -31,22 +243,17 @@ function ThemeToggle() {
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={toggleTheme}
-      data-testid="button-theme-toggle"
-    >
+    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="button-theme-toggle">
       {icon}
     </Button>
   );
 }
 
-function Navbar() {
+function Navbar({ onHome }: { onHome: () => void }) {
   const { theme } = useTheme();
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-[9999] px-6 py-4"
+      className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
         backdropFilter: "blur(12px)",
         backgroundColor:
@@ -56,704 +263,436 @@ function Navbar() {
       }}
       data-testid="navbar"
     >
-      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-        <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
-          AnswerStack<span className="font-normal text-muted-foreground">.com</span>
-        </span>
-        <ThemeToggle />
+      <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <button onClick={onHome} className="flex items-center gap-2">
+          <Layers className="w-4 h-4 text-muted-foreground/60" />
+          <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
+            AnswerStack<span className="font-normal text-muted-foreground">.com</span>
+          </span>
+        </button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-topics">Topics</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-api">API</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-submit">Submit</Button>
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
 }
 
-function Hero() {
+function TopicListPage({
+  onSelectTopic,
+  onSelectFaq,
+  searchQuery,
+  setSearchQuery,
+}: {
+  onSelectTopic: (id: string) => void;
+  onSelectFaq: (topicId: string, faqId: string) => void;
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
+}) {
   const { theme } = useTheme();
-  return (
-    <section
-      className="relative flex flex-col items-center justify-center min-h-screen px-6"
-      data-testid="section-hero"
-    >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {theme === "sparkle" ? (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px] animate-subtle-glow"
-            style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.18) 0%, rgba(60, 10, 90, 0.08) 50%, transparent 70%)" }}
-          />
-        ) : (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-        )}
-      </div>
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 md:gap-16">
-        <div className="flex-1 text-left">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-6">
-            Structured Authority Hub
-          </Badge>
-          <h1
-            className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl text-foreground"
-            data-testid="text-headline"
-          >
-            The FAQ layer{" "}
-            <br />
-            AI actually cites.
-          </h1>
+  const allFaqs = FAQ_TOPICS.flatMap((t) => t.faqs.map((f) => ({ ...f, topicId: t.id, topicTitle: t.title })));
+  const totalEntities = new Set(allFaqs.flatMap((f) => f.linkedEntities.map((e) => e.name))).size;
 
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-md sm:text-base" data-testid="text-subheadline">
-            AnswerStack combines your site's FAQs with verified entity data from Entities.org to create structured, citable answers that AI search engines trust and surface.
-          </p>
+  const filteredFaqs = searchQuery.trim()
+    ? allFaqs.filter((f) =>
+        f.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        f.answer.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        f.linkedEntities.some((e) => e.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      )
+    : [];
 
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-explore">
-              Explore AnswerStack
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex-1 w-full max-w-sm">
-          <HeroFaqCard />
-        </div>
-      </div>
-
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-        <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-      </div>
-    </section>
-  );
-}
-
-function HeroFaqCard() {
-  const { theme } = useTheme();
-  return (
-    <div
-      className={`rounded-xl border p-5 card-glow overflow-visible ${
-        theme === "sparkle"
-          ? "border-purple-900/20 bg-card/40"
-          : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-      }`}
-      data-testid="hero-faq-card"
-    >
-      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">FAQPage Schema</span>
-        <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Entity-linked</Badge>
-      </div>
-
-      <div className="space-y-2.5">
-        <div className="rounded-lg bg-background/40 px-3 py-2.5">
-          <div className="flex items-center gap-2 mb-1">
-            <MessageSquare className="w-3 h-3 text-muted-foreground/50" />
-            <span className="text-[10px] text-muted-foreground/50">Q</span>
-          </div>
-          <p className="text-[11px] text-foreground/70">What CRM is best for mid-market SaaS?</p>
-        </div>
-        <div className="rounded-lg bg-background/40 px-3 py-2.5">
-          <div className="flex items-center gap-2 mb-1">
-            <BookOpen className="w-3 h-3 text-emerald-400/50" />
-            <span className="text-[10px] text-emerald-400/50">A</span>
-          </div>
-          <p className="text-[11px] text-foreground/60">HubSpot is the most common choice for mid-market SaaS companies scaling from 50–500 employees...</p>
-        </div>
-      </div>
-
-      <div className="mt-3 pt-3 border-t border-border/30">
-        <span className="text-[10px] text-muted-foreground/40">Linked entities</span>
-        <div className="flex items-center gap-2 mt-1 flex-wrap">
-          {["HubSpot", "Salesforce", "Pipedrive"].map((e) => (
-            <Badge key={e} variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{e}</Badge>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-2 flex items-center gap-3 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/40 font-mono">entities.org/api/entity/hubspot</span>
-      </div>
-    </div>
-  );
-}
-
-function SectionDivider() {
-  return (
-    <div className="max-w-3xl mx-auto px-6">
-      <div className="divider-glow" />
-    </div>
-  );
-}
-
-function ProblemSection() {
-  const { theme } = useTheme();
-  const problems = [
-    {
-      icon: FileText,
-      title: "FAQs without structure",
-      description: "Most company FAQ pages are plain text in accordions. No schema markup. AI can't extract individual Q&A pairs from unstructured HTML.",
-      detail: "No FAQPage schema. No extraction.",
-    },
-    {
-      icon: Fingerprint,
-      title: "Answers without authority",
-      description: "An answer is only as credible as the entity behind it. Without linked entity data, AI has no way to verify who's answering or why they're qualified.",
-      detail: "No entity link. No trust signal.",
-    },
-    {
-      icon: RefreshCw,
-      title: "Static and stale",
-      description: "FAQ pages get written once during a site launch and never updated. Products change, pricing shifts, but the answers stay frozen in time.",
-      detail: "Written once. Never maintained.",
-    },
-  ];
+  const recentFaqs = [...allFaqs].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 5);
 
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-problem">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            The problem
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-problem-heading">
-            AI needs structured answers backed by real entities.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            When someone asks AI a question, it looks for structured Q&A content from credible sources. Most FAQ pages fail on both counts.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {problems.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={p.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`problem-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60 mb-3">{p.description}</p>
-                <span className="text-[10px] font-mono text-muted-foreground/40 italic">{p.detail}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowItWorksSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-how">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How it works
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-how-heading">
-            FAQs + entity data = citable authority.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            AnswerStack takes questions from your site's existing FAQs, enriches answers with structured entity facts from Entities.org, and outputs the whole thing as FAQPage schema AI can parse directly.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {[
-            {
-              icon: Search,
-              title: "Ingests your existing FAQs",
-              description: "AnswerStack pulls questions directly from your website's FAQ pages, support docs, and knowledge base. No content to write from scratch.",
-            },
-            {
-              icon: Database,
-              title: "Enriches with Entities.org data",
-              description: "Every answer is linked to verified entity records — company facts, founding dates, product details, disambiguation. All cited and timestamped.",
-            },
-            {
-              icon: Layers,
-              title: "Outputs FAQPage schema",
-              description: "Each Q&A pair becomes structured FAQPage JSON-LD with linked entities, author credentials, and dateModified. AI can extract answers directly.",
-            },
-            {
-              icon: Globe,
-              title: "Distributed via llms.txt",
-              description: "Structured answers are surfaced through llms.txt and open API endpoints. AI systems can query AnswerStack directly without crawling your site.",
-            },
-          ].map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`how-step-${i}`}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40">
-                    <Icon className="w-4 h-4 text-muted-foreground/60" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-foreground">{step.title}</h3>
-                </div>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{step.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ComparisonSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-comparison">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            With and without AnswerStack
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-comparison-heading">
-            What AI does with your FAQ page today.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Without AnswerStack</span>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-lg bg-background/40 px-3 py-2">
-                <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI reads FAQ page</span>
-                </div>
-                <div className="text-[11px] text-foreground/50 mt-1">Found: accordion HTML, plain text answers</div>
-                <div className="text-[11px] text-muted-foreground/40">No FAQPage schema. No entity links.</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
-                </div>
-                <p className="text-[11px] text-foreground/50 italic">
-                  "According to various sources, the best CRM depends on your needs..."
-                </p>
-                <p className="text-[10px] text-muted-foreground/40 mt-1">Vague summary. Your site not cited.</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium">With AnswerStack</span>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-lg bg-background/40 px-3 py-2">
-                <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI reads structured FAQ</span>
-                </div>
-                <div className="text-[11px] text-foreground/60 mt-1">Found: FAQPage schema, linked entities, cited facts</div>
-                <div className="text-[11px] text-emerald-400/60">8 Q&A pairs extracted with entity context.</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
-                </div>
-                <p className="text-[11px] text-foreground/70">
-                  "According to AnswerStack, HubSpot (est. 2006, Cambridge MA) is the most recommended CRM for mid-market SaaS teams scaling from 50–500 employees, starting at $800/mo."
-                </p>
-                <p className="text-[10px] text-emerald-400/50 mt-1">Your answer cited with entity-backed specifics.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p className="mt-6 text-xs text-muted-foreground/50 max-w-lg">
-          AI doesn't cite pages — it cites answers. Structured Q&A with entity-linked facts gives AI the confidence to recommend you by name.
+    <div className="max-w-5xl mx-auto">
+      <div className="mb-10">
+        <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">Structured FAQ Hub</span>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mt-1" data-testid="text-page-title">
+          AnswerStack
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
+          {allFaqs.length} structured answers across {FAQ_TOPICS.length} topics, linked to {totalEntities} verified entities from Entities.org.
         </p>
       </div>
-    </section>
-  );
-}
 
-function EntityLinkSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-entity-link">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1 w-full">
-            <div className="grid grid-cols-1 gap-3">
-              <div
-                className={`rounded-xl border p-4 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">FAQ question</span>
-                </div>
-                <div className="rounded-lg bg-background/40 px-3 py-2">
-                  <span className="text-[11px] text-foreground/60">What makes HubSpot different from Salesforce?</span>
-                </div>
-              </div>
+      <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-10 ${cardClass}`}>
+        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <input
+          type="text"
+          placeholder="Search questions, answers, or entities..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          data-testid="input-search"
+        />
+      </div>
 
-              <div
-                className={`rounded-xl border p-4 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Database className="w-3.5 h-3.5 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Entity enrichment</span>
-                </div>
-                <div className="space-y-2">
-                  <div className="rounded-lg bg-background/40 px-3 py-2 font-mono text-[10px]">
-                    <div className="text-emerald-400/70">entities.org/api/entity/hubspot</div>
-                    <div className="text-foreground/50 pl-2 mt-1">Founded: 2006 | HQ: Cambridge, MA</div>
-                    <div className="text-foreground/50 pl-2">Category: CRM / Marketing Automation</div>
-                  </div>
-                  <div className="rounded-lg bg-background/40 px-3 py-2 font-mono text-[10px]">
-                    <div className="text-emerald-400/70">entities.org/api/entity/salesforce</div>
-                    <div className="text-foreground/50 pl-2 mt-1">Founded: 1999 | HQ: San Francisco, CA</div>
-                    <div className="text-foreground/50 pl-2">Category: CRM / Enterprise</div>
-                  </div>
-                </div>
+      {searchQuery.trim() ? (
+        <div className="mb-12">
+          <SectionLabel icon={Search} label={`Results for "${searchQuery}"`} count={filteredFaqs.length} />
+          <div className="space-y-3 mt-4">
+            {filteredFaqs.map((faq) => (
+              <FaqCard key={faq.id} faq={faq} onClick={() => onSelectFaq(faq.topicId, faq.id)} />
+            ))}
+            {filteredFaqs.length === 0 && (
+              <p className="text-sm text-muted-foreground/40 py-8 text-center">No answers match that query.</p>
+            )}
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
+            {[
+              { label: "Topics", value: String(FAQ_TOPICS.length) },
+              { label: "Answers", value: String(allFaqs.length) },
+              { label: "Linked Entities", value: String(totalEntities) },
+              { label: "Authors", value: String(new Set(allFaqs.map((f) => f.author)).size) },
+            ].map((s) => (
+              <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
+                <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
+                <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
               </div>
+            ))}
+          </div>
 
-              <div
-                className={`rounded-xl border p-4 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <BookOpen className="w-3.5 h-3.5 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Structured answer</span>
-                </div>
-                <div className="rounded-lg bg-background/40 px-3 py-2">
-                  <p className="text-[11px] text-foreground/60">
-                    HubSpot (est. 2006, Cambridge MA) is built for mid-market growth teams with native marketing automation. Salesforce (est. 1999, San Francisco) serves enterprise with deeper customization. Both are CRM platforms, but HubSpot prioritizes ease of use while Salesforce prioritizes configurability.
-                  </p>
-                  <div className="flex items-center gap-2 mt-2 flex-wrap">
-                    <span className="text-[9px] text-muted-foreground/40">Sources:</span>
-                    <span className="text-[9px] text-emerald-400/50 font-mono">entities.org</span>
-                    <span className="text-[9px] text-muted-foreground/30">|</span>
-                    <span className="text-[9px] text-emerald-400/50 font-mono">yoursite.com/faq</span>
-                  </div>
-                </div>
-              </div>
+          <div className="mb-12">
+            <SectionLabel icon={Clock} label="Recent Answers" />
+            <div className="space-y-3 mt-4">
+              {recentFaqs.map((faq) => (
+                <FaqCard key={faq.id} faq={faq} onClick={() => onSelectFaq(faq.topicId, faq.id)} />
+              ))}
             </div>
           </div>
 
-          <div className="flex-1 text-left">
-            <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-              Entity-linked answers
-            </Badge>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-entity-link-heading">
-              Every answer backed by verified facts.
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              When your FAQ mentions a company, product, or person, AnswerStack links it to the corresponding Entities.org record. AI sees the answer and the structured proof behind it.
-            </p>
-
-            <div className="mt-6 space-y-2">
-              {[
-                "Company facts pulled from verified entity records",
-                "Disambiguation prevents entity confusion",
-                "dateModified tracks when facts were last confirmed",
-                "sameAs links connect to Wikidata, Crunchbase, LinkedIn",
-              ].map((item) => (
-                <div key={item} className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-emerald-400/50 shrink-0" />
-                  <span className="text-[11px] text-muted-foreground/50">{item}</span>
+          <div className="mb-12">
+            <SectionLabel icon={BookOpen} label="Browse by Topic" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+              {FAQ_TOPICS.map((topic) => (
+                <div
+                  key={topic.id}
+                  className={`rounded-xl border p-5 cursor-pointer hover-elevate ${cardClass}`}
+                  onClick={() => onSelectTopic(topic.id)}
+                  data-testid={`topic-card-${topic.id}`}
+                >
+                  <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
+                    <h3 className="text-sm font-semibold text-foreground">{topic.title}</h3>
+                    <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{topic.entryCount}</Badge>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground/40 mb-3 leading-relaxed">{topic.description}</p>
+                  <div className="space-y-1.5">
+                    {topic.faqs.slice(0, 2).map((f) => (
+                      <div key={f.id} className="flex items-start gap-2">
+                        <MessageSquare className="w-3 h-3 text-muted-foreground/25 mt-0.5 shrink-0" />
+                        <span className="text-[11px] text-foreground/50 line-clamp-1">{f.question}</span>
+                      </div>
+                    ))}
+                    {topic.faqs.length > 2 && (
+                      <span className="text-[10px] text-muted-foreground/30 pl-5">+ {topic.faqs.length - 2} more</span>
+                    )}
+                  </div>
+                  <div className="mt-3 pt-3 border-t border-border/20 flex items-center gap-2">
+                    <Globe className="w-3 h-3 text-muted-foreground/25" />
+                    <span className="text-[10px] text-muted-foreground/30 font-mono">{topic.site}</span>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </div>
-    </section>
+        </>
+      )}
+    </div>
   );
 }
 
-function SchemaOutputSection() {
-  const { theme } = useTheme();
+function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-schema">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Schema output
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-schema-heading">
-            What AI actually reads.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Every Q&A pair outputs valid FAQPage JSON-LD with entity references, author credentials, and modification timestamps.
-          </p>
-        </div>
-
-        <div
-          className={`rounded-xl border p-5 ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="flex items-center gap-2 mb-3 flex-wrap">
-            <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate font-mono">FAQPage</Badge>
-            <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Valid JSON-LD</Badge>
-            <span className="text-[10px] text-muted-foreground/40 font-mono">28 lines</span>
-          </div>
-          <div className="rounded-lg bg-background/40 p-4 font-mono text-[11px] leading-relaxed overflow-x-auto">
-            <div className="text-foreground/50">{"{"}</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"FAQPage"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"mainEntity"</span>: [{"{"}</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Question"</span>,</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"What CRM is best for mid-market SaaS?"</span>,</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"acceptedAnswer"</span>: {"{"}</div>
-            <div className="pl-9"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Answer"</span>,</div>
-            <div className="pl-9"><span className="text-emerald-400/70">"text"</span>: <span className="text-foreground/50">"HubSpot is the most common..."</span>,</div>
-            <div className="pl-9"><span className="text-emerald-400/70">"author"</span>: {"{"}</div>
-            <div className="pl-12"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Person"</span>,</div>
-            <div className="pl-12"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Expert Author"</span></div>
-            <div className="pl-9">{"},"}</div>
-            <div className="pl-9"><span className="text-emerald-400/70">"about"</span>: [{"{"}</div>
-            <div className="pl-12"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
-            <div className="pl-12"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"HubSpot"</span>,</div>
-            <div className="pl-12"><span className="text-emerald-400/70">"sameAs"</span>: <span className="text-foreground/50">"entities.org/entity/hubspot"</span></div>
-            <div className="pl-9">{"}]"}</div>
-            <div className="pl-6">{"},"}</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"2026-02-19"</span></div>
-            <div className="pl-3">{"}]"}</div>
-            <div className="text-foreground/50">{"}"}</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="flex items-center gap-2">
+      <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
+      <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">{label}</span>
+      {count !== undefined && (
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{count}</Badge>
+      )}
+    </div>
   );
 }
 
-function UseCasesSection() {
+function FaqCard({ faq, onClick }: { faq: FaqEntry & { topicTitle?: string }; onClick: () => void }) {
   const { theme } = useTheme();
-  const useCases = [
-    {
-      title: "Product FAQs",
-      description: "Turn your product FAQ page into structured Q&A that AI cites when users ask about your category.",
-      entities: "Product, Organization, Offer",
-      example: "\"How much does [Product] cost?\"",
-    },
-    {
-      title: "Industry Knowledge",
-      description: "Position your company as the authority on your industry by structuring expert answers to common questions.",
-      entities: "Organization, Industry, Topic",
-      example: "\"What is answer engine optimization?\"",
-    },
-    {
-      title: "Comparison Questions",
-      description: "FAQ-style answers to \"vs\" queries, enriched with entity data for both products being compared.",
-      entities: "Product, Product, ComparisonTable",
-      example: "\"How does [A] compare to [B]?\"",
-    },
-    {
-      title: "Support & Onboarding",
-      description: "Structured answers to common support questions. AI can surface your help docs before users even reach your site.",
-      entities: "Product, Service, HowTo",
-      example: "\"How do I set up [Product]?\"",
-    },
-  ];
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
 
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-use-cases">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Use cases
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-use-cases-heading">
-            What AnswerStack structures.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Any question your company answers — about your product, your industry, or your competitors — can become a structured, citable FAQ.
-          </p>
+    <div
+      className={`rounded-xl border p-4 cursor-pointer hover-elevate ${cardClass}`}
+      onClick={onClick}
+      data-testid={`faq-card-${faq.id}`}
+    >
+      <div className="flex items-start gap-3">
+        <MessageSquare className="w-4 h-4 text-muted-foreground/30 mt-0.5 shrink-0" />
+        <div className="flex-1 min-w-0">
+          <h3 className="text-sm font-semibold text-foreground mb-1">{faq.question}</h3>
+          <p className="text-[11px] text-muted-foreground/50 line-clamp-2 leading-relaxed">{faq.answer}</p>
+          <div className="mt-2.5 flex items-center gap-3 flex-wrap">
+            <div className="flex items-center gap-1.5">
+              {faq.linkedEntities.slice(0, 3).map((e) => (
+                <Badge key={e.name} variant="outline" className="text-[9px] text-emerald-400/60 no-default-hover-elevate">{e.name}</Badge>
+              ))}
+              {faq.linkedEntities.length > 3 && (
+                <span className="text-[9px] text-muted-foreground/30">+{faq.linkedEntities.length - 3}</span>
+              )}
+            </div>
+            <span className="text-[10px] text-muted-foreground/25">{faq.updated}</span>
+          </div>
         </div>
+        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/20 shrink-0 mt-1" />
+      </div>
+    </div>
+  );
+}
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {useCases.map((uc, i) => (
-            <div
-              key={uc.title}
-              className={`rounded-xl border p-5 ${
-                theme === "sparkle"
-                  ? "border-purple-900/20 bg-card/40"
-                  : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-              }`}
-              data-testid={`use-case-${i}`}
-            >
-              <h3 className="text-sm font-semibold text-foreground mb-1">{uc.title}</h3>
-              <p className="text-xs leading-relaxed text-muted-foreground/60 mb-3">{uc.description}</p>
-              <div className="rounded-lg bg-background/40 px-3 py-2 mb-2">
-                <span className="text-[10px] text-foreground/50 italic">{uc.example}</span>
+function TopicDetailPage({
+  topic,
+  onBack,
+  onSelectFaq,
+  selectedFaqId,
+}: {
+  topic: FaqTopic;
+  onBack: () => void;
+  onSelectFaq: (faqId: string | null) => void;
+  selectedFaqId: string | null;
+}) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  const selectedFaq = selectedFaqId ? topic.faqs.find((f) => f.id === selectedFaqId) : null;
+
+  if (selectedFaq) {
+    return <FaqDetailView faq={selectedFaq} topic={topic} onBack={() => onSelectFaq(null)} onBackToTopics={onBack} />;
+  }
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
+        <ChevronRight className="w-3 h-3 rotate-180" />
+        All topics
+      </button>
+
+      <div className="mb-8">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">
+          {topic.entryCount} answers
+        </Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-topic-title">
+          {topic.title}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">{topic.description}</p>
+        <div className="mt-3 flex items-center gap-3 text-[10px] text-muted-foreground/30">
+          <div className="flex items-center gap-1">
+            <Globe className="w-3 h-3" />
+            <span className="font-mono">{topic.site}</span>
+          </div>
+          <span className="text-muted-foreground/15">|</span>
+          <span>Updated {topic.lastUpdated}</span>
+        </div>
+      </div>
+
+      <div className="space-y-3">
+        {topic.faqs.map((faq) => (
+          <FaqCard key={faq.id} faq={faq} onClick={() => onSelectFaq(faq.id)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FaqDetailView({
+  faq,
+  topic,
+  onBack,
+  onBackToTopics,
+}: {
+  faq: FaqEntry;
+  topic: FaqTopic;
+  onBack: () => void;
+  onBackToTopics: () => void;
+}) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <div className="flex items-center gap-1 text-[11px] text-muted-foreground/40 mb-6">
+        <button onClick={onBackToTopics} className="hover:text-muted-foreground transition-colors">Topics</button>
+        <ChevronRight className="w-3 h-3" />
+        <button onClick={onBack} className="hover:text-muted-foreground transition-colors">{topic.title}</button>
+        <ChevronRight className="w-3 h-3" />
+        <span className="text-foreground/50 truncate max-w-[200px]">Answer</span>
+      </div>
+
+      <div className="mb-8">
+        <div className="flex items-center gap-2 mb-3">
+          <MessageSquare className="w-4 h-4 text-muted-foreground/40" />
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">Question</Badge>
+        </div>
+        <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-faq-question">
+          {faq.question}
+        </h1>
+        <div className="mt-3 flex items-center gap-4 flex-wrap text-[11px] text-muted-foreground/40">
+          <div className="flex items-center gap-1.5">
+            <User className="w-3 h-3" />
+            <span>{faq.author}</span>
+            <span className="text-muted-foreground/20">|</span>
+            <span>{faq.authorRole}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Calendar className="w-3 h-3" />
+            <span>Updated {faq.updated}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <div className="flex items-center gap-2 mb-3">
+          <BookOpen className="w-3.5 h-3.5 text-emerald-400/50" />
+          <span className="text-[10px] text-emerald-400/50 uppercase tracking-[0.12em] font-medium">Answer</span>
+        </div>
+        <p className="text-sm text-foreground/70 leading-relaxed" data-testid="text-faq-answer">
+          {faq.answer}
+        </p>
+      </div>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <div className="flex items-center gap-2 mb-4">
+          <Database className="w-3.5 h-3.5 text-emerald-400/50" />
+          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Linked Entities</span>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{faq.linkedEntities.length}</Badge>
+        </div>
+        <div className="space-y-2.5">
+          {faq.linkedEntities.map((entity) => (
+            <div key={entity.name} className="rounded-lg bg-background/40 px-4 py-3">
+              <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
+                <span className="text-sm font-semibold text-foreground">{entity.name}</span>
+                <span className="text-[10px] text-emerald-400/50 font-mono">entities.org/entity/{entity.id}</span>
               </div>
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className="text-[9px] text-muted-foreground/40">Schema:</span>
-                {uc.entities.split(", ").map((e) => (
-                  <Badge key={e} variant="outline" className="text-[9px] text-emerald-400/60 no-default-hover-elevate font-mono">{e}</Badge>
-                ))}
-              </div>
+              <p className="text-[11px] text-muted-foreground/50">{entity.fact}</p>
             </div>
           ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function StackSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-stack">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            The stack
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-stack-heading">
-            How AnswerStack fits into the Brandvious ecosystem.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: Database,
-              title: "Entities.org",
-              description: "Verified entity records — company facts, founding dates, disambiguation. The structured data source AnswerStack links answers to.",
-              role: "Fact layer",
-            },
-            {
-              icon: Layers,
-              title: "AnswerStack",
-              description: "Ingests your FAQs, enriches with entity data, outputs FAQPage schema. The structured authority hub AI cites.",
-              role: "Answer layer",
-            },
-            {
-              icon: Search,
-              title: "SchemaRocket",
-              description: "Deploys the schema markup to your site. AnswerStack generates the FAQ schema, SchemaRocket puts it on your pages.",
-              role: "Deployment layer",
-            },
-          ].map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <div
-                key={item.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`stack-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <div className="flex items-center gap-2 mb-2 flex-wrap">
-                  <h3 className="text-sm font-semibold text-foreground">{item.title}</h3>
-                  <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{item.role}</Badge>
-                </div>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{item.description}</p>
-              </div>
-            );
-          })}
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Sources</span>
+        <div className="space-y-1.5">
+          {faq.sources.map((src) => (
+            <div key={src} className="flex items-center gap-2">
+              <Link2 className="w-3 h-3 text-muted-foreground/30 shrink-0" />
+              <span className="text-[11px] text-muted-foreground/40 font-mono">{src}</span>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function CtaSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-cta">
-      <div className="max-w-4xl mx-auto relative">
-        <div
-          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 card-glow ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/30"
-              : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
-          }`}
-        >
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-cta-heading">
-            Your answers. Structured for AI.
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground max-w-md">
-            Turn your existing FAQ content into the structured authority layer AI needs to cite you by name.
-          </p>
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-cta-start">
-              Get Started
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">FAQPage Schema Output</span>
+        <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
+          <div className="text-foreground/40">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"FAQPage"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"mainEntity"</span>: [{"{"}</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Question"</span>,</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"{faq.question}"</span>,</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"acceptedAnswer"</span>: {"{"}</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Answer"</span>,</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"text"</span>: <span className="text-foreground/50">"{faq.answer.slice(0, 80)}..."</span>,</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"author"</span>: {"{"} <span className="text-foreground/50">"@type": "Person", "name": "{faq.author}"</span> {"},"}</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"about"</span>: [</div>
+          {faq.linkedEntities.map((e, i) => (
+            <div key={e.name} className="pl-12">
+              <span className="text-foreground/50">{"{"} "@type": "Organization", "name": "{e.name}", "sameAs": "entities.org/entity/{e.id}" {"}"}{i < faq.linkedEntities.length - 1 ? "," : ""}</span>
+            </div>
+          ))}
+          <div className="pl-9">]</div>
+          <div className="pl-6">{"},"}</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"{faq.updated}"</span></div>
+          <div className="pl-3">{"}]"}</div>
+          <div className="text-foreground/40">{"}"}</div>
         </div>
       </div>
-    </section>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
+          <span className="text-muted-foreground/40">GET</span>{" "}
+          <span className="text-foreground/60">answerstack.com/api/faq/{faq.id}</span>
+        </div>
+        <span className="text-[10px] text-muted-foreground/30">Returns structured FAQPage JSON-LD with linked entity references.</span>
+      </div>
+    </div>
   );
 }
 
 function Footer() {
   return (
-    <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
-            <span className="text-sm font-semibold text-foreground">
-              AnswerStack<span className="font-normal text-muted-foreground">.com</span>
-            </span>
-            <p className="mt-1 text-xs text-muted-foreground/60">
-              Structured authority hub for AI search.
+            <div className="flex items-center gap-2 mb-2">
+              <Layers className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <span className="text-sm font-semibold text-foreground">
+                AnswerStack<span className="font-normal text-muted-foreground">.com</span>
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+              Structured FAQ hub powered by Entities.org.
+            </p>
+            <p className="text-[10px] text-muted-foreground/30 mt-2">
+              Every answer linked to verified entity data.
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-muted-foreground/40">
-              Part of Brandvious, Inc.
-            </p>
-            <p className="text-[10px] text-muted-foreground/40">
-              Land O' Lakes, Florida
-            </p>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Hub</span>
+            <div className="mt-2 space-y-1.5">
+              {["All Topics", "Recent Answers", "Submit FAQ"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <div className="mt-2 space-y-1.5">
+              {["API Documentation", "Entities.org", "Schema Spec"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <div className="mt-2 space-y-1.5">
+              {["About", "Contact", "Privacy Policy"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-border/20">
-          <p className="text-[10px] text-muted-foreground/30">
-            &copy; 2026 Brandvious, Inc. All rights reserved.
-          </p>
+        <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+          </div>
+          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -904,28 +843,55 @@ function AuroraCanvas() {
 
 export default function AnswerStack() {
   const { theme } = useTheme();
+  const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const [selectedFaq, setSelectedFaq] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const topic = selectedTopic ? FAQ_TOPICS.find((t) => t.id === selectedTopic) : null;
+
+  const handleSelectTopic = (id: string) => {
+    setSelectedTopic(id);
+    setSelectedFaq(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleSelectFaq = (topicId: string, faqId: string) => {
+    setSelectedTopic(topicId);
+    setSelectedFaq(faqId);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBack = () => {
+    setSelectedTopic(null);
+    setSelectedFaq(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <SectionDivider />
-        <ProblemSection />
-        <SectionDivider />
-        <ComparisonSection />
-        <SectionDivider />
-        <HowItWorksSection />
-        <SectionDivider />
-        <EntityLinkSection />
-        <SectionDivider />
-        <SchemaOutputSection />
-        <SectionDivider />
-        <UseCasesSection />
-        <SectionDivider />
-        <StackSection />
-        <SectionDivider />
-        <CtaSection />
+        <Navbar onHome={handleBack} />
+        <div className="pt-20 px-6 pb-6">
+          {topic ? (
+            <TopicDetailPage
+              topic={topic}
+              onBack={handleBack}
+              onSelectFaq={(faqId) => {
+                if (faqId) setSelectedFaq(faqId);
+                else setSelectedFaq(null);
+              }}
+              selectedFaqId={selectedFaq}
+            />
+          ) : (
+            <TopicListPage
+              onSelectTopic={handleSelectTopic}
+              onSelectFaq={handleSelectFaq}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          )}
+        </div>
         <Footer />
       </div>
     </div>
