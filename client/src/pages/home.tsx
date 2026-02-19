@@ -15,9 +15,12 @@ import {
   Search,
   Star,
   BarChart3,
+  Sun,
+  Moon,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useTheme } from "@/components/theme-provider";
 
 const projects = [
   {
@@ -96,7 +99,7 @@ function HeroParticles() {
       {Array.from({ length: 40 }).map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-white/[0.12] animate-float-particle"
+          className="absolute rounded-full bg-black/[0.06] dark:bg-white/[0.12] animate-float-particle"
           style={{
             width: `${Math.random() * 3 + 1.5}px`,
             height: `${Math.random() * 3 + 1.5}px`,
@@ -114,8 +117,8 @@ function HeroParticles() {
 function HeroGlow() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-      <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-white/[0.12] to-transparent" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
+      <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-black/[0.08] dark:from-white/[0.12] to-transparent" />
     </div>
   );
 }
@@ -142,11 +145,29 @@ function IconBar() {
   );
 }
 
+function ThemeToggle() {
+  const { theme, toggleTheme } = useTheme();
+  return (
+    <Button
+      size="icon"
+      variant="ghost"
+      onClick={toggleTheme}
+      data-testid="button-theme-toggle"
+    >
+      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </Button>
+  );
+}
+
 function Navbar() {
+  const { theme } = useTheme();
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 md:px-10"
-      style={{ backdropFilter: "blur(12px)", backgroundColor: "hsl(220 10% 6% / 0.8)" }}
+      style={{
+        backdropFilter: "blur(12px)",
+        backgroundColor: theme === "dark" ? "hsl(220 10% 6% / 0.8)" : "hsl(220 10% 97% / 0.8)",
+      }}
       data-testid="navbar"
     >
       <a
@@ -156,6 +177,7 @@ function Navbar() {
       >
         Brandvious <span className="font-normal text-muted-foreground">Digital</span>
       </a>
+      <ThemeToggle />
     </nav>
   );
 }
@@ -210,7 +232,7 @@ function Hero() {
 
 function PrincipleVisual1() {
   return (
-    <div className="rounded-xl border border-border/40 bg-card/30 p-4 space-y-3">
+    <div className="rounded-xl border border-border/60 bg-card/60 dark:border-border/40 dark:bg-card/30 p-4 space-y-3">
       <div className="flex items-center gap-2">
         <Bot className="w-4 h-4 text-muted-foreground/60" />
         <span className="text-xs text-muted-foreground/80">AI Search Query</span>
@@ -228,7 +250,7 @@ function PrincipleVisual1() {
 
 function PrincipleVisual2() {
   return (
-    <div className="rounded-xl border border-border/40 bg-card/30 p-4 space-y-3">
+    <div className="rounded-xl border border-border/60 bg-card/60 dark:border-border/40 dark:bg-card/30 p-4 space-y-3">
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-2">
           <Database className="w-4 h-4 text-muted-foreground/60" />
@@ -256,7 +278,7 @@ function PrincipleVisual2() {
 
 function PrincipleVisual3() {
   return (
-    <div className="rounded-xl border border-border/40 bg-card/30 p-4 space-y-3">
+    <div className="rounded-xl border border-border/60 bg-card/60 dark:border-border/40 dark:bg-card/30 p-4 space-y-3">
       <div className="flex items-center gap-2">
         <MessageSquare className="w-4 h-4 text-muted-foreground/60" />
         <span className="text-xs text-muted-foreground/80">AI Response</span>
@@ -351,7 +373,7 @@ function ProjectCard({
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-border/40 bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible card-glow"
+      className="group flex flex-col rounded-xl border border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible card-glow"
       data-testid={`card-project-${index}`}
     >
       <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
@@ -539,9 +561,9 @@ function SectionDivider() {
 function ClosingStatement() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-closing">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-white/[0.04] blur-[100px] pointer-events-none" />
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[100px] pointer-events-none" />
       <div className="max-w-4xl mx-auto relative">
-        <div className="rounded-xl border border-border/30 bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center card-glow">
+        <div className="rounded-xl border border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center card-glow">
           <p className="text-xl font-medium leading-relaxed text-foreground/80 sm:text-2xl max-w-xl mx-auto" data-testid="text-closing">
             The answer is the new first impression.
           </p>
