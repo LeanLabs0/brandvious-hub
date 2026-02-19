@@ -1,0 +1,155 @@
+Here's the full canvas animation code from the messaging page (the AuroraCanvas component). It creates flowing aurora-style waves with purple/pink/magenta hues and light streaks that react to mouse movement:
+
+function AuroraCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const mouseRef = useRef({ x: -1, y: -1 });
+  const streaksRef = useRef<Array<{
+    x: number; y: number; vx: number; vy: number;
+    life: number; maxLife: number;
+    hue: number; width: number;
+    trail: Array<{ x: number; y: number }>;
+  }>>([]);
+  const waveRef = useRef<Array<{
+    y: number; amplitude: number; frequency: number;
+    speed: number; phase: number; hue: number; opacity: number;
+  }>>([]);
+  const init = useCallback((w: number, h: number) => {
+    const waves = [];
+    for (let i = 0; i < 6; i++) {
+      waves.push({
+        y: h * 0.3 + (i / 6) * h * 0.4,
+        amplitude: 30 + Math.random() * 50,
+        frequency: 0.002 + Math.random() * 0.003,
+        speed: 0.3 + Math.random() * 0.4,
+        phase: Math.random() * Math.PI * 2,
+        hue: [280, 300, 320, 260, 290, 310][i],
+        opacity: 0.04 + Math.random() * 0.03,
+      });
+    }
+    waveRef.current = waves;
+    streaksRef.current = [];
+  }, []);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const resize = () => {
+      const rect = canvas.parentElement?.getBoundingClientRect();
+      if (!rect) return;
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      canvas.style.width = rect.width + "px";
+      canvas.style.height = rect.height + "px";
+      ctx.scale(dpr, dpr);
+      init(rect.width, rect.height);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+    const handleMouse = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", handleMouse);
+    let time = 0;
+    const draw = () => {
+      const rect = canvas.parentElement?.getBoundingClientRect();
+      if (!rect) { animRef.current = requestAnimationFrame(draw); return; }
+      const w = rect.width;
+      const h = rect.height;
+      time += 0.016;
+      const dark = document.documentElement.classList.contains("dark");
+      const alphaScale = dark ? 1 : 0.5;
+      ctx.clearRect(0, 0, w, h);
+      // Draw flowing waves
+      for (const wave of waveRef.current) {
+        wave.phase += wave.speed * 0.016;
+        ctx.beginPath();
+        ctx.moveTo(0, h);
+        for (let x = 0; x <= w; x += 4) {
+          const y = wave.y +
+            Math.sin(x * wave.frequency + wave.phase) * wave.amplitude +
+            Math.sin(x * wave.frequency * 2.3 + wave.phase * 1.7) * wave.amplitude * 0.3 +
+            Math.cos(x * wave.frequency * 0.7 + wave.phase * 0.5) * wave.amplitude * 0.5;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+        const grad = ctx.createLinearGradient(0, wave.y - wave.amplitude * 2, 0, wave.y + wave.amplitude * 2);
+        const sat = dark ? 80 : 60;
+        const lit = dark ? 60 : 50;
+        grad.addColorStop(0, "transparent");
+        grad.addColorStop(0.3, `hsla(${wave.hue}, ${sat}%, ${lit}%, ${wave.opacity * alphaScale})`);
+        grad.addColorStop(0.6, `hsla(${wave.hue}, ${sat}%, ${lit}%, ${wave.opacity * 0.6 * alphaScale})`);
+        grad.addColorStop(1, "transparent");
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+      // Spawn light streaks
+      if (Math.random() < 0.15) {
+        const startX = Math.random() * w;
+        const startY = Math.random() * h * 0.6;
+        streaksRef.current.push({
+          x: startX, y: startY,
+          vx: (Math.random() - 0.5) * 3,
+          vy: Math.random() * 1.5 + 0.5,
+          life: 0, maxLife: 60 + Math.random() * 80,
+          hue: 270 + Math.random() * 60,
+          width: 0.5 + Math.random() * 1.5,
+          trail: [{ x: startX, y: startY }],
+        });
+      }
+      // Update & draw streaks (mouse-reactive)
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      for (let i = streaksRef.current.length - 1; i >= 0; i--) {
+        const s = streaksRef.current[i];
+        s.life++;
+        if (s.life > s.maxLife) { streaksRef.current.splice(i, 1); continue; }
+        if (mx >= 0) {
+          const dx = mx - s.x; const dy = my - s.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 200) {
+            s.vx += (dx / dist) * 0.3;
+            s.vy += (dy / dist) * 0.3;
+          }
+        }
+        s.x += s.vx; s.y += s.vy;
+        s.trail.push({ x: s.x, y: s.y });
+        if (s.trail.length > 20) s.trail.shift();
+        const alpha = (1 - s.life / s.maxLife) * 0.6 * alphaScale;
+        if (s.trail.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(s.trail[0].x, s.trail[0].y);
+          for (let j = 1; j < s.trail.length; j++) ctx.lineTo(s.trail[j].x, s.trail[j].y);
+          ctx.strokeStyle = `hsla(${s.hue}, 80%, 70%, ${alpha})`;
+          ctx.lineWidth = s.width;
+          ctx.stroke();
+        }
+      }
+      animRef.current = requestAnimationFrame(draw);
+    };
+    draw();
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouse);
+    };
+  }, [init]);
+  return <canvas ref={canvasRef} className="absolute inset-0 pointer-events-none" />;
+}
+How it works:
+
+6 flowing waves at different vertical positions with overlapping sine/cosine curves in purple-pink hues (280-320 hue range)
+Light streaks that spawn randomly and leave trailing paths, reacting to mouse proximity within 200px
+Theme-aware — full opacity in dark mode, 50% in light mode
+Responsive — rescales on window resize with DPR support
+To use it, place it inside a relatively-positioned container in the hero section:
+
+<div className="relative overflow-hidden">
+  <AuroraCanvas />
+  {/* Your hero content on top */}
+</div>

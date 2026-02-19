@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -659,45 +659,151 @@ function Footer() {
   );
 }
 
+function AuroraCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animRef = useRef<number>(0);
+  const mouseRef = useRef({ x: -1, y: -1 });
+  const streaksRef = useRef<Array<{
+    x: number; y: number; vx: number; vy: number;
+    life: number; maxLife: number;
+    hue: number; width: number;
+    trail: Array<{ x: number; y: number }>;
+  }>>([]);
+  const waveRef = useRef<Array<{
+    y: number; amplitude: number; frequency: number;
+    speed: number; phase: number; hue: number; opacity: number;
+  }>>([]);
+
+  const init = useCallback((w: number, h: number) => {
+    const waves = [];
+    for (let i = 0; i < 8; i++) {
+      waves.push({
+        y: h * 0.15 + (i / 8) * h * 0.7,
+        amplitude: 40 + Math.random() * 60,
+        frequency: 0.001 + Math.random() * 0.003,
+        speed: 0.2 + Math.random() * 0.3,
+        phase: Math.random() * Math.PI * 2,
+        hue: [270, 280, 295, 260, 285, 300, 275, 310][i],
+        opacity: 0.05 + Math.random() * 0.04,
+      });
+    }
+    waveRef.current = waves;
+    streaksRef.current = [];
+  }, []);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio, 2);
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      init(w, h);
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    const handleMouse = (e: MouseEvent) => {
+      mouseRef.current = { x: e.clientX, y: e.clientY };
+    };
+    window.addEventListener("mousemove", handleMouse);
+
+    const draw = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+
+      ctx.clearRect(0, 0, w, h);
+
+      for (const wave of waveRef.current) {
+        wave.phase += wave.speed * 0.016;
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += 4) {
+          const y = wave.y +
+            Math.sin(x * wave.frequency + wave.phase) * wave.amplitude +
+            Math.sin(x * wave.frequency * 2.3 + wave.phase * 1.7) * wave.amplitude * 0.3 +
+            Math.cos(x * wave.frequency * 0.7 + wave.phase * 0.5) * wave.amplitude * 0.5;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.lineTo(w, h);
+        ctx.lineTo(0, h);
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, wave.y - wave.amplitude * 2, 0, wave.y + wave.amplitude * 2);
+        grad.addColorStop(0, "transparent");
+        grad.addColorStop(0.3, `hsla(${wave.hue}, 80%, 55%, ${wave.opacity})`);
+        grad.addColorStop(0.6, `hsla(${wave.hue}, 80%, 55%, ${wave.opacity * 0.5})`);
+        grad.addColorStop(1, "transparent");
+        ctx.fillStyle = grad;
+        ctx.fill();
+      }
+
+      if (Math.random() < 0.12) {
+        const startX = Math.random() * w;
+        const startY = Math.random() * h * 0.7;
+        streaksRef.current.push({
+          x: startX, y: startY,
+          vx: (Math.random() - 0.5) * 2.5,
+          vy: Math.random() * 1.2 + 0.3,
+          life: 0, maxLife: 70 + Math.random() * 90,
+          hue: 260 + Math.random() * 50,
+          width: 0.4 + Math.random() * 1.2,
+          trail: [{ x: startX, y: startY }],
+        });
+      }
+
+      const mx = mouseRef.current.x;
+      const my = mouseRef.current.y;
+      for (let i = streaksRef.current.length - 1; i >= 0; i--) {
+        const s = streaksRef.current[i];
+        s.life++;
+        if (s.life > s.maxLife) { streaksRef.current.splice(i, 1); continue; }
+        if (mx >= 0) {
+          const dx = mx - s.x; const dy = my - s.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 200) {
+            s.vx += (dx / dist) * 0.25;
+            s.vy += (dy / dist) * 0.25;
+          }
+        }
+        s.x += s.vx; s.y += s.vy;
+        s.trail.push({ x: s.x, y: s.y });
+        if (s.trail.length > 25) s.trail.shift();
+        const alpha = (1 - s.life / s.maxLife) * 0.5;
+        if (s.trail.length > 1) {
+          ctx.beginPath();
+          ctx.moveTo(s.trail[0].x, s.trail[0].y);
+          for (let j = 1; j < s.trail.length; j++) ctx.lineTo(s.trail[j].x, s.trail[j].y);
+          ctx.strokeStyle = `hsla(${s.hue}, 75%, 65%, ${alpha})`;
+          ctx.lineWidth = s.width;
+          ctx.stroke();
+        }
+      }
+
+      animRef.current = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouse);
+    };
+  }, [init]);
+
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
+}
+
 function SparkleBackground() {
-  return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div
-        className="absolute top-[5%] left-[10%] w-[1200px] h-[1200px] rounded-full blur-[200px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(120, 40, 180, 0.35) 0%, rgba(80, 20, 140, 0.15) 40%, transparent 70%)" }}
-      />
-      <div
-        className="absolute top-[30%] right-[5%] w-[1000px] h-[1000px] rounded-full blur-[180px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(100, 20, 160, 0.28) 0%, rgba(60, 10, 100, 0.12) 40%, transparent 70%)", animationDelay: "3s" }}
-      />
-      <div
-        className="absolute top-[60%] left-[30%] w-[1100px] h-[1100px] rounded-full blur-[190px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(140, 50, 200, 0.30) 0%, rgba(90, 30, 150, 0.12) 40%, transparent 70%)", animationDelay: "6s" }}
-      />
-      <div
-        className="absolute bottom-[5%] right-[20%] w-[800px] h-[800px] rounded-full blur-[160px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(110, 30, 170, 0.25) 0%, rgba(70, 15, 120, 0.10) 40%, transparent 70%)", animationDelay: "9s" }}
-      />
-      <div
-        className="absolute top-[15%] left-[60%] w-[900px] h-[900px] rounded-full blur-[170px] animate-subtle-glow"
-        style={{ background: "radial-gradient(circle, rgba(130, 40, 190, 0.22) 0%, transparent 60%)", animationDelay: "4s" }}
-      />
-      {Array.from({ length: 100 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-purple-300/[0.12] animate-float-particle"
-          style={{
-            width: `${Math.random() * 4 + 1.5}px`,
-            height: `${Math.random() * 4 + 1.5}px`,
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            ["--duration" as string]: `${Math.random() * 12 + 8}s`,
-            ["--delay" as string]: `${Math.random() * 10}s`,
-          }}
-        />
-      ))}
-    </div>
-  );
+  return <AuroraCanvas />;
 }
 
 export default function Home() {
