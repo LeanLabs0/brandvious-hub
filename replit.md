@@ -12,7 +12,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 1. **GrowthRocket** (Established) — AEO / Answer Engine Optimization
 2. **Entities.org** (Growing) — Structured entity registry
 3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine
-4. **AnswerStack.io** (In Development) — Structured authority hub for AI search
+4. **AnswerStack.com** (In Development) — Structured authority hub for AI search
 
 ## Design
 - Dark near-black background, subtle gray cards, white text

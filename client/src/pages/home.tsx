@@ -55,13 +55,13 @@ const projects = [
     icon: Trophy,
   },
   {
-    name: "AnswerStack.io",
+    name: "AnswerStack.com",
     label: "ANSWERS",
     description:
       "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
     status: "In Development",
     statusColor: "text-neutral-400",
-    url: "https://answerstack.io",
+    url: "https://answerstack.com",
     icon: Layers,
   },
   {
