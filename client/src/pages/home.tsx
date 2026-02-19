@@ -61,7 +61,7 @@ const projects = [
       "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
     status: "In Development",
     statusColor: "text-neutral-400",
-    url: "https://answerstack.com",
+    url: "/answerstack",
     icon: Layers,
   },
   {
