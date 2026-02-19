@@ -51,7 +51,7 @@ const projects = [
       "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
     status: "Launching",
     statusColor: "text-amber-400",
-    url: "https://whatisbest.com",
+    url: "/whatisbest",
     icon: Trophy,
   },
   {

@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Home from "@/pages/home";
 import Entities from "@/pages/entities";
 import Schema from "@/pages/schema";
+import WhatisBest from "@/pages/whatisbest";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -16,6 +17,7 @@ function Router() {
       <Route path="/entities" component={Entities} />
       <Route path="/entitiespreview" component={Entities} />
       <Route path="/schema" component={Schema} />
+      <Route path="/whatisbest" component={WhatisBest} />
       <Route component={NotFound} />
     </Switch>
   );
