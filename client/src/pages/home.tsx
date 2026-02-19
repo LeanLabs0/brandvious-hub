@@ -668,14 +668,14 @@ function AuroraCanvas() {
 
   const init = useCallback((w: number, h: number) => {
     const waves = [];
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 4; i++) {
       waves.push({
-        y: h * 0.15 + (i / 8) * h * 0.7,
+        y: h * 0.2 + (i / 4) * h * 0.6,
         amplitude: 40 + Math.random() * 60,
         frequency: 0.001 + Math.random() * 0.003,
         speed: 0.1 + Math.random() * 0.15,
         phase: Math.random() * Math.PI * 2,
-        hue: [270, 280, 295, 260, 285, 300, 275, 310][i],
+        hue: [270, 290, 260, 305][i],
         opacity: 0.05 + Math.random() * 0.04,
       });
     }
