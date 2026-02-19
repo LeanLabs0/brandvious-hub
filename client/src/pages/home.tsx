@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import {
   ArrowDown,
   ArrowRight,
@@ -12,11 +12,8 @@ import {
   Shield,
   MessageSquare,
   CheckCircle2,
-  ChevronDown,
   Search,
   Star,
-  TrendingUp,
-  FileText,
   BarChart3,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
@@ -353,249 +350,156 @@ function Beliefs() {
   );
 }
 
-function SchemaRocketVisual() {
+function ProjectCard({
+  project,
+  index,
+  visual,
+}: {
+  project: (typeof projects)[0];
+  index: number;
+  visual: React.ReactNode;
+}) {
   return (
-    <div className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 w-full">
-      <div className="flex items-center gap-2 mb-2">
-        <Braces className="w-4 h-4 text-muted-foreground/60" />
-        <span className="text-xs text-muted-foreground/70 font-mono">schema.json</span>
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex flex-col rounded-xl border border-border/40 bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible"
+      data-testid={`card-project-${index}`}
+    >
+      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
+        <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-medium">
+          {project.label}
+        </span>
+        <Badge
+          variant="outline"
+          className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
+          data-testid={`badge-status-${index}`}
+        >
+          {project.status}
+        </Badge>
       </div>
-      <div className="rounded-lg bg-background/50 p-3 font-mono text-[11px] text-muted-foreground/70 leading-relaxed space-y-1">
-        <div><span className="text-foreground/50">{"{"}</span></div>
-        <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Acme Corp"</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"knowsAbout"</span>: <span className="text-foreground/50">["SaaS", "AI"]</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: <span className="text-foreground/50">["..."]</span></div>
-        <div><span className="text-foreground/50">{"}"}</span></div>
+
+      <h3 className="text-lg font-semibold text-foreground sm:text-xl" data-testid={`text-project-name-${index}`}>
+        {project.name}
+      </h3>
+
+      <p className="mt-2 text-sm leading-relaxed text-muted-foreground/60 flex-1" data-testid={`text-project-description-${index}`}>
+        {project.description}
+      </p>
+
+      <div className="mt-5">
+        {visual}
       </div>
-      <div className="flex items-center gap-2 pt-1">
-        <CheckCircle2 className="w-3 h-3 text-emerald-400/60" />
-        <span className="text-[10px] text-emerald-400/50">Valid structured data</span>
+
+      <div className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground/40 group-hover:text-foreground/60 transition-colors duration-300">
+        Visit Site
+        <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
       </div>
+    </a>
+  );
+}
+
+function SchemaVisualInline() {
+  return (
+    <div className="rounded-lg bg-background/40 p-3 font-mono text-[11px] text-muted-foreground/70 leading-relaxed space-y-1">
+      <div><span className="text-foreground/50">{"{"}</span></div>
+      <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
+      <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Acme Corp"</span>,</div>
+      <div className="pl-3"><span className="text-emerald-400/70">"knowsAbout"</span>: <span className="text-foreground/50">["SaaS", "AI"]</span></div>
+      <div><span className="text-foreground/50">{"}"}</span></div>
     </div>
   );
 }
 
-function EntitiesVisual() {
+function EntitiesVisualInline() {
   return (
-    <div className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 w-full">
-      <div className="flex items-center gap-2 mb-2">
-        <Database className="w-4 h-4 text-muted-foreground/60" />
-        <span className="text-xs text-muted-foreground/70">Entity Registry</span>
-      </div>
-      <div className="space-y-2">
-        {["Acme Corp", "Bolt Analytics", "CloudSync.io"].map((name) => (
-          <div key={name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
-            <div className="flex items-center gap-2">
-              <Globe className="w-3 h-3 text-blue-400/50" />
-              <span className="text-xs text-foreground/70">{name}</span>
-            </div>
-            <Badge variant="outline" className="text-[8px] text-blue-400/60 no-default-hover-elevate no-default-active-elevate">Verified</Badge>
+    <div className="space-y-1.5">
+      {["Acme Corp", "Bolt Analytics", "CloudSync.io"].map((name) => (
+        <div key={name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
+          <div className="flex items-center gap-2">
+            <Globe className="w-3 h-3 text-blue-400/50" />
+            <span className="text-xs text-foreground/70">{name}</span>
           </div>
-        ))}
-      </div>
+          <Badge variant="outline" className="text-[8px] text-blue-400/60 no-default-hover-elevate no-default-active-elevate">Verified</Badge>
+        </div>
+      ))}
     </div>
   );
 }
 
-function WhatisBestVisual() {
+function WhatisBestVisualInline() {
   return (
-    <div className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 w-full">
-      <div className="flex items-center gap-2 mb-2">
-        <Search className="w-4 h-4 text-muted-foreground/60" />
-        <span className="text-xs text-muted-foreground/70">"Best CRM for startups"</span>
-      </div>
-      <div className="space-y-2">
-        {[
-          { name: "HubSpot CRM", score: "9.2" },
-          { name: "Pipedrive", score: "8.7" },
-          { name: "Zoho CRM", score: "8.1" },
-        ].map((item) => (
-          <div key={item.name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
-            <span className="text-xs text-foreground/70">{item.name}</span>
-            <div className="flex items-center gap-1">
-              <Star className="w-3 h-3 text-amber-400/60" />
-              <span className="text-xs text-amber-400/60 font-mono">{item.score}</span>
-            </div>
+    <div className="space-y-1.5">
+      {[
+        { name: "HubSpot CRM", score: "9.2" },
+        { name: "Pipedrive", score: "8.7" },
+        { name: "Zoho CRM", score: "8.1" },
+      ].map((item) => (
+        <div key={item.name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
+          <span className="text-xs text-foreground/70">{item.name}</span>
+          <div className="flex items-center gap-1">
+            <Star className="w-3 h-3 text-amber-400/60" />
+            <span className="text-xs text-amber-400/60 font-mono">{item.score}</span>
           </div>
-        ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function AnswerStackVisualInline() {
+  return (
+    <div className="space-y-1.5">
+      <div className="rounded-lg bg-background/40 px-3 py-2">
+        <span className="text-[11px] text-foreground/60">"What is Answer Engine Optimization?"</span>
+      </div>
+      <div className="rounded-lg bg-background/40 px-3 py-2">
+        <span className="text-[11px] text-muted-foreground/50 leading-relaxed">AEO is the practice of structuring content so AI search engines can cite it...</span>
+      </div>
+      <div className="flex items-center gap-2 px-1 pt-1">
+        <Shield className="w-3 h-3 text-emerald-400/50" />
+        <span className="text-[10px] text-emerald-400/50">Expert-vetted</span>
       </div>
     </div>
   );
 }
 
-function AnswerStackVisual() {
+function ReviewRadarVisualInline() {
   return (
-    <div className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 w-full">
-      <div className="flex items-center gap-2 mb-2">
-        <FileText className="w-4 h-4 text-muted-foreground/60" />
-        <span className="text-xs text-muted-foreground/70">Authority Content</span>
-      </div>
-      <div className="space-y-2">
-        <div className="rounded-lg bg-background/40 px-3 py-2">
-          <span className="text-[11px] text-foreground/60">"What is Answer Engine Optimization?"</span>
+    <div className="space-y-1.5">
+      {[
+        { platform: "G2", sentiment: "+12%", dir: "up" },
+        { platform: "Reddit", sentiment: "+8%", dir: "up" },
+        { platform: "Capterra", sentiment: "-3%", dir: "down" },
+      ].map((item) => (
+        <div key={item.platform} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
+          <span className="text-xs text-foreground/70">{item.platform}</span>
+          <span className={`text-xs font-mono ${item.dir === "up" ? "text-emerald-400/60" : "text-red-400/60"}`}>
+            {item.sentiment}
+          </span>
         </div>
-        <div className="rounded-lg bg-background/40 px-3 py-2.5">
-          <span className="text-[11px] text-muted-foreground/60 leading-relaxed">AEO is the practice of structuring content so AI search engines can confidently cite it as a source...</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Shield className="w-3 h-3 text-emerald-400/50" />
-          <span className="text-[10px] text-emerald-400/50">Expert-vetted source</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ReviewRadarVisual() {
-  return (
-    <div className="rounded-xl border border-border/30 bg-card/40 p-4 space-y-3 w-full">
-      <div className="flex items-center gap-2 mb-2">
-        <TrendingUp className="w-4 h-4 text-muted-foreground/60" />
-        <span className="text-xs text-muted-foreground/70">Sentiment Tracker</span>
-      </div>
-      <div className="space-y-2">
-        {[
-          { platform: "G2", sentiment: "+12%", dir: "up" },
-          { platform: "Reddit", sentiment: "+8%", dir: "up" },
-          { platform: "Capterra", sentiment: "-3%", dir: "down" },
-        ].map((item) => (
-          <div key={item.platform} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
-            <span className="text-xs text-foreground/70">{item.platform}</span>
-            <span className={`text-xs font-mono ${item.dir === "up" ? "text-emerald-400/60" : "text-red-400/60"}`}>
-              {item.sentiment}
-            </span>
-          </div>
-        ))}
-      </div>
-      <div className="flex items-center gap-2 pt-1">
-        <BarChart3 className="w-3 h-3 text-muted-foreground/40" />
-        <span className="text-[10px] text-muted-foreground/40">Last 30 days</span>
-      </div>
+      ))}
     </div>
   );
 }
 
 const projectVisuals = [
-  <SchemaRocketVisual />,
-  <EntitiesVisual />,
-  <WhatisBestVisual />,
-  <AnswerStackVisual />,
-  <ReviewRadarVisual />,
+  <SchemaVisualInline />,
+  <EntitiesVisualInline />,
+  <WhatisBestVisualInline />,
+  <AnswerStackVisualInline />,
+  <ReviewRadarVisualInline />,
 ];
 
-function ProjectAccordionItem({
-  project,
-  index,
-  isOpen,
-  onToggle,
-}: {
-  project: (typeof projects)[0];
-  index: number;
-  isOpen: boolean;
-  onToggle: () => void;
-}) {
-  const itemRef = useRef<HTMLDivElement>(null);
-
-  return (
-    <div
-      ref={itemRef}
-      className="border-b border-border/30 last:border-b-0"
-      data-testid={`card-project-${index}`}
-    >
-      <button
-        onClick={onToggle}
-        className="w-full flex items-center justify-between gap-4 py-5 px-1 text-left transition-colors duration-200 group"
-        data-testid={`button-toggle-project-${index}`}
-      >
-        <div className="flex items-center gap-4 flex-wrap">
-          <span className={`text-base font-semibold transition-colors duration-300 sm:text-lg ${isOpen ? "text-foreground" : "text-muted-foreground/60"}`} data-testid={`text-project-name-${index}`}>
-            {project.name}
-          </span>
-          <span className="text-[10px] text-muted-foreground/40 tracking-wider uppercase hidden sm:inline">
-            {project.label}
-          </span>
-          <Badge
-            variant="outline"
-            className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate no-default-active-elevate`}
-            data-testid={`badge-status-${index}`}
-          >
-            {project.status}
-          </Badge>
-        </div>
-        <ChevronDown
-          className={`w-4 h-4 text-muted-foreground/40 flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
-        />
-      </button>
-
-      <div
-        className="grid transition-all duration-500 ease-in-out"
-        style={{
-          gridTemplateRows: isOpen ? "1fr" : "0fr",
-        }}
-      >
-        <div className="overflow-hidden">
-          <div className="pb-8 px-1 flex flex-col md:flex-row gap-8">
-            <div className="flex-1">
-              <p className="text-sm leading-relaxed text-muted-foreground/60" data-testid={`text-project-description-${index}`}>
-                {project.description}
-              </p>
-              <a
-                href={project.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-foreground/80 transition-colors duration-200 hover:text-foreground group/link"
-                data-testid={`link-visit-${index}`}
-              >
-                Visit Site
-                <ArrowRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5" />
-              </a>
-            </div>
-            <div className="flex-1 max-w-xs md:max-w-sm">
-              {projectVisuals[index]}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 function Projects() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const idx = Number(entry.target.getAttribute("data-index"));
-            if (!isNaN(idx)) {
-              setOpenIndex((prev) => (prev === idx ? prev : idx));
-            }
-          }
-        });
-      },
-      {
-        rootMargin: "-30% 0px -50% 0px",
-        threshold: 0,
-      }
-    );
-
-    const items = document.querySelectorAll("[data-scroll-project]");
-    items.forEach((item) => observer.observe(item));
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
       id="projects"
       className="relative px-6 py-24 md:py-32"
       data-testid="section-projects"
     >
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-5xl mx-auto">
         <div className="text-center mb-14">
           <div className="mb-4">
             <Badge
@@ -611,16 +515,25 @@ function Projects() {
           </h2>
         </div>
 
-        <div className="border-t border-border/30">
-          {projects.map((project, i) => (
-            <div key={project.name} data-scroll-project data-index={i}>
-              <ProjectAccordionItem
-                project={project}
-                index={i}
-                isOpen={openIndex === i}
-                onToggle={() => setOpenIndex(openIndex === i ? null : i)}
-              />
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {projects.slice(0, 3).map((project, i) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              index={i}
+              visual={projectVisuals[i]}
+            />
+          ))}
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {projects.slice(3).map((project, i) => (
+            <ProjectCard
+              key={project.name}
+              project={project}
+              index={i + 3}
+              visual={projectVisuals[i + 3]}
+            />
           ))}
         </div>
       </div>
