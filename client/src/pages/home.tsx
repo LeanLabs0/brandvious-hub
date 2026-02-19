@@ -243,7 +243,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/70">
         <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
       </div>
     </section>
@@ -258,11 +258,11 @@ function PrincipleVisual1() {
         <span className="text-xs text-muted-foreground/80">AI Search Query</span>
       </div>
       <div className="rounded-lg border border-border/30 bg-background/40 px-3 py-2">
-        <span className="text-xs text-foreground/70 font-mono">"What's the best CRM for startups?"</span>
+        <span className="text-xs text-foreground/85 font-mono">"What's the best CRM for startups?"</span>
       </div>
       <div className="flex items-center gap-2 pt-1">
         <div className="w-2 h-2 rounded-full bg-amber-400/60" />
-        <span className="text-[10px] text-muted-foreground/50">3.2B queries/day rely on web content</span>
+        <span className="text-[10px] text-muted-foreground/70">3.2B queries/day rely on web content</span>
       </div>
     </div>
   );
@@ -280,15 +280,15 @@ function PrincipleVisual2() {
       </div>
       <div className="space-y-1.5">
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-3 h-3 text-emerald-400/60" />
+          <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
           <span className="text-[11px] text-muted-foreground/60">Schema markup</span>
         </div>
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-3 h-3 text-emerald-400/60" />
+          <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
           <span className="text-[11px] text-muted-foreground/60">Entity relationships</span>
         </div>
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="w-3 h-3 text-emerald-400/60" />
+          <CheckCircle2 className="w-3 h-3 text-emerald-500/70" />
           <span className="text-[11px] text-muted-foreground/60">Verified sources</span>
         </div>
       </div>
@@ -304,13 +304,13 @@ function PrincipleVisual3() {
         <span className="text-xs text-muted-foreground/80">AI Response</span>
       </div>
       <div className="rounded-lg border border-border/30 bg-background/40 px-3 py-2.5">
-        <span className="text-[11px] text-foreground/70 leading-relaxed">
+        <span className="text-[11px] text-foreground/85 leading-relaxed">
           "Based on verified data from structured sources, the best option is..."
         </span>
       </div>
       <div className="flex items-center gap-2 pt-1">
-        <Shield className="w-3 h-3 text-emerald-400/50" />
-        <span className="text-[10px] text-emerald-400/60">High confidence answer</span>
+        <Shield className="w-3 h-3 text-emerald-500/70" />
+        <span className="text-[10px] text-emerald-500/70">High confidence answer</span>
       </div>
     </div>
   );
@@ -416,7 +416,7 @@ function ProjectCard({
         </Badge>
       </div>
 
-      <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-medium">
+      <span className="text-[10px] text-muted-foreground/70 tracking-[0.15em] uppercase font-medium">
         {project.label}
       </span>
 
@@ -428,7 +428,7 @@ function ProjectCard({
         {visual}
       </div>
 
-      <div className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground/40 group-hover:text-foreground/60 transition-colors duration-300">
+      <div className="mt-4 flex items-center gap-1.5 text-xs text-muted-foreground/60 group-hover:text-foreground/80 transition-colors duration-300">
         Visit Site
         <ArrowRight className="w-3 h-3 transition-transform duration-300 group-hover:translate-x-0.5" />
       </div>
@@ -439,11 +439,11 @@ function ProjectCard({
 function SchemaVisualInline() {
   return (
     <div className="rounded-lg bg-background/40 p-3 font-mono text-[11px] text-muted-foreground/70 leading-relaxed space-y-1">
-      <div><span className="text-foreground/50">{"{"}</span></div>
-      <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
-      <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Acme Corp"</span>,</div>
-      <div className="pl-3"><span className="text-emerald-400/70">"knowsAbout"</span>: <span className="text-foreground/50">["SaaS", "AI"]</span></div>
-      <div><span className="text-foreground/50">{"}"}</span></div>
+      <div><span className="text-foreground/70">{"{"}</span></div>
+      <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Organization"</span>,</div>
+      <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"Acme Corp"</span>,</div>
+      <div className="pl-3"><span className="text-emerald-400/70">"knowsAbout"</span>: <span className="text-foreground/70">["SaaS", "AI"]</span></div>
+      <div><span className="text-foreground/70">{"}"}</span></div>
     </div>
   );
 }
@@ -455,7 +455,7 @@ function EntitiesVisualInline() {
         <div key={name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
           <div className="flex items-center gap-2">
             <Globe className="w-3 h-3 text-blue-400/50" />
-            <span className="text-xs text-foreground/70">{name}</span>
+            <span className="text-xs text-foreground/85">{name}</span>
           </div>
           <Badge variant="outline" className="text-[8px] text-blue-400/60 no-default-hover-elevate no-default-active-elevate">Verified</Badge>
         </div>
@@ -473,7 +473,7 @@ function WhatisBestVisualInline() {
         { name: "Zoho CRM", score: "8.1" },
       ].map((item) => (
         <div key={item.name} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
-          <span className="text-xs text-foreground/70">{item.name}</span>
+          <span className="text-xs text-foreground/85">{item.name}</span>
           <div className="flex items-center gap-1">
             <Star className="w-3 h-3 text-amber-400/60" />
             <span className="text-xs text-amber-400/60 font-mono">{item.score}</span>
@@ -488,14 +488,14 @@ function AnswerStackVisualInline() {
   return (
     <div className="space-y-1.5">
       <div className="rounded-lg bg-background/40 px-3 py-2">
-        <span className="text-[11px] text-foreground/60">"What is Answer Engine Optimization?"</span>
+        <span className="text-[11px] text-foreground/80">"What is Answer Engine Optimization?"</span>
       </div>
       <div className="rounded-lg bg-background/40 px-3 py-2">
-        <span className="text-[11px] text-muted-foreground/50 leading-relaxed">AEO is the practice of structuring content so AI search engines can cite it...</span>
+        <span className="text-[11px] text-muted-foreground/70 leading-relaxed">AEO is the practice of structuring content so AI search engines can cite it...</span>
       </div>
       <div className="flex items-center gap-2 px-1 pt-1">
-        <Shield className="w-3 h-3 text-emerald-400/50" />
-        <span className="text-[10px] text-emerald-400/50">Expert-vetted</span>
+        <Shield className="w-3 h-3 text-emerald-500/70" />
+        <span className="text-[10px] text-emerald-500/70">Expert-vetted</span>
       </div>
     </div>
   );
@@ -510,8 +510,8 @@ function ReviewRadarVisualInline() {
         { platform: "Capterra", sentiment: "-3%", dir: "down" },
       ].map((item) => (
         <div key={item.platform} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
-          <span className="text-xs text-foreground/70">{item.platform}</span>
-          <span className={`text-xs font-mono ${item.dir === "up" ? "text-emerald-400/60" : "text-red-400/60"}`}>
+          <span className="text-xs text-foreground/85">{item.platform}</span>
+          <span className={`text-xs font-mono ${item.dir === "up" ? "text-emerald-500/70" : "text-red-400/60"}`}>
             {item.sentiment}
           </span>
         </div>
@@ -631,18 +631,18 @@ function Footer() {
         </div>
         <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
           <div className="space-y-1">
-            <p className="text-xs text-muted-foreground/40" data-testid="text-address">
+            <p className="text-xs text-muted-foreground/60" data-testid="text-address">
               16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
             </p>
             <a
               href="tel:+19138716500"
-              className="text-xs text-muted-foreground/40 block"
+              className="text-xs text-muted-foreground/60 block"
               data-testid="link-phone"
             >
               1-913-871-6500
             </a>
           </div>
-          <p className="text-xs text-muted-foreground/40" data-testid="text-copyright">
+          <p className="text-xs text-muted-foreground/60" data-testid="text-copyright">
             &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
           </p>
         </div>

@@ -282,17 +282,17 @@ function ThemeToggle() {
 }
 
 function TrendIcon({ trend, className = "w-3.5 h-3.5" }: { trend: string; className?: string }) {
-  if (trend === "up") return <TrendingUp className={`${className} text-emerald-400/60`} />;
-  if (trend === "down") return <TrendingDown className={`${className} text-red-400/50`} />;
-  if (trend === "mixed") return <Minus className={`${className} text-amber-400/50`} />;
-  return <Minus className={`${className} text-muted-foreground/30`} />;
+  if (trend === "up") return <TrendingUp className={`${className} text-emerald-500/70`} />;
+  if (trend === "down") return <TrendingDown className={`${className} text-red-400/65`} />;
+  if (trend === "mixed") return <Minus className={`${className} text-amber-400/65`} />;
+  return <Minus className={`${className} text-muted-foreground/50`} />;
 }
 
 function ScoreDisplay({ score }: { score: number }) {
   return (
     <div className="flex items-center gap-1">
       <span className="text-xl font-bold text-foreground font-mono">{score.toFixed(1)}</span>
-      <span className="text-[10px] text-muted-foreground/30">/ 5</span>
+      <span className="text-[10px] text-muted-foreground/50">/ 5</span>
     </div>
   );
 }
@@ -323,8 +323,8 @@ function Navbar({ onHome, activeCategory, onCategoryChange }: {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-reports">Reports</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-methodology">Methodology</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-reports">Reports</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-methodology">Methodology</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -334,7 +334,7 @@ function Navbar({ onHome, activeCategory, onCategoryChange }: {
             key={c}
             variant="ghost"
             size="sm"
-            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/40"}`}
+            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/60"}`}
             onClick={() => onCategoryChange(c)}
             data-testid={`button-category-${c.toLowerCase().replace(/\s+/g, "-")}`}
           >
@@ -359,7 +359,7 @@ function ProductCard({ product, onClick }: { product: ProductReport; onClick: ()
       data-testid={`card-${product.id}`}
     >
       <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{product.category}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate">{product.category}</Badge>
         <div className="flex items-center gap-1.5">
           <TrendIcon trend={product.consensusTrend} className="w-3 h-3" />
           <Badge
@@ -367,8 +367,8 @@ function ProductCard({ product, onClick }: { product: ProductReport; onClick: ()
             className={`text-[9px] no-default-hover-elevate ${
               product.consensusLabel.includes("Very") ? "text-emerald-400" :
               product.consensusLabel === "Positive" ? "text-emerald-400/70" :
-              product.consensusLabel.includes("Mixed") ? "text-amber-400/60" :
-              "text-muted-foreground/50"
+              product.consensusLabel.includes("Mixed") ? "text-amber-400/70" :
+              "text-muted-foreground/70"
             }`}
           >
             {product.consensusLabel}
@@ -377,31 +377,31 @@ function ProductCard({ product, onClick }: { product: ProductReport; onClick: ()
       </div>
 
       <h3 className="text-base font-semibold text-foreground mb-1">{product.name}</h3>
-      <p className="text-[11px] text-muted-foreground/40 mb-4">{product.description}</p>
+      <p className="text-[11px] text-muted-foreground/60 mb-4">{product.description}</p>
 
       <div className="flex items-center justify-between gap-4 mb-4">
         <ScoreDisplay score={product.consensusScore} />
-        <span className="text-[10px] text-muted-foreground/30">{product.sources.length} sources</span>
+        <span className="text-[10px] text-muted-foreground/50">{product.sources.length} sources</span>
       </div>
 
       <div className="space-y-1.5">
         {product.sources.slice(0, 3).map((s) => (
           <div key={s.source} className="flex items-center justify-between gap-2">
-            <span className="text-[11px] text-muted-foreground/40 w-24">{s.source}</span>
+            <span className="text-[11px] text-muted-foreground/60 w-24">{s.source}</span>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-foreground/50 font-mono">{s.rating}{s.scale}</span>
+              <span className="text-[11px] text-foreground/70 font-mono">{s.rating}{s.scale}</span>
               <TrendIcon trend={s.trend} className="w-3 h-3" />
             </div>
           </div>
         ))}
         {product.sources.length > 3 && (
-          <span className="text-[10px] text-muted-foreground/25">+ {product.sources.length - 3} more sources</span>
+          <span className="text-[10px] text-muted-foreground/40">+ {product.sources.length - 3} more sources</span>
         )}
       </div>
 
       <div className="mt-4 pt-3 border-t border-border/20 flex items-center justify-between gap-2">
-        <span className="text-[10px] text-muted-foreground/25">Updated {product.updated}</span>
-        <ArrowRight className="w-3 h-3 text-muted-foreground/20" />
+        <span className="text-[10px] text-muted-foreground/40">Updated {product.updated}</span>
+        <ArrowRight className="w-3 h-3 text-muted-foreground/35" />
       </div>
     </div>
   );
@@ -454,13 +454,13 @@ function ProductListPage({
       </div>
 
       <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-8 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <Search className="w-4 h-4 text-muted-foreground/60 shrink-0" />
         <input
           type="text"
           placeholder="Search products..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
           data-testid="input-search"
         />
       </div>
@@ -475,7 +475,7 @@ function ProductListPage({
           ].map((s) => (
             <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
               <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
-              <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+              <div className="text-[10px] text-muted-foreground/60">{s.label}</div>
             </div>
           ))}
         </div>
@@ -489,7 +489,7 @@ function ProductListPage({
 
       {filtered.length === 0 && (
         <div className="text-center py-16">
-          <p className="text-sm text-muted-foreground/40">No products match that query.</p>
+          <p className="text-sm text-muted-foreground/60">No products match that query.</p>
         </div>
       )}
     </div>
@@ -504,23 +504,23 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
 
   return (
     <div className="max-w-4xl mx-auto">
-      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/70 mb-6 flex items-center gap-1" data-testid="button-back">
         <ChevronRight className="w-3 h-3 rotate-180" />
         All reports
       </button>
 
       <div className="flex items-start justify-between gap-6 mb-6 flex-wrap">
         <div>
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">{product.category}</Badge>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate mb-3">{product.category}</Badge>
           <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-product-name">
             {product.name}
           </h1>
           <p className="mt-2 text-sm text-muted-foreground/60">{product.description}</p>
-          <div className="mt-2 flex items-center gap-3 text-[10px] text-muted-foreground/30 flex-wrap">
+          <div className="mt-2 flex items-center gap-3 text-[10px] text-muted-foreground/50 flex-wrap">
             <span>Founded {product.founded}</span>
-            <span className="text-muted-foreground/15">|</span>
+            <span className="text-muted-foreground/25">|</span>
             <span>{product.hq}</span>
-            <span className="text-muted-foreground/15">|</span>
+            <span className="text-muted-foreground/25">|</span>
             <span>Updated {product.updated}</span>
           </div>
         </div>
@@ -534,7 +534,7 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
             className={`text-[9px] no-default-hover-elevate mt-1 ${
               product.consensusLabel.includes("Very") ? "text-emerald-400" :
               product.consensusLabel === "Positive" ? "text-emerald-400/70" :
-              "text-amber-400/60"
+              "text-amber-400/70"
             }`}
           >
             Consensus: {product.consensusLabel}
@@ -543,29 +543,29 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Consensus Verdict</span>
-        <p className="text-sm text-foreground/70 leading-relaxed" data-testid="text-verdict">{product.verdict}</p>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Consensus Verdict</span>
+        <p className="text-sm text-foreground/85 leading-relaxed" data-testid="text-verdict">{product.verdict}</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div className={`rounded-xl border p-5 ${cardClass}`}>
-          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Strengths (consensus)</span>
+          <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Strengths (consensus)</span>
           <div className="space-y-2">
             {product.strengths.map((s) => (
               <div key={s} className="flex items-start gap-2">
-                <Check className="w-3 h-3 text-emerald-400/50 mt-0.5 shrink-0" />
-                <span className="text-[12px] text-foreground/60">{s}</span>
+                <Check className="w-3 h-3 text-emerald-500/70 mt-0.5 shrink-0" />
+                <span className="text-[12px] text-foreground/80">{s}</span>
               </div>
             ))}
           </div>
         </div>
         <div className={`rounded-xl border p-5 ${cardClass}`}>
-          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Weaknesses (consensus)</span>
+          <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Weaknesses (consensus)</span>
           <div className="space-y-2">
             {product.weaknesses.map((w) => (
               <div key={w} className="flex items-start gap-2">
-                <X className="w-3 h-3 text-red-400/40 mt-0.5 shrink-0" />
-                <span className="text-[12px] text-foreground/60">{w}</span>
+                <X className="w-3 h-3 text-red-400/60 mt-0.5 shrink-0" />
+                <span className="text-[12px] text-foreground/80">{w}</span>
               </div>
             ))}
           </div>
@@ -573,23 +573,23 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">Source Breakdown</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-4 block">Source Breakdown</span>
         <div className="overflow-x-auto">
           <table className="w-full text-[12px]">
             <thead>
               <tr className="border-b border-border/30">
-                <th className="text-left pb-3 text-muted-foreground/50 font-medium">Source</th>
-                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Rating</th>
-                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Reviews</th>
-                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Trend</th>
+                <th className="text-left pb-3 text-muted-foreground/70 font-medium">Source</th>
+                <th className="text-center pb-3 text-muted-foreground/70 font-medium">Rating</th>
+                <th className="text-center pb-3 text-muted-foreground/70 font-medium">Reviews</th>
+                <th className="text-center pb-3 text-muted-foreground/70 font-medium">Trend</th>
               </tr>
             </thead>
             <tbody>
               {product.sources.map((s, i) => (
                 <tr key={s.source} className={i < product.sources.length - 1 ? "border-b border-border/10" : ""}>
-                  <td className="py-2.5 text-foreground/60">{s.source}</td>
-                  <td className="py-2.5 text-center text-foreground/50 font-mono">{s.rating} {s.scale}</td>
-                  <td className="py-2.5 text-center text-muted-foreground/40">{s.reviews}</td>
+                  <td className="py-2.5 text-foreground/80">{s.source}</td>
+                  <td className="py-2.5 text-center text-foreground/70 font-mono">{s.rating} {s.scale}</td>
+                  <td className="py-2.5 text-center text-muted-foreground/60">{s.reviews}</td>
                   <td className="py-2.5">
                     <div className="flex justify-center">
                       <TrendIcon trend={s.trend} className="w-3.5 h-3.5" />
@@ -603,58 +603,58 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-4 block">
           What Reviewers Are Saying
         </span>
         <div className="space-y-3">
           {product.sentimentSnippets.map((snippet, i) => (
             <div key={i} className="rounded-lg bg-background/40 px-4 py-3">
               <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                <span className="text-[10px] text-muted-foreground/40 font-medium">{snippet.source}</span>
+                <span className="text-[10px] text-muted-foreground/60 font-medium">{snippet.source}</span>
                 <Badge
                   variant="outline"
                   className={`text-[9px] no-default-hover-elevate ${
-                    snippet.sentiment === "positive" ? "text-emerald-400/60" :
-                    snippet.sentiment === "negative" ? "text-red-400/50" :
-                    "text-muted-foreground/40"
+                    snippet.sentiment === "positive" ? "text-emerald-500/70" :
+                    snippet.sentiment === "negative" ? "text-red-400/65" :
+                    "text-muted-foreground/60"
                   }`}
                 >
                   {snippet.sentiment}
                 </Badge>
               </div>
-              <p className="text-[12px] text-foreground/60 leading-relaxed italic">"{snippet.quote}"</p>
+              <p className="text-[12px] text-foreground/80 leading-relaxed italic">"{snippet.quote}"</p>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
-          <span className="text-muted-foreground/40">GET</span>{" "}
-          <span className="text-foreground/60">reviewradar.com/api/report/{product.id}</span>
+          <span className="text-muted-foreground/60">GET</span>{" "}
+          <span className="text-foreground/80">reviewradar.com/api/report/{product.id}</span>
         </div>
-        <span className="text-[10px] text-muted-foreground/30">Returns structured consensus report with source-by-source breakdown.</span>
+        <span className="text-[10px] text-muted-foreground/50">Returns structured consensus report with source-by-source breakdown.</span>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Structured Output</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Structured Output</span>
         <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
-          <div className="text-foreground/40">{"{"}</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"product"</span>: <span className="text-foreground/50">"{product.name}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"category"</span>: <span className="text-foreground/50">"{product.category}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"consensusScore"</span>: <span className="text-foreground/50">{product.consensusScore}</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"consensusTrend"</span>: <span className="text-foreground/50">"{product.consensusTrend}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"sources"</span>: <span className="text-foreground/50">{product.sources.length}</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"strengths"</span>: [<span className="text-foreground/50">"{product.strengths[0]}", ...</span>],</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"weaknesses"</span>: [<span className="text-foreground/50">"{product.weaknesses[0]}", ...</span>],</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"verdict"</span>: <span className="text-foreground/50">"{product.verdict.slice(0, 70)}..."</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"lastUpdated"</span>: <span className="text-foreground/50">"{product.updated}"</span></div>
-          <div className="text-foreground/40">{"}"}</div>
+          <div className="text-foreground/65">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"product"</span>: <span className="text-foreground/70">"{product.name}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"category"</span>: <span className="text-foreground/70">"{product.category}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"consensusScore"</span>: <span className="text-foreground/70">{product.consensusScore}</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"consensusTrend"</span>: <span className="text-foreground/70">"{product.consensusTrend}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"sources"</span>: <span className="text-foreground/70">{product.sources.length}</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"strengths"</span>: [<span className="text-foreground/70">"{product.strengths[0]}", ...</span>],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"weaknesses"</span>: [<span className="text-foreground/70">"{product.weaknesses[0]}", ...</span>],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"verdict"</span>: <span className="text-foreground/70">"{product.verdict.slice(0, 70)}..."</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"lastUpdated"</span>: <span className="text-foreground/70">"{product.updated}"</span></div>
+          <div className="text-foreground/65">{"}"}</div>
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/30 flex-wrap">
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/50 flex-wrap">
         <span>Aggregated from {product.sources.length} sources | {product.sources.reduce((sum, s) => { const n = parseInt(s.reviews.replace(/[^0-9]/g, "")); return sum + (isNaN(n) ? 0 : n); }, 0).toLocaleString()}+ reviews analyzed</span>
         <span>Last updated {product.updated}</span>
       </div>
@@ -669,45 +669,45 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Radar className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <Radar className="w-3.5 h-3.5 text-muted-foreground/60" />
               <span className="text-sm font-semibold text-foreground">
                 ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
               Consensus review intelligence for B2B software.
             </p>
-            <p className="text-[10px] text-muted-foreground/30 mt-2">
+            <p className="text-[10px] text-muted-foreground/50 mt-2">
               {PRODUCTS.length} products | {CATEGORIES.length - 1} categories
             </p>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Reports</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Reports</span>
             <div className="mt-2 space-y-1.5">
               {["All Reports", "By Category", "Trending"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
             <div className="mt-2 space-y-1.5">
               {["API Documentation", "Methodology", "Data Sources"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
             <div className="mt-2 space-y-1.5">
               {["About", "Contact", "Privacy Policy"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] text-muted-foreground/25">
+        <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] text-muted-foreground/40">
           <span>No sponsored rankings</span>
           <span className="text-muted-foreground/10">|</span>
           <span>All sources cited</span>
@@ -719,10 +719,10 @@ function Footer() {
 
         <div className="mt-6 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
-            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+            <p className="text-[10px] text-muted-foreground/50">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/50">Land O' Lakes, Florida</p>
           </div>
-          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
+          <p className="text-[10px] text-muted-foreground/35">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>

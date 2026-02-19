@@ -271,9 +271,9 @@ function Navbar({ onHome }: { onHome: () => void }) {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-topics">Topics</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-api">API</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-submit">Submit</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-topics">Topics</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-api">API</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-submit">Submit</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -313,7 +313,7 @@ function TopicListPage({
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-10">
-        <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">Structured FAQ Hub</span>
+        <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">Structured FAQ Hub</span>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mt-1" data-testid="text-page-title">
           AnswerStack
         </h1>
@@ -323,13 +323,13 @@ function TopicListPage({
       </div>
 
       <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-10 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <Search className="w-4 h-4 text-muted-foreground/60 shrink-0" />
         <input
           type="text"
           placeholder="Search questions, answers, or entities..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
           data-testid="input-search"
         />
       </div>
@@ -342,7 +342,7 @@ function TopicListPage({
               <FaqCard key={faq.id} faq={faq} onClick={() => onSelectFaq(faq.topicId, faq.id)} />
             ))}
             {filteredFaqs.length === 0 && (
-              <p className="text-sm text-muted-foreground/40 py-8 text-center">No answers match that query.</p>
+              <p className="text-sm text-muted-foreground/60 py-8 text-center">No answers match that query.</p>
             )}
           </div>
         </div>
@@ -357,7 +357,7 @@ function TopicListPage({
             ].map((s) => (
               <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
                 <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
-                <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+                <div className="text-[10px] text-muted-foreground/60">{s.label}</div>
               </div>
             ))}
           </div>
@@ -383,23 +383,23 @@ function TopicListPage({
                 >
                   <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
                     <h3 className="text-sm font-semibold text-foreground">{topic.title}</h3>
-                    <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{topic.entryCount}</Badge>
+                    <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{topic.entryCount}</Badge>
                   </div>
-                  <p className="text-[11px] text-muted-foreground/40 mb-3 leading-relaxed">{topic.description}</p>
+                  <p className="text-[11px] text-muted-foreground/60 mb-3 leading-relaxed">{topic.description}</p>
                   <div className="space-y-1.5">
                     {topic.faqs.slice(0, 2).map((f) => (
                       <div key={f.id} className="flex items-start gap-2">
-                        <MessageSquare className="w-3 h-3 text-muted-foreground/25 mt-0.5 shrink-0" />
-                        <span className="text-[11px] text-foreground/50 line-clamp-1">{f.question}</span>
+                        <MessageSquare className="w-3 h-3 text-muted-foreground/40 mt-0.5 shrink-0" />
+                        <span className="text-[11px] text-foreground/70 line-clamp-1">{f.question}</span>
                       </div>
                     ))}
                     {topic.faqs.length > 2 && (
-                      <span className="text-[10px] text-muted-foreground/30 pl-5">+ {topic.faqs.length - 2} more</span>
+                      <span className="text-[10px] text-muted-foreground/50 pl-5">+ {topic.faqs.length - 2} more</span>
                     )}
                   </div>
                   <div className="mt-3 pt-3 border-t border-border/20 flex items-center gap-2">
-                    <Globe className="w-3 h-3 text-muted-foreground/25" />
-                    <span className="text-[10px] text-muted-foreground/30 font-mono">{topic.site}</span>
+                    <Globe className="w-3 h-3 text-muted-foreground/40" />
+                    <span className="text-[10px] text-muted-foreground/50 font-mono">{topic.site}</span>
                   </div>
                 </div>
               ))}
@@ -414,10 +414,10 @@ function TopicListPage({
 function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
   return (
     <div className="flex items-center gap-2">
-      <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
-      <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">{label}</span>
+      <Icon className="w-3.5 h-3.5 text-muted-foreground/60" />
+      <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">{label}</span>
       {count !== undefined && (
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{count}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{count}</Badge>
       )}
     </div>
   );
@@ -436,23 +436,23 @@ function FaqCard({ faq, onClick }: { faq: FaqEntry & { topicTitle?: string }; on
       data-testid={`faq-card-${faq.id}`}
     >
       <div className="flex items-start gap-3">
-        <MessageSquare className="w-4 h-4 text-muted-foreground/30 mt-0.5 shrink-0" />
+        <MessageSquare className="w-4 h-4 text-muted-foreground/50 mt-0.5 shrink-0" />
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-semibold text-foreground mb-1">{faq.question}</h3>
-          <p className="text-[11px] text-muted-foreground/50 line-clamp-2 leading-relaxed">{faq.answer}</p>
+          <p className="text-[11px] text-muted-foreground/70 line-clamp-2 leading-relaxed">{faq.answer}</p>
           <div className="mt-2.5 flex items-center gap-3 flex-wrap">
             <div className="flex items-center gap-1.5">
               {faq.linkedEntities.slice(0, 3).map((e) => (
-                <Badge key={e.name} variant="outline" className="text-[9px] text-emerald-400/60 no-default-hover-elevate">{e.name}</Badge>
+                <Badge key={e.name} variant="outline" className="text-[9px] text-emerald-500/70 no-default-hover-elevate">{e.name}</Badge>
               ))}
               {faq.linkedEntities.length > 3 && (
-                <span className="text-[9px] text-muted-foreground/30">+{faq.linkedEntities.length - 3}</span>
+                <span className="text-[9px] text-muted-foreground/50">+{faq.linkedEntities.length - 3}</span>
               )}
             </div>
-            <span className="text-[10px] text-muted-foreground/25">{faq.updated}</span>
+            <span className="text-[10px] text-muted-foreground/40">{faq.updated}</span>
           </div>
         </div>
-        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/20 shrink-0 mt-1" />
+        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/35 shrink-0 mt-1" />
       </div>
     </div>
   );
@@ -482,25 +482,25 @@ function TopicDetailPage({
 
   return (
     <div className="max-w-4xl mx-auto">
-      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/70 mb-6 flex items-center gap-1" data-testid="button-back">
         <ChevronRight className="w-3 h-3 rotate-180" />
         All topics
       </button>
 
       <div className="mb-8">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate mb-3">
           {topic.entryCount} answers
         </Badge>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-topic-title">
           {topic.title}
         </h1>
         <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">{topic.description}</p>
-        <div className="mt-3 flex items-center gap-3 text-[10px] text-muted-foreground/30">
+        <div className="mt-3 flex items-center gap-3 text-[10px] text-muted-foreground/50">
           <div className="flex items-center gap-1">
             <Globe className="w-3 h-3" />
             <span className="font-mono">{topic.site}</span>
           </div>
-          <span className="text-muted-foreground/15">|</span>
+          <span className="text-muted-foreground/25">|</span>
           <span>Updated {topic.lastUpdated}</span>
         </div>
       </div>
@@ -532,27 +532,27 @@ function FaqDetailView({
 
   return (
     <div className="max-w-4xl mx-auto">
-      <div className="flex items-center gap-1 text-[11px] text-muted-foreground/40 mb-6">
+      <div className="flex items-center gap-1 text-[11px] text-muted-foreground/60 mb-6">
         <button onClick={onBackToTopics} className="hover:text-muted-foreground transition-colors">Topics</button>
         <ChevronRight className="w-3 h-3" />
         <button onClick={onBack} className="hover:text-muted-foreground transition-colors">{topic.title}</button>
         <ChevronRight className="w-3 h-3" />
-        <span className="text-foreground/50 truncate max-w-[200px]">Answer</span>
+        <span className="text-foreground/70 truncate max-w-[200px]">Answer</span>
       </div>
 
       <div className="mb-8">
         <div className="flex items-center gap-2 mb-3">
-          <MessageSquare className="w-4 h-4 text-muted-foreground/40" />
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">Question</Badge>
+          <MessageSquare className="w-4 h-4 text-muted-foreground/60" />
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate">Question</Badge>
         </div>
         <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-faq-question">
           {faq.question}
         </h1>
-        <div className="mt-3 flex items-center gap-4 flex-wrap text-[11px] text-muted-foreground/40">
+        <div className="mt-3 flex items-center gap-4 flex-wrap text-[11px] text-muted-foreground/60">
           <div className="flex items-center gap-1.5">
             <User className="w-3 h-3" />
             <span>{faq.author}</span>
-            <span className="text-muted-foreground/20">|</span>
+            <span className="text-muted-foreground/35">|</span>
             <span>{faq.authorRole}</span>
           </div>
           <div className="flex items-center gap-1.5">
@@ -564,79 +564,79 @@ function FaqDetailView({
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
         <div className="flex items-center gap-2 mb-3">
-          <BookOpen className="w-3.5 h-3.5 text-emerald-400/50" />
-          <span className="text-[10px] text-emerald-400/50 uppercase tracking-[0.12em] font-medium">Answer</span>
+          <BookOpen className="w-3.5 h-3.5 text-emerald-500/70" />
+          <span className="text-[10px] text-emerald-500/70 uppercase tracking-[0.12em] font-medium">Answer</span>
         </div>
-        <p className="text-sm text-foreground/70 leading-relaxed" data-testid="text-faq-answer">
+        <p className="text-sm text-foreground/85 leading-relaxed" data-testid="text-faq-answer">
           {faq.answer}
         </p>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Database className="w-3.5 h-3.5 text-emerald-400/50" />
-          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Linked Entities</span>
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{faq.linkedEntities.length}</Badge>
+          <Database className="w-3.5 h-3.5 text-emerald-500/70" />
+          <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">Linked Entities</span>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{faq.linkedEntities.length}</Badge>
         </div>
         <div className="space-y-2.5">
           {faq.linkedEntities.map((entity) => (
             <div key={entity.name} className="rounded-lg bg-background/40 px-4 py-3">
               <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
                 <span className="text-sm font-semibold text-foreground">{entity.name}</span>
-                <span className="text-[10px] text-emerald-400/50 font-mono">entities.org/entity/{entity.id}</span>
+                <span className="text-[10px] text-emerald-500/70 font-mono">entities.org/entity/{entity.id}</span>
               </div>
-              <p className="text-[11px] text-muted-foreground/50">{entity.fact}</p>
+              <p className="text-[11px] text-muted-foreground/70">{entity.fact}</p>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Sources</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Sources</span>
         <div className="space-y-1.5">
           {faq.sources.map((src) => (
             <div key={src} className="flex items-center gap-2">
-              <Link2 className="w-3 h-3 text-muted-foreground/30 shrink-0" />
-              <span className="text-[11px] text-muted-foreground/40 font-mono">{src}</span>
+              <Link2 className="w-3 h-3 text-muted-foreground/50 shrink-0" />
+              <span className="text-[11px] text-muted-foreground/60 font-mono">{src}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">FAQPage Schema Output</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">FAQPage Schema Output</span>
         <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
-          <div className="text-foreground/40">{"{"}</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"FAQPage"</span>,</div>
+          <div className="text-foreground/65">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/70">"https://schema.org"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"FAQPage"</span>,</div>
           <div className="pl-3"><span className="text-emerald-400/70">"mainEntity"</span>: [{"{"}</div>
-          <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Question"</span>,</div>
-          <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"{faq.question}"</span>,</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Question"</span>,</div>
+          <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"{faq.question}"</span>,</div>
           <div className="pl-6"><span className="text-emerald-400/70">"acceptedAnswer"</span>: {"{"}</div>
-          <div className="pl-9"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Answer"</span>,</div>
-          <div className="pl-9"><span className="text-emerald-400/70">"text"</span>: <span className="text-foreground/50">"{faq.answer.slice(0, 80)}..."</span>,</div>
-          <div className="pl-9"><span className="text-emerald-400/70">"author"</span>: {"{"} <span className="text-foreground/50">"@type": "Person", "name": "{faq.author}"</span> {"},"}</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Answer"</span>,</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"text"</span>: <span className="text-foreground/70">"{faq.answer.slice(0, 80)}..."</span>,</div>
+          <div className="pl-9"><span className="text-emerald-400/70">"author"</span>: {"{"} <span className="text-foreground/70">"@type": "Person", "name": "{faq.author}"</span> {"},"}</div>
           <div className="pl-9"><span className="text-emerald-400/70">"about"</span>: [</div>
           {faq.linkedEntities.map((e, i) => (
             <div key={e.name} className="pl-12">
-              <span className="text-foreground/50">{"{"} "@type": "Organization", "name": "{e.name}", "sameAs": "entities.org/entity/{e.id}" {"}"}{i < faq.linkedEntities.length - 1 ? "," : ""}</span>
+              <span className="text-foreground/70">{"{"} "@type": "Organization", "name": "{e.name}", "sameAs": "entities.org/entity/{e.id}" {"}"}{i < faq.linkedEntities.length - 1 ? "," : ""}</span>
             </div>
           ))}
           <div className="pl-9">]</div>
           <div className="pl-6">{"},"}</div>
-          <div className="pl-6"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"{faq.updated}"</span></div>
+          <div className="pl-6"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/70">"{faq.updated}"</span></div>
           <div className="pl-3">{"}]"}</div>
-          <div className="text-foreground/40">{"}"}</div>
+          <div className="text-foreground/65">{"}"}</div>
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
-          <span className="text-muted-foreground/40">GET</span>{" "}
-          <span className="text-foreground/60">answerstack.com/api/faq/{faq.id}</span>
+          <span className="text-muted-foreground/60">GET</span>{" "}
+          <span className="text-foreground/80">answerstack.com/api/faq/{faq.id}</span>
         </div>
-        <span className="text-[10px] text-muted-foreground/30">Returns structured FAQPage JSON-LD with linked entity references.</span>
+        <span className="text-[10px] text-muted-foreground/50">Returns structured FAQPage JSON-LD with linked entity references.</span>
       </div>
     </div>
   );
@@ -649,39 +649,39 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Layers className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <Layers className="w-3.5 h-3.5 text-muted-foreground/60" />
               <span className="text-sm font-semibold text-foreground">
                 AnswerStack<span className="font-normal text-muted-foreground">.com</span>
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
               Structured FAQ hub powered by Entities.org.
             </p>
-            <p className="text-[10px] text-muted-foreground/30 mt-2">
+            <p className="text-[10px] text-muted-foreground/50 mt-2">
               Every answer linked to verified entity data.
             </p>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Hub</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Hub</span>
             <div className="mt-2 space-y-1.5">
               {["All Topics", "Recent Answers", "Submit FAQ"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
             <div className="mt-2 space-y-1.5">
               {["API Documentation", "Entities.org", "Schema Spec"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
             <div className="mt-2 space-y-1.5">
               {["About", "Contact", "Privacy Policy"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
@@ -689,10 +689,10 @@ function Footer() {
 
         <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
-            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+            <p className="text-[10px] text-muted-foreground/50">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/50">Land O' Lakes, Florida</p>
           </div>
-          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
+          <p className="text-[10px] text-muted-foreground/35">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>

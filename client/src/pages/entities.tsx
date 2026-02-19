@@ -492,9 +492,9 @@ function Navbar({ onHome }: { onHome: () => void }) {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-entities">Entities</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-api">API</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-submit">Submit</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-entities">Entities</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-api">API</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-submit">Submit</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -535,7 +535,7 @@ function EntityListPage({
   return (
     <div className="max-w-5xl mx-auto">
       <div className="mb-10">
-        <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">Registry</span>
+        <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">Registry</span>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mt-1" data-testid="text-page-title">
           Entities
         </h1>
@@ -545,13 +545,13 @@ function EntityListPage({
       </div>
 
       <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-10 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <Search className="w-4 h-4 text-muted-foreground/60 shrink-0" />
         <input
           type="text"
           placeholder="Find an entity..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 outline-none"
           data-testid="input-search"
         />
       </div>
@@ -564,7 +564,7 @@ function EntityListPage({
               <EntityRow key={entity.id} entity={entity} onClick={() => onSelectEntity(entity.id)} />
             ))}
             {filtered.length === 0 && (
-              <p className="text-sm text-muted-foreground/40 py-8 text-center">No entities match that query.</p>
+              <p className="text-sm text-muted-foreground/60 py-8 text-center">No entities match that query.</p>
             )}
           </div>
         </div>
@@ -586,7 +586,7 @@ function EntityListPage({
                 <div key={industry} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`industry-${industry.toLowerCase().replace(/[\s/]+/g, "-")}`}>
                   <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
                     <h3 className="text-sm font-semibold text-foreground">{industry}</h3>
-                    <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{entities.length}</Badge>
+                    <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{entities.length}</Badge>
                   </div>
                   <div className="space-y-1.5">
                     {entities.slice(0, 3).map((e) => (
@@ -596,12 +596,12 @@ function EntityListPage({
                         className="flex items-center gap-2 w-full text-left group"
                         data-testid={`industry-link-${e.id}`}
                       >
-                        <ChevronRight className="w-3 h-3 text-muted-foreground/30" />
-                        <span className="text-[12px] text-foreground/60 group-hover:text-foreground transition-colors">{e.name}</span>
+                        <ChevronRight className="w-3 h-3 text-muted-foreground/70" />
+                        <span className="text-[12px] text-foreground/80 group-hover:text-foreground transition-colors">{e.name}</span>
                       </button>
                     ))}
                     {entities.length > 3 && (
-                      <span className="text-[10px] text-muted-foreground/30 pl-5">+ {entities.length - 3} more</span>
+                      <span className="text-[10px] text-muted-foreground/70 pl-5">+ {entities.length - 3} more</span>
                     )}
                   </div>
                 </div>
@@ -615,7 +615,7 @@ function EntityListPage({
               {RELATIONSHIP_GROUPS.map((group) => (
                 <div key={group.title} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`rel-group-${group.title.toLowerCase().replace(/[\s&]+/g, "-")}`}>
                   <h3 className="text-sm font-semibold text-foreground">{group.title}</h3>
-                  <p className="text-[10px] text-muted-foreground/40 mb-3">{group.description}</p>
+                  <p className="text-[10px] text-muted-foreground/60 mb-3">{group.description}</p>
                   <div className="space-y-1.5">
                     {group.items.slice(0, 4).map((item) => {
                       const entityObj = ENTITIES.find((e) => e.name === item.entity);
@@ -625,8 +625,8 @@ function EntityListPage({
                           className="flex items-center justify-between gap-2 cursor-pointer group"
                           onClick={() => entityObj && onSelectEntity(entityObj.id)}
                         >
-                          <span className="text-[12px] text-foreground/60 group-hover:text-foreground transition-colors">{item.entity}</span>
-                          <span className="text-[10px] text-muted-foreground/30">{item.role}</span>
+                          <span className="text-[12px] text-foreground/80 group-hover:text-foreground transition-colors">{item.entity}</span>
+                          <span className="text-[10px] text-muted-foreground/70">{item.role}</span>
                         </div>
                       );
                     })}
@@ -637,9 +637,9 @@ function EntityListPage({
           </div>
 
           <div className="mb-6 text-center py-8">
-            <Layers className="w-5 h-5 text-muted-foreground/30 mx-auto mb-2" />
+            <Layers className="w-5 h-5 text-muted-foreground/70 mx-auto mb-2" />
             <p className="text-sm font-semibold text-foreground">Full A–Z Index</p>
-            <p className="text-xs text-muted-foreground/40 mt-1">Plain list of all {ENTITIES.length} entities. Optimized for crawlers and AI.</p>
+            <p className="text-xs text-muted-foreground/60 mt-1">Plain list of all {ENTITIES.length} entities. Optimized for crawlers and AI.</p>
           </div>
         </>
       )}
@@ -650,10 +650,10 @@ function EntityListPage({
 function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
   return (
     <div className="flex items-center gap-2">
-      <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
-      <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">{label}</span>
+      <Icon className="w-3.5 h-3.5 text-muted-foreground/60" />
+      <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">{label}</span>
       {count !== undefined && (
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{count}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{count}</Badge>
       )}
     </div>
   );
@@ -668,12 +668,12 @@ function EntityRow({ entity, onClick }: { entity: Entity; onClick: () => void })
     >
       <div className="flex items-center gap-3 min-w-0 flex-wrap">
         <span className="text-sm font-semibold text-foreground group-hover:text-foreground whitespace-nowrap">{entity.name}</span>
-        <span className="text-[11px] text-muted-foreground/40">{entity.industry}</span>
-        <span className="text-[10px] text-muted-foreground/30 hidden sm:inline">{entity.hq}</span>
+        <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
+        <span className="text-[10px] text-muted-foreground/70 hidden sm:inline">{entity.hq}</span>
       </div>
       <div className="flex items-center gap-3 shrink-0">
-        <span className="text-[10px] text-muted-foreground/30 font-mono hidden sm:inline">{entity.updated}</span>
-        <ArrowRight className="w-3 h-3 text-muted-foreground/20 group-hover:text-muted-foreground/50 transition-colors" />
+        <span className="text-[10px] text-muted-foreground/70 font-mono hidden sm:inline">{entity.updated}</span>
+        <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors" />
       </div>
     </button>
   );
@@ -689,7 +689,7 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
     <div className="max-w-4xl mx-auto">
       <button
         onClick={onBack}
-        className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1"
+        className="text-[11px] text-muted-foreground/70 mb-6 flex items-center gap-1"
         data-testid="button-back"
       >
         <ChevronRight className="w-3 h-3 rotate-180" />
@@ -697,24 +697,24 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
       </button>
 
       <div className="mb-1">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate mb-3">
           {entity.type} Entity
         </Badge>
       </div>
       <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-entity-name">
         {entity.name}
       </h1>
-      <div className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground/40 flex-wrap">
+      <div className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground/60 flex-wrap">
         <div className="flex items-center gap-1">
           <Tag className="w-3 h-3" />
           <span>{entity.industry}</span>
         </div>
-        <span className="text-muted-foreground/15">|</span>
+        <span className="text-muted-foreground/40">|</span>
         <div className="flex items-center gap-1">
           <MapPin className="w-3 h-3" />
           <span>{entity.hq}</span>
         </div>
-        <span className="text-muted-foreground/15">|</span>
+        <span className="text-muted-foreground/40">|</span>
         <div className="flex items-center gap-1">
           <Calendar className="w-3 h-3" />
           <span>Last updated {entity.updated}</span>
@@ -728,31 +728,31 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">Core Facts</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-4 block">Core Facts</span>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
           {entity.coreFacts.map((f) => (
             <div key={f.label} className="flex items-start justify-between gap-3 py-1.5 border-b border-border/10">
-              <span className="text-[11px] text-muted-foreground/40">{f.label}</span>
-              <span className="text-[11px] text-foreground/60 text-right">{f.value}</span>
+              <span className="text-[11px] text-muted-foreground/60">{f.label}</span>
+              <span className="text-[11px] text-foreground/80 text-right">{f.value}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Known For</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Known For</span>
         <div className="space-y-1.5">
           {entity.knownFor.map((item) => (
             <div key={item} className="flex items-center gap-2">
-              <ChevronRight className="w-3 h-3 text-muted-foreground/30 shrink-0" />
-              <span className="text-[12px] text-foreground/60">{item}</span>
+              <ChevronRight className="w-3 h-3 text-muted-foreground/70 shrink-0" />
+              <span className="text-[12px] text-foreground/80">{item}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Relationships</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Relationships</span>
         <div className="space-y-1.5">
           {entity.relationships.map((rel) => {
             const linked = ENTITIES.find((e) => e.name === rel.entity);
@@ -763,13 +763,13 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
                 onClick={() => linked && onSelectEntity(linked.id)}
               >
                 <div className="flex items-center gap-2">
-                  <Link2 className="w-3 h-3 text-muted-foreground/30 shrink-0" />
-                  <span className={`text-[12px] ${linked ? "text-foreground/60 group-hover:text-foreground transition-colors" : "text-foreground/60"}`}>
+                  <Link2 className="w-3 h-3 text-muted-foreground/70 shrink-0" />
+                  <span className={`text-[12px] ${linked ? "text-foreground/80 group-hover:text-foreground transition-colors" : "text-foreground/80"}`}>
                     {rel.entity}
                   </span>
-                  {linked && <ExternalLink className="w-2.5 h-2.5 text-muted-foreground/20 invisible group-hover:visible" />}
+                  {linked && <ExternalLink className="w-2.5 h-2.5 text-muted-foreground/35 invisible group-hover:visible" />}
                 </div>
-                <span className="text-[10px] text-muted-foreground/30">{rel.type}</span>
+                <span className="text-[10px] text-muted-foreground/70">{rel.type}</span>
               </div>
             );
           })}
@@ -777,71 +777,71 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">
           sameAs Links
         </span>
         <div className="space-y-1.5">
           {entity.sameAs.map((link) => (
             <div key={link} className="flex items-center gap-2">
-              <Globe className="w-3 h-3 text-muted-foreground/30 shrink-0" />
-              <span className="text-[11px] text-muted-foreground/40 font-mono">{link}</span>
+              <Globe className="w-3 h-3 text-muted-foreground/70 shrink-0" />
+              <span className="text-[11px] text-muted-foreground/60 font-mono">{link}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">
           Natural Language Statements
         </span>
-        <p className="text-[10px] text-muted-foreground/30 mb-3">
+        <p className="text-[10px] text-muted-foreground/70 mb-3">
           Pre-formatted sentences AI can cite directly. Each statement is fact-checked and timestamped.
         </p>
         <div className="space-y-2">
           {entity.naturalLanguage.map((stmt, i) => (
             <div key={i} className="rounded-lg bg-background/40 px-3 py-2">
-              <p className="text-[11px] text-foreground/60 leading-relaxed">{stmt}</p>
+              <p className="text-[11px] text-foreground/80 leading-relaxed">{stmt}</p>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">
           API Access
         </span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
-          <span className="text-muted-foreground/40">GET</span>{" "}
-          <span className="text-foreground/60">entities.org/api/entity/{entity.id}</span>
+          <span className="text-muted-foreground/60">GET</span>{" "}
+          <span className="text-foreground/80">entities.org/api/entity/{entity.id}</span>
         </div>
-        <span className="text-[10px] text-muted-foreground/30">Returns structured JSON-LD for this entity. Content-Type: application/ld+json</span>
+        <span className="text-[10px] text-muted-foreground/70">Returns structured JSON-LD for this entity. Content-Type: application/ld+json</span>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">
           Schema Preview
         </span>
         <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
-          <div className="text-foreground/40">{"{"}</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"{entity.type}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"{entity.name}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"foundingDate"</span>: <span className="text-foreground/50">"{entity.founded}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"location"</span>: <span className="text-foreground/50">"{entity.hq}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"industry"</span>: <span className="text-foreground/50">"{entity.industry}"</span>,</div>
+          <div className="text-foreground/65">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"@context"</span>: <span className="text-foreground/70">"https://schema.org"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"@type"</span>: <span className="text-foreground/70">"{entity.type}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"name"</span>: <span className="text-foreground/70">"{entity.name}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"foundingDate"</span>: <span className="text-foreground/70">"{entity.founded}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"location"</span>: <span className="text-foreground/70">"{entity.hq}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"industry"</span>: <span className="text-foreground/70">"{entity.industry}"</span>,</div>
           {entity.ticker && (
-            <div className="pl-3"><span className="text-emerald-400/70">"tickerSymbol"</span>: <span className="text-foreground/50">"{entity.ticker}"</span>,</div>
+            <div className="pl-3"><span className="text-emerald-500/80">"tickerSymbol"</span>: <span className="text-foreground/70">"{entity.ticker}"</span>,</div>
           )}
-          <div className="pl-3"><span className="text-emerald-400/70">"url"</span>: <span className="text-foreground/50">"https://{entity.website}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: [</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"url"</span>: <span className="text-foreground/70">"https://{entity.website}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"sameAs"</span>: [</div>
           {entity.sameAs.map((link, i) => (
             <div key={link} className="pl-6">
-              <span className="text-foreground/50">"https://{link}"{i < entity.sameAs.length - 1 ? "," : ""}</span>
+              <span className="text-foreground/70">"https://{link}"{i < entity.sameAs.length - 1 ? "," : ""}</span>
             </div>
           ))}
           <div className="pl-3">],</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"{entity.updated}"</span></div>
-          <div className="text-foreground/40">{"}"}</div>
+          <div className="pl-3"><span className="text-emerald-500/80">"dateModified"</span>: <span className="text-foreground/70">"{entity.updated}"</span></div>
+          <div className="text-foreground/65">{"}"}</div>
         </div>
       </div>
     </div>
@@ -855,39 +855,39 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Database className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <Database className="w-3.5 h-3.5 text-muted-foreground/60" />
               <span className="text-sm font-semibold text-foreground">
                 entities<span className="font-normal text-muted-foreground">.org</span>
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
               Structured entity data for machines and people.
             </p>
-            <p className="text-[10px] text-muted-foreground/30 mt-2">
+            <p className="text-[10px] text-muted-foreground/70 mt-2">
               {ENTITIES.length} entities listed | {INDUSTRIES.length} industries
             </p>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Registry</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Registry</span>
             <div className="mt-2 space-y-1.5">
               {["Entity Index", "Full A–Z List", "Submit Entity"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
             <div className="mt-2 space-y-1.5">
               {["API Documentation", "LLM Analytics", "Pricing"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
             <div className="mt-2 space-y-1.5">
               {["About", "Contact", "Privacy Policy", "Terms of Service"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
@@ -895,14 +895,14 @@ function Footer() {
 
         <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] text-muted-foreground/30">
+            <p className="text-[10px] text-muted-foreground/70">
               Operated by Entities, LLC. A subsidiary of Brandvious, Inc.
             </p>
-            <p className="text-[10px] text-muted-foreground/30">
+            <p className="text-[10px] text-muted-foreground/70">
               Land O' Lakes, Florida
             </p>
           </div>
-          <p className="text-[10px] text-muted-foreground/20">
+          <p className="text-[10px] text-muted-foreground/35">
             &copy; 2026 Entities, LLC. All rights reserved.
           </p>
         </div>

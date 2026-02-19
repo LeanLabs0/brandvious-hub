@@ -113,7 +113,7 @@ function Hero() {
         </div>
       </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/70">
         <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
       </div>
     </section>
@@ -134,28 +134,28 @@ function HeroSchemaCard() {
       <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Valid JSON-LD</Badge>
-          <span className="text-[10px] text-emerald-400/60 font-mono">32 lines</span>
+          <span className="text-[10px] text-emerald-500/70 font-mono">32 lines</span>
         </div>
       </div>
       <div className="rounded-lg bg-background/40 p-3 font-mono text-[11px] leading-relaxed space-y-0.5">
-        <div className="text-foreground/50">{"{"}</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"schema.org"</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"YourCompany"</span>,</div>
+        <div className="text-foreground/70">{"{"}</div>
+        <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/70">"schema.org"</span>,</div>
+        <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Organization"</span>,</div>
+        <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"YourCompany"</span>,</div>
         <div className="pl-3"><span className="text-emerald-400/70">"founder"</span>: {"{"}</div>
-        <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Person"</span>,</div>
-        <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Jane Smith"</span></div>
+        <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Person"</span>,</div>
+        <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"Jane Smith"</span></div>
         <div className="pl-3">{"},"}</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"makesOffer"</span>: <span className="text-foreground/40">[...]</span>,</div>
-        <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: <span className="text-foreground/40">[LinkedIn, Crunchbase]</span></div>
-        <div className="text-foreground/50">{"}"}</div>
+        <div className="pl-3"><span className="text-emerald-400/70">"makesOffer"</span>: <span className="text-foreground/65">[...]</span>,</div>
+        <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: <span className="text-foreground/65">[LinkedIn, Crunchbase]</span></div>
+        <div className="text-foreground/70">{"}"}</div>
       </div>
       <div className="mt-3 flex items-center gap-3 flex-wrap">
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-muted-foreground/40">10 entities</span>
+          <span className="text-[10px] text-muted-foreground/60">10 entities</span>
         </div>
         <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-muted-foreground/40">12 relationships</span>
+          <span className="text-[10px] text-muted-foreground/60">12 relationships</span>
         </div>
       </div>
     </div>
@@ -226,7 +226,7 @@ function ProblemSection() {
                 </div>
                 <h3 className="text-sm font-semibold text-foreground mb-2">{p.title}</h3>
                 <p className="text-xs leading-relaxed text-muted-foreground/60 mb-3">{p.description}</p>
-                <span className="text-[10px] font-mono text-muted-foreground/40 italic">{p.detail}</span>
+                <span className="text-[10px] font-mono text-muted-foreground/60 italic">{p.detail}</span>
               </div>
             );
           })}
@@ -258,25 +258,25 @@ function ComparisonSection() {
                 : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
             }`}
           >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Without SchemaRocket</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Without SchemaRocket</span>
             <div className="mt-4 space-y-3">
               <div className="rounded-lg bg-background/40 px-3 py-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI crawls page</span>
+                  <Bot className="w-3 h-3 text-muted-foreground/70" />
+                  <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">AI crawls page</span>
                 </div>
-                <div className="text-[11px] text-foreground/50 font-mono mt-1">Found: title, body text, meta</div>
-                <div className="text-[11px] text-muted-foreground/40 font-mono">No schema. No entities. No graph.</div>
+                <div className="text-[11px] text-foreground/70 font-mono mt-1">Found: title, body text, meta</div>
+                <div className="text-[11px] text-muted-foreground/60 font-mono">No schema. No entities. No graph.</div>
               </div>
               <div className="rounded-lg bg-background/40 px-3 py-2.5">
                 <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
+                  <MessageSquare className="w-3 h-3 text-muted-foreground/70" />
+                  <span className="text-[10px] text-muted-foreground/70">AI Response</span>
                 </div>
-                <p className="text-[11px] text-foreground/50 italic">
+                <p className="text-[11px] text-foreground/70 italic">
                   "Top agencies include Vajra Global, Orange Marketing, Holland Adhaus..."
                 </p>
-                <p className="text-[10px] text-muted-foreground/40 mt-1">Your company is not mentioned.</p>
+                <p className="text-[10px] text-muted-foreground/60 mt-1">Your company is not mentioned.</p>
               </div>
             </div>
           </div>
@@ -288,31 +288,31 @@ function ComparisonSection() {
                 : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
             }`}
           >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium">With SchemaRocket</span>
+            <span className="text-[10px] text-emerald-500/70 uppercase tracking-wider font-medium">With SchemaRocket</span>
             <div className="mt-4 space-y-3">
               <div className="rounded-lg bg-background/40 px-3 py-2">
                 <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI crawls page</span>
+                  <Bot className="w-3 h-3 text-emerald-500/70" />
+                  <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">AI crawls page</span>
                 </div>
-                <div className="text-[11px] text-foreground/60 font-mono mt-1">Found: Organization, Service, SameAs, Rating</div>
-                <div className="text-[11px] text-emerald-400/60 font-mono">Full entity graph detected.</div>
+                <div className="text-[11px] text-foreground/80 font-mono mt-1">Found: Organization, Service, SameAs, Rating</div>
+                <div className="text-[11px] text-emerald-500/70 font-mono">Full entity graph detected.</div>
               </div>
               <div className="rounded-lg bg-background/40 px-3 py-2.5">
                 <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
+                  <MessageSquare className="w-3 h-3 text-emerald-500/70" />
+                  <span className="text-[10px] text-muted-foreground/70">AI Response</span>
                 </div>
-                <p className="text-[11px] text-foreground/70">
+                <p className="text-[11px] text-foreground/85">
                   "Top agencies include Lean Labs (Diamond Partner, Tampa FL — AEO + lead gen for SaaS, $100M+ attributed revenue)..."
                 </p>
-                <p className="text-[10px] text-emerald-400/50 mt-1">Your company is cited with specifics.</p>
+                <p className="text-[10px] text-emerald-500/70 mt-1">Your company is cited with specifics.</p>
               </div>
             </div>
           </div>
         </div>
 
-        <p className="mt-6 text-xs text-muted-foreground/50 max-w-lg">
+        <p className="mt-6 text-xs text-muted-foreground/70 max-w-lg">
           AI doesn't guess. It looks for structured proof. Without it, you're invisible — not because your content is bad, but because it's unparseable.
         </p>
       </div>
@@ -411,14 +411,14 @@ function OtherToolsComparison() {
                 : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
             }`}
           >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-4 block">Other tools</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium mb-4 block">Other tools</span>
             <div className="space-y-3">
               {otherSteps.map((s) => (
                 <div key={s.step} className="flex items-start gap-3">
-                  <span className="text-[10px] font-mono text-muted-foreground/40 mt-0.5 shrink-0">{s.step}</span>
+                  <span className="text-[10px] font-mono text-muted-foreground/60 mt-0.5 shrink-0">{s.step}</span>
                   <div>
-                    <p className="text-[11px] text-foreground/60">{s.text}</p>
-                    <p className="text-[10px] text-muted-foreground/40 italic">{s.note}</p>
+                    <p className="text-[11px] text-foreground/80">{s.text}</p>
+                    <p className="text-[10px] text-muted-foreground/60 italic">{s.note}</p>
                   </div>
                 </div>
               ))}
@@ -432,19 +432,19 @@ function OtherToolsComparison() {
                 : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
             }`}
           >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium mb-4 block">SchemaRocket</span>
+            <span className="text-[10px] text-emerald-500/70 uppercase tracking-wider font-medium mb-4 block">SchemaRocket</span>
             <div className="space-y-3">
               <div className="rounded-lg bg-background/40 px-3 py-2">
-                <p className="text-[11px] text-foreground/60">Analyze your entire site once</p>
-                <p className="text-[10px] text-emerald-400/50">Full entity graph mapped automatically</p>
+                <p className="text-[11px] text-foreground/80">Analyze your entire site once</p>
+                <p className="text-[10px] text-emerald-500/70">Full entity graph mapped automatically</p>
               </div>
               <div className="rounded-lg bg-background/40 px-3 py-2">
-                <p className="text-[11px] text-foreground/60">Schema generated per page type</p>
-                <p className="text-[10px] text-emerald-400/50">Connected to your brand knowledge graph</p>
+                <p className="text-[11px] text-foreground/80">Schema generated per page type</p>
+                <p className="text-[10px] text-emerald-500/70">Connected to your brand knowledge graph</p>
               </div>
               <div className="rounded-lg bg-background/40 px-3 py-2">
-                <p className="text-[11px] text-foreground/60">Content changes trigger updates</p>
-                <p className="text-[10px] text-emerald-400/50">MCP keeps schema synced automatically</p>
+                <p className="text-[11px] text-foreground/80">Content changes trigger updates</p>
+                <p className="text-[10px] text-emerald-500/70">MCP keeps schema synced automatically</p>
               </div>
             </div>
           </div>
@@ -480,21 +480,21 @@ function WhatAISeesSection() {
             }`}
           >
             <div className="flex items-center gap-2 mb-3">
-              <Database className="w-3.5 h-3.5 text-muted-foreground/50" />
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Entity Graph</span>
+              <Database className="w-3.5 h-3.5 text-muted-foreground/70" />
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Entity Graph</span>
             </div>
             <p className="text-xs text-muted-foreground/60 mb-3">How we map your brand's knowledge architecture</p>
             <div className="rounded-lg bg-background/40 p-3 font-mono text-[10px] text-muted-foreground/60 space-y-0.5">
-              <div><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span></div>
-              <div><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"YourCompany"</span></div>
+              <div><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Organization"</span></div>
+              <div><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"YourCompany"</span></div>
               <div><span className="text-emerald-400/70">"founder"</span>: {"{"}</div>
-              <div className="pl-2"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Person"</span></div>
-              <div className="pl-2"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Jane Smith"</span></div>
+              <div className="pl-2"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/70">"Person"</span></div>
+              <div className="pl-2"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/70">"Jane Smith"</span></div>
               <div>{"}"}</div>
             </div>
             <div className="mt-3 flex items-center gap-3">
-              <span className="text-[10px] text-muted-foreground/40">10 entities</span>
-              <span className="text-[10px] text-muted-foreground/40">12 relationships</span>
+              <span className="text-[10px] text-muted-foreground/60">10 entities</span>
+              <span className="text-[10px] text-muted-foreground/60">12 relationships</span>
             </div>
           </div>
 
@@ -506,20 +506,20 @@ function WhatAISeesSection() {
             }`}
           >
             <div className="flex items-center gap-2 mb-3">
-              <Braces className="w-3.5 h-3.5 text-muted-foreground/50" />
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Generated Schema</span>
+              <Braces className="w-3.5 h-3.5 text-muted-foreground/70" />
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Generated Schema</span>
             </div>
             <p className="text-xs text-muted-foreground/60 mb-3">Actual JSON-LD deployed to your pages</p>
             <div className="rounded-lg bg-background/40 p-3">
               <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                <span className="text-[10px] text-muted-foreground/40 font-mono">32 lines</span>
+                <span className="text-[10px] text-muted-foreground/60 font-mono">32 lines</span>
                 <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Valid JSON-LD</Badge>
               </div>
               <div className="space-y-1">
                 {["Organization", "Person", "Service", "Product", "SameAs"].map((type) => (
                   <div key={type} className="flex items-center gap-2">
-                    <Check className="w-3 h-3 text-emerald-400/50" />
-                    <span className="text-[10px] text-foreground/50 font-mono">{type}</span>
+                    <Check className="w-3 h-3 text-emerald-500/70" />
+                    <span className="text-[10px] text-foreground/70 font-mono">{type}</span>
                   </div>
                 ))}
               </div>
@@ -534,24 +534,24 @@ function WhatAISeesSection() {
             }`}
           >
             <div className="flex items-center gap-2 mb-3">
-              <Search className="w-3.5 h-3.5 text-muted-foreground/50" />
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Visibility Score</span>
+              <Search className="w-3.5 h-3.5 text-muted-foreground/70" />
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider">Visibility Score</span>
             </div>
             <p className="text-xs text-muted-foreground/60 mb-3">Your brand's AI-readiness at a glance</p>
             <div className="rounded-lg bg-background/40 p-4">
               <div className="text-3xl font-bold text-foreground mb-1">82%</div>
-              <span className="text-[10px] text-emerald-400/60">AI-Ready</span>
+              <span className="text-[10px] text-emerald-500/70">AI-Ready</span>
               <div className="mt-3 space-y-1.5">
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] text-muted-foreground/50">Ready</span>
-                  <span className="text-[10px] text-emerald-400/60 font-mono">4</span>
+                  <span className="text-[10px] text-muted-foreground/70">Ready</span>
+                  <span className="text-[10px] text-emerald-500/70 font-mono">4</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] text-muted-foreground/50">Gaps</span>
+                  <span className="text-[10px] text-muted-foreground/70">Gaps</span>
                   <span className="text-[10px] text-amber-400/60 font-mono">3</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-[10px] text-muted-foreground/50">Risk</span>
+                  <span className="text-[10px] text-muted-foreground/70">Risk</span>
                   <span className="text-[10px] text-red-400/60 font-mono">1</span>
                 </div>
               </div>
@@ -661,13 +661,13 @@ function PageTypesSection() {
               data-testid={`page-type-${i}`}
             >
               <h3 className="text-sm font-semibold text-foreground mb-0.5">{page.title}</h3>
-              <p className="text-[10px] text-muted-foreground/50 mb-3">{page.subtitle}</p>
+              <p className="text-[10px] text-muted-foreground/70 mb-3">{page.subtitle}</p>
               <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate font-mono mb-3">{page.type}</Badge>
               <div className="rounded-lg bg-background/40 p-3 font-mono text-[10px] space-y-1">
                 {page.fields.map((f) => (
                   <div key={f.key} className="flex items-start gap-1">
                     <span className="text-emerald-400/70 shrink-0">{f.key}:</span>
-                    <span className="text-foreground/50">{f.value}</span>
+                    <span className="text-foreground/70">{f.value}</span>
                   </div>
                 ))}
               </div>
@@ -719,8 +719,8 @@ function BuiltForSection() {
                 "AI visibility stays current",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[11px] text-muted-foreground/50">{item}</span>
+                  <Check className="w-3 h-3 text-emerald-500/70" />
+                  <span className="text-[11px] text-muted-foreground/70">{item}</span>
                 </div>
               ))}
             </div>
@@ -751,8 +751,8 @@ function BuiltForSection() {
                 "Scale technical SEO without scaling headcount",
               ].map((item) => (
                 <div key={item} className="flex items-center gap-2">
-                  <Check className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[11px] text-muted-foreground/50">{item}</span>
+                  <Check className="w-3 h-3 text-emerald-500/70" />
+                  <span className="text-[11px] text-muted-foreground/70">{item}</span>
                 </div>
               ))}
             </div>
@@ -807,17 +807,17 @@ function Footer() {
             </p>
           </div>
           <div className="text-right">
-            <p className="text-[10px] text-muted-foreground/40">
+            <p className="text-[10px] text-muted-foreground/60">
               Part of Brandvious, Inc.
             </p>
-            <p className="text-[10px] text-muted-foreground/40">
+            <p className="text-[10px] text-muted-foreground/60">
               Land O' Lakes, Florida
             </p>
           </div>
         </div>
 
         <div className="mt-8 pt-6 border-t border-border/20">
-          <p className="text-[10px] text-muted-foreground/30">
+          <p className="text-[10px] text-muted-foreground/70">
             &copy; 2026 Brandvious, Inc. All rights reserved.
           </p>
         </div>

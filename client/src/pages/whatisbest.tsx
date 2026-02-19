@@ -415,9 +415,9 @@ function Navbar({ onHome }: { onHome: () => void }) {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-articles">Articles</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-comparisons">Comparisons</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-about">About</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-articles">Articles</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-comparisons">Comparisons</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-about">About</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -440,38 +440,38 @@ function ArticleCard({ article, onClick, featured = false }: { article: Article;
       data-testid={`card-${article.id}`}
     >
       <div className="flex items-center gap-2 mb-3 flex-wrap">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{article.category}</Badge>
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate flex items-center gap-1">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate">{article.category}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate flex items-center gap-1">
           <TypeIcon className="w-2.5 h-2.5" />
           {TYPE_LABELS[article.type].label}
         </Badge>
       </div>
 
       <h3 className={`font-semibold text-foreground mb-1 ${featured ? "text-lg" : "text-sm"}`}>{article.title}</h3>
-      <p className="text-[11px] text-muted-foreground/40 mb-3">{article.subtitle}</p>
+      <p className="text-[11px] text-muted-foreground/60 mb-3">{article.subtitle}</p>
 
       {featured && (
-        <p className="text-[12px] text-foreground/50 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
+        <p className="text-[12px] text-foreground/70 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
       )}
 
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {article.mentions.slice(0, featured ? 5 : 3).map((m) => (
-          <Badge key={m.name} variant="outline" className="text-[9px] text-emerald-400/60 no-default-hover-elevate">{m.name}</Badge>
+          <Badge key={m.name} variant="outline" className="text-[9px] text-emerald-500/70 no-default-hover-elevate">{m.name}</Badge>
         ))}
         {article.mentions.length > (featured ? 5 : 3) && (
-          <span className="text-[9px] text-muted-foreground/30">+{article.mentions.length - (featured ? 5 : 3)}</span>
+          <span className="text-[9px] text-muted-foreground/50">+{article.mentions.length - (featured ? 5 : 3)}</span>
         )}
       </div>
 
       <div className="flex items-center justify-between gap-4 flex-wrap">
-        <div className="flex items-center gap-3 text-[10px] text-muted-foreground/30">
+        <div className="flex items-center gap-3 text-[10px] text-muted-foreground/50">
           <span>{article.readTime}</span>
-          <span className="text-muted-foreground/15">|</span>
+          <span className="text-muted-foreground/25">|</span>
           <span>{article.wordCount}</span>
-          <span className="text-muted-foreground/15">|</span>
+          <span className="text-muted-foreground/25">|</span>
           <span>{article.updated}</span>
         </div>
-        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/20" />
+        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/35" />
       </div>
     </div>
   );
@@ -532,7 +532,7 @@ function ArticleListPage({
             key={c}
             variant="ghost"
             size="sm"
-            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/40"}`}
+            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/60"}`}
             onClick={() => setActiveCategory(c)}
             data-testid={`button-category-${c.toLowerCase().replace(/[\s&]+/g, "-")}`}
           >
@@ -542,13 +542,13 @@ function ArticleListPage({
       </div>
 
       <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-8 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <Search className="w-4 h-4 text-muted-foreground/60 shrink-0" />
         <input
           type="text"
           placeholder="Search articles, tools, or categories..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
           data-testid="input-search"
         />
       </div>
@@ -556,22 +556,22 @@ function ArticleListPage({
       {searchQuery.trim() ? (
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
-            <Search className="w-3.5 h-3.5 text-muted-foreground/40" />
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Results for "{searchQuery}"</span>
-            <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{filtered.length}</Badge>
+            <Search className="w-3.5 h-3.5 text-muted-foreground/60" />
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">Results for "{searchQuery}"</span>
+            <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{filtered.length}</Badge>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {filtered.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
           </div>
           {filtered.length === 0 && (
-            <p className="text-sm text-muted-foreground/40 py-12 text-center">No articles match that query.</p>
+            <p className="text-sm text-muted-foreground/60 py-12 text-center">No articles match that query.</p>
           )}
         </div>
       ) : activeCategory !== "All" ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {filtered.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
           {filtered.length === 0 && (
-            <p className="text-sm text-muted-foreground/40 py-12 text-center sm:col-span-2">No articles in this category yet.</p>
+            <p className="text-sm text-muted-foreground/60 py-12 text-center sm:col-span-2">No articles in this category yet.</p>
           )}
         </div>
       ) : (
@@ -585,7 +585,7 @@ function ArticleListPage({
             ].map((s) => (
               <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
                 <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
-                <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+                <div className="text-[10px] text-muted-foreground/60">{s.label}</div>
               </div>
             ))}
           </div>
@@ -593,8 +593,8 @@ function ArticleListPage({
           {featuredArticles.length > 0 && (
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-4">
-                <Zap className="w-3.5 h-3.5 text-muted-foreground/40" />
-                <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Featured</span>
+                <Zap className="w-3.5 h-3.5 text-muted-foreground/60" />
+                <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">Featured</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {featuredArticles.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} featured />)}
@@ -604,8 +604,8 @@ function ArticleListPage({
 
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-4">
-              <Clock className="w-3.5 h-3.5 text-muted-foreground/40" />
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">All Articles</span>
+              <Clock className="w-3.5 h-3.5 text-muted-foreground/60" />
+              <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">All Articles</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {recentArticles.filter((a) => !a.featured).map((a) => (
@@ -629,30 +629,30 @@ function ArticleDetailPage({ article, onBack }: { article: Article; onBack: () =
 
   return (
     <div className="max-w-3xl mx-auto">
-      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/70 mb-6 flex items-center gap-1" data-testid="button-back">
         <ChevronRight className="w-3 h-3 rotate-180" />
         All articles
       </button>
 
       <div className="flex items-center gap-2 mb-4 flex-wrap">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{article.category}</Badge>
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate flex items-center gap-1">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate">{article.category}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate flex items-center gap-1">
           <TypeIcon className="w-2.5 h-2.5" />
           {TYPE_LABELS[article.type].label}
         </Badge>
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/30 no-default-hover-elevate font-mono">{article.wordCount}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{article.wordCount}</Badge>
       </div>
 
       <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mb-2" data-testid="text-article-title">
         {article.title}
       </h1>
-      <p className="text-sm text-muted-foreground/50 mb-4">{article.subtitle}</p>
+      <p className="text-sm text-muted-foreground/70 mb-4">{article.subtitle}</p>
 
-      <div className="flex items-center gap-4 text-[11px] text-muted-foreground/40 mb-8 flex-wrap">
+      <div className="flex items-center gap-4 text-[11px] text-muted-foreground/60 mb-8 flex-wrap">
         <div className="flex items-center gap-1.5">
           <User className="w-3 h-3" />
           <span>{article.author}</span>
-          <span className="text-muted-foreground/20">|</span>
+          <span className="text-muted-foreground/35">|</span>
           <span>{article.authorRole}</span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -665,65 +665,65 @@ function ArticleDetailPage({ article, onBack }: { article: Article; onBack: () =
         </div>
       </div>
 
-      <p className="text-sm text-foreground/70 leading-relaxed mb-8" data-testid="text-intro">{article.intro}</p>
+      <p className="text-sm text-foreground/85 leading-relaxed mb-8" data-testid="text-intro">{article.intro}</p>
 
       <div className="space-y-6 mb-8">
         {article.sections.map((section, i) => (
           <div key={i}>
             <h2 className="text-base font-semibold text-foreground mb-3">{section.heading}</h2>
-            <p className="text-[13px] text-foreground/60 leading-relaxed">{section.content}</p>
+            <p className="text-[13px] text-foreground/80 leading-relaxed">{section.content}</p>
           </div>
         ))}
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Target className="w-3.5 h-3.5 text-emerald-400/50" />
-          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">The Bottom Line</span>
+          <Target className="w-3.5 h-3.5 text-emerald-500/70" />
+          <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">The Bottom Line</span>
         </div>
-        <p className="text-sm text-foreground/70 leading-relaxed font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
+        <p className="text-sm text-foreground/85 leading-relaxed font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Lightbulb className="w-3.5 h-3.5 text-emerald-400/50" />
-          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Products Mentioned</span>
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{article.mentions.length}</Badge>
+          <Lightbulb className="w-3.5 h-3.5 text-emerald-500/70" />
+          <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">Products Mentioned</span>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{article.mentions.length}</Badge>
         </div>
         <div className="space-y-2.5">
           {article.mentions.map((m) => (
             <div key={m.name} className="rounded-lg bg-background/40 px-4 py-3 flex items-start justify-between gap-4 flex-wrap">
               <span className="text-sm font-semibold text-foreground">{m.name}</span>
-              <span className="text-[11px] text-muted-foreground/50">{m.verdict}</span>
+              <span className="text-[11px] text-muted-foreground/70">{m.verdict}</span>
             </div>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Tags</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">Tags</span>
         <div className="flex items-center gap-2 flex-wrap">
           {article.tags.map((t) => (
-            <Badge key={t} variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate">{t}</Badge>
+            <Badge key={t} variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate">{t}</Badge>
           ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
-          <span className="text-muted-foreground/40">GET</span>{" "}
-          <span className="text-foreground/60">whatisbest.com/api/article/{article.id}</span>
+          <span className="text-muted-foreground/60">GET</span>{" "}
+          <span className="text-foreground/80">whatisbest.com/api/article/{article.id}</span>
         </div>
-        <span className="text-[10px] text-muted-foreground/30">Returns structured article data with product verdicts and metadata.</span>
+        <span className="text-[10px] text-muted-foreground/50">Returns structured article data with product verdicts and metadata.</span>
       </div>
 
-      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/30 flex-wrap">
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/50 flex-wrap">
         <div className="flex items-center gap-3">
           <span>No affiliate links</span>
-          <span className="text-muted-foreground/15">|</span>
+          <span className="text-muted-foreground/25">|</span>
           <span>No sponsored rankings</span>
-          <span className="text-muted-foreground/15">|</span>
+          <span className="text-muted-foreground/25">|</span>
           <span>Independent research</span>
         </div>
         <span>{article.updated}</span>
@@ -739,36 +739,36 @@ function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <Award className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <Award className="w-3.5 h-3.5 text-muted-foreground/60" />
               <span className="text-sm font-semibold text-foreground">
                 WhatisBest<span className="font-normal text-muted-foreground">.com</span>
               </span>
             </div>
-            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
               AI-native B2B software comparison engine. Independent editorial. No affiliate links.
             </p>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Content</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Content</span>
             <div className="mt-2 space-y-1.5">
               {["Comparisons", "Roundups", "Buyer's Guides", "Trending"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Categories</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Categories</span>
             <div className="mt-2 space-y-1.5">
               {["CRM", "Marketing", "AI & Automation", "Cybersecurity"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
           <div>
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
             <div className="mt-2 space-y-1.5">
               {["About", "Methodology", "Contact", "Privacy Policy"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
           </div>
@@ -776,10 +776,10 @@ function Footer() {
 
         <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
-            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+            <p className="text-[10px] text-muted-foreground/50">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/50">Land O' Lakes, Florida</p>
           </div>
-          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
+          <p className="text-[10px] text-muted-foreground/35">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
