@@ -21,7 +21,7 @@ import { Button } from "@/components/ui/button";
 
 const projects = [
   {
-    name: "SchemaRocket",
+    name: "SchemaRocket.ai",
     label: "STRUCTURED DATA",
     description:
       "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
