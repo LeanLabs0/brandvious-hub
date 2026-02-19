@@ -659,18 +659,55 @@ function Footer() {
   );
 }
 
-export default function Home() {
+function SparkleBackground() {
   return (
-    <div className="min-h-screen bg-background">
-      <Navbar />
-      <Hero />
-      <SectionDivider />
-      <Beliefs />
-      <SectionDivider />
-      <Projects />
-      <SectionDivider />
-      <ClosingStatement />
-      <Footer />
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div
+        className="absolute top-[10%] left-[20%] w-[900px] h-[900px] rounded-full blur-[180px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.14) 0%, rgba(60, 10, 90, 0.06) 50%, transparent 70%)" }}
+      />
+      <div
+        className="absolute top-[50%] right-[10%] w-[700px] h-[700px] rounded-full blur-[160px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(80, 20, 120, 0.10) 0%, rgba(50, 10, 80, 0.04) 50%, transparent 70%)", animationDelay: "5s" }}
+      />
+      <div
+        className="absolute bottom-[10%] left-[40%] w-[600px] h-[600px] rounded-full blur-[140px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(120, 40, 160, 0.08) 0%, transparent 60%)", animationDelay: "8s" }}
+      />
+      {Array.from({ length: 50 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-purple-300/[0.06] animate-float-particle"
+          style={{
+            width: `${Math.random() * 3 + 1}px`,
+            height: `${Math.random() * 3 + 1}px`,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            ["--duration" as string]: `${Math.random() * 15 + 12}s`,
+            ["--delay" as string]: `${Math.random() * 10}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+export default function Home() {
+  const { theme } = useTheme();
+  return (
+    <div className="min-h-screen bg-background relative">
+      {theme === "sparkle" && <SparkleBackground />}
+      <div className="relative z-10">
+        <Navbar />
+        <Hero />
+        <SectionDivider />
+        <Beliefs />
+        <SectionDivider />
+        <Projects />
+        <SectionDivider />
+        <ClosingStatement />
+        <Footer />
+      </div>
     </div>
   );
 }
