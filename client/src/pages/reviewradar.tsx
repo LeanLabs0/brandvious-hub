@@ -1,31 +1,272 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  ArrowDown,
-  ArrowRight,
-  Radar,
-  Bot,
-  MessageSquare,
-  BarChart3,
   Search,
-  Globe,
-  Database,
-  Check,
-  X,
   Sun,
   Moon,
   Sparkles,
+  ChevronRight,
   TrendingUp,
   TrendingDown,
   Minus,
   Star,
+  Check,
+  X,
+  Clock,
+  ArrowRight,
+  BarChart3,
+  Globe,
+  Radar,
+  Building2,
+  Filter,
   Eye,
-  RefreshCw,
-  Shield,
-  Layers,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+
+interface SourceRating {
+  source: string;
+  rating: string;
+  scale: string;
+  reviews: string;
+  trend: "up" | "down" | "stable" | "mixed";
+}
+
+interface ProductReport {
+  id: string;
+  name: string;
+  category: string;
+  consensusScore: number;
+  consensusTrend: "up" | "down" | "stable";
+  consensusLabel: string;
+  updated: string;
+  description: string;
+  founded: string;
+  hq: string;
+  strengths: string[];
+  weaknesses: string[];
+  verdict: string;
+  sources: SourceRating[];
+  sentimentSnippets: { source: string; quote: string; sentiment: "positive" | "negative" | "neutral" }[];
+}
+
+const CATEGORIES = ["All", "CRM", "Marketing Automation", "Project Management", "Help Desk", "Email Marketing", "Analytics"];
+
+const PRODUCTS: ProductReport[] = [
+  {
+    id: "hubspot",
+    name: "HubSpot CRM",
+    category: "CRM",
+    consensusScore: 4.4,
+    consensusTrend: "up",
+    consensusLabel: "Positive",
+    updated: "Feb 15, 2026",
+    description: "All-in-one CRM platform for marketing, sales, and service teams.",
+    founded: "2006",
+    hq: "Cambridge, MA",
+    strengths: ["Ease of use / low learning curve", "All-in-one platform (CRM + marketing + service)", "Strong free tier for startups", "Native AI features (Breeze)"],
+    weaknesses: ["Price escalation at scale", "Limited customization vs. Salesforce", "Reporting depth in lower tiers", "Contact-based pricing model"],
+    verdict: "HubSpot CRM is consistently rated as the easiest-to-adopt all-in-one platform for mid-market companies. Reviewers across all platforms praise the unified experience and free tier. The most common criticism is price escalation at higher tiers and limited enterprise-grade customization compared to Salesforce. Sentiment is trending positive following the Breeze AI launch in late 2025.",
+    sources: [
+      { source: "G2", rating: "4.4", scale: "/ 5", reviews: "11,200+", trend: "up" },
+      { source: "Capterra", rating: "4.5", scale: "/ 5", reviews: "4,100+", trend: "stable" },
+      { source: "TrustRadius", rating: "8.2", scale: "/ 10", reviews: "2,800+", trend: "up" },
+      { source: "Gartner Peers", rating: "4.3", scale: "/ 5", reviews: "1,950+", trend: "stable" },
+      { source: "Reddit", rating: "Mixed+", scale: "", reviews: "850 threads", trend: "mixed" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Best CRM we've used. Onboarding took 2 weeks instead of the 3 months Salesforce quoted us.", sentiment: "positive" },
+      { source: "Reddit r/sales", quote: "Love it for SMB but once you hit 200+ contacts the pricing gets painful fast.", sentiment: "neutral" },
+      { source: "TrustRadius", quote: "The Breeze AI features are actually useful, not just marketing fluff. Saves our team ~5hrs/week.", sentiment: "positive" },
+      { source: "Capterra", quote: "Reporting is frustrating in Starter. You basically have to upgrade to Pro to get anything useful.", sentiment: "negative" },
+    ],
+  },
+  {
+    id: "salesforce",
+    name: "Salesforce",
+    category: "CRM",
+    consensusScore: 4.2,
+    consensusTrend: "stable",
+    consensusLabel: "Positive",
+    updated: "Feb 14, 2026",
+    description: "World's largest CRM platform for enterprise sales, service, and marketing.",
+    founded: "1999",
+    hq: "San Francisco, CA",
+    strengths: ["Deep customization and configurability", "AppExchange ecosystem (5,000+ apps)", "Enterprise-grade reporting", "Industry-specific solutions"],
+    weaknesses: ["Steep learning curve", "Implementation complexity and cost", "UI feels dated vs. competitors", "Requires dedicated admin"],
+    verdict: "Salesforce remains the undisputed enterprise CRM leader. Reviewers consistently praise its depth and ecosystem but criticize the complexity and cost of implementation. Sentiment has been stable, with Einstein AI receiving mixed reviews — powerful but hard to configure. The Slack integration post-acquisition is viewed positively by most enterprise users.",
+    sources: [
+      { source: "G2", rating: "4.3", scale: "/ 5", reviews: "19,800+", trend: "stable" },
+      { source: "Capterra", rating: "4.4", scale: "/ 5", reviews: "18,200+", trend: "stable" },
+      { source: "TrustRadius", rating: "8.0", scale: "/ 10", reviews: "3,400+", trend: "stable" },
+      { source: "Gartner Peers", rating: "4.4", scale: "/ 5", reviews: "3,600+", trend: "up" },
+      { source: "Reddit", rating: "Polarized", scale: "", reviews: "2,100 threads", trend: "mixed" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "If you need enterprise CRM, there's really no alternative. The ecosystem is unmatched.", sentiment: "positive" },
+      { source: "Reddit r/salesforce", quote: "We spent $200K on implementation and still needed 2 full-time admins. Not for the faint of heart.", sentiment: "negative" },
+      { source: "TrustRadius", quote: "Slack integration has been a game changer for cross-team deal visibility.", sentiment: "positive" },
+    ],
+  },
+  {
+    id: "notion",
+    name: "Notion",
+    category: "Project Management",
+    consensusScore: 4.5,
+    consensusTrend: "up",
+    consensusLabel: "Very Positive",
+    updated: "Feb 10, 2026",
+    description: "All-in-one workspace for notes, docs, wikis, and project management.",
+    founded: "2013",
+    hq: "San Francisco, CA",
+    strengths: ["Extreme flexibility and customization", "Great for documentation and wikis", "AI integration for writing and search", "Strong template ecosystem"],
+    weaknesses: ["Learning curve for teams", "Weaker timeline / Gantt views", "Performance on large databases", "Mobile app limitations"],
+    verdict: "Notion has become the go-to workspace for teams that value flexibility over rigid project management. Reviewers love the documentation capabilities and AI features. The main criticism is that it can be overwhelming for teams used to simpler tools, and project tracking features lag behind dedicated PM tools like Monday.com or Asana. Sentiment is strongly positive and trending upward after the Notion AI rollout.",
+    sources: [
+      { source: "G2", rating: "4.7", scale: "/ 5", reviews: "5,600+", trend: "up" },
+      { source: "Capterra", rating: "4.7", scale: "/ 5", reviews: "2,300+", trend: "up" },
+      { source: "TrustRadius", rating: "8.8", scale: "/ 10", reviews: "800+", trend: "up" },
+      { source: "Reddit", rating: "Very Positive", scale: "", reviews: "3,200 threads", trend: "up" },
+      { source: "Product Hunt", rating: "4.8", scale: "/ 5", reviews: "5,400+", trend: "stable" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Replaced Confluence, Trello, and Google Docs for our 40-person team. One tool to rule them all.", sentiment: "positive" },
+      { source: "Reddit r/Notion", quote: "AI search across our entire wiki has been transformational. Actually finds what you need.", sentiment: "positive" },
+      { source: "Capterra", quote: "Took our team 3 weeks to figure out a system that worked. Flexibility is a double-edged sword.", sentiment: "neutral" },
+    ],
+  },
+  {
+    id: "monday",
+    name: "Monday.com",
+    category: "Project Management",
+    consensusScore: 4.3,
+    consensusTrend: "stable",
+    consensusLabel: "Positive",
+    updated: "Feb 8, 2026",
+    description: "Visual project management and work operating system for teams.",
+    founded: "2012",
+    hq: "Tel Aviv, Israel",
+    strengths: ["Visual dashboards and boards", "Powerful automations", "Timeline and Gantt views", "Cross-team visibility"],
+    weaknesses: ["Price adds up with add-ons", "Can feel rigid for creative workflows", "Storage limits on lower tiers", "Automations quota on Standard plan"],
+    verdict: "Monday.com is the top choice for teams that need structured, visual project tracking. Reviewers consistently praise the dashboard experience and automations. Criticism centers on pricing — the per-seat model with feature-gated add-ons can make costs unpredictable. Sentiment is stable and positive overall.",
+    sources: [
+      { source: "G2", rating: "4.7", scale: "/ 5", reviews: "12,100+", trend: "stable" },
+      { source: "Capterra", rating: "4.6", scale: "/ 5", reviews: "4,800+", trend: "stable" },
+      { source: "TrustRadius", rating: "8.4", scale: "/ 10", reviews: "1,200+", trend: "stable" },
+      { source: "Reddit", rating: "Mixed+", scale: "", reviews: "600 threads", trend: "stable" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Best visual PM tool. Our non-technical teams adopted it in days, not weeks.", sentiment: "positive" },
+      { source: "Reddit r/projectmanagement", quote: "Great for basic PM but the automation limits on Standard are annoying. Feels like nickel-and-diming.", sentiment: "neutral" },
+      { source: "TrustRadius", quote: "Dashboard views are unmatched. We use it for executive reporting across 5 departments.", sentiment: "positive" },
+    ],
+  },
+  {
+    id: "klaviyo",
+    name: "Klaviyo",
+    category: "Email Marketing",
+    consensusScore: 4.6,
+    consensusTrend: "up",
+    consensusLabel: "Very Positive",
+    updated: "Feb 6, 2026",
+    description: "Email and SMS marketing platform built for e-commerce brands.",
+    founded: "2012",
+    hq: "Boston, MA",
+    strengths: ["Deep Shopify / e-commerce integration", "Advanced segmentation engine", "Revenue attribution per email", "Predictive analytics and AI"],
+    weaknesses: ["Price scales aggressively with contacts", "Learning curve for beginners", "SMS features still maturing", "Template builder less intuitive than Mailchimp"],
+    verdict: "Klaviyo is the consensus leader for e-commerce email marketing. Reviewers across all platforms praise the Shopify integration depth and revenue attribution capabilities. The main criticism is pricing — Klaviyo gets expensive fast as contact lists grow. Sentiment is trending upward following their IPO and continued product investment in AI-driven segmentation.",
+    sources: [
+      { source: "G2", rating: "4.6", scale: "/ 5", reviews: "1,100+", trend: "up" },
+      { source: "Capterra", rating: "4.7", scale: "/ 5", reviews: "440+", trend: "up" },
+      { source: "TrustRadius", rating: "8.6", scale: "/ 10", reviews: "320+", trend: "up" },
+      { source: "Shopify App Store", rating: "4.2", scale: "/ 5", reviews: "1,900+", trend: "stable" },
+      { source: "Reddit", rating: "Positive", scale: "", reviews: "400 threads", trend: "up" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Revenue per email metric changed how our CEO thinks about email marketing. It pays for itself.", sentiment: "positive" },
+      { source: "Reddit r/ecommerce", quote: "Nothing touches Klaviyo for Shopify stores. Mailchimp doesn't even come close for segmentation.", sentiment: "positive" },
+      { source: "Shopify App Store", quote: "Pricing jumped 40% when we crossed 10K contacts. That stung.", sentiment: "negative" },
+    ],
+  },
+  {
+    id: "zendesk",
+    name: "Zendesk",
+    category: "Help Desk",
+    consensusScore: 4.1,
+    consensusTrend: "down",
+    consensusLabel: "Mixed-Positive",
+    updated: "Feb 4, 2026",
+    description: "Customer service and support ticketing platform for businesses of all sizes.",
+    founded: "2007",
+    hq: "San Francisco, CA",
+    strengths: ["Mature ticketing system", "Deep customization options", "Large marketplace of apps", "Multi-channel support (email, chat, phone, social)"],
+    weaknesses: ["UI feels dated", "Complex setup for advanced features", "Pricing not transparent", "AI features lag behind Intercom"],
+    verdict: "Zendesk is the established incumbent in help desk software. Reviewers respect its maturity and multi-channel capabilities but increasingly criticize the dated UI and pricing opacity. Sentiment has been trending slightly downward as competitors like Intercom and Freshdesk modernize faster. The recent AI bot (Zendesk AI) has received mixed reviews compared to Intercom's Fin.",
+    sources: [
+      { source: "G2", rating: "4.3", scale: "/ 5", reviews: "5,900+", trend: "stable" },
+      { source: "Capterra", rating: "4.4", scale: "/ 5", reviews: "3,900+", trend: "down" },
+      { source: "TrustRadius", rating: "7.8", scale: "/ 10", reviews: "1,400+", trend: "down" },
+      { source: "Reddit", rating: "Mixed", scale: "", reviews: "1,100 threads", trend: "down" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Reliable and battle-tested. We've been on Zendesk for 8 years and it just works.", sentiment: "positive" },
+      { source: "Reddit r/CustomerSuccess", quote: "Seriously considering Intercom. Zendesk UI looks like it's from 2015 and their AI bot is mediocre.", sentiment: "negative" },
+      { source: "TrustRadius", quote: "Pricing went up 30% at renewal and they wouldn't budge. Feeling locked in.", sentiment: "negative" },
+    ],
+  },
+  {
+    id: "mixpanel",
+    name: "Mixpanel",
+    category: "Analytics",
+    consensusScore: 4.5,
+    consensusTrend: "up",
+    consensusLabel: "Positive",
+    updated: "Feb 2, 2026",
+    description: "Product analytics platform for tracking user behavior, funnels, and retention.",
+    founded: "2009",
+    hq: "San Francisco, CA",
+    strengths: ["Fast query engine", "Intuitive UI for non-technical users", "Strong free tier (20M events/mo)", "JQL for power users"],
+    weaknesses: ["Fewer enterprise governance features", "Smaller ecosystem than Amplitude", "Data warehouse integration maturing", "Mobile SDK can be heavy"],
+    verdict: "Mixpanel is the preferred product analytics tool for teams that prioritize speed and simplicity. Reviewers love the fast query engine and generous free tier. Compared to Amplitude, Mixpanel is seen as easier to learn but less powerful for complex behavioral cohort analysis. Sentiment is trending positive after their warehouse-native architecture update.",
+    sources: [
+      { source: "G2", rating: "4.6", scale: "/ 5", reviews: "1,100+", trend: "up" },
+      { source: "Capterra", rating: "4.5", scale: "/ 5", reviews: "130+", trend: "stable" },
+      { source: "TrustRadius", rating: "8.4", scale: "/ 10", reviews: "340+", trend: "up" },
+      { source: "Reddit", rating: "Positive", scale: "", reviews: "300 threads", trend: "up" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Free tier is insanely generous. 20M events/month means most startups never need to pay.", sentiment: "positive" },
+      { source: "Reddit r/analytics", quote: "Switched from Amplitude. Mixpanel just feels faster and our PMs actually use it now.", sentiment: "positive" },
+      { source: "TrustRadius", quote: "Warehouse-native mode finally makes it enterprise-ready. Game changer.", sentiment: "positive" },
+    ],
+  },
+  {
+    id: "hubspot-marketing",
+    name: "HubSpot Marketing Hub",
+    category: "Marketing Automation",
+    consensusScore: 4.4,
+    consensusTrend: "up",
+    consensusLabel: "Positive",
+    updated: "Feb 12, 2026",
+    description: "Marketing automation platform with email, workflows, landing pages, and analytics.",
+    founded: "2006",
+    hq: "Cambridge, MA",
+    strengths: ["All-in-one with CRM", "Visual workflow builder", "Strong content tools (blog, SEO)", "Fast time-to-value"],
+    weaknesses: ["Advanced features locked to higher tiers", "Contact-based pricing", "Reporting less deep than Marketo", "Custom objects limited on lower plans"],
+    verdict: "HubSpot Marketing Hub is the consensus pick for mid-market teams wanting marketing automation bundled with CRM. Reviewers praise the visual workflow builder and native CRM integration. Criticism focuses on the tiered pricing model that gates key features behind Professional and Enterprise plans. Sentiment is positive and improving with the Breeze AI additions.",
+    sources: [
+      { source: "G2", rating: "4.4", scale: "/ 5", reviews: "11,200+", trend: "up" },
+      { source: "Capterra", rating: "4.5", scale: "/ 5", reviews: "6,100+", trend: "stable" },
+      { source: "TrustRadius", rating: "8.3", scale: "/ 10", reviews: "2,900+", trend: "up" },
+      { source: "Reddit", rating: "Mixed+", scale: "", reviews: "700 threads", trend: "stable" },
+    ],
+    sentimentSnippets: [
+      { source: "G2", quote: "Best marketing platform for teams that also need CRM. No Zapier duct tape required.", sentiment: "positive" },
+      { source: "Reddit r/marketing", quote: "Great until you need custom reporting. Then it's 'upgrade to Enterprise' for everything.", sentiment: "neutral" },
+      { source: "TrustRadius", quote: "We went from Marketo to HubSpot and our team adoption went from 40% to 95%.", sentiment: "positive" },
+    ],
+  },
+];
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -34,22 +275,37 @@ function ThemeToggle() {
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={toggleTheme}
-      data-testid="button-theme-toggle"
-    >
+    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="button-theme-toggle">
       {icon}
     </Button>
   );
 }
 
-function Navbar() {
+function TrendIcon({ trend, className = "w-3.5 h-3.5" }: { trend: string; className?: string }) {
+  if (trend === "up") return <TrendingUp className={`${className} text-emerald-400/60`} />;
+  if (trend === "down") return <TrendingDown className={`${className} text-red-400/50`} />;
+  if (trend === "mixed") return <Minus className={`${className} text-amber-400/50`} />;
+  return <Minus className={`${className} text-muted-foreground/30`} />;
+}
+
+function ScoreDisplay({ score }: { score: number }) {
+  return (
+    <div className="flex items-center gap-1">
+      <span className="text-xl font-bold text-foreground font-mono">{score.toFixed(1)}</span>
+      <span className="text-[10px] text-muted-foreground/30">/ 5</span>
+    </div>
+  );
+}
+
+function Navbar({ onHome, activeCategory, onCategoryChange }: {
+  onHome: () => void;
+  activeCategory: string;
+  onCategoryChange: (c: string) => void;
+}) {
   const { theme } = useTheme();
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-[9999] px-6 py-4"
+      className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
         backdropFilter: "blur(12px)",
         backgroundColor:
@@ -59,673 +315,414 @@ function Navbar() {
       }}
       data-testid="navbar"
     >
-      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-        <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
-          ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
-        </span>
-        <ThemeToggle />
+      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <button onClick={onHome} className="flex items-center gap-2">
+          <Radar className="w-4 h-4 text-muted-foreground/60" />
+          <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
+            ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
+          </span>
+        </button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-reports">Reports</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-methodology">Methodology</Button>
+          <ThemeToggle />
+        </div>
+      </div>
+      <div className="max-w-6xl mx-auto px-6 pb-2 flex items-center gap-1 overflow-x-auto no-scrollbar">
+        {CATEGORIES.map((c) => (
+          <Button
+            key={c}
+            variant="ghost"
+            size="sm"
+            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/40"}`}
+            onClick={() => onCategoryChange(c)}
+            data-testid={`button-category-${c.toLowerCase().replace(/\s+/g, "-")}`}
+          >
+            {c}
+          </Button>
+        ))}
       </div>
     </nav>
   );
 }
 
-function Hero() {
+function ProductCard({ product, onClick }: { product: ProductReport; onClick: () => void }) {
   const { theme } = useTheme();
-  return (
-    <section
-      className="relative flex flex-col items-center justify-center min-h-screen px-6"
-      data-testid="section-hero"
-    >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {theme === "sparkle" ? (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px] animate-subtle-glow"
-            style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.18) 0%, rgba(60, 10, 90, 0.08) 50%, transparent 70%)" }}
-          />
-        ) : (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-        )}
-      </div>
-
-      <div className="relative z-10 max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 md:gap-16">
-        <div className="flex-1 text-left">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-6">
-            Review Intelligence
-          </Badge>
-          <h1
-            className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl text-foreground"
-            data-testid="text-headline"
-          >
-            Every review site.{" "}
-            <br />
-            One consensus.
-          </h1>
-
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-md sm:text-base" data-testid="text-subheadline">
-            ReviewRadar aggregates sentiment from G2, Capterra, TrustRadius, Reddit, and more — then delivers a consensus report for every B2B product, brand by brand.
-          </p>
-
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-explore">
-              Explore Reports
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex-1 w-full max-w-sm">
-          <HeroDashboardCard />
-        </div>
-      </div>
-
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-        <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-      </div>
-    </section>
-  );
-}
-
-function HeroDashboardCard() {
-  const { theme } = useTheme();
-  const sources = [
-    { name: "G2", rating: "4.4", sentiment: "positive", reviews: "11,200" },
-    { name: "Capterra", rating: "4.5", sentiment: "positive", reviews: "4,100" },
-    { name: "TrustRadius", rating: "8.2/10", sentiment: "positive", reviews: "2,800" },
-    { name: "Reddit", rating: "Mixed", sentiment: "neutral", reviews: "850 threads" },
-  ];
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
 
   return (
     <div
-      className={`rounded-xl border p-5 card-glow overflow-visible ${
-        theme === "sparkle"
-          ? "border-purple-900/20 bg-card/40"
-          : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-      }`}
-      data-testid="hero-dashboard-card"
+      className={`rounded-xl border p-5 cursor-pointer hover-elevate ${cardClass}`}
+      onClick={onClick}
+      data-testid={`card-${product.id}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
-        <h3 className="text-sm font-semibold text-foreground">HubSpot CRM</h3>
-        <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Consensus: Positive</Badge>
+      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{product.category}</Badge>
+        <div className="flex items-center gap-1.5">
+          <TrendIcon trend={product.consensusTrend} className="w-3 h-3" />
+          <Badge
+            variant="outline"
+            className={`text-[9px] no-default-hover-elevate ${
+              product.consensusLabel.includes("Very") ? "text-emerald-400" :
+              product.consensusLabel === "Positive" ? "text-emerald-400/70" :
+              product.consensusLabel.includes("Mixed") ? "text-amber-400/60" :
+              "text-muted-foreground/50"
+            }`}
+          >
+            {product.consensusLabel}
+          </Badge>
+        </div>
       </div>
-      <span className="text-[10px] text-muted-foreground/50">Aggregated from 4 sources</span>
 
-      <div className="mt-4 space-y-2">
-        {sources.map((s) => (
-          <div key={s.name} className="rounded-lg bg-background/40 px-3 py-2 flex items-center justify-between gap-3">
+      <h3 className="text-base font-semibold text-foreground mb-1">{product.name}</h3>
+      <p className="text-[11px] text-muted-foreground/40 mb-4">{product.description}</p>
+
+      <div className="flex items-center justify-between gap-4 mb-4">
+        <ScoreDisplay score={product.consensusScore} />
+        <span className="text-[10px] text-muted-foreground/30">{product.sources.length} sources</span>
+      </div>
+
+      <div className="space-y-1.5">
+        {product.sources.slice(0, 3).map((s) => (
+          <div key={s.source} className="flex items-center justify-between gap-2">
+            <span className="text-[11px] text-muted-foreground/40 w-24">{s.source}</span>
             <div className="flex items-center gap-2">
-              <span className="text-[11px] text-foreground/60 font-medium w-20">{s.name}</span>
-              <span className="text-[11px] text-foreground/50 font-mono">{s.rating}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] text-muted-foreground/40">{s.reviews}</span>
-              {s.sentiment === "positive" ? (
-                <TrendingUp className="w-3 h-3 text-emerald-400/60" />
-              ) : (
-                <Minus className="w-3 h-3 text-amber-400/60" />
-              )}
+              <span className="text-[11px] text-foreground/50 font-mono">{s.rating}{s.scale}</span>
+              <TrendIcon trend={s.trend} className="w-3 h-3" />
             </div>
           </div>
         ))}
+        {product.sources.length > 3 && (
+          <span className="text-[10px] text-muted-foreground/25">+ {product.sources.length - 3} more sources</span>
+        )}
       </div>
 
-      <div className="mt-3 flex items-center gap-3 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/40">Last updated: Feb 2026</span>
+      <div className="mt-4 pt-3 border-t border-border/20 flex items-center justify-between gap-2">
+        <span className="text-[10px] text-muted-foreground/25">Updated {product.updated}</span>
+        <ArrowRight className="w-3 h-3 text-muted-foreground/20" />
       </div>
     </div>
   );
 }
 
-function SectionDivider() {
-  return (
-    <div className="max-w-3xl mx-auto px-6">
-      <div className="divider-glow" />
-    </div>
-  );
-}
-
-function ProblemSection() {
+function ProductListPage({
+  activeCategory,
+  onSelectProduct,
+  searchQuery,
+  setSearchQuery,
+}: {
+  activeCategory: string;
+  onSelectProduct: (id: string) => void;
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
+}) {
   const { theme } = useTheme();
-  const problems = [
-    {
-      icon: Eye,
-      title: "Reviews are scattered",
-      description: "G2 says one thing. Capterra says another. Reddit says something else entirely. There's no single place to see what the consensus actually is.",
-      detail: "10 sources. 10 different stories.",
-    },
-    {
-      icon: Shield,
-      title: "Review sites are biased",
-      description: "Most review platforms rank products by who pays the most. Featured listings, sponsored placements, and gated reviews distort the picture.",
-      detail: "Pay to rank. Not earn to rank.",
-    },
-    {
-      icon: RefreshCw,
-      title: "Sentiment changes fast",
-      description: "A product launch, a price hike, or a support failure can shift sentiment overnight. Static review pages don't capture momentum.",
-      detail: "Reviews age. Sentiment doesn't.",
-    },
-  ];
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  let filtered = activeCategory === "All" ? PRODUCTS : PRODUCTS.filter((p) => p.category === activeCategory);
+
+  if (searchQuery.trim()) {
+    const q = searchQuery.toLowerCase();
+    filtered = PRODUCTS.filter((p) =>
+      p.name.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      p.description.toLowerCase().includes(q)
+    );
+  }
+
+  const totalSources = new Set(PRODUCTS.flatMap((p) => p.sources.map((s) => s.source))).size;
+  const totalReviews = PRODUCTS.reduce((sum, p) => {
+    return sum + p.sources.reduce((s2, src) => {
+      const num = parseInt(src.reviews.replace(/[^0-9]/g, ""));
+      return s2 + (isNaN(num) ? 0 : num);
+    }, 0);
+  }, 0);
 
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-problem">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            The problem
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-problem-heading">
-            You'd need a research team to read all the reviews.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            Before choosing B2B software, buyers check 3–5 review sites, scan Reddit threads, and ask AI. ReviewRadar does all of that automatically.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {problems.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={p.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`problem-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60 mb-3">{p.description}</p>
-                <span className="text-[10px] font-mono text-muted-foreground/40 italic">{p.detail}</span>
-              </div>
-            );
-          })}
-        </div>
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-page-title">
+          {activeCategory === "All" ? "Consensus Reports" : `${activeCategory} Reports`}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
+          {filtered.length} products analyzed across {totalSources} review platforms. Ratings normalized. Sentiment tracked. Updated continuously.
+        </p>
       </div>
-    </section>
-  );
-}
 
-function HowItWorksSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-how">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How it works
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-how-heading">
-            AI-powered review aggregation, delivered as a report.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            ReviewRadar scans every major review platform, pulls real-time sentiment, normalizes ratings across different scales, and delivers a single consensus view per product.
-          </p>
-        </div>
+      <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-8 ${cardClass}`}>
+        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <input
+          type="text"
+          placeholder="Search products..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          data-testid="input-search"
+        />
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {activeCategory === "All" && !searchQuery.trim() && (
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
           {[
-            {
-              icon: Search,
-              title: "Scans all major platforms",
-              description: "G2, Capterra, TrustRadius, Gartner Peer Insights, Reddit, Twitter/X, and industry forums. Every public signal in one place.",
-            },
-            {
-              icon: BarChart3,
-              title: "Normalizes ratings",
-              description: "G2 uses 5 stars. TrustRadius uses 10. Reddit has no score. ReviewRadar normalizes everything to a single comparable scale.",
-            },
-            {
-              icon: TrendingUp,
-              title: "Tracks sentiment over time",
-              description: "Not just the current score — the trajectory. Is sentiment improving after a product update? Declining after a price increase? You'll see it.",
-            },
-            {
-              icon: Layers,
-              title: "Delivers consensus reports",
-              description: "One report per product. Strengths, weaknesses, trend direction, and the overall consensus across all sources. Updated continuously.",
-            },
-          ].map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`how-step-${i}`}
-              >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40">
-                    <Icon className="w-4 h-4 text-muted-foreground/60" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-foreground">{step.title}</h3>
-                </div>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{step.description}</p>
-              </div>
-            );
-          })}
+            { label: "Products", value: String(PRODUCTS.length) },
+            { label: "Sources", value: String(totalSources) },
+            { label: "Reviews Analyzed", value: totalReviews > 1000 ? `${Math.round(totalReviews / 1000)}K+` : String(totalReviews) },
+            { label: "Categories", value: String(CATEGORIES.length - 1) },
+          ].map((s) => (
+            <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
+              <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
+              <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+            </div>
+          ))}
         </div>
+      )}
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filtered.map((product) => (
+          <ProductCard key={product.id} product={product} onClick={() => onSelectProduct(product.id)} />
+        ))}
       </div>
-    </section>
+
+      {filtered.length === 0 && (
+        <div className="text-center py-16">
+          <p className="text-sm text-muted-foreground/40">No products match that query.</p>
+        </div>
+      )}
+    </div>
   );
 }
 
-function ReportExampleSection() {
+function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack: () => void }) {
   const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-report">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Sample report
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-report-heading">
-            What a ReviewRadar report looks like.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Every product gets a structured consensus report with normalized ratings, sentiment trends, and source-by-source breakdown.
-          </p>
+    <div className="max-w-4xl mx-auto">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
+        <ChevronRight className="w-3 h-3 rotate-180" />
+        All reports
+      </button>
+
+      <div className="flex items-start justify-between gap-6 mb-6 flex-wrap">
+        <div>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">{product.category}</Badge>
+          <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-product-name">
+            {product.name}
+          </h1>
+          <p className="mt-2 text-sm text-muted-foreground/60">{product.description}</p>
+          <div className="mt-2 flex items-center gap-3 text-[10px] text-muted-foreground/30 flex-wrap">
+            <span>Founded {product.founded}</span>
+            <span className="text-muted-foreground/15">|</span>
+            <span>{product.hq}</span>
+            <span className="text-muted-foreground/15">|</span>
+            <span>Updated {product.updated}</span>
+          </div>
         </div>
-
-        <div
-          className={`rounded-xl border p-6 ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
-            <div>
-              <h3 className="text-base font-semibold text-foreground">HubSpot CRM</h3>
-              <span className="text-[10px] text-muted-foreground/50">CRM / Marketing Automation</span>
-            </div>
-            <div className="flex items-center gap-3 flex-wrap">
-              <div className="text-right">
-                <div className="text-2xl font-bold text-foreground">4.4</div>
-                <span className="text-[10px] text-emerald-400/60">Consensus Score</span>
-              </div>
-              <TrendingUp className="w-5 h-5 text-emerald-400/50" />
-            </div>
+        <div className="text-right">
+          <div className="flex items-center gap-2">
+            <ScoreDisplay score={product.consensusScore} />
+            <TrendIcon trend={product.consensusTrend} />
           </div>
+          <Badge
+            variant="outline"
+            className={`text-[9px] no-default-hover-elevate mt-1 ${
+              product.consensusLabel.includes("Very") ? "text-emerald-400" :
+              product.consensusLabel === "Positive" ? "text-emerald-400/70" :
+              "text-amber-400/60"
+            }`}
+          >
+            Consensus: {product.consensusLabel}
+          </Badge>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-            <div className="rounded-lg bg-background/40 p-4">
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Strengths (consensus)</span>
-              <div className="mt-2 space-y-1.5">
-                {["Ease of use / low learning curve", "All-in-one platform (CRM + marketing + service)", "Strong free tier for startups", "Native AI features (Breeze)"].map((s) => (
-                  <div key={s} className="flex items-center gap-2">
-                    <Check className="w-3 h-3 text-emerald-400/50 shrink-0" />
-                    <span className="text-[11px] text-foreground/60">{s}</span>
-                  </div>
-                ))}
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Consensus Verdict</span>
+        <p className="text-sm text-foreground/70 leading-relaxed" data-testid="text-verdict">{product.verdict}</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className={`rounded-xl border p-5 ${cardClass}`}>
+          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Strengths (consensus)</span>
+          <div className="space-y-2">
+            {product.strengths.map((s) => (
+              <div key={s} className="flex items-start gap-2">
+                <Check className="w-3 h-3 text-emerald-400/50 mt-0.5 shrink-0" />
+                <span className="text-[12px] text-foreground/60">{s}</span>
               </div>
-            </div>
-            <div className="rounded-lg bg-background/40 p-4">
-              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Weaknesses (consensus)</span>
-              <div className="mt-2 space-y-1.5">
-                {["Price escalation at scale", "Limited customization vs. Salesforce", "Reporting depth in lower tiers", "Contact-based pricing model"].map((w) => (
-                  <div key={w} className="flex items-center gap-2">
-                    <X className="w-3 h-3 text-red-400/40 shrink-0" />
-                    <span className="text-[11px] text-foreground/60">{w}</span>
-                  </div>
-                ))}
+            ))}
+          </div>
+        </div>
+        <div className={`rounded-xl border p-5 ${cardClass}`}>
+          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Weaknesses (consensus)</span>
+          <div className="space-y-2">
+            {product.weaknesses.map((w) => (
+              <div key={w} className="flex items-start gap-2">
+                <X className="w-3 h-3 text-red-400/40 mt-0.5 shrink-0" />
+                <span className="text-[12px] text-foreground/60">{w}</span>
               </div>
-            </div>
-          </div>
-
-          <div className="rounded-lg bg-background/40 p-4">
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-3 block">Source breakdown</span>
-            <div className="overflow-x-auto">
-              <table className="w-full text-[11px]">
-                <thead>
-                  <tr className="border-b border-border/20">
-                    <th className="text-left pb-2 text-muted-foreground/50 font-medium">Source</th>
-                    <th className="text-center pb-2 text-muted-foreground/50 font-medium">Rating</th>
-                    <th className="text-center pb-2 text-muted-foreground/50 font-medium">Reviews</th>
-                    <th className="text-center pb-2 text-muted-foreground/50 font-medium">Trend</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {[
-                    { source: "G2", rating: "4.4 / 5", reviews: "11,200", trend: "up" },
-                    { source: "Capterra", rating: "4.5 / 5", reviews: "4,100", trend: "stable" },
-                    { source: "TrustRadius", rating: "8.2 / 10", reviews: "2,800", trend: "up" },
-                    { source: "Gartner Peers", rating: "4.3 / 5", reviews: "1,950", trend: "stable" },
-                    { source: "Reddit", rating: "Mixed", reviews: "850 threads", trend: "neutral" },
-                  ].map((row, i) => (
-                    <tr key={row.source} className={i < 4 ? "border-b border-border/10" : ""}>
-                      <td className="py-2 text-foreground/60">{row.source}</td>
-                      <td className="py-2 text-center text-foreground/50 font-mono">{row.rating}</td>
-                      <td className="py-2 text-center text-muted-foreground/40">{row.reviews}</td>
-                      <td className="py-2 text-center">
-                        {row.trend === "up" ? <TrendingUp className="w-3 h-3 text-emerald-400/50 mx-auto" /> :
-                         row.trend === "stable" ? <Minus className="w-3 h-3 text-muted-foreground/40 mx-auto" /> :
-                         <Minus className="w-3 h-3 text-amber-400/50 mx-auto" />}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className="mt-4 rounded-lg bg-background/40 p-4">
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Consensus verdict</span>
-            <p className="mt-2 text-xs leading-relaxed text-foreground/60">
-              HubSpot CRM is consistently rated as the easiest-to-adopt all-in-one platform for mid-market companies. Reviewers across all platforms praise the unified experience and free tier. The most common criticism is price escalation at higher tiers and limited enterprise-grade customization compared to Salesforce. Sentiment is trending positive following the Breeze AI launch in late 2025.
-            </p>
+            ))}
           </div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function SourcesSection() {
-  const { theme } = useTheme();
-  const sources = [
-    { name: "G2", type: "Review platform", scale: "5-star", strength: "Largest B2B review volume" },
-    { name: "Capterra", type: "Review platform", scale: "5-star", strength: "SMB-focused reviews" },
-    { name: "TrustRadius", type: "Review platform", scale: "10-point", strength: "Long-form, verified reviews" },
-    { name: "Gartner Peer Insights", type: "Review platform", scale: "5-star", strength: "Enterprise buyer reviews" },
-    { name: "Reddit", type: "Community", scale: "Sentiment", strength: "Unfiltered, anonymous opinions" },
-    { name: "X / Twitter", type: "Social", scale: "Sentiment", strength: "Real-time reaction to changes" },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-sources">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Sources monitored
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-sources-heading">
-            Where ReviewRadar pulls from.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Structured review platforms for ratings. Communities for unfiltered sentiment. All normalized into one view.
-          </p>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">Source Breakdown</span>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[12px]">
+            <thead>
+              <tr className="border-b border-border/30">
+                <th className="text-left pb-3 text-muted-foreground/50 font-medium">Source</th>
+                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Rating</th>
+                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Reviews</th>
+                <th className="text-center pb-3 text-muted-foreground/50 font-medium">Trend</th>
+              </tr>
+            </thead>
+            <tbody>
+              {product.sources.map((s, i) => (
+                <tr key={s.source} className={i < product.sources.length - 1 ? "border-b border-border/10" : ""}>
+                  <td className="py-2.5 text-foreground/60">{s.source}</td>
+                  <td className="py-2.5 text-center text-foreground/50 font-mono">{s.rating} {s.scale}</td>
+                  <td className="py-2.5 text-center text-muted-foreground/40">{s.reviews}</td>
+                  <td className="py-2.5">
+                    <div className="flex justify-center">
+                      <TrendIcon trend={s.trend} className="w-3.5 h-3.5" />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {sources.map((s, i) => (
-            <div
-              key={s.name}
-              className={`rounded-xl border p-5 ${
-                theme === "sparkle"
-                  ? "border-purple-900/20 bg-card/40"
-                  : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-              }`}
-              data-testid={`source-${i}`}
-            >
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">
+          What Reviewers Are Saying
+        </span>
+        <div className="space-y-3">
+          {product.sentimentSnippets.map((snippet, i) => (
+            <div key={i} className="rounded-lg bg-background/40 px-4 py-3">
               <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                <h3 className="text-sm font-semibold text-foreground">{s.name}</h3>
-                <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{s.type}</Badge>
+                <span className="text-[10px] text-muted-foreground/40 font-medium">{snippet.source}</span>
+                <Badge
+                  variant="outline"
+                  className={`text-[9px] no-default-hover-elevate ${
+                    snippet.sentiment === "positive" ? "text-emerald-400/60" :
+                    snippet.sentiment === "negative" ? "text-red-400/50" :
+                    "text-muted-foreground/40"
+                  }`}
+                >
+                  {snippet.sentiment}
+                </Badge>
               </div>
-              <div className="space-y-1 text-[11px] text-muted-foreground/50">
-                <div>Scale: <span className="text-foreground/50 font-mono">{s.scale}</span></div>
-                <div>{s.strength}</div>
-              </div>
+              <p className="text-[12px] text-foreground/60 leading-relaxed italic">"{snippet.quote}"</p>
             </div>
           ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function ComparisonSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-comparison">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Without and with ReviewRadar
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-comparison-heading">
-            What research looks like today vs. with ReviewRadar.
-          </h2>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
+          <span className="text-muted-foreground/40">GET</span>{" "}
+          <span className="text-foreground/60">reviewradar.com/api/report/{product.id}</span>
         </div>
+        <span className="text-[10px] text-muted-foreground/30">Returns structured consensus report with source-by-source breakdown.</span>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Manual research</span>
-            <div className="mt-4 space-y-2">
-              {[
-                { step: "1", text: "Check G2 for star ratings", time: "10 min" },
-                { step: "2", text: "Cross-reference Capterra reviews", time: "10 min" },
-                { step: "3", text: "Read TrustRadius long-form reviews", time: "20 min" },
-                { step: "4", text: "Search Reddit for real opinions", time: "15 min" },
-                { step: "5", text: "Try to reconcile conflicting signals", time: "????" },
-              ].map((s) => (
-                <div key={s.step} className="flex items-start gap-3 rounded-lg bg-background/40 px-3 py-2">
-                  <span className="text-[10px] font-mono text-muted-foreground/40 mt-0.5 shrink-0">{s.step}</span>
-                  <div className="flex-1">
-                    <p className="text-[11px] text-foreground/50">{s.text}</p>
-                  </div>
-                  <span className="text-[10px] text-muted-foreground/30 font-mono shrink-0">{s.time}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-3 text-[10px] text-muted-foreground/40 italic">55+ minutes per product. Per decision.</p>
-          </div>
-
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium">ReviewRadar</span>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="flex items-center gap-2 mb-1">
-                  <Radar className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Consensus report</span>
-                </div>
-                <div className="text-[11px] text-foreground/60 mt-1">All sources scanned and normalized</div>
-                <div className="text-[11px] text-emerald-400/60">Consensus score: 4.4 / 5 (Positive)</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="text-[11px] text-foreground/60">Strengths, weaknesses, and trend direction</div>
-                <div className="text-[11px] text-emerald-400/50 mt-1">Delivered in one structured report</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="text-[11px] text-foreground/60">Source-by-source breakdown included</div>
-                <div className="text-[11px] text-emerald-400/50 mt-1">Updated continuously, not manually</div>
-              </div>
-            </div>
-            <p className="mt-3 text-[10px] text-emerald-400/40">30 seconds. Every product. Always current.</p>
-          </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Structured Output</span>
+        <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
+          <div className="text-foreground/40">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"product"</span>: <span className="text-foreground/50">"{product.name}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"category"</span>: <span className="text-foreground/50">"{product.category}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"consensusScore"</span>: <span className="text-foreground/50">{product.consensusScore}</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"consensusTrend"</span>: <span className="text-foreground/50">"{product.consensusTrend}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"sources"</span>: <span className="text-foreground/50">{product.sources.length}</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"strengths"</span>: [<span className="text-foreground/50">"{product.strengths[0]}", ...</span>],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"weaknesses"</span>: [<span className="text-foreground/50">"{product.weaknesses[0]}", ...</span>],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"verdict"</span>: <span className="text-foreground/50">"{product.verdict.slice(0, 70)}..."</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"lastUpdated"</span>: <span className="text-foreground/50">"{product.updated}"</span></div>
+          <div className="text-foreground/40">{"}"}</div>
         </div>
       </div>
-    </section>
-  );
-}
 
-function WhatYouGetSection() {
-  const { theme } = useTheme();
-  const fields = [
-    { field: "Consensus score", description: "Normalized rating across all sources on a 5-point scale" },
-    { field: "Sentiment trend", description: "Direction of sentiment over trailing 90 days (improving, declining, stable)" },
-    { field: "Strengths", description: "Top 4–6 strengths consistently cited across platforms" },
-    { field: "Weaknesses", description: "Top 4–6 weaknesses consistently cited across platforms" },
-    { field: "Source breakdown", description: "Rating, review count, and trend per individual platform" },
-    { field: "Consensus verdict", description: "Plain-language summary of what reviewers collectively agree on" },
-    { field: "Category context", description: "How this product compares to category average" },
-    { field: "Last updated", description: "Timestamp of most recent data pull" },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-what-you-get">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Report anatomy
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-anatomy-heading">
-            What every report includes.
-          </h2>
-        </div>
-
-        <div
-          className={`rounded-xl border overflow-hidden ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="border-b border-border/30">
-                  <th className="text-left p-4 text-muted-foreground/50 font-medium">Field</th>
-                  <th className="text-left p-4 text-foreground/70 font-medium">Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fields.map((f, i) => (
-                  <tr key={f.field} className={i < fields.length - 1 ? "border-b border-border/20" : ""}>
-                    <td className="p-4 text-foreground/60 font-mono text-[11px] whitespace-nowrap">{f.field}</td>
-                    <td className="p-4 text-muted-foreground/50">{f.description}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/30 flex-wrap">
+        <span>Aggregated from {product.sources.length} sources | {product.sources.reduce((sum, s) => { const n = parseInt(s.reviews.replace(/[^0-9]/g, "")); return sum + (isNaN(n) ? 0 : n); }, 0).toLocaleString()}+ reviews analyzed</span>
+        <span>Last updated {product.updated}</span>
       </div>
-    </section>
-  );
-}
-
-function UseCasesSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-use-cases">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Who uses this
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-use-cases-heading">
-            Built for people who make software decisions.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: Search,
-              title: "Software buyers",
-              description: "Skip the 5-tab research process. See the consensus on any B2B product in 30 seconds. Strengths, weaknesses, and trend direction — from every major source.",
-            },
-            {
-              icon: BarChart3,
-              title: "Product marketers",
-              description: "Monitor how your product is perceived across all review platforms. Track sentiment shifts after launches, pricing changes, or competitor moves.",
-            },
-            {
-              icon: Globe,
-              title: "AI-native content",
-              description: "ReviewRadar reports are structured data. When AI is asked \"What do people think of [Product]?\" — these are the reports it pulls from.",
-            },
-          ].map((uc, i) => {
-            const Icon = uc.icon;
-            return (
-              <div
-                key={uc.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`use-case-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{uc.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{uc.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CtaSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-cta">
-      <div className="max-w-4xl mx-auto relative">
-        <div
-          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 card-glow ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/30"
-              : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
-          }`}
-        >
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-cta-heading">
-            Stop reading reviews. Start reading the consensus.
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground max-w-md">
-            Every major review platform. Normalized ratings. Sentiment trends. One report per product.
-          </p>
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-cta-explore">
-              Explore Reports
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }
 
 function Footer() {
   return (
-    <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
-            <span className="text-sm font-semibold text-foreground">
-              ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
-            </span>
-            <p className="mt-1 text-xs text-muted-foreground/60">
+            <div className="flex items-center gap-2 mb-2">
+              <Radar className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <span className="text-sm font-semibold text-foreground">
+                ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
               Consensus review intelligence for B2B software.
             </p>
+            <p className="text-[10px] text-muted-foreground/30 mt-2">
+              {PRODUCTS.length} products | {CATEGORIES.length - 1} categories
+            </p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-muted-foreground/40">
-              Part of Brandvious, Inc.
-            </p>
-            <p className="text-[10px] text-muted-foreground/40">
-              Land O' Lakes, Florida
-            </p>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Reports</span>
+            <div className="mt-2 space-y-1.5">
+              {["All Reports", "By Category", "Trending"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <div className="mt-2 space-y-1.5">
+              {["API Documentation", "Methodology", "Data Sources"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <div className="mt-2 space-y-1.5">
+              {["About", "Contact", "Privacy Policy"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-border/20">
-          <p className="text-[10px] text-muted-foreground/30">
-            &copy; 2026 Brandvious, Inc. All rights reserved.
-          </p>
+        <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] text-muted-foreground/25">
+          <span>No sponsored rankings</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>All sources cited</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>Updated continuously</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>Structured for AI</span>
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+          </div>
+          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -876,28 +873,43 @@ function AuroraCanvas() {
 
 export default function ReviewRadar() {
   const { theme } = useTheme();
+  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const product = selectedProduct ? PRODUCTS.find((p) => p.id === selectedProduct) : null;
+
+  const handleSelect = (id: string) => {
+    setSelectedProduct(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBack = () => {
+    setSelectedProduct(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <SectionDivider />
-        <ProblemSection />
-        <SectionDivider />
-        <ComparisonSection />
-        <SectionDivider />
-        <HowItWorksSection />
-        <SectionDivider />
-        <ReportExampleSection />
-        <SectionDivider />
-        <SourcesSection />
-        <SectionDivider />
-        <WhatYouGetSection />
-        <SectionDivider />
-        <UseCasesSection />
-        <SectionDivider />
-        <CtaSection />
+        <Navbar
+          onHome={handleBack}
+          activeCategory={activeCategory}
+          onCategoryChange={(c) => { setActiveCategory(c); setSelectedProduct(null); }}
+        />
+        <div className="pt-28 px-6 pb-6">
+          {product ? (
+            <ProductDetailPage product={product} onBack={handleBack} />
+          ) : (
+            <ProductListPage
+              activeCategory={activeCategory}
+              onSelectProduct={handleSelect}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          )}
+        </div>
         <Footer />
       </div>
     </div>
