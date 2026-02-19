@@ -17,6 +17,7 @@ import {
   BarChart3,
   Sun,
   Moon,
+  Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -94,37 +95,60 @@ const beliefs = [
 ];
 
 function HeroParticles() {
+  const { theme } = useTheme();
+  const count = theme === "sparkle" ? 80 : 40;
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {Array.from({ length: 40 }).map((_, i) => (
-        <div
-          key={i}
-          className="absolute rounded-full bg-black/[0.06] dark:bg-white/[0.12] animate-float-particle"
-          style={{
-            width: `${Math.random() * 3 + 1.5}px`,
-            height: `${Math.random() * 3 + 1.5}px`,
-            left: `${Math.random() * 100}%`,
-            bottom: `${Math.random() * 30}%`,
-            ["--duration" as string]: `${Math.random() * 10 + 10}s`,
-            ["--delay" as string]: `${Math.random() * 8}s`,
-          }}
-        />
-      ))}
+      {Array.from({ length: count }).map((_, i) => {
+        const colors = theme === "sparkle"
+          ? ["bg-violet-400", "bg-blue-400", "bg-pink-400", "bg-emerald-400", "bg-amber-400"]
+          : [];
+        const sparkleColor = colors[i % colors.length];
+        return (
+          <div
+            key={i}
+            className={`absolute rounded-full animate-float-particle ${
+              theme === "sparkle" ? sparkleColor : "bg-black/[0.06] dark:bg-white/[0.12]"
+            }`}
+            style={{
+              width: `${Math.random() * (theme === "sparkle" ? 5 : 3) + 1.5}px`,
+              height: `${Math.random() * (theme === "sparkle" ? 5 : 3) + 1.5}px`,
+              left: `${Math.random() * 100}%`,
+              bottom: `${Math.random() * (theme === "sparkle" ? 60 : 30)}%`,
+              ["--duration" as string]: `${Math.random() * (theme === "sparkle" ? 6 : 10) + (theme === "sparkle" ? 4 : 10)}s`,
+              ["--delay" as string]: `${Math.random() * 8}s`,
+            }}
+          />
+        );
+      })}
     </div>
   );
 }
 
 function HeroGlow() {
+  const { theme } = useTheme();
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-      <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-black/[0.08] dark:from-white/[0.12] to-transparent" />
+      {theme === "sparkle" ? (
+        <>
+          <div className="absolute left-1/3 top-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-violet-500/[0.15] blur-[120px] animate-subtle-glow" />
+          <div className="absolute right-1/4 top-1/2 w-[500px] h-[500px] rounded-full bg-blue-500/[0.12] blur-[120px] animate-subtle-glow" style={{ animationDelay: "1s" }} />
+          <div className="absolute left-1/2 bottom-1/4 w-[400px] h-[400px] rounded-full bg-pink-500/[0.10] blur-[120px] animate-subtle-glow" style={{ animationDelay: "2s" }} />
+        </>
+      ) : (
+        <>
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
+          <div className="absolute left-1/2 top-[60%] -translate-x-1/2 w-[1px] h-[300px] bg-gradient-to-b from-black/[0.08] dark:from-white/[0.12] to-transparent" />
+        </>
+      )}
     </div>
   );
 }
 
 function IconBar() {
+  const { theme } = useTheme();
   const heroIcons = projects.slice(0, 4);
+  const sparkleIconColors = ["text-violet-400", "text-blue-400", "text-pink-400", "text-emerald-400"];
   return (
     <div className="flex items-center gap-2" data-testid="icon-bar">
       {heroIcons.map((project, i) => {
@@ -133,11 +157,15 @@ function IconBar() {
           <a
             key={project.name}
             href="#projects"
-            className="flex items-center justify-center w-12 h-12 rounded-xl border border-border/60 bg-card/80 transition-colors duration-200 hover-elevate icon-pulse"
+            className={`flex items-center justify-center w-12 h-12 rounded-xl border transition-colors duration-200 hover-elevate icon-pulse ${
+              theme === "sparkle"
+                ? "border-violet-500/30 bg-card/40 sparkle-border"
+                : "border-border/60 bg-card/80"
+            }`}
             title={project.name}
             data-testid={`icon-bar-${i}`}
           >
-            <Icon className="w-5 h-5 text-muted-foreground" />
+            <Icon className={`w-5 h-5 ${theme === "sparkle" ? sparkleIconColors[i] : "text-muted-foreground"}`} />
           </a>
         );
       })}
@@ -147,6 +175,10 @@ function IconBar() {
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
+  const icon =
+    theme === "light" ? <Moon className="w-4 h-4" /> :
+    theme === "dark" ? <Sparkles className="w-4 h-4" /> :
+    <Sun className="w-4 h-4" />;
   return (
     <Button
       size="icon"
@@ -154,7 +186,7 @@ function ThemeToggle() {
       onClick={toggleTheme}
       data-testid="button-theme-toggle"
     >
-      {theme === "dark" ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+      {icon}
     </Button>
   );
 }
@@ -166,7 +198,10 @@ function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between gap-4 px-6 py-4 md:px-10"
       style={{
         backdropFilter: "blur(12px)",
-        backgroundColor: theme === "dark" ? "hsl(220 10% 6% / 0.8)" : "hsl(220 10% 97% / 0.8)",
+        backgroundColor:
+          theme === "sparkle" ? "hsl(220 10% 6% / 0.7)" :
+          theme === "dark" ? "hsl(220 10% 6% / 0.8)" :
+          "hsl(220 10% 97% / 0.8)",
       }}
       data-testid="navbar"
     >
@@ -183,6 +218,7 @@ function Navbar() {
 }
 
 function Hero() {
+  const { theme } = useTheme();
   return (
     <section
       className="relative flex flex-col items-center justify-center min-h-screen px-6 text-center"
@@ -203,7 +239,9 @@ function Hero() {
         </div>
 
         <h1
-          className="text-4xl font-bold leading-[1.15] tracking-tight text-foreground sm:text-5xl md:text-6xl"
+          className={`text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl ${
+            theme === "sparkle" ? "sparkle-text" : "text-foreground"
+          }`}
           data-testid="text-headline"
         >
           Fair. Factual.{" "}
@@ -297,6 +335,7 @@ function PrincipleVisual3() {
 }
 
 function Beliefs() {
+  const { theme } = useTheme();
   const visuals = [<PrincipleVisual1 />, <PrincipleVisual2 />, <PrincipleVisual3 />];
 
   return (
@@ -317,7 +356,9 @@ function Beliefs() {
           </div>
 
           <h2
-            className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl"
+            className={`text-2xl font-bold tracking-tight sm:text-3xl ${
+              theme === "sparkle" ? "sparkle-text" : "text-foreground"
+            }`}
             data-testid="text-beliefs-heading"
           >
             Consensus is King.
@@ -368,12 +409,17 @@ function ProjectCard({
   index: number;
   visual: React.ReactNode;
 }) {
+  const { theme } = useTheme();
   return (
     <a
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible card-glow"
+      className={`group flex flex-col rounded-xl border p-6 transition-all duration-300 hover-elevate overflow-visible card-glow ${
+        theme === "sparkle"
+          ? "border-violet-500/20 bg-card/40 sparkle-border"
+          : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
+      }`}
       data-testid={`card-project-${index}`}
     >
       <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
@@ -502,6 +548,7 @@ const projectVisuals = [
 ];
 
 function Projects() {
+  const { theme } = useTheme();
   return (
     <section
       id="projects"
@@ -519,7 +566,9 @@ function Projects() {
             </Badge>
           </div>
 
-          <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-projects-heading">
+          <h2 className={`text-2xl font-bold tracking-tight sm:text-3xl ${
+            theme === "sparkle" ? "sparkle-text" : "text-foreground"
+          }`} data-testid="text-projects-heading">
             Structuring the Web for the AI Era.
           </h2>
         </div>
@@ -559,12 +608,26 @@ function SectionDivider() {
 }
 
 function ClosingStatement() {
+  const { theme } = useTheme();
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-closing">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[100px] pointer-events-none" />
+      {theme === "sparkle" ? (
+        <>
+          <div className="absolute left-1/3 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-violet-500/[0.12] blur-[100px] pointer-events-none animate-subtle-glow" />
+          <div className="absolute right-1/3 top-1/2 translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full bg-pink-500/[0.10] blur-[100px] pointer-events-none animate-subtle-glow" style={{ animationDelay: "1.5s" }} />
+        </>
+      ) : (
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[100px] pointer-events-none" />
+      )}
       <div className="max-w-4xl mx-auto relative">
-        <div className="rounded-xl border border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center card-glow">
-          <p className="text-xl font-medium leading-relaxed text-foreground/80 sm:text-2xl max-w-xl mx-auto" data-testid="text-closing">
+        <div className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 text-center card-glow ${
+          theme === "sparkle"
+            ? "border-violet-500/30 bg-card/40 sparkle-glow-bg"
+            : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
+        }`}>
+          <p className={`text-xl font-medium leading-relaxed sm:text-2xl max-w-xl mx-auto ${
+            theme === "sparkle" ? "sparkle-text" : "text-foreground/80"
+          }`} data-testid="text-closing">
             The answer is the new first impression.
           </p>
         </div>

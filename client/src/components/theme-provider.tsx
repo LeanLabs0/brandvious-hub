@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
-type Theme = "light" | "dark";
+type Theme = "light" | "dark" | "sparkle";
 
 const ThemeContext = createContext<{
   theme: Theme;
@@ -20,16 +20,21 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
+    root.classList.remove("dark", "sparkle");
     if (theme === "dark") {
       root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
+    } else if (theme === "sparkle") {
+      root.classList.add("dark", "sparkle");
     }
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
+    setTheme((prev) => {
+      if (prev === "light") return "dark";
+      if (prev === "dark") return "sparkle";
+      return "light";
+    });
   };
 
   return (
