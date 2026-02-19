@@ -661,16 +661,16 @@ function Footer() {
 
 function SparkleBackground() {
   const entities = [
-    { top: "8%", left: "15%", size: 900, blur: 140, drift: "entity-drift-1", duration: "28s", delay: "0s",
-      outer: "rgba(120, 40, 180, 0.30)", inner: "rgba(180, 100, 255, 0.45)" },
-    { top: "35%", left: "65%", size: 750, blur: 120, drift: "entity-drift-2", duration: "34s", delay: "2s",
-      outer: "rgba(90, 20, 150, 0.25)", inner: "rgba(150, 70, 220, 0.40)" },
-    { top: "65%", left: "25%", size: 850, blur: 130, drift: "entity-drift-3", duration: "30s", delay: "5s",
-      outer: "rgba(100, 30, 160, 0.28)", inner: "rgba(160, 80, 240, 0.42)" },
-    { top: "20%", left: "80%", size: 600, blur: 110, drift: "entity-drift-1", duration: "36s", delay: "8s",
-      outer: "rgba(80, 15, 140, 0.22)", inner: "rgba(140, 60, 210, 0.35)" },
-    { top: "75%", left: "70%", size: 700, blur: 125, drift: "entity-drift-2", duration: "32s", delay: "4s",
-      outer: "rgba(110, 35, 170, 0.24)", inner: "rgba(170, 90, 250, 0.38)" },
+    { top: "5%", left: "10%", size: 1200, blur: 200, drift: "entity-drift-1", duration: "28s", delay: "0s",
+      outer: "rgba(80, 20, 140, 0.15)", inner: "rgba(120, 40, 180, 0.35)" },
+    { top: "30%", left: "60%", size: 1000, blur: 180, drift: "entity-drift-2", duration: "34s", delay: "2s",
+      outer: "rgba(60, 10, 100, 0.12)", inner: "rgba(100, 20, 160, 0.28)" },
+    { top: "60%", left: "30%", size: 1100, blur: 190, drift: "entity-drift-3", duration: "30s", delay: "5s",
+      outer: "rgba(90, 30, 150, 0.12)", inner: "rgba(140, 50, 200, 0.30)" },
+    { top: "20%", left: "80%", size: 800, blur: 160, drift: "entity-drift-1", duration: "36s", delay: "8s",
+      outer: "rgba(70, 15, 120, 0.10)", inner: "rgba(110, 30, 170, 0.25)" },
+    { top: "75%", left: "70%", size: 900, blur: 170, drift: "entity-drift-2", duration: "32s", delay: "4s",
+      outer: "rgba(80, 25, 130, 0.10)", inner: "rgba(130, 40, 190, 0.22)" },
   ];
 
   return (
