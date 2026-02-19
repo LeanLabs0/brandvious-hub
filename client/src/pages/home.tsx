@@ -223,9 +223,7 @@ function Hero() {
 
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
         <h1
-          className={`text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl ${
-            theme === "sparkle" ? "sparkle-text" : "text-foreground"
-          }`}
+          className="text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl text-foreground"
           data-testid="text-headline"
         >
           Fair. Factual.{" "}
@@ -340,9 +338,7 @@ function Beliefs() {
           </div>
 
           <h2
-            className={`text-2xl font-bold tracking-tight sm:text-3xl ${
-              theme === "sparkle" ? "sparkle-text" : "text-foreground"
-            }`}
+            className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground"
             data-testid="text-beliefs-heading"
           >
             Consensus is King.
@@ -551,9 +547,7 @@ function Projects() {
             </Badge>
           </div>
 
-          <h2 className={`text-2xl font-bold tracking-tight sm:text-3xl ${
-            theme === "sparkle" ? "sparkle-text" : "text-foreground"
-          }`} data-testid="text-projects-heading">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-projects-heading">
             Structuring the Web for the AI Era.
           </h2>
         </div>
@@ -595,7 +589,7 @@ function SectionDivider() {
 function ClosingStatement() {
   const { theme } = useTheme();
   return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-closing">
+    <section className="relative z-10 px-6 py-24 md:py-32" data-testid="section-closing">
       {theme === "sparkle" ? (
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full blur-[120px] pointer-events-none animate-subtle-glow"
           style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.12) 0%, rgba(60, 10, 90, 0.05) 50%, transparent 70%)" }}
@@ -612,9 +606,7 @@ function ClosingStatement() {
           }`}
           style={theme === "sparkle" ? { "--cycle-delay": "0s", "--cycle-duration": "10s" } as React.CSSProperties : undefined}
         >
-          <p className={`text-xl font-medium leading-relaxed sm:text-2xl max-w-xl mx-auto ${
-            theme === "sparkle" ? "sparkle-text" : "text-foreground/80"
-          }`} data-testid="text-closing">
+          <p className="text-xl font-medium leading-relaxed sm:text-2xl max-w-xl mx-auto text-foreground/80" data-testid="text-closing">
             The answer is the new first impression.
           </p>
         </div>
