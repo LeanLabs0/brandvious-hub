@@ -401,19 +401,19 @@ function WhySection() {
             Why this exists
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground max-w-2xl" data-testid="text-why-heading">
-            AI systems are answering questions about your company. Most of the answers are wrong.
+            AI systems are answering questions about your company. Most of those answers are wrong.
           </h2>
         </div>
 
         <div className="space-y-4 text-sm leading-relaxed text-muted-foreground max-w-2xl">
           <p>
-            Ask ChatGPT about a mid-market company. You'll get merged facts from two different companies, a founding date from Wikipedia that was never updated, and a CEO who left three years ago.
+            Ask ChatGPT about a mid-market company and you'll get merged facts from two different businesses, an outdated founding date, and a CEO who left three years ago.
           </p>
           <p>
-            This isn't a model problem. It's a data problem. AI systems reconstruct entities from scattered, unstructured sources — About pages, press releases, LinkedIn profiles, stale directories. No single source gives them structured, disambiguated, cited facts in a format they can parse.
+            AI reconstructs entities from scattered, unstructured sources — About pages, press releases, LinkedIn profiles, old directories. There is no canonical place for machines to get structured, cited, disambiguated facts.
           </p>
           <p>
-            Entities.org does. Every entity gets Schema.org JSON-LD, a disambiguation statement, source citations, cross-platform links, and a timestamped modification date. Machines read it directly. No scraping. No guessing.
+            Entities.org gives every entity Schema.org JSON-LD, a disambiguation statement, source citations, cross-platform links, and a timestamped modification date.
           </p>
         </div>
 
@@ -428,7 +428,7 @@ function WhySection() {
             <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Facts, not marketing.</span>
           </div>
           <p className="text-xs leading-relaxed text-muted-foreground/50 mb-4">
-            This registry contains structured facts — founding dates, headquarters, leadership, source links. Not taglines. Not value propositions. Not "we're the leading provider." If a fact can't be cited, it doesn't belong here.
+            Founding, features, and citable facts. If a fact can't be cited, it doesn't belong here.
           </p>
 
           <div className={`rounded-lg border p-4 ${
