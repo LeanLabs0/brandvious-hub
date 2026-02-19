@@ -26,9 +26,8 @@ const projects = [
   {
     name: "SchemaRocket",
     label: "STRUCTURED DATA",
-    tagline: "Get structured data that powers AI.",
     description:
-      "Structured data and schema markup that makes your brand machine-readable — so AI engines can understand, trust, and recommend you.",
+      "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
     status: "Established",
     statusColor: "text-emerald-400",
     url: "https://schemarocket.ai",
@@ -37,9 +36,8 @@ const projects = [
   {
     name: "Entities.org",
     label: "REGISTRY",
-    tagline: "Structured facts, open data.",
     description:
-      "A canonical entity registry built for machines. Structured, verified data so AI engines always get the right company — not the wrong one.",
+      "A canonical entity registry for machines. Verified data so AI always gets the right company.",
     status: "Growing",
     statusColor: "text-blue-400",
     url: "https://entities.org",
@@ -48,9 +46,8 @@ const projects = [
   {
     name: "WhatisBest.com",
     label: "COMPARISONS",
-    tagline: "The best tool for the job.",
     description:
-      "The go-to answer engine for B2B SaaS buyers. Structured, expert-vetted comparisons built to surface in AI search results.",
+      "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
     status: "Launching",
     statusColor: "text-amber-400",
     url: "https://whatisbest.com",
@@ -59,9 +56,8 @@ const projects = [
   {
     name: "AnswerStack.io",
     label: "ANSWERS",
-    tagline: "Less noise, more signal.",
     description:
-      "The structured authority hub for the age of AI search. Schema-rich, expert-vetted content that AI engines cite as a credible source.",
+      "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
     status: "In Development",
     statusColor: "text-neutral-400",
     url: "https://answerstack.io",
@@ -70,9 +66,8 @@ const projects = [
   {
     name: "ReviewRadar.com",
     label: "TRUST",
-    tagline: "What's actually happening now.",
     description:
-      "Review sites are biased and built on stale data. ReviewRadar indexes what's happening lately — pulling from leading review platforms and gathering real-time sentiment from communities.",
+      "Review sites are biased and stale. ReviewRadar pulls real-time sentiment from leading platforms and communities.",
     status: "Backlog",
     statusColor: "text-neutral-500",
     url: "https://reviewradar.com",
@@ -542,9 +537,6 @@ function ProjectAccordionItem({
         <div className="overflow-hidden">
           <div className="pb-8 px-1 flex flex-col md:flex-row gap-8">
             <div className="flex-1">
-              <p className="text-sm font-medium text-foreground/70 mb-2" data-testid={`text-project-tagline-${index}`}>
-                {project.tagline}
-              </p>
               <p className="text-sm leading-relaxed text-muted-foreground/60" data-testid={`text-project-description-${index}`}>
                 {project.description}
               </p>
@@ -617,9 +609,6 @@ function Projects() {
           <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-projects-heading">
             Structuring the Web for the AI Era.
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto" data-testid="text-projects-subheading">
-            Structured data. Accurate facts. Better answers.
-          </p>
         </div>
 
         <div className="border-t border-border/30">
