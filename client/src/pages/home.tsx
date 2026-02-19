@@ -660,58 +660,39 @@ function Footer() {
 }
 
 function SparkleBackground() {
-  const entities = [
-    { top: "5%", left: "12%", size: 350, blur: 60, drift: "entity-drift-1", duration: "28s", delay: "0s",
-      outer: "rgba(100, 30, 160, 0.20)", inner: "rgba(160, 70, 240, 0.50)" },
-    { top: "25%", left: "70%", size: 280, blur: 50, drift: "entity-drift-2", duration: "34s", delay: "2s",
-      outer: "rgba(80, 20, 140, 0.18)", inner: "rgba(140, 50, 220, 0.45)" },
-    { top: "55%", left: "20%", size: 320, blur: 55, drift: "entity-drift-3", duration: "30s", delay: "5s",
-      outer: "rgba(110, 35, 170, 0.20)", inner: "rgba(170, 80, 250, 0.48)" },
-    { top: "15%", left: "85%", size: 220, blur: 45, drift: "entity-drift-1", duration: "36s", delay: "8s",
-      outer: "rgba(70, 15, 130, 0.15)", inner: "rgba(130, 50, 210, 0.40)" },
-    { top: "70%", left: "65%", size: 300, blur: 55, drift: "entity-drift-2", duration: "32s", delay: "4s",
-      outer: "rgba(90, 25, 150, 0.18)", inner: "rgba(150, 60, 230, 0.45)" },
-    { top: "45%", left: "45%", size: 250, blur: 48, drift: "entity-drift-3", duration: "26s", delay: "7s",
-      outer: "rgba(85, 20, 145, 0.16)", inner: "rgba(145, 55, 225, 0.42)" },
-    { top: "85%", left: "30%", size: 200, blur: 40, drift: "entity-drift-1", duration: "38s", delay: "3s",
-      outer: "rgba(75, 18, 135, 0.14)", inner: "rgba(135, 45, 215, 0.38)" },
-  ];
-
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      {entities.map((e, i) => (
+      <div
+        className="absolute top-[5%] left-[10%] w-[1200px] h-[1200px] rounded-full blur-[200px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(120, 40, 180, 0.35) 0%, rgba(80, 20, 140, 0.15) 40%, transparent 70%)" }}
+      />
+      <div
+        className="absolute top-[30%] right-[5%] w-[1000px] h-[1000px] rounded-full blur-[180px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(100, 20, 160, 0.28) 0%, rgba(60, 10, 100, 0.12) 40%, transparent 70%)", animationDelay: "3s" }}
+      />
+      <div
+        className="absolute top-[60%] left-[30%] w-[1100px] h-[1100px] rounded-full blur-[190px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(140, 50, 200, 0.30) 0%, rgba(90, 30, 150, 0.12) 40%, transparent 70%)", animationDelay: "6s" }}
+      />
+      <div
+        className="absolute bottom-[5%] right-[20%] w-[800px] h-[800px] rounded-full blur-[160px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(110, 30, 170, 0.25) 0%, rgba(70, 15, 120, 0.10) 40%, transparent 70%)", animationDelay: "9s" }}
+      />
+      <div
+        className="absolute top-[15%] left-[60%] w-[900px] h-[900px] rounded-full blur-[170px] animate-subtle-glow"
+        style={{ background: "radial-gradient(circle, rgba(130, 40, 190, 0.22) 0%, transparent 60%)", animationDelay: "4s" }}
+      />
+      {Array.from({ length: 100 }).map((_, i) => (
         <div
           key={i}
-          className="absolute rounded-full"
+          className="absolute rounded-full bg-purple-300/[0.12] animate-float-particle"
           style={{
-            top: e.top,
-            left: e.left,
-            width: `${e.size}px`,
-            height: `${e.size}px`,
-            filter: `blur(${e.blur}px)`,
-            animation: `${e.drift} ${e.duration} ${e.delay} infinite ease-in-out`,
-          }}
-        >
-          <div
-            className="absolute inset-0 rounded-full"
-            style={{
-              background: `radial-gradient(circle, ${e.inner} 0%, ${e.outer} 35%, transparent 60%)`,
-              animation: `entity-pulse ${parseInt(e.duration) * 0.35}s ${e.delay} infinite ease-in-out`,
-            }}
-          />
-        </div>
-      ))}
-      {Array.from({ length: 80 }).map((_, i) => (
-        <div
-          key={`p-${i}`}
-          className="absolute rounded-full bg-purple-300/[0.10] animate-float-particle"
-          style={{
-            width: `${Math.random() * 3 + 1}px`,
-            height: `${Math.random() * 3 + 1}px`,
+            width: `${Math.random() * 4 + 1.5}px`,
+            height: `${Math.random() * 4 + 1.5}px`,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            ["--duration" as string]: `${Math.random() * 15 + 10}s`,
-            ["--delay" as string]: `${Math.random() * 12}s`,
+            ["--duration" as string]: `${Math.random() * 12 + 8}s`,
+            ["--delay" as string]: `${Math.random() * 10}s`,
           }}
         />
       ))}
