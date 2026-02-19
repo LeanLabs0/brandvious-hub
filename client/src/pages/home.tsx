@@ -222,16 +222,6 @@ function Hero() {
       <HeroParticles />
 
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-        <div className="mb-8">
-          <Badge
-            variant="outline"
-            className="text-[11px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
-            data-testid="badge-brandvious"
-          >
-            Brandvious Digital
-          </Badge>
-        </div>
-
         <h1
           className={`text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl md:text-6xl ${
             theme === "sparkle" ? "sparkle-text" : "text-foreground"
