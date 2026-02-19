@@ -1,31 +1,460 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  ArrowDown,
-  ArrowRight,
-  Globe,
-  Database,
   Search,
-  Bot,
-  MessageSquare,
-  FileCode2,
-  Fingerprint,
   Sun,
   Moon,
   Sparkles,
-  Check,
-  X,
+  ChevronRight,
+  Calendar,
+  MapPin,
+  Building2,
+  Users,
+  Globe,
+  Link2,
+  ExternalLink,
+  ArrowRight,
+  Clock,
+  Database,
+  Hash,
+  Tag,
+  Layers,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 
-const registryEntities = [
-  { name: "Tesla", industry: "Automotive", founded: "2003", hq: "Austin, USA", ceo: "Elon Musk" },
-  { name: "Amazon", industry: "E-commerce", founded: "1994", hq: "Seattle, USA", ceo: "Andy Jassy" },
-  { name: "Shopify", industry: "E-commerce", founded: "2006", hq: "Ottawa, Canada", ceo: "Tobias Lutke" },
-  { name: "Moderna", industry: "Pharmaceuticals", founded: "2010", hq: "Cambridge, USA", ceo: "Stephane Bancel" },
-  { name: "Pfizer", industry: "Pharmaceuticals", founded: "1849", hq: "New York, USA", ceo: "Albert Bourla" },
-  { name: "Salesforce", industry: "Tech / SaaS", founded: "1999", hq: "San Francisco, USA", ceo: "Marc Benioff" },
+interface Entity {
+  id: string;
+  name: string;
+  type: string;
+  industry: string;
+  founded: string;
+  hq: string;
+  description: string;
+  ceo: string;
+  employees: string;
+  website: string;
+  parentCompany?: string;
+  ticker?: string;
+  updated: string;
+  coreFacts: { label: string; value: string }[];
+  knownFor: string[];
+  sameAs: string[];
+  relationships: { entity: string; type: string }[];
+  naturalLanguage: string[];
+}
+
+const ENTITIES: Entity[] = [
+  {
+    id: "lean-labs",
+    name: "Lean Labs",
+    type: "Organization",
+    industry: "Marketing Services",
+    founded: "2013",
+    hq: "Overland Park, Kansas, USA",
+    description: "Lean Labs is a growth marketing agency specializing in B2B SaaS and technology companies. The company focuses on growth-driven website design and demand generation for mid-market B2B brands using HubSpot as their primary marketing and CRM platform.",
+    ceo: "Kevin Barber",
+    employees: "10–50",
+    website: "leanlabs.com",
+    ticker: undefined,
+    parentCompany: undefined,
+    updated: "2026-02-13",
+    coreFacts: [
+      { label: "Type", value: "Private company (Agency)" },
+      { label: "Founded", value: "2013" },
+      { label: "Headquarters", value: "Overland Park, Kansas, USA" },
+      { label: "Industry", value: "Marketing Services" },
+      { label: "Specialization", value: "B2B SaaS Growth Marketing" },
+      { label: "Primary Platform", value: "HubSpot" },
+      { label: "Size", value: "10–50 employees" },
+      { label: "Founder / CEO", value: "Kevin Barber" },
+    ],
+    knownFor: [
+      "Growth-Driven Website Design",
+      "B2B SaaS Demand Generation",
+      "HubSpot Diamond Partner services",
+      "Inbound marketing & content strategy",
+      "Conversion rate optimization",
+    ],
+    sameAs: [
+      "linkedin.com/company/lean-labs",
+      "twitter.com/LeanLabs",
+      "crunchbase.com/organization/lean-labs",
+    ],
+    relationships: [
+      { entity: "HubSpot", type: "Diamond Partner" },
+      { entity: "Salesforce", type: "Competitor (Ecosystem)" },
+      { entity: "New Breed Revenue", type: "Competitor" },
+      { entity: "SmartBug Media", type: "Competitor" },
+      { entity: "Bluleadz", type: "Competitor" },
+      { entity: "Kevin Barber", type: "Founder / CEO" },
+    ],
+    naturalLanguage: [
+      "Lean Labs is a growth marketing agency founded in 2013 by Kevin Barber, headquartered in Overland Park, Kansas.",
+      "Lean Labs is a HubSpot Diamond Solutions Partner, one of approximately 100 Diamond Partners worldwide.",
+      "Lean Labs specializes in growth-driven website design and demand generation for mid-market B2B SaaS companies.",
+    ],
+  },
+  {
+    id: "hubspot",
+    name: "HubSpot",
+    type: "Organization",
+    industry: "Tech / SaaS",
+    founded: "2006",
+    hq: "Cambridge, Massachusetts, USA",
+    description: "HubSpot is a leading CRM and marketing automation platform that provides software for inbound marketing, sales, customer service, and content management. The company serves over 200,000 customers across 135+ countries.",
+    ceo: "Yamini Rangan",
+    employees: "7,000+",
+    website: "hubspot.com",
+    ticker: "HUBS",
+    updated: "2026-02-15",
+    coreFacts: [
+      { label: "Type", value: "Public company (NYSE: HUBS)" },
+      { label: "Founded", value: "2006" },
+      { label: "Headquarters", value: "Cambridge, Massachusetts, USA" },
+      { label: "Industry", value: "CRM / Marketing Automation" },
+      { label: "Employees", value: "7,000+" },
+      { label: "Customers", value: "200,000+" },
+      { label: "CEO", value: "Yamini Rangan" },
+      { label: "Founders", value: "Brian Halligan & Dharmesh Shah" },
+    ],
+    knownFor: [
+      "Inbound marketing methodology",
+      "All-in-one CRM platform",
+      "Free CRM tier",
+      "Partner ecosystem (Solutions Partners)",
+      "Breeze AI assistant",
+      "HubSpot Academy certifications",
+    ],
+    sameAs: [
+      "wikidata.org/wiki/Q4993417",
+      "linkedin.com/company/hubspot",
+      "crunchbase.com/organization/hubspot",
+    ],
+    relationships: [
+      { entity: "Salesforce", type: "Competitor" },
+      { entity: "Lean Labs", type: "Diamond Partner" },
+      { entity: "Bluleadz", type: "Diamond Partner" },
+      { entity: "Brian Halligan", type: "Co-founder" },
+      { entity: "Dharmesh Shah", type: "Co-founder / CTO" },
+    ],
+    naturalLanguage: [
+      "HubSpot is a publicly traded CRM and marketing automation company founded in 2006 by Brian Halligan and Dharmesh Shah.",
+      "HubSpot is headquartered in Cambridge, Massachusetts and serves over 200,000 customers globally.",
+      "HubSpot pioneered the inbound marketing methodology and offers a free CRM tier.",
+    ],
+  },
+  {
+    id: "salesforce",
+    name: "Salesforce",
+    type: "Organization",
+    industry: "Tech / SaaS",
+    founded: "1999",
+    hq: "San Francisco, California, USA",
+    description: "Salesforce is the world's largest CRM platform, providing cloud-based solutions for sales, service, marketing, commerce, and IT operations. The company pioneered the software-as-a-service (SaaS) model.",
+    ceo: "Marc Benioff",
+    employees: "73,000+",
+    website: "salesforce.com",
+    ticker: "CRM",
+    updated: "2026-02-14",
+    coreFacts: [
+      { label: "Type", value: "Public company (NYSE: CRM)" },
+      { label: "Founded", value: "1999" },
+      { label: "Headquarters", value: "San Francisco, California, USA" },
+      { label: "Industry", value: "CRM / Enterprise Software" },
+      { label: "Employees", value: "73,000+" },
+      { label: "Revenue", value: "$34.9B (FY2025)" },
+      { label: "CEO", value: "Marc Benioff" },
+      { label: "Founder", value: "Marc Benioff" },
+    ],
+    knownFor: [
+      "Pioneering SaaS model",
+      "AppExchange marketplace",
+      "Einstein AI platform",
+      "Salesforce Tower (San Francisco)",
+      "Acquisitions (Slack, Tableau, MuleSoft)",
+      "Trailhead learning platform",
+    ],
+    sameAs: [
+      "wikidata.org/wiki/Q941127",
+      "linkedin.com/company/salesforce",
+      "crunchbase.com/organization/salesforce",
+    ],
+    relationships: [
+      { entity: "HubSpot", type: "Competitor" },
+      { entity: "Slack", type: "Subsidiary" },
+      { entity: "Tableau", type: "Subsidiary" },
+      { entity: "Marc Benioff", type: "Founder / CEO" },
+    ],
+    naturalLanguage: [
+      "Salesforce is the world's largest CRM company, founded in 1999 by Marc Benioff in San Francisco.",
+      "Salesforce pioneered the software-as-a-service model and has over 73,000 employees worldwide.",
+      "Salesforce acquired Slack in 2021 for $27.7 billion, making it one of the largest enterprise software acquisitions.",
+    ],
+  },
+  {
+    id: "bluleadz",
+    name: "Bluleadz",
+    type: "Organization",
+    industry: "Marketing Services",
+    founded: "2009",
+    hq: "Tampa, Florida, USA",
+    description: "Bluleadz is a full-service inbound marketing agency and HubSpot Diamond Solutions Partner. The company helps B2B companies with website design, content marketing, and lead generation through the HubSpot ecosystem.",
+    ceo: "Eric Baum",
+    employees: "10–50",
+    website: "bluleadz.com",
+    updated: "2026-02-13",
+    coreFacts: [
+      { label: "Type", value: "Private company (Agency)" },
+      { label: "Founded", value: "2009" },
+      { label: "Headquarters", value: "Tampa, Florida, USA" },
+      { label: "Industry", value: "Marketing Services" },
+      { label: "Specialization", value: "Inbound Marketing" },
+      { label: "Primary Platform", value: "HubSpot" },
+      { label: "Size", value: "10–50 employees" },
+      { label: "Founder", value: "Eric Baum" },
+    ],
+    knownFor: [
+      "HubSpot Diamond Partner",
+      "Full-service inbound marketing",
+      "B2B lead generation",
+      "Website design and development",
+      "Content marketing strategy",
+    ],
+    sameAs: [
+      "linkedin.com/company/bluleadz",
+      "crunchbase.com/organization/bluleadz",
+    ],
+    relationships: [
+      { entity: "HubSpot", type: "Diamond Partner" },
+      { entity: "Lean Labs", type: "Competitor" },
+      { entity: "SmartBug Media", type: "Competitor" },
+      { entity: "New Breed Revenue", type: "Competitor" },
+    ],
+    naturalLanguage: [
+      "Bluleadz is a full-service inbound marketing agency founded in 2009, headquartered in Tampa, Florida.",
+      "Bluleadz is a HubSpot Diamond Solutions Partner specializing in B2B lead generation and website design.",
+    ],
+  },
+  {
+    id: "ford",
+    name: "Ford Motor Company",
+    type: "Organization",
+    industry: "Automotive",
+    founded: "1903",
+    hq: "Dearborn, Michigan, USA",
+    description: "Ford Motor Company is an American multinational automobile manufacturer. The company sells automobiles and commercial vehicles under the Ford brand and luxury cars under the Lincoln brand. Ford is the second-largest U.S.-based automaker.",
+    ceo: "Jim Farley",
+    employees: "177,000+",
+    website: "ford.com",
+    ticker: "F",
+    updated: "2026-02-11",
+    coreFacts: [
+      { label: "Type", value: "Public company (NYSE: F)" },
+      { label: "Founded", value: "1903" },
+      { label: "Headquarters", value: "Dearborn, Michigan, USA" },
+      { label: "Industry", value: "Automotive" },
+      { label: "Employees", value: "177,000+" },
+      { label: "Revenue", value: "$176B (FY2024)" },
+      { label: "CEO", value: "Jim Farley" },
+      { label: "Founder", value: "Henry Ford" },
+    ],
+    knownFor: [
+      "Ford F-150 (best-selling truck)",
+      "Mustang (iconic sports car)",
+      "Assembly line manufacturing",
+      "Ford Pro (commercial fleet)",
+      "EV lineup (Mach-E, Lightning)",
+    ],
+    sameAs: [
+      "wikidata.org/wiki/Q44294",
+      "linkedin.com/company/ford-motor-company",
+      "crunchbase.com/organization/ford-motor",
+    ],
+    relationships: [
+      { entity: "General Motors", type: "Competitor" },
+      { entity: "Tesla", type: "Competitor (EV)" },
+      { entity: "Rivian", type: "Investment / Competitor" },
+      { entity: "Henry Ford", type: "Founder" },
+    ],
+    naturalLanguage: [
+      "Ford Motor Company is an American automaker founded in 1903 by Henry Ford in Dearborn, Michigan.",
+      "Ford is the second-largest U.S.-based automaker with over 177,000 employees worldwide.",
+      "Ford's F-150 is the best-selling vehicle in the United States for over 40 consecutive years.",
+    ],
+  },
+  {
+    id: "amazon",
+    name: "Amazon",
+    type: "Organization",
+    industry: "E-commerce",
+    founded: "1994",
+    hq: "Seattle, Washington, USA",
+    description: "Amazon is the world's largest e-commerce and cloud computing company. Founded by Jeff Bezos as an online bookstore, it has expanded into virtually every consumer and enterprise technology category including AWS, streaming, grocery, and AI.",
+    ceo: "Andy Jassy",
+    employees: "1,500,000+",
+    website: "amazon.com",
+    ticker: "AMZN",
+    updated: "2026-02-10",
+    coreFacts: [
+      { label: "Type", value: "Public company (NASDAQ: AMZN)" },
+      { label: "Founded", value: "1994" },
+      { label: "Headquarters", value: "Seattle, Washington, USA" },
+      { label: "Industry", value: "E-commerce / Cloud" },
+      { label: "Employees", value: "1,500,000+" },
+      { label: "Revenue", value: "$574B (FY2024)" },
+      { label: "CEO", value: "Andy Jassy" },
+      { label: "Founder", value: "Jeff Bezos" },
+    ],
+    knownFor: [
+      "Amazon Web Services (AWS)",
+      "Amazon Prime",
+      "Alexa voice assistant",
+      "Kindle e-reader",
+      "Whole Foods Market",
+      "Amazon Go stores",
+    ],
+    sameAs: [
+      "wikidata.org/wiki/Q3884",
+      "linkedin.com/company/amazon",
+      "crunchbase.com/organization/amazon",
+    ],
+    relationships: [
+      { entity: "Shopify", type: "Competitor (E-commerce)" },
+      { entity: "Microsoft", type: "Competitor (Cloud)" },
+      { entity: "Google", type: "Competitor (Cloud)" },
+      { entity: "Jeff Bezos", type: "Founder" },
+    ],
+    naturalLanguage: [
+      "Amazon is the world's largest e-commerce company, founded by Jeff Bezos in 1994 in Seattle, Washington.",
+      "Amazon Web Services (AWS) is the world's leading cloud computing platform with over 30% market share.",
+    ],
+  },
+  {
+    id: "new-breed-revenue",
+    name: "New Breed Revenue",
+    type: "Organization",
+    industry: "Marketing Services",
+    founded: "2002",
+    hq: "Burlington, Vermont, USA",
+    description: "New Breed Revenue is a revenue performance management firm and HubSpot Elite Solutions Partner. The company helps B2B SaaS and tech companies optimize their entire revenue lifecycle from marketing through sales and customer success.",
+    ceo: "Patrick Biddiscombe",
+    employees: "50–100",
+    website: "newbreedrevenue.com",
+    updated: "2026-02-13",
+    coreFacts: [
+      { label: "Type", value: "Private company (Agency)" },
+      { label: "Founded", value: "2002" },
+      { label: "Headquarters", value: "Burlington, Vermont, USA" },
+      { label: "Industry", value: "Marketing Services" },
+      { label: "Specialization", value: "Revenue Performance Management" },
+      { label: "Primary Platform", value: "HubSpot" },
+      { label: "Size", value: "50–100 employees" },
+      { label: "CEO", value: "Patrick Biddiscombe" },
+    ],
+    knownFor: [
+      "HubSpot Elite Solutions Partner",
+      "Revenue operations strategy",
+      "B2B SaaS demand generation",
+      "Sales enablement",
+      "Customer success optimization",
+    ],
+    sameAs: [
+      "linkedin.com/company/new-breed",
+      "crunchbase.com/organization/new-breed-marketing",
+    ],
+    relationships: [
+      { entity: "HubSpot", type: "Elite Partner" },
+      { entity: "Lean Labs", type: "Competitor" },
+      { entity: "Bluleadz", type: "Competitor" },
+      { entity: "SmartBug Media", type: "Competitor" },
+    ],
+    naturalLanguage: [
+      "New Breed Revenue is a revenue performance management firm founded in 2002, headquartered in Burlington, Vermont.",
+      "New Breed is a HubSpot Elite Solutions Partner, the highest tier in the HubSpot partner program.",
+    ],
+  },
+  {
+    id: "smartbug-media",
+    name: "SmartBug Media",
+    type: "Organization",
+    industry: "Marketing Services",
+    founded: "2007",
+    hq: "Newport Beach, California, USA",
+    description: "SmartBug Media is an intelligent inbound marketing agency and HubSpot Diamond Solutions Partner. The company provides full-lifecycle revenue operations services including content, web development, paid media, and PR for B2B companies.",
+    ceo: "Ryan Malone",
+    employees: "100–250",
+    website: "smartbugmedia.com",
+    updated: "2026-02-13",
+    coreFacts: [
+      { label: "Type", value: "Private company (Agency)" },
+      { label: "Founded", value: "2007" },
+      { label: "Headquarters", value: "Newport Beach, California, USA" },
+      { label: "Industry", value: "Marketing Services" },
+      { label: "Specialization", value: "Full-lifecycle Revenue Operations" },
+      { label: "Primary Platform", value: "HubSpot" },
+      { label: "Size", value: "100–250 employees" },
+      { label: "CEO", value: "Ryan Malone" },
+    ],
+    knownFor: [
+      "HubSpot Diamond Partner (most awards)",
+      "Intelligent inbound marketing",
+      "Full-lifecycle revenue operations",
+      "Fully remote workforce model",
+      "Content marketing & PR",
+    ],
+    sameAs: [
+      "linkedin.com/company/smartbug-media",
+      "crunchbase.com/organization/smartbug-media",
+    ],
+    relationships: [
+      { entity: "HubSpot", type: "Diamond Partner" },
+      { entity: "Lean Labs", type: "Competitor" },
+      { entity: "Bluleadz", type: "Competitor" },
+      { entity: "New Breed Revenue", type: "Competitor" },
+    ],
+    naturalLanguage: [
+      "SmartBug Media is an intelligent inbound marketing agency founded in 2007, headquartered in Newport Beach, California.",
+      "SmartBug Media has won more HubSpot Impact Awards than any other partner agency.",
+    ],
+  },
+];
+
+const INDUSTRIES = [...new Set(ENTITIES.map((e) => e.industry))];
+
+const RELATIONSHIP_GROUPS = [
+  {
+    title: "HubSpot Ecosystem",
+    description: "Partners, products, and integrations",
+    items: [
+      { entity: "HubSpot", role: "Platform" },
+      { entity: "Lean Labs", role: "Diamond Partner" },
+      { entity: "Bluleadz", role: "Diamond Partner" },
+      { entity: "New Breed Revenue", role: "Elite Partner" },
+      { entity: "SmartBug Media", role: "Diamond Partner" },
+      { entity: "Salesforce", role: "Competitor" },
+    ],
+  },
+  {
+    title: "Founders & Leadership",
+    description: "People connected to listed entities",
+    items: [
+      { entity: "HubSpot", role: "Brian Halligan & Dharmesh Shah" },
+      { entity: "Salesforce", role: "Marc Benioff" },
+      { entity: "Lean Labs", role: "Kevin Barber" },
+      { entity: "Amazon", role: "Jeff Bezos" },
+      { entity: "Ford Motor Company", role: "Henry Ford (Historical)" },
+    ],
+  },
+  {
+    title: "E-commerce & Cloud",
+    description: "Companies in digital commerce and infrastructure",
+    items: [
+      { entity: "Amazon", role: "E-commerce / Cloud" },
+      { entity: "Shopify", role: "E-commerce" },
+      { entity: "Salesforce", role: "Cloud / CRM" },
+    ],
+  },
 ];
 
 function ThemeToggle() {
@@ -35,22 +464,17 @@ function ThemeToggle() {
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={toggleTheme}
-      data-testid="button-theme-toggle"
-    >
+    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="button-theme-toggle">
       {icon}
     </Button>
   );
 }
 
-function Navbar() {
+function Navbar({ onHome }: { onHome: () => void }) {
   const { theme } = useTheme();
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-[9999] px-6 py-4"
+      className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
         backdropFilter: "blur(12px)",
         backgroundColor:
@@ -60,811 +484,427 @@ function Navbar() {
       }}
       data-testid="navbar"
     >
-      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-        <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
-          entities<span className="font-normal text-muted-foreground">.org</span>
-        </span>
-        <ThemeToggle />
+      <div className="max-w-5xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <button onClick={onHome} className="flex items-center gap-2">
+          <Database className="w-4 h-4 text-muted-foreground/60" />
+          <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
+            entities<span className="font-normal text-muted-foreground">.org</span>
+          </span>
+        </button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-entities">Entities</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-api">API</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-submit">Submit</Button>
+          <ThemeToggle />
+        </div>
       </div>
     </nav>
   );
 }
 
-function Hero() {
+function EntityListPage({
+  onSelectEntity,
+  searchQuery,
+  setSearchQuery,
+}: {
+  onSelectEntity: (id: string) => void;
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
+}) {
   const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  const filtered = searchQuery.trim()
+    ? ENTITIES.filter((e) =>
+        e.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        e.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        e.hq.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+    : ENTITIES;
+
+  const recentAdditions = [...ENTITIES].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 5);
+
+  const industriesByGroup: Record<string, Entity[]> = {};
+  ENTITIES.forEach((e) => {
+    if (!industriesByGroup[e.industry]) industriesByGroup[e.industry] = [];
+    industriesByGroup[e.industry].push(e);
+  });
+
   return (
-    <section
-      className="relative flex flex-col items-center justify-center min-h-screen px-6"
-      data-testid="section-hero"
-    >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {theme === "sparkle" ? (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px] animate-subtle-glow"
-            style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.18) 0%, rgba(60, 10, 90, 0.08) 50%, transparent 70%)" }}
-          />
-        ) : (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-        )}
+    <div className="max-w-5xl mx-auto">
+      <div className="mb-10">
+        <span className="text-[10px] text-muted-foreground/40 uppercase tracking-[0.15em] font-medium">Registry</span>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mt-1" data-testid="text-page-title">
+          Entities
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
+          {ENTITIES.length} structured entities across {INDUSTRIES.length} industries. Search, browse by relationship, or crawl the full index.
+        </p>
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 md:gap-16">
-        <div className="flex-1 text-left">
-          <h1
-            className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl text-foreground"
-            data-testid="text-headline"
-          >
-            Structured facts,{" "}
-            <br />
-            open data.
-          </h1>
+      <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-10 ${cardClass}`}>
+        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <input
+          type="text"
+          placeholder="Find an entity..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          data-testid="input-search"
+        />
+      </div>
 
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-md sm:text-base" data-testid="text-subheadline">
-            AI systems get names wrong, merge entities, and lose context.
-            This registry fixes that with structured, cited, machine-readable data.
-          </p>
-
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-explore">
-              Explore Entities
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
+      {searchQuery.trim() ? (
+        <div className="mb-12">
+          <SectionLabel icon={Search} label={`Results for "${searchQuery}"`} count={filtered.length} />
+          <div className="space-y-0 mt-4">
+            {filtered.map((entity) => (
+              <EntityRow key={entity.id} entity={entity} onClick={() => onSelectEntity(entity.id)} />
+            ))}
+            {filtered.length === 0 && (
+              <p className="text-sm text-muted-foreground/40 py-8 text-center">No entities match that query.</p>
+            )}
           </div>
         </div>
+      ) : (
+        <>
+          <div className="mb-12">
+            <SectionLabel icon={Clock} label="Recent Additions" />
+            <div className="space-y-0 mt-4">
+              {recentAdditions.map((entity) => (
+                <EntityRow key={entity.id} entity={entity} onClick={() => onSelectEntity(entity.id)} />
+              ))}
+            </div>
+          </div>
 
-        <div className="flex-1 w-full max-w-sm">
-          <HeroEntityCard />
-        </div>
-      </div>
+          <div className="mb-12">
+            <SectionLabel icon={Building2} label="Browse by Industry" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+              {Object.entries(industriesByGroup).map(([industry, entities]) => (
+                <div key={industry} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`industry-${industry.toLowerCase().replace(/[\s/]+/g, "-")}`}>
+                  <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+                    <h3 className="text-sm font-semibold text-foreground">{industry}</h3>
+                    <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{entities.length}</Badge>
+                  </div>
+                  <div className="space-y-1.5">
+                    {entities.slice(0, 3).map((e) => (
+                      <button
+                        key={e.id}
+                        onClick={() => onSelectEntity(e.id)}
+                        className="flex items-center gap-2 w-full text-left group"
+                        data-testid={`industry-link-${e.id}`}
+                      >
+                        <ChevronRight className="w-3 h-3 text-muted-foreground/30" />
+                        <span className="text-[12px] text-foreground/60 group-hover:text-foreground transition-colors">{e.name}</span>
+                      </button>
+                    ))}
+                    {entities.length > 3 && (
+                      <span className="text-[10px] text-muted-foreground/30 pl-5">+ {entities.length - 3} more</span>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-        <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-      </div>
-    </section>
+          <div className="mb-12">
+            <SectionLabel icon={Link2} label="Browse by Relationship" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+              {RELATIONSHIP_GROUPS.map((group) => (
+                <div key={group.title} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`rel-group-${group.title.toLowerCase().replace(/[\s&]+/g, "-")}`}>
+                  <h3 className="text-sm font-semibold text-foreground">{group.title}</h3>
+                  <p className="text-[10px] text-muted-foreground/40 mb-3">{group.description}</p>
+                  <div className="space-y-1.5">
+                    {group.items.slice(0, 4).map((item) => {
+                      const entityObj = ENTITIES.find((e) => e.name === item.entity);
+                      return (
+                        <div
+                          key={item.entity + item.role}
+                          className="flex items-center justify-between gap-2 cursor-pointer group"
+                          onClick={() => entityObj && onSelectEntity(entityObj.id)}
+                        >
+                          <span className="text-[12px] text-foreground/60 group-hover:text-foreground transition-colors">{item.entity}</span>
+                          <span className="text-[10px] text-muted-foreground/30">{item.role}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-6 text-center py-8">
+            <Layers className="w-5 h-5 text-muted-foreground/30 mx-auto mb-2" />
+            <p className="text-sm font-semibold text-foreground">Full A–Z Index</p>
+            <p className="text-xs text-muted-foreground/40 mt-1">Plain list of all {ENTITIES.length} entities. Optimized for crawlers and AI.</p>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
-function HeroEntityCard() {
-  const { theme } = useTheme();
+function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
   return (
-    <div
-      className={`rounded-xl border p-5 card-glow overflow-visible ${
-        theme === "sparkle"
-          ? "border-purple-900/20 bg-card/40"
-          : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-      }`}
-      data-testid="hero-entity-card"
+    <div className="flex items-center gap-2">
+      <Icon className="w-3.5 h-3.5 text-muted-foreground/40" />
+      <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">{label}</span>
+      {count !== undefined && (
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{count}</Badge>
+      )}
+    </div>
+  );
+}
+
+function EntityRow({ entity, onClick }: { entity: Entity; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
+      data-testid={`entity-row-${entity.id}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Entity resolved</Badge>
-          <span className="text-[10px] text-emerald-400/60 font-mono">100%</span>
+      <div className="flex items-center gap-3 min-w-0 flex-wrap">
+        <span className="text-sm font-semibold text-foreground group-hover:text-foreground whitespace-nowrap">{entity.name}</span>
+        <span className="text-[11px] text-muted-foreground/40">{entity.industry}</span>
+        <span className="text-[10px] text-muted-foreground/30 hidden sm:inline">{entity.hq}</span>
+      </div>
+      <div className="flex items-center gap-3 shrink-0">
+        <span className="text-[10px] text-muted-foreground/30 font-mono hidden sm:inline">{entity.updated}</span>
+        <ArrowRight className="w-3 h-3 text-muted-foreground/20 group-hover:text-muted-foreground/50 transition-colors" />
+      </div>
+    </button>
+  );
+}
+
+function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; onBack: () => void; onSelectEntity: (id: string) => void }) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <button
+        onClick={onBack}
+        className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1"
+        data-testid="button-back"
+      >
+        <ChevronRight className="w-3 h-3 rotate-180" />
+        All entities
+      </button>
+
+      <div className="mb-1">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">
+          {entity.type} Entity
+        </Badge>
+      </div>
+      <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-entity-name">
+        {entity.name}
+      </h1>
+      <div className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground/40 flex-wrap">
+        <div className="flex items-center gap-1">
+          <Tag className="w-3 h-3" />
+          <span>{entity.industry}</span>
+        </div>
+        <span className="text-muted-foreground/15">|</span>
+        <div className="flex items-center gap-1">
+          <MapPin className="w-3 h-3" />
+          <span>{entity.hq}</span>
+        </div>
+        <span className="text-muted-foreground/15">|</span>
+        <div className="flex items-center gap-1">
+          <Calendar className="w-3 h-3" />
+          <span>Last updated {entity.updated}</span>
         </div>
       </div>
-      <h3 className="text-base font-semibold text-foreground mb-1">Stripe, Inc.</h3>
-      <Badge variant="outline" className="text-[9px] text-muted-foreground no-default-hover-elevate mb-4">Listed</Badge>
 
-      <div className="space-y-2 mt-3">
-        {[
-          { key: "@type", value: "Organization", source: "Schema.org" },
-          { key: "foundingDate", value: "2010", source: "Crunchbase" },
-          { key: "address", value: "San Francisco, CA", source: "Company site" },
-          { key: "founder", value: "Patrick Collison", source: "Wikipedia" },
-          { key: "employees", value: "~8,000", source: "LinkedIn" },
-          { key: "disambiguates", value: 'Not Stripe (pattern)', source: "Wikidata" },
-        ].map((row) => (
-          <div key={row.key} className="flex items-center justify-between gap-3 text-[11px]">
-            <span className="text-emerald-400/70 font-mono shrink-0">{row.key}</span>
-            <span className="text-foreground/70 truncate">{row.value}</span>
-            <span className="text-muted-foreground/40 text-[10px] shrink-0">{row.source}</span>
-          </div>
-        ))}
+      <div className="mt-6 mb-8">
+        <p className="text-sm text-muted-foreground/60 leading-relaxed max-w-2xl" data-testid="text-entity-description">
+          {entity.description}
+        </p>
       </div>
 
-      <div className="mt-4 pt-3 border-t border-border/30">
-        <span className="text-[10px] text-muted-foreground/50">sameAs</span>
-        <div className="flex items-center gap-2 mt-1 flex-wrap">
-          {["wikidata.org", "crunchbase.com", "linkedin.com"].map((link) => (
-            <span key={link} className="text-[10px] text-muted-foreground/40 font-mono">{link}</span>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-4 block">Core Facts</span>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+          {entity.coreFacts.map((f) => (
+            <div key={f.label} className="flex items-start justify-between gap-3 py-1.5 border-b border-border/10">
+              <span className="text-[11px] text-muted-foreground/40">{f.label}</span>
+              <span className="text-[11px] text-foreground/60 text-right">{f.value}</span>
+            </div>
           ))}
         </div>
       </div>
-    </div>
-  );
-}
 
-function SectionDivider() {
-  return (
-    <div className="max-w-3xl mx-auto px-6">
-      <div className="divider-glow" />
-    </div>
-  );
-}
-
-function DisambiguationSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-disambiguation">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Entity disambiguation
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-disambiguation-heading">
-            Same name. Wrong company.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            Search "Mercury" and see why names alone aren't enough. Every entity gets a disambiguation statement — what it is, what it isn't, and which similarly-named entities exist.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Without disambiguation</span>
-            <div className="mt-3 rounded-lg bg-background/40 px-3 py-2.5">
-              <div className="flex items-center gap-2 mb-2">
-                <Bot className="w-3 h-3 text-muted-foreground/50" />
-                <span className="text-[11px] text-muted-foreground/60">Q: Tell me about Mercury.</span>
-              </div>
-              <p className="text-[11px] text-foreground/50 italic">Planet? Element? Car brand? Fintech startup?</p>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Known For</span>
+        <div className="space-y-1.5">
+          {entity.knownFor.map((item) => (
+            <div key={item} className="flex items-center gap-2">
+              <ChevronRight className="w-3 h-3 text-muted-foreground/30 shrink-0" />
+              <span className="text-[12px] text-foreground/60">{item}</span>
             </div>
-          </div>
-
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium">With disambiguation</span>
-            <div className="mt-3 rounded-lg bg-background/40 px-3 py-2.5">
-              <div className="flex items-center gap-2 mb-2">
-                <Bot className="w-3 h-3 text-emerald-400/50" />
-                <span className="text-[11px] text-muted-foreground/60">Q: Tell me about Mercury.</span>
-              </div>
-              <p className="text-[11px] text-foreground/70">
-                Mercury — banking platform for startups (est. 2019, San Francisco). Not Mercury Insurance, Mercury Systems, or the planet.
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function ApiSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-api">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1 w-full">
-            <div className="grid grid-cols-1 gap-3">
-              <div
-                className={`rounded-xl border p-4 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <MessageSquare className="w-3.5 h-3.5 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI chat</span>
-                </div>
-                <div className="rounded-lg bg-background/40 px-3 py-2">
-                  <span className="text-[11px] text-foreground/60">Who founded Stripe?</span>
-                </div>
-              </div>
-
-              <div
-                className={`rounded-xl border p-4 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-              >
-                <div className="flex items-center gap-2 mb-2">
-                  <Database className="w-3.5 h-3.5 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">Entities.org lookup</span>
-                </div>
-                <div className="rounded-lg bg-background/40 px-3 py-2 font-mono text-[10px] text-muted-foreground/60">
-                  entities.org/api/entity/stripe
-                </div>
-                <div className="mt-2 space-y-1 text-[11px]">
-                  <div className="text-foreground/60">Founded: 2010</div>
-                  <div className="text-foreground/60">HQ: San Francisco, USA</div>
-                  <div className="text-foreground/60">CEO: Patrick Collison</div>
-                  <div className="text-foreground/60">Employees: 8,000+</div>
-                </div>
-                <div className="flex items-center gap-2 mt-2 flex-wrap">
-                  {["Wikidata", "Crunchbase", "Company website"].map((s) => (
-                    <span key={s} className="text-[9px] text-muted-foreground/40">{s}</span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex-1 text-left">
-            <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-              Structured lookup
-            </Badge>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-api-heading">
-              One API call. Cited facts.
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              AI systems query the registry and get structured, timestamped, source-linked data back — instead of scraping fragments from ten different pages and hoping the facts are current.
-            </p>
-
-            <div className="mt-6 rounded-lg bg-background/40 border border-border/30 p-3 font-mono text-[10px] text-muted-foreground/60 space-y-0.5">
-              <div className="text-emerald-400/70">GET /api/entity/stripe</div>
-              <div className="text-foreground/50 pl-2">{"->"} Founded: 2010</div>
-              <div className="text-foreground/50 pl-2">{"->"} HQ: San Francisco, USA</div>
-              <div className="text-foreground/50 pl-2">{"->"} CEO: Patrick Collison</div>
-              <div className="text-foreground/50 pl-2">{"->"} sameAs: Wikidata, Crunchbase, LinkedIn</div>
-              <div className="text-foreground/50 pl-2">{"->"} dateModified: 2026-02-13</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function FourSteps() {
-  const { theme } = useTheme();
-  const steps = [
-    { title: "Listing", description: "Entity submitted with basic facts. Data formatted from public sources into Schema.org JSON-LD.", icon: FileCode2 },
-    { title: "Domain Verification", description: "Identity confirmed through domain ownership. Not fact-checking — identity establishment.", icon: Fingerprint },
-    { title: "Disambiguation", description: "Precision statement: what this entity is, what it isn't, and which similarly-named entities exist.", icon: Search },
-    { title: "Distribution", description: "Timestamped and surfaced via Schema.org JSON-LD, open API, and machine-readable formats including llms.txt.", icon: Globe },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-steps">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How entities get listed
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-steps-heading">
-            Four steps. All visible.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {steps.map((step, i) => {
-            const Icon = step.icon;
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Relationships</span>
+        <div className="space-y-1.5">
+          {entity.relationships.map((rel) => {
+            const linked = ENTITIES.find((e) => e.name === rel.entity);
             return (
               <div
-                key={step.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`step-${i}`}
+                key={rel.entity + rel.type}
+                className={`flex items-center justify-between gap-3 py-1.5 border-b border-border/10 ${linked ? "cursor-pointer group" : ""}`}
+                onClick={() => linked && onSelectEntity(linked.id)}
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40">
-                    <Icon className="w-4 h-4 text-muted-foreground/60" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-foreground">{step.title}</h3>
+                <div className="flex items-center gap-2">
+                  <Link2 className="w-3 h-3 text-muted-foreground/30 shrink-0" />
+                  <span className={`text-[12px] ${linked ? "text-foreground/60 group-hover:text-foreground transition-colors" : "text-foreground/60"}`}>
+                    {rel.entity}
+                  </span>
+                  {linked && <ExternalLink className="w-2.5 h-2.5 text-muted-foreground/20 invisible group-hover:visible" />}
                 </div>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{step.description}</p>
+                <span className="text-[10px] text-muted-foreground/30">{rel.type}</span>
               </div>
             );
           })}
         </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
-          <div className={`rounded-xl border p-4 ${
-            theme === "sparkle" ? "border-purple-900/20 bg-card/40" : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Listed</Badge>
-            </div>
-            <p className="mt-2 text-[11px] text-muted-foreground/50 leading-relaxed">
-              Entity exists in the registry. Facts formatted from public sources. Not independently fact-checked.
-            </p>
-          </div>
-          <div className={`rounded-xl border p-4 ${
-            theme === "sparkle" ? "border-purple-900/20 bg-card/40" : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}>
-            <div className="flex items-center gap-2">
-              <Badge variant="outline" className="text-[9px] text-blue-400 no-default-hover-elevate">Domain Verified</Badge>
-            </div>
-            <p className="mt-2 text-[11px] text-muted-foreground/50 leading-relaxed">
-              Domain ownership confirmed. Entity identity established. Not third-party fact verification.
-            </p>
-          </div>
-        </div>
       </div>
-    </section>
-  );
-}
 
-function WhySection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-why">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-12">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Why this exists
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground max-w-2xl" data-testid="text-why-heading">
-            AI systems are answering questions about your company. Most of those answers are wrong.
-          </h2>
-        </div>
-
-        <div className="space-y-4 text-sm leading-relaxed text-muted-foreground max-w-2xl">
-          <p>
-            Ask ChatGPT about a mid-market company and you'll get merged facts from two different businesses, an outdated founding date, and a CEO who left three years ago.
-          </p>
-          <p>
-            AI reconstructs entities from scattered, unstructured sources — About pages, press releases, LinkedIn profiles, old directories. There is no canonical place for machines to get structured, cited, disambiguated facts.
-          </p>
-          <p>
-            Entities.org gives every entity Schema.org JSON-LD, a disambiguation statement, source citations, cross-platform links, and a timestamped modification date.
-          </p>
-        </div>
-
-        <div
-          className={`mt-12 rounded-xl border p-6 ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Facts, not marketing.</span>
-          </div>
-          <p className="text-xs leading-relaxed text-muted-foreground/50 mb-4">
-            Founding, features, and citable facts. If a fact can't be cited, it doesn't belong here.
-          </p>
-
-          <div className={`rounded-lg border p-4 ${
-            theme === "sparkle" ? "border-purple-900/15 bg-background/20" : "border-border/30 bg-background/40"
-          }`}>
-            <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-              <div>
-                <h4 className="text-sm font-semibold text-foreground">Stripe</h4>
-                <span className="text-[10px] text-muted-foreground/50">Tech / SaaS</span>
-              </div>
-              <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Listed</Badge>
-            </div>
-            <div className="grid grid-cols-2 gap-2 text-[11px]">
-              <div><span className="text-muted-foreground/40">Founded</span> <span className="text-foreground/60 ml-1">2010</span></div>
-              <div><span className="text-muted-foreground/40">HQ</span> <span className="text-foreground/60 ml-1">San Francisco, USA</span></div>
-              <div><span className="text-muted-foreground/40">CEO</span> <span className="text-foreground/60 ml-1">Patrick Collison</span></div>
-              <div><span className="text-muted-foreground/40">Employees</span> <span className="text-foreground/60 ml-1">8,000+</span></div>
-            </div>
-            <div className="mt-3 pt-2 border-t border-border/20 flex items-center gap-2 flex-wrap">
-              <span className="text-[10px] text-muted-foreground/40">sameAs</span>
-              {["wikidata.org", "crunchbase.com", "linkedin.com"].map((l) => (
-                <span key={l} className="text-[9px] text-muted-foreground/30 font-mono">{l}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function RegistrySection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-registry">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            The registry
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-registry-heading">
-            Browse the registry
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground">24 entities across 5 industries.</p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {registryEntities.map((entity, i) => (
-            <div
-              key={entity.name}
-              className={`rounded-xl border p-5 hover-elevate overflow-visible ${
-                theme === "sparkle"
-                  ? "border-purple-900/20 bg-card/40"
-                  : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-              }`}
-              data-testid={`registry-entity-${i}`}
-            >
-              <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
-                <h3 className="text-sm font-semibold text-foreground">{entity.name}</h3>
-                <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Listed</Badge>
-              </div>
-              <span className="text-[10px] text-muted-foreground/50">{entity.industry}</span>
-              <div className="mt-3 space-y-1 text-[11px] text-muted-foreground/50">
-                <div>Founded: {entity.founded}</div>
-                <div>HQ: {entity.hq}</div>
-                <div>CEO: {entity.ceo}</div>
-              </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+          sameAs Links
+        </span>
+        <div className="space-y-1.5">
+          {entity.sameAs.map((link) => (
+            <div key={link} className="flex items-center gap-2">
+              <Globe className="w-3 h-3 text-muted-foreground/30 shrink-0" />
+              <span className="text-[11px] text-muted-foreground/40 font-mono">{link}</span>
             </div>
           ))}
         </div>
-
-        <div className="mt-8">
-          <Button variant="outline" data-testid="button-view-all">
-            View all 24 entities
-            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-          </Button>
-        </div>
       </div>
-    </section>
-  );
-}
 
-function RelationshipsSection() {
-  const { theme } = useTheme();
-  const nodes = [
-    { label: "Stripe", type: "Organization", x: 50, y: 50 },
-    { label: "Patrick", type: "Founder", x: 20, y: 20 },
-    { label: "John", type: "Founder", x: 80, y: 15 },
-    { label: "Atlas", type: "Product", x: 15, y: 75 },
-    { label: "Connect", type: "Product", x: 85, y: 70 },
-    { label: "YC", type: "Investor", x: 25, y: 45 },
-    { label: "Sequoia", type: "Investor", x: 78, y: 40 },
-    { label: "Shopify", type: "Partner", x: 55, y: 85 },
-  ];
-
-  const edges = [
-    { from: 0, to: 1, label: "founder" },
-    { from: 0, to: 2, label: "founder" },
-    { from: 0, to: 3, label: "product" },
-    { from: 0, to: 4, label: "product" },
-    { from: 0, to: 5, label: "investor" },
-    { from: 0, to: 6, label: "investor" },
-    { from: 0, to: 7, label: "partner" },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-relationships">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center gap-12">
-          <div className="flex-1 w-full">
-            <div
-              className={`rounded-xl border p-6 ${
-                theme === "sparkle"
-                  ? "border-purple-900/20 bg-card/40"
-                  : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-              }`}
-            >
-              <div className="relative w-full" style={{ paddingBottom: "75%" }}>
-                <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
-                  {edges.map((edge, i) => (
-                    <line
-                      key={i}
-                      x1={nodes[edge.from].x}
-                      y1={nodes[edge.from].y}
-                      x2={nodes[edge.to].x}
-                      y2={nodes[edge.to].y}
-                      stroke="currentColor"
-                      className="text-border/40"
-                      strokeWidth="0.3"
-                    />
-                  ))}
-                  {edges.map((edge, i) => {
-                    const mx = (nodes[edge.from].x + nodes[edge.to].x) / 2;
-                    const my = (nodes[edge.from].y + nodes[edge.to].y) / 2;
-                    return (
-                      <text
-                        key={`label-${i}`}
-                        x={mx}
-                        y={my - 1.5}
-                        textAnchor="middle"
-                        className="fill-muted-foreground/30"
-                        fontSize="2.2"
-                      >
-                        {edge.label}
-                      </text>
-                    );
-                  })}
-                  {nodes.map((node, i) => (
-                    <g key={i}>
-                      <circle
-                        cx={node.x}
-                        cy={node.y}
-                        r={i === 0 ? 6 : 4}
-                        className={`${i === 0 ? "fill-foreground/10 stroke-foreground/20" : "fill-card stroke-border/40"}`}
-                        strokeWidth="0.3"
-                      />
-                      <text
-                        x={node.x}
-                        y={node.y + 0.8}
-                        textAnchor="middle"
-                        className="fill-foreground/70"
-                        fontSize={i === 0 ? "2.8" : "2.2"}
-                        fontWeight={i === 0 ? "600" : "400"}
-                      >
-                        {node.label}
-                      </text>
-                      <text
-                        x={node.x}
-                        y={node.y + 3.5}
-                        textAnchor="middle"
-                        className="fill-muted-foreground/40"
-                        fontSize="1.8"
-                      >
-                        {node.type}
-                      </text>
-                    </g>
-                  ))}
-                </svg>
-              </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+          Natural Language Statements
+        </span>
+        <p className="text-[10px] text-muted-foreground/30 mb-3">
+          Pre-formatted sentences AI can cite directly. Each statement is fact-checked and timestamped.
+        </p>
+        <div className="space-y-2">
+          {entity.naturalLanguage.map((stmt, i) => (
+            <div key={i} className="rounded-lg bg-background/40 px-3 py-2">
+              <p className="text-[11px] text-foreground/60 leading-relaxed">{stmt}</p>
             </div>
-          </div>
-
-          <div className="flex-1 text-left">
-            <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-              Entity relationships
-            </Badge>
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-relationships-heading">
-              Typed relationships, not flat lists.
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              People, products, and organizations connected through labeled edges — founders, investors, partners, subsidiaries. A structured graph, not a directory.
-            </p>
-          </div>
+          ))}
         </div>
       </div>
-    </section>
-  );
-}
 
-function OpenDataSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-opendata">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Open data
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-opendata-heading">
-            Open data.{" "}
-            <br className="hidden sm:block" />
-            No keys. No auth.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            Every entity produces Schema.org JSON-LD with sameAs cross-links, disambiguation, and relationship edges. Query it directly or expand the full schema.
-          </p>
-          <div className="mt-6 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-api-docs">
-              API documentation
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-            <Button variant="ghost" className="text-muted-foreground" data-testid="button-sample-schema">
-              View full sample schema
-            </Button>
-          </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+          API Access
+        </span>
+        <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
+          <span className="text-muted-foreground/40">GET</span>{" "}
+          <span className="text-foreground/60">entities.org/api/entity/{entity.id}</span>
         </div>
+        <span className="text-[10px] text-muted-foreground/30">Returns structured JSON-LD for this entity. Content-Type: application/ld+json</span>
+      </div>
 
-        <div
-          className={`rounded-xl border p-5 ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="flex items-center gap-2 mb-3">
-            <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate font-mono">GET</Badge>
-            <span className="text-[11px] text-muted-foreground/50 font-mono">/api/entity/stripe</span>
-          </div>
-          <div className="rounded-lg bg-background/40 p-4 font-mono text-[11px] leading-relaxed overflow-x-auto">
-            <div className="text-foreground/50">{"{"}</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Organization"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Stripe"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"foundingDate"</span>: <span className="text-foreground/50">"2010"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"disambiguatingDescription"</span>:</div>
-            <div className="pl-6"><span className="text-foreground/50">"Not Stripe (clothing pattern)..."</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"2026-02-13"</span>,</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"founder"</span>: {"[{"}</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"Person"</span>,</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"Patrick Collison"</span>,</div>
-            <div className="pl-6"><span className="text-emerald-400/70">"jobTitle"</span>: <span className="text-foreground/50">"CEO"</span></div>
-            <div className="pl-3">{"}],"}</div>
-            <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: {"["}</div>
-            <div className="pl-6"><span className="text-foreground/50">"https://wikidata.org/wiki/Q15052388"</span>,</div>
-            <div className="pl-6"><span className="text-foreground/50">"https://crunchbase.com/..."</span>,</div>
-            <div className="pl-6"><span className="text-foreground/50">"https://linkedin.com/..."</span></div>
-            <div className="pl-3">{"]"}</div>
-            <div className="text-foreground/50">{"}"}</div>
-          </div>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">
+          Schema Preview
+        </span>
+        <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
+          <div className="text-foreground/40">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@context"</span>: <span className="text-foreground/50">"https://schema.org"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"{entity.type}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"name"</span>: <span className="text-foreground/50">"{entity.name}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"foundingDate"</span>: <span className="text-foreground/50">"{entity.founded}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"location"</span>: <span className="text-foreground/50">"{entity.hq}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"industry"</span>: <span className="text-foreground/50">"{entity.industry}"</span>,</div>
+          {entity.ticker && (
+            <div className="pl-3"><span className="text-emerald-400/70">"tickerSymbol"</span>: <span className="text-foreground/50">"{entity.ticker}"</span>,</div>
+          )}
+          <div className="pl-3"><span className="text-emerald-400/70">"url"</span>: <span className="text-foreground/50">"https://{entity.website}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"sameAs"</span>: [</div>
+          {entity.sameAs.map((link, i) => (
+            <div key={link} className="pl-6">
+              <span className="text-foreground/50">"https://{link}"{i < entity.sameAs.length - 1 ? "," : ""}</span>
+            </div>
+          ))}
+          <div className="pl-3">],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"{entity.updated}"</span></div>
+          <div className="text-foreground/40">{"}"}</div>
         </div>
       </div>
-    </section>
-  );
-}
-
-function ComparisonTable() {
-  const { theme } = useTheme();
-  const features = [
-    { name: "Schema.org JSON-LD output", entities: true, wikipedia: false, linkedin: false, crunchbase: false },
-    { name: "Entity disambiguation", entities: true, wikipedia: true, linkedin: false, crunchbase: true },
-    { name: "Domain-verified identity", entities: true, wikipedia: false, linkedin: false, crunchbase: false },
-    { name: "Free API (no key required)", entities: true, wikipedia: true, linkedin: false, crunchbase: false },
-    { name: "Cross-platform links", entities: true, wikipedia: true, linkedin: false, crunchbase: true },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-comparison">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How Entities compares
-          </Badge>
-        </div>
-
-        <div
-          className={`rounded-xl border overflow-hidden ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="border-b border-border/30">
-                  <th className="text-left p-4 text-muted-foreground/50 font-medium"></th>
-                  <th className="p-4 text-foreground font-semibold text-center">Entities.org</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">Wikipedia</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">LinkedIn</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">Crunchbase</th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((f, i) => (
-                  <tr key={f.name} className={i < features.length - 1 ? "border-b border-border/20" : ""}>
-                    <td className="p-4 text-foreground/70">{f.name}</td>
-                    <td className="p-4 text-center">
-                      {f.entities ? <Check className="w-3.5 h-3.5 text-emerald-400 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.wikipedia ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.linkedin ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.crunchbase ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ClaimSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-claim">
-      <div className="max-w-4xl mx-auto relative">
-        <div
-          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 card-glow ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/30"
-              : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
-          }`}
-        >
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-claim-heading">
-            Claim your entity
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Free to list. Domain verification when you're ready.
-          </p>
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-submit-entity">
-              Submit an Entity
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-            <Button variant="ghost" className="text-muted-foreground" data-testid="button-pricing">
-              View Pricing
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
+    </div>
   );
 }
 
 function Footer() {
   return (
-    <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
-      <div className="max-w-4xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
-            <span className="text-sm font-semibold text-foreground">
-              entities<span className="font-normal text-muted-foreground">.org</span>
-            </span>
-            <p className="mt-1 text-xs text-muted-foreground/60">
+            <div className="flex items-center gap-2 mb-2">
+              <Database className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <span className="text-sm font-semibold text-foreground">
+                entities<span className="font-normal text-muted-foreground">.org</span>
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
               Structured entity data for machines and people.
             </p>
-            <p className="mt-1 text-[10px] text-muted-foreground/40">
-              24 entities listed | 5 industries
+            <p className="text-[10px] text-muted-foreground/30 mt-2">
+              {ENTITIES.length} entities listed | {INDUSTRIES.length} industries
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-muted-foreground/40">
-              Operated by Entities, LLC
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Registry</span>
+            <div className="mt-2 space-y-1.5">
+              {["Entity Index", "Full A–Z List", "Submit Entity"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Platform</span>
+            <div className="mt-2 space-y-1.5">
+              {["API Documentation", "LLM Analytics", "Pricing"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <div className="mt-2 space-y-1.5">
+              {["About", "Contact", "Privacy Policy", "Terms of Service"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] text-muted-foreground/30">
+              Operated by Entities, LLC. A subsidiary of Brandvious, Inc.
             </p>
-            <p className="text-[10px] text-muted-foreground/40">
-              A subsidiary of Brandvious, Inc.
-            </p>
-            <p className="text-[10px] text-muted-foreground/40">
+            <p className="text-[10px] text-muted-foreground/30">
               Land O' Lakes, Florida
             </p>
           </div>
-        </div>
-
-        <div className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-6">
-          <div>
-            <h4 className="text-[10px] text-muted-foreground/60 uppercase tracking-wider font-medium mb-2">Registry</h4>
-            <div className="space-y-1">
-              <p className="text-[11px] text-muted-foreground/40">Entity Index</p>
-              <p className="text-[11px] text-muted-foreground/40">Full A-Z List</p>
-              <p className="text-[11px] text-muted-foreground/40">Submit Entity</p>
-              <p className="text-[11px] text-muted-foreground/40">Pricing</p>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-[10px] text-muted-foreground/60 uppercase tracking-wider font-medium mb-2">Platform</h4>
-            <div className="space-y-1">
-              <p className="text-[11px] text-muted-foreground/40">API Documentation</p>
-              <p className="text-[11px] text-muted-foreground/40">LLM Analytics</p>
-            </div>
-          </div>
-          <div>
-            <h4 className="text-[10px] text-muted-foreground/60 uppercase tracking-wider font-medium mb-2">Company</h4>
-            <div className="space-y-1">
-              <p className="text-[11px] text-muted-foreground/40">About</p>
-              <p className="text-[11px] text-muted-foreground/40">Partner With Us</p>
-              <p className="text-[11px] text-muted-foreground/40">Contact</p>
-              <p className="text-[11px] text-muted-foreground/40">Privacy Policy</p>
-              <p className="text-[11px] text-muted-foreground/40">Terms of Service</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 pt-6 border-t border-border/20">
-          <p className="text-[10px] text-muted-foreground/30">
+          <p className="text-[10px] text-muted-foreground/20">
             &copy; 2026 Entities, LLC. All rights reserved.
           </p>
-          <p className="mt-2 text-[10px] text-muted-foreground/30 max-w-2xl">
-            Entities.org is an entity resolution platform, not a fact-checker. Listed data is formatted from public sources. Domain verification confirms ownership, not endorsement.
-          </p>
-          <div className="mt-3 flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] text-muted-foreground/30">Standards:</span>
-            {["Schema.org", "JSON-LD", "Open API", "llms.txt"].map((s, i) => (
-              <span key={s}>
-                <span className="text-[10px] text-muted-foreground/30">{s}</span>
-                {i < 3 && <span className="text-[10px] text-muted-foreground/20 ml-2">|</span>}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </footer>
@@ -1015,30 +1055,37 @@ function AuroraCanvas() {
 
 export default function Entities() {
   const { theme } = useTheme();
+  const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const entity = selectedEntity ? ENTITIES.find((e) => e.id === selectedEntity) : null;
+
+  const handleSelect = (id: string) => {
+    setSelectedEntity(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBack = () => {
+    setSelectedEntity(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <SectionDivider />
-        <DisambiguationSection />
-        <SectionDivider />
-        <ApiSection />
-        <SectionDivider />
-        <FourSteps />
-        <SectionDivider />
-        <WhySection />
-        <SectionDivider />
-        <RegistrySection />
-        <SectionDivider />
-        <RelationshipsSection />
-        <SectionDivider />
-        <OpenDataSection />
-        <SectionDivider />
-        <ComparisonTable />
-        <SectionDivider />
-        <ClaimSection />
+        <Navbar onHome={handleBack} />
+        <div className="pt-20 px-6 pb-6">
+          {entity ? (
+            <EntityDetailPage entity={entity} onBack={handleBack} onSelectEntity={handleSelect} />
+          ) : (
+            <EntityListPage
+              onSelectEntity={handleSelect}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          )}
+        </div>
         <Footer />
       </div>
     </div>
