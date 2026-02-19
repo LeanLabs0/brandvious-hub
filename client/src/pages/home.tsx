@@ -353,10 +353,10 @@ function ProjectCard({
       className="group flex flex-col rounded-xl border border-border/40 bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible"
       data-testid={`card-project-${index}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-medium">
-          {project.label}
-        </span>
+      <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
+        <h3 className="text-lg font-semibold text-foreground sm:text-xl" data-testid={`text-project-name-${index}`}>
+          {project.name}
+        </h3>
         <Badge
           variant="outline"
           className={`text-[9px] tracking-wider uppercase font-medium ${project.statusColor} no-default-hover-elevate`}
@@ -366,9 +366,9 @@ function ProjectCard({
         </Badge>
       </div>
 
-      <h3 className="text-lg font-semibold text-foreground sm:text-xl" data-testid={`text-project-name-${index}`}>
-        {project.name}
-      </h3>
+      <span className="text-[10px] text-muted-foreground/50 tracking-[0.15em] uppercase font-medium">
+        {project.label}
+      </span>
 
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground/60 flex-1" data-testid={`text-project-description-${index}`}>
         {project.description}
