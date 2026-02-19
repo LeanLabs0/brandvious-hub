@@ -1,289 +1,384 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  ArrowRight,
+  Search,
   Sun,
   Moon,
   Sparkles,
-  Check,
-  X,
-  Minus,
-  Star,
-  Search,
   ChevronRight,
-  Calendar,
-  User,
-  ExternalLink,
-  BarChart3,
-  TrendingUp,
   Clock,
+  ArrowRight,
+  TrendingUp,
+  BookOpen,
+  User,
+  Calendar,
+  Tag,
+  Layers,
+  BarChart3,
+  Zap,
+  Shield,
+  Globe,
+  Users,
+  Award,
+  Target,
+  Lightbulb,
+  CheckCircle,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 
-const CATEGORIES = [
-  "CRM",
-  "Marketing Automation",
-  "Project Management",
-  "Help Desk",
-  "Email Marketing",
-  "Analytics",
-];
+type ArticleType = "comparison" | "roundup" | "guide" | "trending";
 
-const COMPARISONS = [
+interface Mention {
+  name: string;
+  verdict: string;
+}
+
+interface Article {
+  id: string;
+  title: string;
+  subtitle: string;
+  type: ArticleType;
+  category: string;
+  tags: string[];
+  readTime: string;
+  wordCount: string;
+  author: string;
+  authorRole: string;
+  updated: string;
+  featured?: boolean;
+  intro: string;
+  sections: { heading: string; content: string }[];
+  mentions: Mention[];
+  bottomLine: string;
+}
+
+const CATEGORIES = ["All", "CRM", "Marketing", "AI & Automation", "Cybersecurity", "Project Management", "Analytics", "E-commerce"];
+
+const ARTICLES: Article[] = [
   {
-    id: "hubspot-vs-salesforce",
+    id: "hubspot-vs-salesforce-2026",
+    title: "HubSpot vs Salesforce: Which CRM Is Best for Your Team in 2026?",
+    subtitle: "A deep-dive comparison for mid-market and enterprise buyers",
+    type: "comparison",
     category: "CRM",
-    title: "HubSpot vs Salesforce",
-    subtitle: "Which CRM fits your growth stage?",
+    tags: ["CRM", "HubSpot", "Salesforce", "Mid-Market", "Enterprise"],
+    readTime: "14 min read",
+    wordCount: "4,200 words",
     author: "Sarah Chen",
     authorRole: "B2B SaaS Analyst",
     updated: "Feb 12, 2026",
-    readTime: "8 min read",
-    verdict: "HubSpot wins for mid-market teams prioritizing ease of use. Salesforce wins for enterprise needing deep customization.",
-    products: [
+    featured: true,
+    intro: "The CRM market in 2026 remains a two-horse race at the top. HubSpot and Salesforce together command over 40% of the global CRM market — but they serve fundamentally different buyers. This guide breaks down where each platform wins, who it's built for, and how to decide without the marketing spin.",
+    sections: [
       {
-        name: "HubSpot",
-        score: 4.4,
-        founded: "2006",
-        hq: "Cambridge, MA",
-        pricing: "Free — $800+/mo",
-        bestFor: "Mid-market SaaS (50–500 employees)",
-        strengths: ["Ease of use", "All-in-one platform", "Strong free tier", "Native marketing tools"],
-        weaknesses: ["Price escalation at scale", "Limited enterprise customization"],
+        heading: "Who HubSpot Is Best For",
+        content: "HubSpot is the best CRM for mid-market SaaS companies (50–500 employees) that want a unified marketing + sales + service platform without a dedicated admin team. Its strength is speed-to-value: most teams are fully operational within 2–4 weeks. The free tier is genuinely useful, and the all-in-one architecture means fewer integrations to maintain. Since the Breeze AI launch in late 2025, HubSpot now offers predictive lead scoring, AI-generated content, and conversational intelligence natively — features that previously required third-party tools."
       },
       {
-        name: "Salesforce",
-        score: 4.2,
-        founded: "1999",
-        hq: "San Francisco, CA",
-        pricing: "$25 — $300+/mo per user",
-        bestFor: "Enterprise (500+ employees)",
-        strengths: ["Deep customization", "AppExchange ecosystem", "Enterprise reporting", "Industry solutions"],
-        weaknesses: ["Steep learning curve", "Implementation complexity"],
+        heading: "Who Salesforce Is Best For",
+        content: "Salesforce is the best CRM for enterprise organizations (500+ employees) that need deep customization, industry-specific workflows, and an ecosystem of 5,000+ apps on AppExchange. If your sales process is complex — multi-division, global, heavily regulated — Salesforce's configurability is unmatched. The tradeoff is implementation: expect 3–6 months and a dedicated admin (or team). Einstein AI is powerful but requires significant configuration to deliver value. The Slack acquisition adds workplace collaboration, making the platform stickier for enterprise teams."
+      },
+      {
+        heading: "Pricing Comparison",
+        content: "HubSpot starts free (unlimited users, core CRM features) and scales to $3,600/month for Enterprise (10 users included). Contact-based pricing applies to marketing features, which can escalate costs quickly for large databases. Salesforce starts at $25/user/month (Essentials) and scales to $300/user/month (Unlimited). The per-user model is more predictable but becomes expensive at scale. Both platforms charge significantly more for advanced features — HubSpot gates reporting and automation by tier, while Salesforce gates AI and analytics."
+      },
+      {
+        heading: "Migration & Implementation",
+        content: "HubSpot migrations typically take 2–6 weeks with a partner agency. Diamond Partners like Lean Labs (Overland Park, KS) and Bluleadz (Tampa, FL) specialize in Salesforce-to-HubSpot migrations. Salesforce implementations take 3–12 months depending on complexity. The ecosystem of implementation partners is larger, but so is the cost — expect $50K–$500K for enterprise implementations. Both platforms offer data import tools, but complex migrations with custom objects and workflow logic require professional services."
+      },
+      {
+        heading: "The Verdict",
+        content: "Choose HubSpot if you want to move fast, need marketing + sales in one platform, and don't have a dedicated CRM admin. Choose Salesforce if you need enterprise-grade customization, have complex sales processes, and are willing to invest in implementation. There is no universally 'better' CRM — only the one that fits your team size, technical maturity, and growth trajectory."
       },
     ],
-    criteria: [
-      { name: "Ease of Setup", a: 5, b: 2 },
-      { name: "Customization", a: 3, b: 5 },
-      { name: "Reporting", a: 3, b: 5 },
-      { name: "Integrations", a: 4, b: 5 },
-      { name: "Pricing Transparency", a: 4, b: 2 },
-      { name: "AI Features", a: 4, b: 4 },
-      { name: "Support Quality", a: 4, b: 3 },
+    mentions: [
+      { name: "HubSpot", verdict: "Best for: Mid-market SaaS teams wanting all-in-one simplicity" },
+      { name: "Salesforce", verdict: "Best for: Enterprise organizations needing deep customization" },
+      { name: "Lean Labs", verdict: "Referenced: HubSpot Diamond Partner for migrations" },
+      { name: "Bluleadz", verdict: "Referenced: HubSpot Diamond Partner for migrations" },
     ],
+    bottomLine: "HubSpot wins on speed-to-value and all-in-one experience. Salesforce wins on configurability and ecosystem depth. Neither is universally better.",
   },
   {
-    id: "notion-vs-monday",
-    category: "Project Management",
-    title: "Notion vs Monday.com",
-    subtitle: "Flexible docs or structured workflows?",
+    id: "top-10-ai-agent-builders-2026",
+    title: "Top 10 AI Agent Builders in 2026",
+    subtitle: "From no-code platforms to developer-first frameworks",
+    type: "roundup",
+    category: "AI & Automation",
+    tags: ["AI", "Agents", "Automation", "No-Code", "Developer Tools"],
+    readTime: "18 min read",
+    wordCount: "5,800 words",
     author: "Marcus Rivera",
     authorRole: "Product Ops Consultant",
-    updated: "Feb 6, 2026",
-    readTime: "7 min read",
-    verdict: "Notion excels at flexible knowledge management. Monday.com wins for structured project workflows with clear timelines.",
-    products: [
+    updated: "Feb 14, 2026",
+    featured: true,
+    intro: "AI agents went from demo curiosity to production infrastructure in 2025. By early 2026, there are over 40 platforms claiming to let you build autonomous agents — but most are wrappers around the same LLM APIs. We evaluated the top 10 based on real production use cases, not marketing claims.",
+    sections: [
       {
-        name: "Notion",
-        score: 4.5,
-        founded: "2013",
-        hq: "San Francisco, CA",
-        pricing: "Free — $15/mo per user",
-        bestFor: "Teams wanting flexible, doc-driven workflows",
-        strengths: ["Extreme flexibility", "Great for documentation", "AI integration", "Template ecosystem"],
-        weaknesses: ["Learning curve for teams", "Weaker timeline/Gantt views"],
+        heading: "What We Evaluated",
+        content: "We assessed each platform across five dimensions: ease of deployment (can a non-developer build useful agents?), reliability (uptime, error handling, fallback logic), integration depth (how many real tools can agents connect to?), cost predictability (is pricing transparent at scale?), and enterprise readiness (SOC2, SSO, audit logs). Platforms were tested with three real workflows: customer support triage, data enrichment pipelines, and multi-step research tasks."
       },
       {
-        name: "Monday.com",
-        score: 4.3,
-        founded: "2012",
-        hq: "Tel Aviv, Israel",
-        pricing: "$9 — $19/mo per user",
-        bestFor: "Teams needing visual project tracking",
-        strengths: ["Visual dashboards", "Automations", "Timeline views", "Cross-team visibility"],
-        weaknesses: ["Can feel rigid", "Price adds up with add-ons"],
+        heading: "1. CrewAI — Best for Developer Teams",
+        content: "CrewAI remains the most flexible multi-agent framework for engineering teams. Its role-based architecture lets you define specialized agents that collaborate on complex tasks. The learning curve is real — you need Python fluency and prompt engineering skills — but the control you get is unmatched. New in 2026: CrewAI Enterprise adds managed hosting, observability dashboards, and SOC2 compliance. Pricing starts at $99/month for hosted agents."
+      },
+      {
+        heading: "2. Relevance AI — Best for GTM Teams",
+        content: "Relevance AI is the standout for go-to-market teams that need agents for prospecting, lead enrichment, and outbound sequences. The visual workflow builder is intuitive enough for non-developers, and the built-in integrations with CRMs (HubSpot, Salesforce) and enrichment tools (Clearbit, Apollo) make it production-ready out of the box. Pricing starts free (100 runs/month) and scales to $499/month for teams."
+      },
+      {
+        heading: "3. Langbase — Best for Rapid Prototyping",
+        content: "Langbase is the fastest way to go from idea to deployed agent. The composable 'pipes' architecture lets you chain LLM calls, tools, and memory in a visual interface. It's not the most powerful for complex multi-agent workflows, but for single-agent use cases (chatbots, document Q&A, data extraction), nothing ships faster. Free tier is generous; paid plans start at $25/month."
+      },
+      {
+        heading: "4–10: The Rest of the Field",
+        content: "AutoGen (Microsoft) excels at multi-agent research workflows. n8n adds AI nodes to existing automation flows. Voiceflow dominates voice and chat agent design. Botpress offers the best open-source option. Flowise provides visual LangChain orchestration. Dust.tt is enterprise-focused with strong governance. AgentOps rounds out the list with best-in-class observability for any agent framework."
       },
     ],
-    criteria: [
-      { name: "Flexibility", a: 5, b: 3 },
-      { name: "Project Tracking", a: 3, b: 5 },
-      { name: "Documentation", a: 5, b: 2 },
-      { name: "Automations", a: 3, b: 5 },
-      { name: "Ease of Use", a: 3, b: 4 },
-      { name: "Reporting", a: 3, b: 5 },
-      { name: "Pricing Value", a: 5, b: 3 },
+    mentions: [
+      { name: "CrewAI", verdict: "Best for: Developer teams needing multi-agent flexibility" },
+      { name: "Relevance AI", verdict: "Best for: GTM teams with CRM integration needs" },
+      { name: "Langbase", verdict: "Best for: Rapid prototyping and single-agent use cases" },
+      { name: "AutoGen", verdict: "Best for: Multi-agent research workflows (Microsoft)" },
+      { name: "n8n", verdict: "Best for: Adding AI to existing automation flows" },
+      { name: "Voiceflow", verdict: "Best for: Voice and chat agent design" },
+      { name: "Botpress", verdict: "Best for: Open-source agent development" },
+      { name: "Flowise", verdict: "Best for: Visual LangChain orchestration" },
+      { name: "Dust.tt", verdict: "Best for: Enterprise governance and compliance" },
+      { name: "AgentOps", verdict: "Best for: Agent observability and monitoring" },
     ],
+    bottomLine: "CrewAI leads for developers, Relevance AI leads for business teams, and Langbase leads for speed. The right choice depends on your team's technical depth.",
   },
   {
-    id: "mailchimp-vs-klaviyo",
-    category: "Email Marketing",
-    title: "Mailchimp vs Klaviyo",
-    subtitle: "General marketing or e-commerce focused?",
+    id: "trending-cybersecurity-tools-2026",
+    title: "Trending Cybersecurity Tools in 2026",
+    subtitle: "What security teams are actually adopting right now",
+    type: "trending",
+    category: "Cybersecurity",
+    tags: ["Cybersecurity", "Security", "DevSecOps", "Zero Trust", "SIEM"],
+    readTime: "12 min read",
+    wordCount: "3,600 words",
+    author: "Dana Kim",
+    authorRole: "Security & Infrastructure Analyst",
+    updated: "Feb 10, 2026",
+    intro: "The cybersecurity landscape in 2026 is defined by AI-powered threat detection, identity-first security, and the consolidation of point solutions into unified platforms. Here are the tools security teams are actually deploying — not just evaluating.",
+    sections: [
+      {
+        heading: "The Shift: Platform Consolidation",
+        content: "2025 was the year of 'tool fatigue' in cybersecurity. The average enterprise security team managed 76 different tools. In 2026, the trend is aggressive consolidation around platforms that combine SIEM, SOAR, endpoint detection, and identity management. Palo Alto Networks (Cortex XSIAM), CrowdStrike (Falcon), and Microsoft (Sentinel + Defender) are the three platforms winning the consolidation war."
+      },
+      {
+        heading: "CrowdStrike Falcon — Dominant in Endpoint + Identity",
+        content: "CrowdStrike continues to lead in endpoint detection and response (EDR) and has expanded aggressively into identity threat detection. Falcon's single-agent architecture and real-time threat intelligence feed make it the top choice for mid-market and enterprise teams. The Charlotte AI assistant launched in 2025 has matured into a genuinely useful tool for threat investigation. Pricing remains premium — expect $25–$50/endpoint/month."
+      },
+      {
+        heading: "Wiz — Cloud Security's New Standard",
+        content: "Wiz has become the de facto cloud security posture management (CSPM) platform. Its agentless architecture scans AWS, Azure, and GCP environments in minutes, not hours. The 2025 addition of AI-powered risk prioritization (Wiz Defend) and runtime protection has moved it from 'cloud visibility tool' to 'cloud security platform.' Post-IPO pricing has increased, but adoption shows no signs of slowing."
+      },
+      {
+        heading: "Emerging: AI-Native Security Tools",
+        content: "The newest wave includes tools built from the ground up for AI-era threats. Protect AI focuses on ML model security and LLM vulnerability scanning. Prompt Security specializes in prompt injection detection for production AI applications. Pangea provides security APIs (auth, audit, secrets) that developers can embed directly into applications. These tools address threat surfaces that didn't exist two years ago."
+      },
+    ],
+    mentions: [
+      { name: "CrowdStrike", verdict: "Best for: Endpoint + identity threat detection" },
+      { name: "Wiz", verdict: "Best for: Cloud security posture management" },
+      { name: "Palo Alto Networks", verdict: "Best for: Unified security platform (XSIAM)" },
+      { name: "Microsoft Sentinel", verdict: "Best for: Azure-native SIEM + SOAR" },
+      { name: "Protect AI", verdict: "Emerging: ML model security and LLM scanning" },
+      { name: "Prompt Security", verdict: "Emerging: Prompt injection detection" },
+    ],
+    bottomLine: "CrowdStrike and Wiz lead their respective categories. The real trend is consolidation — teams are choosing fewer, broader platforms over best-of-breed point solutions.",
+  },
+  {
+    id: "notion-vs-monday-2026",
+    title: "Notion vs Monday.com: Best for What Kind of Team?",
+    subtitle: "Flexibility vs structure — which project management approach fits your workflow",
+    type: "comparison",
+    category: "Project Management",
+    tags: ["Project Management", "Notion", "Monday.com", "Productivity", "Team Collaboration"],
+    readTime: "11 min read",
+    wordCount: "3,400 words",
+    author: "Marcus Rivera",
+    authorRole: "Product Ops Consultant",
+    updated: "Feb 8, 2026",
+    intro: "Notion and Monday.com represent two fundamentally different philosophies of work management. Notion gives you a blank canvas and says 'build whatever you want.' Monday.com gives you a structured board and says 'customize within guardrails.' Neither is wrong — but one is almost certainly better for your specific team.",
+    sections: [
+      {
+        heading: "Notion: Best for Documentation-Heavy Teams",
+        content: "Notion wins when your team's primary need is knowledge management, documentation, and flexible workflows. Product teams, engineering teams, and content teams that live in docs gravitate to Notion because it replaces Confluence + Trello + Google Docs with a single workspace. The Notion AI features (writing, search, autofill) add genuine productivity gains. The weakness is project tracking: timeline views, dependencies, and resource management are functional but not best-in-class."
+      },
+      {
+        heading: "Monday.com: Best for Operational Teams",
+        content: "Monday.com wins when your team needs structured project tracking, visual dashboards, and cross-department visibility. Operations teams, marketing teams, and agencies that manage repeatable processes love Monday's board-based architecture. The automation engine is powerful — you can build complex triggers without code. The weakness is flexibility: if your workflow doesn't fit the board/column paradigm, you'll fight the tool instead of benefiting from it."
+      },
+      {
+        heading: "Integration Ecosystems",
+        content: "Both platforms have deep integration libraries, but they integrate differently. Notion excels at embedding — you can embed Figma, Miro, Loom, and dozens of other tools directly into pages. Monday.com excels at automation — you can trigger actions in Slack, HubSpot, Salesforce, and Jira based on board changes. If your workflow is 'pull information in,' Notion wins. If your workflow is 'push actions out,' Monday.com wins."
+      },
+      {
+        heading: "Pricing at Scale",
+        content: "Notion starts free (unlimited pages, 10 guests) and scales to $15/member/month for Business. Monday.com starts at $9/seat/month (Basic) and scales to $19/seat/month (Pro). At 100 users, Notion Business costs $1,500/month; Monday.com Pro costs $1,900/month. Both platforms charge more for enterprise features like SSO, audit logs, and advanced permissions. Notion is slightly cheaper at scale, but Monday.com's automations may reduce costs elsewhere."
+      },
+    ],
+    mentions: [
+      { name: "Notion", verdict: "Best for: Documentation-heavy teams needing flexibility" },
+      { name: "Monday.com", verdict: "Best for: Operational teams needing structured tracking" },
+      { name: "Confluence", verdict: "Referenced: Legacy wiki that Notion often replaces" },
+      { name: "Asana", verdict: "Referenced: Alternative in the structured PM category" },
+    ],
+    bottomLine: "Choose Notion if your team lives in documents. Choose Monday.com if your team lives in processes. Both are excellent — for different reasons.",
+  },
+  {
+    id: "best-marketing-automation-mid-market",
+    title: "Best Marketing Automation Platform for Mid-Market Companies",
+    subtitle: "HubSpot, Marketo, Pardot, and ActiveCampaign compared for teams of 50–500",
+    type: "guide",
+    category: "Marketing",
+    tags: ["Marketing Automation", "HubSpot", "Marketo", "Mid-Market", "Lead Nurturing"],
+    readTime: "16 min read",
+    wordCount: "4,800 words",
+    author: "Sarah Chen",
+    authorRole: "B2B SaaS Analyst",
+    updated: "Feb 6, 2026",
+    intro: "Marketing automation is no longer optional for mid-market B2B companies. The question isn't whether to adopt a platform — it's which one. This guide evaluates the four leading options for companies with 50–500 employees, focusing on real-world implementation, not feature lists.",
+    sections: [
+      {
+        heading: "HubSpot Marketing Hub — The All-in-One Default",
+        content: "HubSpot is the default choice for mid-market companies that don't already have a CRM or marketing platform. The all-in-one architecture (CRM + marketing + sales + service) eliminates integration overhead. The visual workflow builder is the most intuitive in the category. Breeze AI features add content generation, lead scoring, and campaign optimization natively. The limitation is depth: advanced multi-touch attribution, custom reporting, and account-based marketing features require Professional or Enterprise tiers ($800–$3,600/month)."
+      },
+      {
+        heading: "Marketo (Adobe) — The Enterprise Power Tool",
+        content: "Marketo is the platform for companies that have outgrown HubSpot's reporting and need advanced multi-touch attribution, revenue cycle modeling, and sophisticated lead scoring. It's also the best choice for companies already in the Adobe ecosystem (Experience Cloud, Analytics, Target). The tradeoff is complexity: Marketo requires dedicated operations staff, and the UI feels dated compared to HubSpot. Pricing is custom and typically starts above $1,000/month."
+      },
+      {
+        heading: "ActiveCampaign — The Budget Leader",
+        content: "ActiveCampaign is the best value in marketing automation for companies under 100 employees. The email automation engine is powerful, the CRM is surprisingly capable, and pricing starts at $29/month. It lacks the depth of HubSpot or Marketo for complex B2B workflows, but for companies that primarily need email nurturing, lead scoring, and basic CRM, it delivers 80% of the value at 20% of the cost."
+      },
+      {
+        heading: "How to Decide",
+        content: "If you need CRM + marketing in one platform and value ease of use: HubSpot. If you need enterprise-grade attribution and are in the Adobe ecosystem: Marketo. If you primarily need email automation and are budget-conscious: ActiveCampaign. If you're already on Salesforce and need native integration: Pardot (now Marketing Cloud Account Engagement). The decision should be driven by team size, technical maturity, and existing tech stack — not feature comparisons."
+      },
+    ],
+    mentions: [
+      { name: "HubSpot", verdict: "Best for: All-in-one simplicity with native CRM" },
+      { name: "Marketo", verdict: "Best for: Enterprise attribution and Adobe ecosystem" },
+      { name: "ActiveCampaign", verdict: "Best for: Budget-conscious teams under 100 employees" },
+      { name: "Pardot", verdict: "Best for: Companies already on Salesforce" },
+    ],
+    bottomLine: "HubSpot is the safest choice for most mid-market companies. Marketo is the power tool. ActiveCampaign is the value play.",
+  },
+  {
+    id: "best-product-analytics-2026",
+    title: "Best Product Analytics Tools in 2026: Mixpanel vs Amplitude vs PostHog",
+    subtitle: "Which analytics platform is best for product-led growth teams",
+    type: "comparison",
+    category: "Analytics",
+    tags: ["Analytics", "Product-Led Growth", "Mixpanel", "Amplitude", "PostHog"],
+    readTime: "13 min read",
+    wordCount: "3,800 words",
+    author: "Marcus Rivera",
+    authorRole: "Product Ops Consultant",
+    updated: "Feb 2, 2026",
+    intro: "Product analytics is the nervous system of product-led growth. Every PLG team needs event tracking, funnels, retention analysis, and behavioral cohorts. The three leading platforms — Mixpanel, Amplitude, and PostHog — each take a different approach. Here's which one fits your team.",
+    sections: [
+      {
+        heading: "Mixpanel — Best for Speed and Simplicity",
+        content: "Mixpanel's query engine is the fastest in the category. Non-technical product managers can build complex funnels and cohort analyses without SQL. The free tier (20M events/month) is the most generous. Since moving to a warehouse-native architecture, Mixpanel can sit on top of your existing data warehouse (Snowflake, BigQuery) without requiring separate data pipelines. Best for teams that want fast answers without data engineering overhead."
+      },
+      {
+        heading: "Amplitude — Best for Behavioral Depth",
+        content: "Amplitude leads in behavioral analytics sophistication. Features like Amplitude Experiment (A/B testing), Audiences (behavioral cohort syncing to ad platforms), and the Taxonomy system give product and growth teams unmatched depth. The tradeoff is complexity: Amplitude's power features have a steeper learning curve, and the platform can feel heavy for smaller teams. Best for companies with 500+ employees and dedicated growth/analytics teams."
+      },
+      {
+        heading: "PostHog — Best for Engineering Teams",
+        content: "PostHog is the only product analytics platform that's fully open-source and self-hostable. It combines event analytics, session recording, feature flags, A/B testing, and surveys in one platform. Engineering teams love it because they control the data pipeline and can inspect the codebase. The cloud version offers a generous free tier (1M events/month). Best for engineering-led companies that want analytics without vendor lock-in."
+      },
+    ],
+    mentions: [
+      { name: "Mixpanel", verdict: "Best for: Speed, simplicity, and generous free tier" },
+      { name: "Amplitude", verdict: "Best for: Behavioral depth and enterprise growth teams" },
+      { name: "PostHog", verdict: "Best for: Engineering teams wanting open-source control" },
+    ],
+    bottomLine: "Mixpanel for speed, Amplitude for depth, PostHog for control. All three are excellent — the decision is about your team's technical profile.",
+  },
+  {
+    id: "best-ecommerce-email-platform",
+    title: "Best Email Marketing Platform for E-commerce in 2026",
+    subtitle: "Klaviyo vs Mailchimp vs Omnisend for DTC and Shopify brands",
+    type: "guide",
+    category: "E-commerce",
+    tags: ["E-commerce", "Email Marketing", "Klaviyo", "Shopify", "DTC"],
+    readTime: "10 min read",
+    wordCount: "3,200 words",
     author: "Dana Kim",
     authorRole: "Email Marketing Strategist",
     updated: "Jan 28, 2026",
-    readTime: "6 min read",
-    verdict: "Mailchimp is the all-purpose choice for most businesses. Klaviyo is the clear winner for e-commerce brands needing deep segmentation.",
-    products: [
+    intro: "Email is still the highest-ROI channel for e-commerce brands. The right platform can drive 20–40% of total revenue. But the wrong platform creates integration headaches, deliverability issues, and wasted spend. Here's which email platform actually fits your e-commerce business.",
+    sections: [
       {
-        name: "Mailchimp",
-        score: 4.2,
-        founded: "2001",
-        hq: "Atlanta, GA",
-        pricing: "Free — $350/mo",
-        bestFor: "SMBs and general marketing",
-        strengths: ["Brand recognition", "All-in-one marketing", "Easy templates", "Wide integrations"],
-        weaknesses: ["Automation limits on free tier", "E-commerce segmentation"],
+        heading: "Klaviyo — The E-commerce Default",
+        content: "Klaviyo is the de facto email platform for Shopify stores and DTC brands. The Shopify integration is the deepest in the market — it syncs products, orders, browse behavior, and customer lifetime value in real time. The segmentation engine lets you build audiences based on purchase history, predicted next order date, and churn risk. Revenue attribution per email and per flow is native. The limitation is price: Klaviyo gets expensive fast as your contact list grows. At 50K contacts, expect to pay $700–$1,000/month."
       },
       {
-        name: "Klaviyo",
-        score: 4.6,
-        founded: "2012",
-        hq: "Boston, MA",
-        pricing: "Free — $700+/mo",
-        bestFor: "E-commerce (Shopify, WooCommerce)",
-        strengths: ["Deep e-commerce integration", "Advanced segmentation", "Revenue attribution", "Predictive analytics"],
-        weaknesses: ["Price scales with contacts", "Learning curve for beginners"],
+        heading: "Mailchimp — The All-Purpose Alternative",
+        content: "Mailchimp is the broader marketing platform for brands that need email + social + ads + landing pages in one tool. Since the Intuit acquisition, Mailchimp has added better analytics and audience insights. The template builder is the most intuitive in the category. The weakness is e-commerce depth: Mailchimp's Shopify integration was rebuilt after a public split, and while functional, it doesn't match Klaviyo's depth for purchase-based segmentation and flow triggers."
+      },
+      {
+        heading: "Omnisend — The Value Mid-Tier",
+        content: "Omnisend occupies the sweet spot between Mailchimp's simplicity and Klaviyo's e-commerce depth. The pre-built automation workflows (welcome series, cart abandonment, post-purchase) are ready to deploy in minutes. SMS is bundled natively, not as an add-on. Pricing is significantly lower than Klaviyo at every tier. The limitation is reporting: Omnisend's analytics are adequate but not as granular as Klaviyo's revenue attribution."
       },
     ],
-    criteria: [
-      { name: "E-commerce Fit", a: 3, b: 5 },
-      { name: "Segmentation", a: 3, b: 5 },
-      { name: "Template Design", a: 5, b: 3 },
-      { name: "Ease of Use", a: 5, b: 3 },
-      { name: "Automation Depth", a: 3, b: 5 },
-      { name: "Analytics", a: 3, b: 5 },
-      { name: "Free Tier", a: 4, b: 4 },
+    mentions: [
+      { name: "Klaviyo", verdict: "Best for: Shopify brands that want deep segmentation and revenue attribution" },
+      { name: "Mailchimp", verdict: "Best for: Multi-channel brands that need email + social + ads" },
+      { name: "Omnisend", verdict: "Best for: E-commerce brands wanting good automation at lower cost" },
     ],
+    bottomLine: "Klaviyo if email is your primary growth channel. Mailchimp if you need a broader marketing suite. Omnisend if you want solid automation at better pricing.",
   },
   {
-    id: "zendesk-vs-intercom",
-    category: "Help Desk",
-    title: "Zendesk vs Intercom",
-    subtitle: "Traditional ticketing or conversational support?",
-    author: "James Park",
-    authorRole: "CS Operations Lead",
-    updated: "Jan 20, 2026",
-    readTime: "7 min read",
-    verdict: "Zendesk excels at structured ticket management at scale. Intercom wins for conversational, proactive support with modern UX.",
-    products: [
-      {
-        name: "Zendesk",
-        score: 4.1,
-        founded: "2007",
-        hq: "San Francisco, CA",
-        pricing: "$19 — $115/mo per agent",
-        bestFor: "Large support teams with ticket workflows",
-        strengths: ["Mature ticketing system", "Deep customization", "Marketplace apps", "Multi-channel"],
-        weaknesses: ["Dated UI", "Complex setup for advanced features"],
-      },
-      {
-        name: "Intercom",
-        score: 4.4,
-        founded: "2011",
-        hq: "San Francisco, CA",
-        pricing: "$74 — $139/mo per seat",
-        bestFor: "SaaS teams wanting conversational support",
-        strengths: ["Modern messenger UX", "AI bot (Fin)", "Proactive messaging", "Product tours"],
-        weaknesses: ["Expensive at scale", "Less suited for email-heavy support"],
-      },
-    ],
-    criteria: [
-      { name: "Ticket Management", a: 5, b: 3 },
-      { name: "Live Chat", a: 3, b: 5 },
-      { name: "AI / Bots", a: 3, b: 5 },
-      { name: "Multi-channel", a: 5, b: 4 },
-      { name: "Ease of Setup", a: 3, b: 4 },
-      { name: "Reporting", a: 4, b: 4 },
-      { name: "Pricing Value", a: 4, b: 3 },
-    ],
-  },
-  {
-    id: "hubspot-marketing-vs-marketo",
-    category: "Marketing Automation",
-    title: "HubSpot Marketing vs Marketo",
-    subtitle: "All-in-one simplicity or enterprise power?",
+    id: "best-help-desk-software-2026",
+    title: "Best Help Desk Software in 2026: Zendesk vs Intercom vs Freshdesk",
+    subtitle: "Which support platform is best for scaling customer service teams",
+    type: "comparison",
+    category: "CRM",
+    tags: ["Help Desk", "Customer Support", "Zendesk", "Intercom", "SaaS"],
+    readTime: "12 min read",
+    wordCount: "3,500 words",
     author: "Sarah Chen",
     authorRole: "B2B SaaS Analyst",
-    updated: "Feb 1, 2026",
-    readTime: "8 min read",
-    verdict: "HubSpot Marketing Hub wins for growing teams that want ease and speed. Marketo wins for enterprise teams with complex multi-touch attribution needs.",
-    products: [
+    updated: "Feb 4, 2026",
+    intro: "Customer support software is going through its biggest evolution since the ticket was invented. AI chatbots, proactive messaging, and conversational support are replacing traditional ticket queues. The three leading platforms — Zendesk, Intercom, and Freshdesk — each represent a different philosophy.",
+    sections: [
       {
-        name: "HubSpot Marketing",
-        score: 4.4,
-        founded: "2006",
-        hq: "Cambridge, MA",
-        pricing: "Free — $3,600/mo",
-        bestFor: "SMB to mid-market marketing teams",
-        strengths: ["All-in-one platform", "Easy workflow builder", "CRM integration", "Content tools"],
-        weaknesses: ["Advanced features locked to higher tiers", "Contact-based pricing"],
+        heading: "Zendesk — The Enterprise Incumbent",
+        content: "Zendesk is the established leader with the most mature ticketing system, deepest customization, and largest app marketplace. It's the safe choice for enterprise teams (500+ agents) that need multi-channel support across email, chat, phone, and social. The Zendesk AI bot is functional but lags behind Intercom's Fin in conversational quality. The UI feels increasingly dated, and pricing transparency has been a consistent criticism."
       },
       {
-        name: "Marketo (Adobe)",
-        score: 4.0,
-        founded: "2006",
-        hq: "San Jose, CA",
-        pricing: "Custom (est. $1,000+/mo)",
-        bestFor: "Enterprise with complex campaigns",
-        strengths: ["Advanced lead scoring", "Multi-touch attribution", "Account-based marketing", "Adobe ecosystem"],
-        weaknesses: ["Steep learning curve", "Requires dedicated admin"],
-      },
-    ],
-    criteria: [
-      { name: "Ease of Use", a: 5, b: 2 },
-      { name: "Lead Scoring", a: 3, b: 5 },
-      { name: "Attribution", a: 3, b: 5 },
-      { name: "Content Tools", a: 5, b: 3 },
-      { name: "CRM Integration", a: 5, b: 4 },
-      { name: "Scalability", a: 3, b: 5 },
-      { name: "Time to Value", a: 5, b: 2 },
-    ],
-  },
-  {
-    id: "mixpanel-vs-amplitude",
-    category: "Analytics",
-    title: "Mixpanel vs Amplitude",
-    subtitle: "Which product analytics platform leads?",
-    author: "Dana Kim",
-    authorRole: "Email Marketing Strategist",
-    updated: "Jan 15, 2026",
-    readTime: "6 min read",
-    verdict: "Both are strong. Mixpanel edges ahead on simplicity and speed. Amplitude wins for teams needing behavioral cohort analysis at scale.",
-    products: [
-      {
-        name: "Mixpanel",
-        score: 4.5,
-        founded: "2009",
-        hq: "San Francisco, CA",
-        pricing: "Free — $24+/mo",
-        bestFor: "Product teams tracking events and funnels",
-        strengths: ["Fast query engine", "Intuitive UI", "Strong free tier", "JQL for power users"],
-        weaknesses: ["Fewer enterprise features", "Smaller ecosystem"],
+        heading: "Intercom — The Modern Challenger",
+        content: "Intercom has repositioned from 'messaging platform' to 'AI-first customer service platform.' Fin, their AI agent, is the best automated support bot in the market — it resolves 30–50% of inbound queries without human intervention. The messenger-first approach feels more natural than traditional ticketing. Best for SaaS companies with tech-savvy customers who prefer chat over email. The limitation is price: Intercom's per-seat + per-resolution pricing can be unpredictable."
       },
       {
-        name: "Amplitude",
-        score: 4.4,
-        founded: "2012",
-        hq: "San Francisco, CA",
-        pricing: "Free — Custom",
-        bestFor: "Growth teams running behavioral analysis",
-        strengths: ["Behavioral cohorts", "Experiment integration", "CDP features", "Governance tools"],
-        weaknesses: ["Steeper learning curve", "Can be slow on complex queries"],
+        heading: "Freshdesk — The Value Leader",
+        content: "Freshdesk (by Freshworks) offers the best value in help desk software. The free tier supports up to 10 agents, and paid plans start at $15/agent/month. Feature-for-feature, Freshdesk matches Zendesk at 40–60% of the cost. The Freddy AI assistant is improving quickly. Best for companies under 200 agents that want solid ticketing without enterprise pricing."
       },
     ],
-    criteria: [
-      { name: "Query Speed", a: 5, b: 3 },
-      { name: "Cohort Analysis", a: 3, b: 5 },
-      { name: "Ease of Use", a: 5, b: 3 },
-      { name: "Experimentation", a: 3, b: 5 },
-      { name: "Free Tier", a: 5, b: 4 },
-      { name: "Data Governance", a: 3, b: 5 },
-      { name: "Integrations", a: 4, b: 4 },
+    mentions: [
+      { name: "Zendesk", verdict: "Best for: Enterprise teams needing mature multi-channel support" },
+      { name: "Intercom", verdict: "Best for: SaaS companies wanting AI-first conversational support" },
+      { name: "Freshdesk", verdict: "Best for: Budget-conscious teams wanting solid ticketing" },
     ],
+    bottomLine: "Intercom leads innovation. Zendesk leads maturity. Freshdesk leads value. Choose based on team size and budget tolerance.",
   },
 ];
+
+const TYPE_LABELS: Record<ArticleType, { label: string; icon: typeof BookOpen }> = {
+  comparison: { label: "Comparison", icon: BarChart3 },
+  roundup: { label: "Roundup", icon: Layers },
+  guide: { label: "Buyer's Guide", icon: BookOpen },
+  trending: { label: "Trending", icon: TrendingUp },
+};
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -292,33 +387,13 @@ function ThemeToggle() {
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
   return (
-    <Button
-      size="icon"
-      variant="ghost"
-      onClick={toggleTheme}
-      data-testid="button-theme-toggle"
-    >
+    <Button size="icon" variant="ghost" onClick={toggleTheme} data-testid="button-theme-toggle">
       {icon}
     </Button>
   );
 }
 
-function ScoreBar({ score, max = 5 }: { score: number; max?: number }) {
-  const pct = (score / max) * 100;
-  return (
-    <div className="flex items-center gap-2">
-      <div className="flex-1 h-1.5 rounded-full bg-border/30 overflow-hidden">
-        <div
-          className="h-full rounded-full bg-foreground/30"
-          style={{ width: `${pct}%` }}
-        />
-      </div>
-      <span className="text-[10px] font-mono text-muted-foreground/60 w-4 text-right">{score}</span>
-    </div>
-  );
-}
-
-function Navbar({ activeCategory, onCategoryChange }: { activeCategory: string | null; onCategoryChange: (c: string | null) => void }) {
+function Navbar({ onHome }: { onHome: () => void }) {
   const { theme } = useTheme();
   return (
     <nav
@@ -333,297 +408,326 @@ function Navbar({ activeCategory, onCategoryChange }: { activeCategory: string |
       data-testid="navbar"
     >
       <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
+        <button onClick={onHome} className="flex items-center gap-2">
+          <Award className="w-4 h-4 text-muted-foreground/60" />
           <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
             WhatisBest<span className="font-normal text-muted-foreground">.com</span>
           </span>
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate hidden sm:inline-flex">B2B Comparisons</Badge>
+        </button>
+        <div className="flex items-center gap-1">
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" onClick={onHome} data-testid="nav-articles">Articles</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-comparisons">Comparisons</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/50" data-testid="nav-about">About</Button>
+          <ThemeToggle />
         </div>
-        <ThemeToggle />
-      </div>
-      <div className="max-w-6xl mx-auto px-6 pb-2 flex items-center gap-1 overflow-x-auto no-scrollbar">
-        <Button
-          variant="ghost"
-          size="sm"
-          className={`text-[11px] shrink-0 ${!activeCategory ? "text-foreground" : "text-muted-foreground/50"}`}
-          onClick={() => onCategoryChange(null)}
-          data-testid="button-category-all"
-        >
-          All
-        </Button>
-        {CATEGORIES.map((c) => (
-          <Button
-            key={c}
-            variant="ghost"
-            size="sm"
-            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/50"}`}
-            onClick={() => onCategoryChange(c)}
-            data-testid={`button-category-${c.toLowerCase().replace(/\s+/g, "-")}`}
-          >
-            {c}
-          </Button>
-        ))}
       </div>
     </nav>
   );
 }
 
-function ComparisonCard({ comparison, onClick }: { comparison: typeof COMPARISONS[0]; onClick: () => void }) {
+function ArticleCard({ article, onClick, featured = false }: { article: Article; onClick: () => void; featured?: boolean }) {
   const { theme } = useTheme();
-  const a = comparison.products[0];
-  const b = comparison.products[1];
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  const TypeIcon = TYPE_LABELS[article.type].icon;
 
   return (
     <div
-      className={`rounded-xl border p-5 cursor-pointer transition-colors hover-elevate ${
-        theme === "sparkle"
-          ? "border-purple-900/20 bg-card/40"
-          : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-      }`}
+      className={`rounded-xl border p-5 cursor-pointer hover-elevate ${cardClass} ${featured ? "sm:col-span-2" : ""}`}
       onClick={onClick}
-      data-testid={`card-${comparison.id}`}
+      data-testid={`card-${article.id}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{comparison.category}</Badge>
-        <div className="flex items-center gap-2">
-          <Clock className="w-3 h-3 text-muted-foreground/30" />
-          <span className="text-[10px] text-muted-foreground/40">{comparison.readTime}</span>
-        </div>
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{article.category}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate flex items-center gap-1">
+          <TypeIcon className="w-2.5 h-2.5" />
+          {TYPE_LABELS[article.type].label}
+        </Badge>
       </div>
 
-      <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-title-${comparison.id}`}>{comparison.title}</h3>
-      <p className="text-xs text-muted-foreground/50 mb-4">{comparison.subtitle}</p>
+      <h3 className={`font-semibold text-foreground mb-1 ${featured ? "text-lg" : "text-sm"}`}>{article.title}</h3>
+      <p className="text-[11px] text-muted-foreground/40 mb-3">{article.subtitle}</p>
 
-      <div className="grid grid-cols-2 gap-3 mb-4">
-        <div className="rounded-lg bg-background/40 px-3 py-2.5 text-center">
-          <div className="text-sm font-semibold text-foreground">{a.name}</div>
-          <div className="flex items-center justify-center gap-1 mt-1">
-            <Star className="w-3 h-3 text-foreground/30 fill-foreground/30" />
-            <span className="text-xs font-mono text-foreground/60">{a.score}</span>
-          </div>
-        </div>
-        <div className="rounded-lg bg-background/40 px-3 py-2.5 text-center">
-          <div className="text-sm font-semibold text-foreground">{b.name}</div>
-          <div className="flex items-center justify-center gap-1 mt-1">
-            <Star className="w-3 h-3 text-foreground/30 fill-foreground/30" />
-            <span className="text-xs font-mono text-foreground/60">{b.score}</span>
-          </div>
-        </div>
+      {featured && (
+        <p className="text-[12px] text-foreground/50 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
+      )}
+
+      <div className="flex items-center gap-2 mb-3 flex-wrap">
+        {article.mentions.slice(0, featured ? 5 : 3).map((m) => (
+          <Badge key={m.name} variant="outline" className="text-[9px] text-emerald-400/60 no-default-hover-elevate">{m.name}</Badge>
+        ))}
+        {article.mentions.length > (featured ? 5 : 3) && (
+          <span className="text-[9px] text-muted-foreground/30">+{article.mentions.length - (featured ? 5 : 3)}</span>
+        )}
       </div>
 
-      <div className="flex items-center justify-between gap-2 flex-wrap">
-        <div className="flex items-center gap-2">
-          <User className="w-3 h-3 text-muted-foreground/30" />
-          <span className="text-[10px] text-muted-foreground/40">{comparison.author}</span>
+      <div className="flex items-center justify-between gap-4 flex-wrap">
+        <div className="flex items-center gap-3 text-[10px] text-muted-foreground/30">
+          <span>{article.readTime}</span>
+          <span className="text-muted-foreground/15">|</span>
+          <span>{article.wordCount}</span>
+          <span className="text-muted-foreground/15">|</span>
+          <span>{article.updated}</span>
         </div>
-        <span className="text-[10px] text-muted-foreground/30">{comparison.updated}</span>
+        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/20" />
       </div>
     </div>
   );
 }
 
-function ComparisonArticle({ comparison, onBack }: { comparison: typeof COMPARISONS[0]; onBack: () => void }) {
+function ArticleListPage({
+  onSelectArticle,
+  activeCategory,
+  setActiveCategory,
+  searchQuery,
+  setSearchQuery,
+}: {
+  onSelectArticle: (id: string) => void;
+  activeCategory: string;
+  setActiveCategory: (c: string) => void;
+  searchQuery: string;
+  setSearchQuery: (q: string) => void;
+}) {
   const { theme } = useTheme();
-  const a = comparison.products[0];
-  const b = comparison.products[1];
-
   const cardClass = theme === "sparkle"
     ? "border-purple-900/20 bg-card/40"
     : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
 
+  let filtered = activeCategory === "All" ? ARTICLES : ARTICLES.filter((a) => a.category === activeCategory);
+
+  if (searchQuery.trim()) {
+    const q = searchQuery.toLowerCase();
+    filtered = ARTICLES.filter((a) =>
+      a.title.toLowerCase().includes(q) ||
+      a.subtitle.toLowerCase().includes(q) ||
+      a.tags.some((t) => t.toLowerCase().includes(q)) ||
+      a.mentions.some((m) => m.name.toLowerCase().includes(q))
+    );
+  }
+
+  const featuredArticles = ARTICLES.filter((a) => a.featured);
+  const recentArticles = [...ARTICLES].sort((a, b) => {
+    const parseDate = (d: string) => new Date(d.replace(/(\w+)\s(\d+),\s(\d+)/, "$1 $2, $3")).getTime();
+    return parseDate(b.updated) - parseDate(a.updated);
+  });
+
+  const totalMentions = new Set(ARTICLES.flatMap((a) => a.mentions.map((m) => m.name))).size;
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <button
-        onClick={onBack}
-        className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1 transition-colors"
-        data-testid="button-back"
-      >
+    <div className="max-w-6xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-page-title">
+          {activeCategory === "All" ? "Editorial" : activeCategory}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
+          In-depth comparisons, roundups, and buyer's guides for B2B software. No affiliate links. No sponsored rankings. Just research.
+        </p>
+      </div>
+
+      <div className="flex items-center gap-1 mb-6 overflow-x-auto no-scrollbar">
+        {CATEGORIES.map((c) => (
+          <Button
+            key={c}
+            variant="ghost"
+            size="sm"
+            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/40"}`}
+            onClick={() => setActiveCategory(c)}
+            data-testid={`button-category-${c.toLowerCase().replace(/[\s&]+/g, "-")}`}
+          >
+            {c}
+          </Button>
+        ))}
+      </div>
+
+      <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-8 ${cardClass}`}>
+        <Search className="w-4 h-4 text-muted-foreground/40 shrink-0" />
+        <input
+          type="text"
+          placeholder="Search articles, tools, or categories..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/30 outline-none"
+          data-testid="input-search"
+        />
+      </div>
+
+      {searchQuery.trim() ? (
+        <div className="mb-12">
+          <div className="flex items-center gap-2 mb-4">
+            <Search className="w-3.5 h-3.5 text-muted-foreground/40" />
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Results for "{searchQuery}"</span>
+            <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{filtered.length}</Badge>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {filtered.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
+          </div>
+          {filtered.length === 0 && (
+            <p className="text-sm text-muted-foreground/40 py-12 text-center">No articles match that query.</p>
+          )}
+        </div>
+      ) : activeCategory !== "All" ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {filtered.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
+          {filtered.length === 0 && (
+            <p className="text-sm text-muted-foreground/40 py-12 text-center sm:col-span-2">No articles in this category yet.</p>
+          )}
+        </div>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+            {[
+              { label: "Articles", value: String(ARTICLES.length) },
+              { label: "Categories", value: String(CATEGORIES.length - 1) },
+              { label: "Products Covered", value: String(totalMentions) },
+              { label: "Avg. Depth", value: "3,900 words" },
+            ].map((s) => (
+              <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
+                <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
+                <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+              </div>
+            ))}
+          </div>
+
+          {featuredArticles.length > 0 && (
+            <div className="mb-10">
+              <div className="flex items-center gap-2 mb-4">
+                <Zap className="w-3.5 h-3.5 text-muted-foreground/40" />
+                <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Featured</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {featuredArticles.map((a) => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} featured />)}
+              </div>
+            </div>
+          )}
+
+          <div className="mb-10">
+            <div className="flex items-center gap-2 mb-4">
+              <Clock className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">All Articles</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {recentArticles.filter((a) => !a.featured).map((a) => (
+                <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />
+              ))}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
+function ArticleDetailPage({ article, onBack }: { article: Article; onBack: () => void }) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  const TypeIcon = TYPE_LABELS[article.type].icon;
+
+  return (
+    <div className="max-w-3xl mx-auto">
+      <button onClick={onBack} className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
         <ChevronRight className="w-3 h-3 rotate-180" />
-        All comparisons
+        All articles
       </button>
 
-      <div className="mb-8">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">{comparison.category}</Badge>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-article-title">
-          {comparison.title}
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground/60">{comparison.subtitle}</p>
-        <div className="mt-4 flex items-center gap-4 flex-wrap text-[11px] text-muted-foreground/40">
-          <div className="flex items-center gap-1.5">
-            <User className="w-3 h-3" />
-            <span>{comparison.author}</span>
-            <span className="text-muted-foreground/20">|</span>
-            <span>{comparison.authorRole}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Calendar className="w-3 h-3" />
-            <span>Updated {comparison.updated}</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-3 h-3" />
-            <span>{comparison.readTime}</span>
-          </div>
+      <div className="flex items-center gap-2 mb-4 flex-wrap">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{article.category}</Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate flex items-center gap-1">
+          <TypeIcon className="w-2.5 h-2.5" />
+          {TYPE_LABELS[article.type].label}
+        </Badge>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/30 no-default-hover-elevate font-mono">{article.wordCount}</Badge>
+      </div>
+
+      <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mb-2" data-testid="text-article-title">
+        {article.title}
+      </h1>
+      <p className="text-sm text-muted-foreground/50 mb-4">{article.subtitle}</p>
+
+      <div className="flex items-center gap-4 text-[11px] text-muted-foreground/40 mb-8 flex-wrap">
+        <div className="flex items-center gap-1.5">
+          <User className="w-3 h-3" />
+          <span>{article.author}</span>
+          <span className="text-muted-foreground/20">|</span>
+          <span>{article.authorRole}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Calendar className="w-3 h-3" />
+          <span>{article.updated}</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <Clock className="w-3 h-3" />
+          <span>{article.readTime}</span>
         </div>
       </div>
 
-      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Verdict</span>
-        <p className="mt-2 text-sm text-foreground/70 leading-relaxed" data-testid="text-verdict">{comparison.verdict}</p>
-      </div>
+      <p className="text-sm text-foreground/70 leading-relaxed mb-8" data-testid="text-intro">{article.intro}</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        {[a, b].map((product) => (
-          <div key={product.name} className={`rounded-xl border p-5 ${cardClass}`}>
-            <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-              <h2 className="text-lg font-semibold text-foreground">{product.name}</h2>
-              <div className="flex items-center gap-1">
-                <Star className="w-3.5 h-3.5 text-foreground/30 fill-foreground/30" />
-                <span className="text-sm font-mono text-foreground/60">{product.score}</span>
-              </div>
-            </div>
-
-            <div className="space-y-2 text-[11px] mb-4">
-              <div className="flex justify-between gap-2 flex-wrap">
-                <span className="text-muted-foreground/40">Founded</span>
-                <span className="text-foreground/60 font-mono">{product.founded}</span>
-              </div>
-              <div className="flex justify-between gap-2 flex-wrap">
-                <span className="text-muted-foreground/40">HQ</span>
-                <span className="text-foreground/60">{product.hq}</span>
-              </div>
-              <div className="flex justify-between gap-2 flex-wrap">
-                <span className="text-muted-foreground/40">Pricing</span>
-                <span className="text-foreground/60 font-mono">{product.pricing}</span>
-              </div>
-              <div className="flex justify-between gap-2 flex-wrap">
-                <span className="text-muted-foreground/40">Best for</span>
-                <span className="text-foreground/60 text-right max-w-[180px]">{product.bestFor}</span>
-              </div>
-            </div>
-
-            <div className="space-y-3">
-              <div>
-                <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Strengths</span>
-                <div className="mt-1.5 space-y-1">
-                  {product.strengths.map((s) => (
-                    <div key={s} className="flex items-center gap-2">
-                      <Check className="w-3 h-3 text-emerald-400/50 shrink-0" />
-                      <span className="text-[11px] text-foreground/60">{s}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Weaknesses</span>
-                <div className="mt-1.5 space-y-1">
-                  {product.weaknesses.map((w) => (
-                    <div key={w} className="flex items-center gap-2">
-                      <X className="w-3 h-3 text-red-400/40 shrink-0" />
-                      <span className="text-[11px] text-foreground/60">{w}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+      <div className="space-y-6 mb-8">
+        {article.sections.map((section, i) => (
+          <div key={i}>
+            <h2 className="text-base font-semibold text-foreground mb-3">{section.heading}</h2>
+            <p className="text-[13px] text-foreground/60 leading-relaxed">{section.content}</p>
           </div>
         ))}
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-4 block">Criteria Comparison</span>
-        <div className="overflow-x-auto">
-          <table className="w-full text-[12px]">
-            <thead>
-              <tr className="border-b border-border/30">
-                <th className="text-left pb-3 text-muted-foreground/50 font-medium">Criteria</th>
-                <th className="text-center pb-3 text-foreground/70 font-medium w-32">{a.name}</th>
-                <th className="text-center pb-3 text-foreground/70 font-medium w-32">{b.name}</th>
-                <th className="text-center pb-3 text-muted-foreground/50 font-medium w-20">Edge</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparison.criteria.map((c, i) => {
-                const winner = c.a > c.b ? a.name : c.b > c.a ? b.name : "Tie";
-                return (
-                  <tr key={c.name} className={i < comparison.criteria.length - 1 ? "border-b border-border/10" : ""}>
-                    <td className="py-2.5 text-foreground/60">{c.name}</td>
-                    <td className="py-2.5 px-2">
-                      <ScoreBar score={c.a} />
-                    </td>
-                    <td className="py-2.5 px-2">
-                      <ScoreBar score={c.b} />
-                    </td>
-                    <td className="py-2.5 text-center">
-                      <span className={`text-[10px] font-mono ${winner === "Tie" ? "text-muted-foreground/40" : "text-foreground/50"}`}>
-                        {winner === "Tie" ? "—" : winner.split(" ")[0]}
-                      </span>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+        <div className="flex items-center gap-2 mb-4">
+          <Target className="w-3.5 h-3.5 text-emerald-400/50" />
+          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">The Bottom Line</span>
+        </div>
+        <p className="text-sm text-foreground/70 leading-relaxed font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
+      </div>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <div className="flex items-center gap-2 mb-4">
+          <Lightbulb className="w-3.5 h-3.5 text-emerald-400/50" />
+          <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Products Mentioned</span>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate font-mono">{article.mentions.length}</Badge>
+        </div>
+        <div className="space-y-2.5">
+          {article.mentions.map((m) => (
+            <div key={m.name} className="rounded-lg bg-background/40 px-4 py-3 flex items-start justify-between gap-4 flex-wrap">
+              <span className="text-sm font-semibold text-foreground">{m.name}</span>
+              <span className="text-[11px] text-muted-foreground/50">{m.verdict}</span>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-3 block">Schema Markup</span>
-        <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
-          <div className="text-foreground/40">{"{"}</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"ComparisonArticle"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"products"</span>: [<span className="text-foreground/50">"{a.name}", "{b.name}"</span>],</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"category"</span>: <span className="text-foreground/50">"{comparison.category}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"author"</span>: <span className="text-foreground/50">"{comparison.author}"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"2026-02-12"</span>,</div>
-          <div className="pl-3"><span className="text-emerald-400/70">"verdict"</span>: <span className="text-foreground/50">"{comparison.verdict.slice(0, 60)}..."</span></div>
-          <div className="text-foreground/40">{"}"}</div>
-        </div>
-        <p className="mt-3 text-[10px] text-muted-foreground/40">
-          Every comparison outputs structured data so AI search engines can parse criteria, scores, and verdicts directly.
-        </p>
-      </div>
-
-      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 flex-wrap">
-        <div className="flex items-center gap-2 text-[11px] text-muted-foreground/40">
-          <User className="w-3 h-3" />
-          <span>Written by <span className="text-foreground/50">{comparison.author}</span>, {comparison.authorRole}</span>
-        </div>
-        <div className="text-[10px] text-muted-foreground/30">
-          Last verified {comparison.updated}
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Tags</span>
+        <div className="flex items-center gap-2 flex-wrap">
+          {article.tags.map((t) => (
+            <Badge key={t} variant="outline" className="text-[9px] text-muted-foreground/40 no-default-hover-elevate">{t}</Badge>
+          ))}
         </div>
       </div>
-    </div>
-  );
-}
 
-function FeaturedStats() {
-  const { theme } = useTheme();
-  const stats = [
-    { label: "Comparisons", value: "48", icon: BarChart3 },
-    { label: "Categories", value: "6", icon: Search },
-    { label: "Products Covered", value: "96", icon: TrendingUp },
-    { label: "Expert Authors", value: "12", icon: User },
-  ];
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
+        <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
+          <span className="text-muted-foreground/40">GET</span>{" "}
+          <span className="text-foreground/60">whatisbest.com/api/article/{article.id}</span>
+        </div>
+        <span className="text-[10px] text-muted-foreground/30">Returns structured article data with product verdicts and metadata.</span>
+      </div>
 
-  return (
-    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
-      {stats.map((s) => {
-        const Icon = s.icon;
-        return (
-          <div
-            key={s.label}
-            className={`rounded-xl border px-4 py-3 text-center ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <Icon className="w-3.5 h-3.5 text-muted-foreground/40 mx-auto mb-1.5" />
-            <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
-            <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
-          </div>
-        );
-      })}
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/30 flex-wrap">
+        <div className="flex items-center gap-3">
+          <span>No affiliate links</span>
+          <span className="text-muted-foreground/15">|</span>
+          <span>No sponsored rankings</span>
+          <span className="text-muted-foreground/15">|</span>
+          <span>Independent research</span>
+        </div>
+        <span>{article.updated}</span>
+      </div>
     </div>
   );
 }
@@ -632,39 +736,50 @@ function Footer() {
   return (
     <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           <div>
-            <span className="text-sm font-semibold text-foreground">
-              WhatisBest<span className="font-normal text-muted-foreground">.com</span>
-            </span>
-            <p className="mt-1 text-xs text-muted-foreground/60">
-              Expert-vetted B2B SaaS comparisons built for AI citations.
+            <div className="flex items-center gap-2 mb-2">
+              <Award className="w-3.5 h-3.5 text-muted-foreground/40" />
+              <span className="text-sm font-semibold text-foreground">
+                WhatisBest<span className="font-normal text-muted-foreground">.com</span>
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground/40 leading-relaxed">
+              AI-native B2B software comparison engine. Independent editorial. No affiliate links.
             </p>
           </div>
-          <div className="text-right">
-            <p className="text-[10px] text-muted-foreground/40">
-              Part of Brandvious, Inc.
-            </p>
-            <p className="text-[10px] text-muted-foreground/40">
-              Land O' Lakes, Florida
-            </p>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Content</span>
+            <div className="mt-2 space-y-1.5">
+              {["Comparisons", "Roundups", "Buyer's Guides", "Trending"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Categories</span>
+            <div className="mt-2 space-y-1.5">
+              {["CRM", "Marketing", "AI & Automation", "Cybersecurity"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Company</span>
+            <div className="mt-2 space-y-1.5">
+              {["About", "Methodology", "Contact", "Privacy Policy"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/40">{item}</p>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] text-muted-foreground/30">
-          <span>No affiliate rankings</span>
-          <span className="text-muted-foreground/10">|</span>
-          <span>Named expert authors</span>
-          <span className="text-muted-foreground/10">|</span>
-          <span>Quarterly updates</span>
-          <span className="text-muted-foreground/10">|</span>
-          <span>Schema-first architecture</span>
-        </div>
-
-        <div className="mt-6 pt-6 border-t border-border/20">
-          <p className="text-[10px] text-muted-foreground/30">
-            &copy; 2026 Brandvious, Inc. All rights reserved.
-          </p>
+        <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div>
+            <p className="text-[10px] text-muted-foreground/30">Part of Brandvious, Inc.</p>
+            <p className="text-[10px] text-muted-foreground/30">Land O' Lakes, Florida</p>
+          </div>
+          <p className="text-[10px] text-muted-foreground/20">&copy; 2026 Brandvious, Inc. All rights reserved.</p>
         </div>
       </div>
     </footer>
@@ -815,60 +930,39 @@ function AuroraCanvas() {
 
 export default function WhatisBest() {
   const { theme } = useTheme();
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [selectedComparison, setSelectedComparison] = useState<string | null>(null);
+  const [selectedArticle, setSelectedArticle] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const filtered = activeCategory
-    ? COMPARISONS.filter((c) => c.category === activeCategory)
-    : COMPARISONS;
+  const article = selectedArticle ? ARTICLES.find((a) => a.id === selectedArticle) : null;
 
-  const selected = selectedComparison
-    ? COMPARISONS.find((c) => c.id === selectedComparison)
-    : null;
+  const handleSelect = (id: string) => {
+    setSelectedArticle(id);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const handleBack = () => {
+    setSelectedArticle(null);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar activeCategory={activeCategory} onCategoryChange={(c) => { setActiveCategory(c); setSelectedComparison(null); }} />
-        <div className="pt-28 px-6 pb-6">
-          <div className="max-w-6xl mx-auto">
-            {selected ? (
-              <ComparisonArticle
-                comparison={selected}
-                onBack={() => setSelectedComparison(null)}
-              />
-            ) : (
-              <>
-                <div className="mb-8">
-                  <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-page-title">
-                    {activeCategory ? `${activeCategory} Comparisons` : "B2B Software Comparisons"}
-                  </h1>
-                  <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
-                    Expert-vetted, schema-structured comparisons that AI search engines cite. No affiliate rankings. Updated quarterly.
-                  </p>
-                </div>
-
-                {!activeCategory && <FeaturedStats />}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filtered.map((c) => (
-                    <ComparisonCard
-                      key={c.id}
-                      comparison={c}
-                      onClick={() => setSelectedComparison(c.id)}
-                    />
-                  ))}
-                </div>
-
-                {filtered.length === 0 && (
-                  <div className="text-center py-16">
-                    <p className="text-sm text-muted-foreground/40">No comparisons in this category yet.</p>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
+        <Navbar onHome={handleBack} />
+        <div className="pt-20 px-6 pb-6">
+          {article ? (
+            <ArticleDetailPage article={article} onBack={handleBack} />
+          ) : (
+            <ArticleListPage
+              onSelectArticle={handleSelect}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+          )}
         </div>
         <Footer />
       </div>
