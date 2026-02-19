@@ -343,7 +343,7 @@ function Beliefs() {
               variant="outline"
               className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
             >
-              The Mission
+              Mission
             </Badge>
           </div>
 
@@ -412,6 +412,7 @@ function ProjectCard({
           ? "border-purple-900/20 bg-card/40"
           : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
       }`}
+      style={theme === "sparkle" ? { "--cycle-delay": `${index * 5}s`, "--cycle-duration": "25s" } as React.CSSProperties : undefined}
       data-testid={`card-project-${index}`}
     >
       <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
@@ -554,7 +555,7 @@ function Projects() {
               variant="outline"
               className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1"
             >
-              The Products
+              Products
             </Badge>
           </div>
 
@@ -611,11 +612,14 @@ function ClosingStatement() {
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[100px] pointer-events-none" />
       )}
       <div className="max-w-4xl mx-auto relative">
-        <div className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 text-center card-glow ${
-          theme === "sparkle"
-            ? "border-purple-900/20 bg-card/30 sparkle-glow-bg"
-            : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
-        }`}>
+        <div
+          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 text-center card-glow ${
+            theme === "sparkle"
+              ? "border-purple-900/20 bg-card/30 sparkle-glow-bg"
+              : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
+          }`}
+          style={theme === "sparkle" ? { "--cycle-delay": "0s", "--cycle-duration": "10s" } as React.CSSProperties : undefined}
+        >
           <p className={`text-xl font-medium leading-relaxed sm:text-2xl max-w-xl mx-auto ${
             theme === "sparkle" ? "sparkle-text" : "text-foreground/80"
           }`} data-testid="text-closing">

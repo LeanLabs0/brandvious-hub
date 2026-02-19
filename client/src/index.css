@@ -421,20 +421,37 @@
     animation: sparkle-orb-breathe 10s infinite ease-in-out !important;
   }
 
+  @keyframes sparkle-card-cycle {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    17% { opacity: 1; }
+    20% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes sparkle-card-solo {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
   .sparkle .card-glow::before {
     background: conic-gradient(
       from var(--gradient-angle, 0deg),
-      transparent 30%,
-      rgba(120, 40, 160, 0.25) 50%,
-      transparent 70%
+      transparent 25%,
+      rgba(140, 50, 180, 0.4) 40%,
+      rgba(180, 80, 220, 0.5) 50%,
+      rgba(140, 50, 180, 0.4) 60%,
+      transparent 75%
     ) !important;
-    animation: gradient-rotate 12s linear infinite !important;
+    animation:
+      gradient-rotate 6s linear infinite,
+      sparkle-card-cycle var(--cycle-duration, 25s) var(--cycle-delay, 0s) ease-in-out infinite !important;
     opacity: 0;
-    transition: opacity 0.5s ease;
   }
 
   .sparkle .card-glow:hover::before {
     opacity: 1 !important;
+    animation: gradient-rotate 6s linear infinite !important;
   }
 
   .sparkle .dot-pattern {
