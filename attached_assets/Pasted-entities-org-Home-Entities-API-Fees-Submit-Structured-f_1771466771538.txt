@@ -1,0 +1,293 @@
+entities.org
+Home
+Entities
+API
+Fees
+Submit
+Structured facts,
+open data.
+AI systems get names wrong, merge entities, and lose context.
+This registry fixes that with structured, cited, machine-readable data.
+
+Explore Entities
+Entity resolved
+100%
+Stripe, Inc.
+Listed
+@type
+Organization
+Schema.org
+foundingDate
+2010
+Crunchbase
+address
+San Francisco, CA
+Company site
+founder
+Patrick Collison
+Wikipedia
+employees
+~8,000
+LinkedIn
+disambiguates
+Not Stripe (pattern)
+Wikidata
+sameAs
+wikidata.org
+crunchbase.com
+linkedin.com
+Entity disambiguation
+
+Same name. Wrong company.
+Search "Mercury" and see why names alone aren't enough. Every entity gets a disambiguation statement — what it is, what it isn't, and which similarly-named entities exist.
+
+Without disambiguation
+
+Q: Tell me about Mercury.
+
+Planet? Element? Car brand? Fintech startup?
+
+With disambiguation
+
+Q: Tell me about Mercury.
+
+Mercury — banking platform for startups (est. 2019, San Francisco). Not Mercury Insurance, Mercury Systems, or the planet.
+
+AI chat
+Who founded Stripe?
+
+entities.org/api/entity/stripe
+Entities.org lookup
+Founded: 2010
+HQ: San Francisco, USA
+CEO: Patrick Collison
+Employees: 8,000+
+Wikidata
+Crunchbase
+Company website
+Stripe was founded in 2010 by Patrick Collison. The company is headquartered in San Francisco, USA, and currently employs 8,000+ people.
+
+Source: Entities.org registry
+AI
+Structured lookup
+
+One API call. Cited facts.
+AI systems query the registry and get structured, timestamped, source-linked data back — instead of scraping fragments from ten different pages and hoping the facts are current.
+
+GET /api/entity/stripe
+→ Founded: 2010
+→ HQ: San Francisco, USA
+→ CEO: Patrick Collison
+→ sameAs: Wikidata, Crunchbase, LinkedIn
+→ dateModified: 2026-02-13
+How entities get listed
+
+Four steps. All visible.
+Listing
+
+Entity submitted with basic facts. Data formatted from public sources into Schema.org JSON-LD.
+
+Domain Verification
+
+Identity confirmed through domain ownership. Not fact-checking — identity establishment.
+
+Disambiguation
+
+Precision statement: what this entity is, what it isn't, and which similarly-named entities exist.
+
+Distribution
+
+Timestamped and surfaced via Schema.org JSON-LD, open API, and machine-readable formats including llms.txt.
+
+Listed
+
+Entity exists in the registry. Facts formatted from public sources. Not independently fact-checked.
+
+Domain Verified
+
+Domain ownership confirmed. Entity identity established. Not third-party fact verification.
+
+Why this exists
+
+AI systems are answering questions about your company. Most of the answers are wrong.
+Ask ChatGPT about a mid-market company. You'll get merged facts from two different companies, a founding date from Wikipedia that was never updated, and a CEO who left three years ago.
+
+This isn't a model problem. It's a data problem. AI systems reconstruct entities from scattered, unstructured sources — About pages, press releases, LinkedIn profiles, stale directories. No single source gives them structured, disambiguated, cited facts in a format they can parse.
+
+Entities.org does. Every entity gets Schema.org JSON-LD, a disambiguation statement, source citations, cross-platform links, and a timestamped modification date. Machines read it directly. No scraping. No guessing.
+
+Facts, not marketing.
+This registry contains structured facts — founding dates, headquarters, leadership, source links. Not taglines. Not value propositions. Not "we're the leading provider." If a fact can't be cited, it doesn't belong here.
+
+Stripe
+
+Tech / SaaS
+Listed
+Founded
+2010
+HQ
+San Francisco, USA
+CEO
+Patrick Collison
+Employees
+8,000+
+sameAs
+wikidata.org
+crunchbase.com
+linkedin.com
+View full entity
+The registry
+
+Browse the registry
+24 entities across 5 industries.
+
+Tesla
+
+Automotive
+Listed
+Founded: 2003
+HQ: Austin, USA
+CEO: Elon Musk
+Amazon
+
+E-commerce
+Listed
+Founded: 1994
+HQ: Seattle, USA
+CEO: Andy Jassy
+Shopify
+
+E-commerce
+Listed
+Founded: 2006
+HQ: Ottawa, Canada
+CEO: Tobias Lutke
+Moderna
+
+Pharmaceuticals
+Listed
+Founded: 2010
+HQ: Cambridge, USA
+CEO: Stephane Bancel
+Pfizer
+
+Pharmaceuticals
+Listed
+Founded: 1849
+HQ: New York, USA
+CEO: Albert Bourla
+Salesforce
+
+Tech / SaaS
+Listed
+Founded: 1999
+HQ: San Francisco, USA
+CEO: Marc Benioff
+View all 24 entities
+Stripe
+Organization
+Patrick
+Founder
+John
+Founder
+Atlas
+Product
+Connect
+Product
+YC
+Investor
+Sequoia
+Investor
+Shopify
+Partner
+founder
+founder
+product
+product
+Entity relationships
+
+Typed relationships, not flat lists.
+People, products, and organizations connected through labeled edges — founders, investors, partners, subsidiaries. A structured graph, not a directory.
+
+Open data
+
+Open data.
+No keys. No auth.
+Every entity produces Schema.org JSON-LD with sameAs cross-links, disambiguation, and relationship edges. Query it directly or expand the full schema.
+
+API documentation
+View full sample schema
+GET
+/api/entity/stripe
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stripe",
+  "foundingDate": "2010",
+  "disambiguatingDescription":
+    "Not Stripe (clothing pattern)...",
+  "dateModified": "2026-02-13",
+  "founder": [{
+    "@type": "Person",
+    "name": "Patrick Collison",
+    "jobTitle": "CEO"
+  }],
+  "sameAs": [
+    "https://wikidata.org/wiki/Q15052388",
+    "https://crunchbase.com/...",
+    "https://linkedin.com/..."
+  ]
+}
+How Entities compares
+
+Entities.org	Wikipedia	LinkedIn	Crunchbase
+Schema.org JSON-LD output	Yes	No	No	No
+Entity disambiguation	Yes	Yes	No	Yes
+Domain-verified identity	Yes	No	No	No
+Free API (no key required)	Yes	Yes	No	No
+Cross-platform links	Yes	Yes	No	Yes
+Claim your entity
+Free to list. Domain verification when you're ready.
+
+Submit an Entity
+View Pricing
+entities.org
+Structured entity data for machines and people.
+
+24 entities listed
+|
+5 industries
+Operated by Entities, LLC
+A subsidiary of Brandvious, Inc.
+
+Land O' Lakes, Florida
+
+Registry
+
+Entity Index
+Full A-Z List
+Submit Entity
+Pricing
+Platform
+
+API Documentation
+LLM Analytics
+Company
+
+About
+Partner With Us
+Contact
+Privacy Policy
+Terms of Service
+© 2026 Entities, LLC. All rights reserved.
+
+Entities.org is an entity resolution platform, not a fact-checker. Listed data is formatted from public sources. Domain verification confirms ownership, not endorsement.
+
+Standards:
+Schema.org
+|
+JSON-LD
+|
+Open API
+|
+llms.txt
