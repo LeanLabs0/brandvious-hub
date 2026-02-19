@@ -31,9 +31,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const toggleTheme = () => {
     setTheme((prev) => {
-      if (prev === "light") return "dark";
-      if (prev === "dark") return "sparkle";
-      return "light";
+      if (prev === "dark") return "light";
+      if (prev === "light") return "sparkle";
+      return "dark";
     });
   };
 

@@ -168,9 +168,9 @@ function IconBar() {
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const icon =
-    theme === "light" ? <Moon className="w-4 h-4" /> :
-    theme === "dark" ? <Sparkles className="w-4 h-4" /> :
-    <Sun className="w-4 h-4" />;
+    theme === "dark" ? <Sun className="w-4 h-4" /> :
+    theme === "light" ? <Sparkles className="w-4 h-4" /> :
+    <Moon className="w-4 h-4" />;
   return (
     <Button
       size="icon"
