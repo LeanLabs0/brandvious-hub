@@ -123,7 +123,7 @@ function HeroGlow() {
 function IconBar() {
   const heroIcons = projects.slice(0, 4);
   return (
-    <div className="flex items-center gap-2 mb-10" data-testid="icon-bar">
+    <div className="flex items-center gap-2" data-testid="icon-bar">
       {heroIcons.map((project, i) => {
         const Icon = project.icon;
         return (
@@ -170,8 +170,6 @@ function Hero() {
       <HeroParticles />
 
       <div className="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-        <IconBar />
-
         <div className="mb-8">
           <Badge
             variant="outline"
@@ -198,6 +196,9 @@ function Hero() {
           Brandvious builds products that make the internet work better.
         </p>
 
+        <div className="mt-10">
+          <IconBar />
+        </div>
       </div>
 
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
