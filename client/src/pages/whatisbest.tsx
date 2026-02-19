@@ -1,27 +1,289 @@
-import { useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
-  ArrowDown,
   ArrowRight,
-  Trophy,
-  BarChart3,
-  Bot,
-  MessageSquare,
-  Scale,
-  Search,
-  Layers,
-  FileText,
-  Check,
-  X,
   Sun,
   Moon,
   Sparkles,
-  Users,
-  Shield,
-  RefreshCw,
+  Check,
+  X,
+  Minus,
+  Star,
+  Search,
+  ChevronRight,
+  Calendar,
+  User,
+  ExternalLink,
+  BarChart3,
+  TrendingUp,
+  Clock,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+
+const CATEGORIES = [
+  "CRM",
+  "Marketing Automation",
+  "Project Management",
+  "Help Desk",
+  "Email Marketing",
+  "Analytics",
+];
+
+const COMPARISONS = [
+  {
+    id: "hubspot-vs-salesforce",
+    category: "CRM",
+    title: "HubSpot vs Salesforce",
+    subtitle: "Which CRM fits your growth stage?",
+    author: "Sarah Chen",
+    authorRole: "B2B SaaS Analyst",
+    updated: "Feb 12, 2026",
+    readTime: "8 min read",
+    verdict: "HubSpot wins for mid-market teams prioritizing ease of use. Salesforce wins for enterprise needing deep customization.",
+    products: [
+      {
+        name: "HubSpot",
+        score: 4.4,
+        founded: "2006",
+        hq: "Cambridge, MA",
+        pricing: "Free — $800+/mo",
+        bestFor: "Mid-market SaaS (50–500 employees)",
+        strengths: ["Ease of use", "All-in-one platform", "Strong free tier", "Native marketing tools"],
+        weaknesses: ["Price escalation at scale", "Limited enterprise customization"],
+      },
+      {
+        name: "Salesforce",
+        score: 4.2,
+        founded: "1999",
+        hq: "San Francisco, CA",
+        pricing: "$25 — $300+/mo per user",
+        bestFor: "Enterprise (500+ employees)",
+        strengths: ["Deep customization", "AppExchange ecosystem", "Enterprise reporting", "Industry solutions"],
+        weaknesses: ["Steep learning curve", "Implementation complexity"],
+      },
+    ],
+    criteria: [
+      { name: "Ease of Setup", a: 5, b: 2 },
+      { name: "Customization", a: 3, b: 5 },
+      { name: "Reporting", a: 3, b: 5 },
+      { name: "Integrations", a: 4, b: 5 },
+      { name: "Pricing Transparency", a: 4, b: 2 },
+      { name: "AI Features", a: 4, b: 4 },
+      { name: "Support Quality", a: 4, b: 3 },
+    ],
+  },
+  {
+    id: "notion-vs-monday",
+    category: "Project Management",
+    title: "Notion vs Monday.com",
+    subtitle: "Flexible docs or structured workflows?",
+    author: "Marcus Rivera",
+    authorRole: "Product Ops Consultant",
+    updated: "Feb 6, 2026",
+    readTime: "7 min read",
+    verdict: "Notion excels at flexible knowledge management. Monday.com wins for structured project workflows with clear timelines.",
+    products: [
+      {
+        name: "Notion",
+        score: 4.5,
+        founded: "2013",
+        hq: "San Francisco, CA",
+        pricing: "Free — $15/mo per user",
+        bestFor: "Teams wanting flexible, doc-driven workflows",
+        strengths: ["Extreme flexibility", "Great for documentation", "AI integration", "Template ecosystem"],
+        weaknesses: ["Learning curve for teams", "Weaker timeline/Gantt views"],
+      },
+      {
+        name: "Monday.com",
+        score: 4.3,
+        founded: "2012",
+        hq: "Tel Aviv, Israel",
+        pricing: "$9 — $19/mo per user",
+        bestFor: "Teams needing visual project tracking",
+        strengths: ["Visual dashboards", "Automations", "Timeline views", "Cross-team visibility"],
+        weaknesses: ["Can feel rigid", "Price adds up with add-ons"],
+      },
+    ],
+    criteria: [
+      { name: "Flexibility", a: 5, b: 3 },
+      { name: "Project Tracking", a: 3, b: 5 },
+      { name: "Documentation", a: 5, b: 2 },
+      { name: "Automations", a: 3, b: 5 },
+      { name: "Ease of Use", a: 3, b: 4 },
+      { name: "Reporting", a: 3, b: 5 },
+      { name: "Pricing Value", a: 5, b: 3 },
+    ],
+  },
+  {
+    id: "mailchimp-vs-klaviyo",
+    category: "Email Marketing",
+    title: "Mailchimp vs Klaviyo",
+    subtitle: "General marketing or e-commerce focused?",
+    author: "Dana Kim",
+    authorRole: "Email Marketing Strategist",
+    updated: "Jan 28, 2026",
+    readTime: "6 min read",
+    verdict: "Mailchimp is the all-purpose choice for most businesses. Klaviyo is the clear winner for e-commerce brands needing deep segmentation.",
+    products: [
+      {
+        name: "Mailchimp",
+        score: 4.2,
+        founded: "2001",
+        hq: "Atlanta, GA",
+        pricing: "Free — $350/mo",
+        bestFor: "SMBs and general marketing",
+        strengths: ["Brand recognition", "All-in-one marketing", "Easy templates", "Wide integrations"],
+        weaknesses: ["Automation limits on free tier", "E-commerce segmentation"],
+      },
+      {
+        name: "Klaviyo",
+        score: 4.6,
+        founded: "2012",
+        hq: "Boston, MA",
+        pricing: "Free — $700+/mo",
+        bestFor: "E-commerce (Shopify, WooCommerce)",
+        strengths: ["Deep e-commerce integration", "Advanced segmentation", "Revenue attribution", "Predictive analytics"],
+        weaknesses: ["Price scales with contacts", "Learning curve for beginners"],
+      },
+    ],
+    criteria: [
+      { name: "E-commerce Fit", a: 3, b: 5 },
+      { name: "Segmentation", a: 3, b: 5 },
+      { name: "Template Design", a: 5, b: 3 },
+      { name: "Ease of Use", a: 5, b: 3 },
+      { name: "Automation Depth", a: 3, b: 5 },
+      { name: "Analytics", a: 3, b: 5 },
+      { name: "Free Tier", a: 4, b: 4 },
+    ],
+  },
+  {
+    id: "zendesk-vs-intercom",
+    category: "Help Desk",
+    title: "Zendesk vs Intercom",
+    subtitle: "Traditional ticketing or conversational support?",
+    author: "James Park",
+    authorRole: "CS Operations Lead",
+    updated: "Jan 20, 2026",
+    readTime: "7 min read",
+    verdict: "Zendesk excels at structured ticket management at scale. Intercom wins for conversational, proactive support with modern UX.",
+    products: [
+      {
+        name: "Zendesk",
+        score: 4.1,
+        founded: "2007",
+        hq: "San Francisco, CA",
+        pricing: "$19 — $115/mo per agent",
+        bestFor: "Large support teams with ticket workflows",
+        strengths: ["Mature ticketing system", "Deep customization", "Marketplace apps", "Multi-channel"],
+        weaknesses: ["Dated UI", "Complex setup for advanced features"],
+      },
+      {
+        name: "Intercom",
+        score: 4.4,
+        founded: "2011",
+        hq: "San Francisco, CA",
+        pricing: "$74 — $139/mo per seat",
+        bestFor: "SaaS teams wanting conversational support",
+        strengths: ["Modern messenger UX", "AI bot (Fin)", "Proactive messaging", "Product tours"],
+        weaknesses: ["Expensive at scale", "Less suited for email-heavy support"],
+      },
+    ],
+    criteria: [
+      { name: "Ticket Management", a: 5, b: 3 },
+      { name: "Live Chat", a: 3, b: 5 },
+      { name: "AI / Bots", a: 3, b: 5 },
+      { name: "Multi-channel", a: 5, b: 4 },
+      { name: "Ease of Setup", a: 3, b: 4 },
+      { name: "Reporting", a: 4, b: 4 },
+      { name: "Pricing Value", a: 4, b: 3 },
+    ],
+  },
+  {
+    id: "hubspot-marketing-vs-marketo",
+    category: "Marketing Automation",
+    title: "HubSpot Marketing vs Marketo",
+    subtitle: "All-in-one simplicity or enterprise power?",
+    author: "Sarah Chen",
+    authorRole: "B2B SaaS Analyst",
+    updated: "Feb 1, 2026",
+    readTime: "8 min read",
+    verdict: "HubSpot Marketing Hub wins for growing teams that want ease and speed. Marketo wins for enterprise teams with complex multi-touch attribution needs.",
+    products: [
+      {
+        name: "HubSpot Marketing",
+        score: 4.4,
+        founded: "2006",
+        hq: "Cambridge, MA",
+        pricing: "Free — $3,600/mo",
+        bestFor: "SMB to mid-market marketing teams",
+        strengths: ["All-in-one platform", "Easy workflow builder", "CRM integration", "Content tools"],
+        weaknesses: ["Advanced features locked to higher tiers", "Contact-based pricing"],
+      },
+      {
+        name: "Marketo (Adobe)",
+        score: 4.0,
+        founded: "2006",
+        hq: "San Jose, CA",
+        pricing: "Custom (est. $1,000+/mo)",
+        bestFor: "Enterprise with complex campaigns",
+        strengths: ["Advanced lead scoring", "Multi-touch attribution", "Account-based marketing", "Adobe ecosystem"],
+        weaknesses: ["Steep learning curve", "Requires dedicated admin"],
+      },
+    ],
+    criteria: [
+      { name: "Ease of Use", a: 5, b: 2 },
+      { name: "Lead Scoring", a: 3, b: 5 },
+      { name: "Attribution", a: 3, b: 5 },
+      { name: "Content Tools", a: 5, b: 3 },
+      { name: "CRM Integration", a: 5, b: 4 },
+      { name: "Scalability", a: 3, b: 5 },
+      { name: "Time to Value", a: 5, b: 2 },
+    ],
+  },
+  {
+    id: "mixpanel-vs-amplitude",
+    category: "Analytics",
+    title: "Mixpanel vs Amplitude",
+    subtitle: "Which product analytics platform leads?",
+    author: "Dana Kim",
+    authorRole: "Email Marketing Strategist",
+    updated: "Jan 15, 2026",
+    readTime: "6 min read",
+    verdict: "Both are strong. Mixpanel edges ahead on simplicity and speed. Amplitude wins for teams needing behavioral cohort analysis at scale.",
+    products: [
+      {
+        name: "Mixpanel",
+        score: 4.5,
+        founded: "2009",
+        hq: "San Francisco, CA",
+        pricing: "Free — $24+/mo",
+        bestFor: "Product teams tracking events and funnels",
+        strengths: ["Fast query engine", "Intuitive UI", "Strong free tier", "JQL for power users"],
+        weaknesses: ["Fewer enterprise features", "Smaller ecosystem"],
+      },
+      {
+        name: "Amplitude",
+        score: 4.4,
+        founded: "2012",
+        hq: "San Francisco, CA",
+        pricing: "Free — Custom",
+        bestFor: "Growth teams running behavioral analysis",
+        strengths: ["Behavioral cohorts", "Experiment integration", "CDP features", "Governance tools"],
+        weaknesses: ["Steeper learning curve", "Can be slow on complex queries"],
+      },
+    ],
+    criteria: [
+      { name: "Query Speed", a: 5, b: 3 },
+      { name: "Cohort Analysis", a: 3, b: 5 },
+      { name: "Ease of Use", a: 5, b: 3 },
+      { name: "Experimentation", a: 3, b: 5 },
+      { name: "Free Tier", a: 5, b: 4 },
+      { name: "Data Governance", a: 3, b: 5 },
+      { name: "Integrations", a: 4, b: 4 },
+    ],
+  },
+];
 
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -41,11 +303,26 @@ function ThemeToggle() {
   );
 }
 
-function Navbar() {
+function ScoreBar({ score, max = 5 }: { score: number; max?: number }) {
+  const pct = (score / max) * 100;
+  return (
+    <div className="flex items-center gap-2">
+      <div className="flex-1 h-1.5 rounded-full bg-border/30 overflow-hidden">
+        <div
+          className="h-full rounded-full bg-foreground/30"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <span className="text-[10px] font-mono text-muted-foreground/60 w-4 text-right">{score}</span>
+    </div>
+  );
+}
+
+function Navbar({ activeCategory, onCategoryChange }: { activeCategory: string | null; onCategoryChange: (c: string | null) => void }) {
   const { theme } = useTheme();
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-[9999] px-6 py-4"
+      className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
         backdropFilter: "blur(12px)",
         backgroundColor:
@@ -55,607 +332,313 @@ function Navbar() {
       }}
       data-testid="navbar"
     >
-      <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
-        <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
-          WhatisBest<span className="font-normal text-muted-foreground">.com</span>
-        </span>
+      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
+            WhatisBest<span className="font-normal text-muted-foreground">.com</span>
+          </span>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate hidden sm:inline-flex">B2B Comparisons</Badge>
+        </div>
         <ThemeToggle />
+      </div>
+      <div className="max-w-6xl mx-auto px-6 pb-2 flex items-center gap-1 overflow-x-auto no-scrollbar">
+        <Button
+          variant="ghost"
+          size="sm"
+          className={`text-[11px] shrink-0 ${!activeCategory ? "text-foreground" : "text-muted-foreground/50"}`}
+          onClick={() => onCategoryChange(null)}
+          data-testid="button-category-all"
+        >
+          All
+        </Button>
+        {CATEGORIES.map((c) => (
+          <Button
+            key={c}
+            variant="ghost"
+            size="sm"
+            className={`text-[11px] shrink-0 ${activeCategory === c ? "text-foreground" : "text-muted-foreground/50"}`}
+            onClick={() => onCategoryChange(c)}
+            data-testid={`button-category-${c.toLowerCase().replace(/\s+/g, "-")}`}
+          >
+            {c}
+          </Button>
+        ))}
       </div>
     </nav>
   );
 }
 
-function Hero() {
+function ComparisonCard({ comparison, onClick }: { comparison: typeof COMPARISONS[0]; onClick: () => void }) {
   const { theme } = useTheme();
-  return (
-    <section
-      className="relative flex flex-col items-center justify-center min-h-screen px-6"
-      data-testid="section-hero"
-    >
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {theme === "sparkle" ? (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px] animate-subtle-glow"
-            style={{ background: "radial-gradient(circle, rgba(100, 30, 140, 0.18) 0%, rgba(60, 10, 90, 0.08) 50%, transparent 70%)" }}
-          />
-        ) : (
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full bg-black/[0.02] dark:bg-white/[0.04] blur-[120px] animate-subtle-glow" />
-        )}
-      </div>
+  const a = comparison.products[0];
+  const b = comparison.products[1];
 
-      <div className="relative z-10 max-w-5xl mx-auto w-full flex flex-col md:flex-row items-center gap-12 md:gap-16">
-        <div className="flex-1 text-left">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-6">
-            B2B SaaS Comparisons
-          </Badge>
-          <h1
-            className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl text-foreground"
-            data-testid="text-headline"
-          >
-            Comparisons built{" "}
-            <br />
-            for AI to cite.
-          </h1>
-
-          <p className="mt-5 text-sm leading-relaxed text-muted-foreground max-w-md sm:text-base" data-testid="text-subheadline">
-            Expert-vetted B2B SaaS comparisons structured so AI search engines can extract, trust, and surface them as answers.
-          </p>
-
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-browse">
-              Browse Comparisons
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
-        </div>
-
-        <div className="flex-1 w-full max-w-sm">
-          <HeroComparisonCard />
-        </div>
-      </div>
-
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted-foreground/50">
-        <ArrowDown className="w-3.5 h-3.5 animate-bounce" />
-      </div>
-    </section>
-  );
-}
-
-function HeroComparisonCard() {
-  const { theme } = useTheme();
   return (
     <div
-      className={`rounded-xl border p-5 card-glow overflow-visible ${
+      className={`rounded-xl border p-5 cursor-pointer transition-colors hover-elevate ${
         theme === "sparkle"
           ? "border-purple-900/20 bg-card/40"
           : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
       }`}
-      data-testid="hero-comparison-card"
+      onClick={onClick}
+      data-testid={`card-${comparison.id}`}
     >
-      <div className="flex items-center justify-between gap-2 mb-4 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Comparison</span>
-        <Badge variant="outline" className="text-[9px] text-emerald-400 no-default-hover-elevate">Expert-vetted</Badge>
+      <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{comparison.category}</Badge>
+        <div className="flex items-center gap-2">
+          <Clock className="w-3 h-3 text-muted-foreground/30" />
+          <span className="text-[10px] text-muted-foreground/40">{comparison.readTime}</span>
+        </div>
       </div>
-      <h3 className="text-sm font-semibold text-foreground mb-3">HubSpot vs. Salesforce</h3>
 
-      <div className="space-y-2.5">
-        {[
-          { label: "Best for", a: "Mid-market growth", b: "Enterprise complexity" },
-          { label: "Starting price", a: "$800/mo", b: "$1,650/mo" },
-          { label: "Setup time", a: "2–4 weeks", b: "3–6 months" },
-          { label: "Native AI", a: "Breeze AI", b: "Einstein GPT" },
-        ].map((row) => (
-          <div key={row.label} className="rounded-lg bg-background/40 px-3 py-2">
-            <span className="text-[9px] text-muted-foreground/40 uppercase tracking-wider">{row.label}</span>
-            <div className="flex items-center justify-between gap-3 mt-1">
-              <span className="text-[11px] text-foreground/60">{row.a}</span>
-              <span className="text-[9px] text-muted-foreground/30">vs</span>
-              <span className="text-[11px] text-foreground/60">{row.b}</span>
+      <h3 className="text-base font-semibold text-foreground mb-1" data-testid={`text-title-${comparison.id}`}>{comparison.title}</h3>
+      <p className="text-xs text-muted-foreground/50 mb-4">{comparison.subtitle}</p>
+
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div className="rounded-lg bg-background/40 px-3 py-2.5 text-center">
+          <div className="text-sm font-semibold text-foreground">{a.name}</div>
+          <div className="flex items-center justify-center gap-1 mt-1">
+            <Star className="w-3 h-3 text-foreground/30 fill-foreground/30" />
+            <span className="text-xs font-mono text-foreground/60">{a.score}</span>
+          </div>
+        </div>
+        <div className="rounded-lg bg-background/40 px-3 py-2.5 text-center">
+          <div className="text-sm font-semibold text-foreground">{b.name}</div>
+          <div className="flex items-center justify-center gap-1 mt-1">
+            <Star className="w-3 h-3 text-foreground/30 fill-foreground/30" />
+            <span className="text-xs font-mono text-foreground/60">{b.score}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between gap-2 flex-wrap">
+        <div className="flex items-center gap-2">
+          <User className="w-3 h-3 text-muted-foreground/30" />
+          <span className="text-[10px] text-muted-foreground/40">{comparison.author}</span>
+        </div>
+        <span className="text-[10px] text-muted-foreground/30">{comparison.updated}</span>
+      </div>
+    </div>
+  );
+}
+
+function ComparisonArticle({ comparison, onBack }: { comparison: typeof COMPARISONS[0]; onBack: () => void }) {
+  const { theme } = useTheme();
+  const a = comparison.products[0];
+  const b = comparison.products[1];
+
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  return (
+    <div className="max-w-4xl mx-auto">
+      <button
+        onClick={onBack}
+        className="text-[11px] text-muted-foreground/50 mb-6 flex items-center gap-1 transition-colors"
+        data-testid="button-back"
+      >
+        <ChevronRight className="w-3 h-3 rotate-180" />
+        All comparisons
+      </button>
+
+      <div className="mb-8">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate mb-3">{comparison.category}</Badge>
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-article-title">
+          {comparison.title}
+        </h1>
+        <p className="mt-2 text-sm text-muted-foreground/60">{comparison.subtitle}</p>
+        <div className="mt-4 flex items-center gap-4 flex-wrap text-[11px] text-muted-foreground/40">
+          <div className="flex items-center gap-1.5">
+            <User className="w-3 h-3" />
+            <span>{comparison.author}</span>
+            <span className="text-muted-foreground/20">|</span>
+            <span>{comparison.authorRole}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Calendar className="w-3 h-3" />
+            <span>Updated {comparison.updated}</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <Clock className="w-3 h-3" />
+            <span>{comparison.readTime}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Verdict</span>
+        <p className="mt-2 text-sm text-foreground/70 leading-relaxed" data-testid="text-verdict">{comparison.verdict}</p>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        {[a, b].map((product) => (
+          <div key={product.name} className={`rounded-xl border p-5 ${cardClass}`}>
+            <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+              <h2 className="text-lg font-semibold text-foreground">{product.name}</h2>
+              <div className="flex items-center gap-1">
+                <Star className="w-3.5 h-3.5 text-foreground/30 fill-foreground/30" />
+                <span className="text-sm font-mono text-foreground/60">{product.score}</span>
+              </div>
+            </div>
+
+            <div className="space-y-2 text-[11px] mb-4">
+              <div className="flex justify-between gap-2 flex-wrap">
+                <span className="text-muted-foreground/40">Founded</span>
+                <span className="text-foreground/60 font-mono">{product.founded}</span>
+              </div>
+              <div className="flex justify-between gap-2 flex-wrap">
+                <span className="text-muted-foreground/40">HQ</span>
+                <span className="text-foreground/60">{product.hq}</span>
+              </div>
+              <div className="flex justify-between gap-2 flex-wrap">
+                <span className="text-muted-foreground/40">Pricing</span>
+                <span className="text-foreground/60 font-mono">{product.pricing}</span>
+              </div>
+              <div className="flex justify-between gap-2 flex-wrap">
+                <span className="text-muted-foreground/40">Best for</span>
+                <span className="text-foreground/60 text-right max-w-[180px]">{product.bestFor}</span>
+              </div>
+            </div>
+
+            <div className="space-y-3">
+              <div>
+                <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Strengths</span>
+                <div className="mt-1.5 space-y-1">
+                  {product.strengths.map((s) => (
+                    <div key={s} className="flex items-center gap-2">
+                      <Check className="w-3 h-3 text-emerald-400/50 shrink-0" />
+                      <span className="text-[11px] text-foreground/60">{s}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <span className="text-[10px] text-muted-foreground/40 uppercase tracking-wider font-medium">Weaknesses</span>
+                <div className="mt-1.5 space-y-1">
+                  {product.weaknesses.map((w) => (
+                    <div key={w} className="flex items-center gap-2">
+                      <X className="w-3 h-3 text-red-400/40 shrink-0" />
+                      <span className="text-[11px] text-foreground/60">{w}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="mt-3 flex items-center gap-3 flex-wrap">
-        <span className="text-[10px] text-muted-foreground/40">Updated: Feb 2026</span>
-        <span className="text-[10px] text-muted-foreground/40">12 criteria</span>
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-4 block">Criteria Comparison</span>
+        <div className="overflow-x-auto">
+          <table className="w-full text-[12px]">
+            <thead>
+              <tr className="border-b border-border/30">
+                <th className="text-left pb-3 text-muted-foreground/50 font-medium">Criteria</th>
+                <th className="text-center pb-3 text-foreground/70 font-medium w-32">{a.name}</th>
+                <th className="text-center pb-3 text-foreground/70 font-medium w-32">{b.name}</th>
+                <th className="text-center pb-3 text-muted-foreground/50 font-medium w-20">Edge</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparison.criteria.map((c, i) => {
+                const winner = c.a > c.b ? a.name : c.b > c.a ? b.name : "Tie";
+                return (
+                  <tr key={c.name} className={i < comparison.criteria.length - 1 ? "border-b border-border/10" : ""}>
+                    <td className="py-2.5 text-foreground/60">{c.name}</td>
+                    <td className="py-2.5 px-2">
+                      <ScoreBar score={c.a} />
+                    </td>
+                    <td className="py-2.5 px-2">
+                      <ScoreBar score={c.b} />
+                    </td>
+                    <td className="py-2.5 text-center">
+                      <span className={`text-[10px] font-mono ${winner === "Tie" ? "text-muted-foreground/40" : "text-foreground/50"}`}>
+                        {winner === "Tie" ? "—" : winner.split(" ")[0]}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
+        <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium mb-3 block">Schema Markup</span>
+        <div className="rounded-lg bg-background/40 p-4 font-mono text-[10px] leading-relaxed overflow-x-auto">
+          <div className="text-foreground/40">{"{"}</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"@type"</span>: <span className="text-foreground/50">"ComparisonArticle"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"products"</span>: [<span className="text-foreground/50">"{a.name}", "{b.name}"</span>],</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"category"</span>: <span className="text-foreground/50">"{comparison.category}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"author"</span>: <span className="text-foreground/50">"{comparison.author}"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"dateModified"</span>: <span className="text-foreground/50">"2026-02-12"</span>,</div>
+          <div className="pl-3"><span className="text-emerald-400/70">"verdict"</span>: <span className="text-foreground/50">"{comparison.verdict.slice(0, 60)}..."</span></div>
+          <div className="text-foreground/40">{"}"}</div>
+        </div>
+        <p className="mt-3 text-[10px] text-muted-foreground/40">
+          Every comparison outputs structured data so AI search engines can parse criteria, scores, and verdicts directly.
+        </p>
+      </div>
+
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 flex-wrap">
+        <div className="flex items-center gap-2 text-[11px] text-muted-foreground/40">
+          <User className="w-3 h-3" />
+          <span>Written by <span className="text-foreground/50">{comparison.author}</span>, {comparison.authorRole}</span>
+        </div>
+        <div className="text-[10px] text-muted-foreground/30">
+          Last verified {comparison.updated}
+        </div>
       </div>
     </div>
   );
 }
 
-function SectionDivider() {
+function FeaturedStats() {
+  const { theme } = useTheme();
+  const stats = [
+    { label: "Comparisons", value: "48", icon: BarChart3 },
+    { label: "Categories", value: "6", icon: Search },
+    { label: "Products Covered", value: "96", icon: TrendingUp },
+    { label: "Expert Authors", value: "12", icon: User },
+  ];
+
   return (
-    <div className="max-w-3xl mx-auto px-6">
-      <div className="divider-glow" />
+    <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+      {stats.map((s) => {
+        const Icon = s.icon;
+        return (
+          <div
+            key={s.label}
+            className={`rounded-xl border px-4 py-3 text-center ${
+              theme === "sparkle"
+                ? "border-purple-900/20 bg-card/40"
+                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
+            }`}
+          >
+            <Icon className="w-3.5 h-3.5 text-muted-foreground/40 mx-auto mb-1.5" />
+            <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
+            <div className="text-[10px] text-muted-foreground/40">{s.label}</div>
+          </div>
+        );
+      })}
     </div>
-  );
-}
-
-function ProblemSection() {
-  const { theme } = useTheme();
-  const problems = [
-    {
-      icon: Scale,
-      title: "Affiliate-driven rankings",
-      description: "Most comparison sites rank products by commission rate, not fit. The \"best\" product is the one that pays the most per click.",
-      detail: "Paid placement. Not best fit.",
-    },
-    {
-      icon: RefreshCw,
-      title: "Stale data",
-      description: "Pricing changes quarterly. Features ship monthly. Most comparison pages haven't been updated since they were published.",
-      detail: "Written once. Never maintained.",
-    },
-    {
-      icon: Bot,
-      title: "Invisible to AI",
-      description: "Comparison content buried in long-form prose. No structured schema. AI can't extract a clean answer from a 3,000-word blog post.",
-      detail: "No structure. No citations.",
-    },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-problem">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            The problem
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-problem-heading">
-            B2B comparisons are broken.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            Ask AI "What's the best CRM for mid-market SaaS?" and you'll get a recycled affiliate list, not an honest answer.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {problems.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={p.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`problem-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60 mb-3">{p.description}</p>
-                <span className="text-[10px] font-mono text-muted-foreground/40 italic">{p.detail}</span>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function HowItWorksSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-how">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How it works
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-how-heading">
-            Structured comparisons that AI can parse.
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
-            Every comparison is built as structured data first, editorial content second. AI extracts clean answers because the data is machine-readable from the start.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {[
-            {
-              icon: FileText,
-              title: "Expert-Written Criteria",
-              description: "Each comparison uses standardized criteria relevant to the category — pricing, integrations, support, scalability. No filler. No fluff.",
-            },
-            {
-              icon: Layers,
-              title: "Schema-First Structure",
-              description: "Every comparison outputs Schema.org JSON-LD with Product, Offer, and Review markup. AI can extract specific answers without parsing prose.",
-            },
-            {
-              icon: RefreshCw,
-              title: "Maintained Quarterly",
-              description: "Pricing, features, and positioning change. Comparisons are reviewed and updated on a quarterly cycle with timestamped modification dates.",
-            },
-          ].map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <div
-                key={step.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`how-step-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{step.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{step.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function ComparisonExample() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-comparison-example">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            What AI sees
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-example-heading">
-            A comparison AI can actually use.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider font-medium">Typical comparison site</span>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-lg bg-background/40 px-3 py-2">
-                <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI reads page</span>
-                </div>
-                <div className="text-[11px] text-foreground/50 mt-1">3,000 words of prose</div>
-                <div className="text-[11px] text-muted-foreground/40">No schema. No structured fields.</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-muted-foreground/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
-                </div>
-                <p className="text-[11px] text-foreground/50 italic">
-                  "Both HubSpot and Salesforce are popular CRMs. HubSpot is easier to use while Salesforce has more features..."
-                </p>
-                <p className="text-[10px] text-muted-foreground/40 mt-1">Generic summary. No specifics cited.</p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            className={`rounded-xl border p-5 ${
-              theme === "sparkle"
-                ? "border-purple-900/20 bg-card/40"
-                : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-            }`}
-          >
-            <span className="text-[10px] text-emerald-400/60 uppercase tracking-wider font-medium">WhatisBest.com</span>
-            <div className="mt-4 space-y-3">
-              <div className="rounded-lg bg-background/40 px-3 py-2">
-                <div className="flex items-center gap-2 mb-1">
-                  <Bot className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50 uppercase tracking-wider">AI reads page</span>
-                </div>
-                <div className="text-[11px] text-foreground/60 mt-1">Structured Product + Offer + Review schema</div>
-                <div className="text-[11px] text-emerald-400/60">12 comparison criteria extracted.</div>
-              </div>
-              <div className="rounded-lg bg-background/40 px-3 py-2.5">
-                <div className="flex items-center gap-2 mb-1">
-                  <MessageSquare className="w-3 h-3 text-emerald-400/50" />
-                  <span className="text-[10px] text-muted-foreground/50">AI Response</span>
-                </div>
-                <p className="text-[11px] text-foreground/70">
-                  "For mid-market SaaS, HubSpot starts at $800/mo with 2–4 week setup. Salesforce starts at $1,650/mo with 3–6 month implementation. HubSpot includes Breeze AI natively."
-                </p>
-                <p className="text-[10px] text-emerald-400/50 mt-1">Specific data points cited from structured fields.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CategoriesSection() {
-  const { theme } = useTheme();
-  const categories = [
-    { name: "CRM", count: 8, examples: "HubSpot, Salesforce, Pipedrive, Close" },
-    { name: "Marketing Automation", count: 6, examples: "HubSpot, Marketo, Pardot, ActiveCampaign" },
-    { name: "Project Management", count: 7, examples: "Monday, Asana, ClickUp, Jira" },
-    { name: "Customer Support", count: 5, examples: "Zendesk, Intercom, Freshdesk, HubSpot Service" },
-    { name: "Analytics", count: 4, examples: "GA4, Mixpanel, Amplitude, Heap" },
-    { name: "E-commerce", count: 5, examples: "Shopify, BigCommerce, WooCommerce, Magento" },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-categories">
-      <div className="max-w-5xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Categories
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-categories-heading">
-            B2B SaaS categories covered.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Each category has standardized comparison criteria specific to that software type.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {categories.map((cat, i) => (
-            <div
-              key={cat.name}
-              className={`rounded-xl border p-5 ${
-                theme === "sparkle"
-                  ? "border-purple-900/20 bg-card/40"
-                  : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-              }`}
-              data-testid={`category-${i}`}
-            >
-              <div className="flex items-center justify-between gap-2 mb-2 flex-wrap">
-                <h3 className="text-sm font-semibold text-foreground">{cat.name}</h3>
-                <span className="text-[10px] text-muted-foreground/40 font-mono">{cat.count} comparisons</span>
-              </div>
-              <p className="text-[11px] text-muted-foreground/50">{cat.examples}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function AnatomySection() {
-  const { theme } = useTheme();
-  const fields = [
-    { field: "Category", value: "CRM", note: "Standardized taxonomy" },
-    { field: "Products compared", value: "2–4 per page", note: "Focused, not exhaustive" },
-    { field: "Criteria count", value: "10–15 per comparison", note: "Category-specific" },
-    { field: "Pricing", value: "Verified quarterly", note: "Timestamped" },
-    { field: "Verdict", value: "Conditional recommendation", note: '"Best for X, not Y"' },
-    { field: "Schema output", value: "Product + Offer + Review", note: "JSON-LD" },
-    { field: "Update cycle", value: "Quarterly review", note: "dateModified tracked" },
-    { field: "Author", value: "Named expert", note: "Linked credentials" },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-anatomy">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Comparison anatomy
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-anatomy-heading">
-            What every comparison includes.
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground max-w-lg">
-            Standardized structure. No filler content. Every field is machine-readable and citable.
-          </p>
-        </div>
-
-        <div
-          className={`rounded-xl border overflow-hidden ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="border-b border-border/30">
-                  <th className="text-left p-4 text-muted-foreground/50 font-medium">Field</th>
-                  <th className="text-left p-4 text-foreground/70 font-medium">Value</th>
-                  <th className="text-left p-4 text-muted-foreground/50 font-medium">Note</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fields.map((f, i) => (
-                  <tr key={f.field} className={i < fields.length - 1 ? "border-b border-border/20" : ""}>
-                    <td className="p-4 text-foreground/60 font-mono text-[11px]">{f.field}</td>
-                    <td className="p-4 text-foreground/70">{f.value}</td>
-                    <td className="p-4 text-muted-foreground/40 italic">{f.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function DifferenceSection() {
-  const { theme } = useTheme();
-  const features = [
-    { name: "Structured schema output", whatisbest: true, g2: false, capterra: false, trustradius: false },
-    { name: "Expert-written verdicts", whatisbest: true, g2: false, capterra: false, trustradius: true },
-    { name: "No affiliate ranking bias", whatisbest: true, g2: false, capterra: false, trustradius: false },
-    { name: "Quarterly update cycle", whatisbest: true, g2: false, capterra: false, trustradius: false },
-    { name: "AI-parseable criteria", whatisbest: true, g2: false, capterra: false, trustradius: false },
-    { name: "Free access", whatisbest: true, g2: true, capterra: true, trustradius: true },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-difference">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-14">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            How WhatisBest compares
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-difference-heading">
-            Not another review aggregator.
-          </h2>
-        </div>
-
-        <div
-          className={`rounded-xl border overflow-hidden ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/40"
-              : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-          }`}
-        >
-          <div className="overflow-x-auto">
-            <table className="w-full text-[12px]">
-              <thead>
-                <tr className="border-b border-border/30">
-                  <th className="text-left p-4 text-muted-foreground/50 font-medium"></th>
-                  <th className="p-4 text-foreground font-semibold text-center">WhatisBest</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">G2</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">Capterra</th>
-                  <th className="p-4 text-muted-foreground/60 font-medium text-center">TrustRadius</th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((f, i) => (
-                  <tr key={f.name} className={i < features.length - 1 ? "border-b border-border/20" : ""}>
-                    <td className="p-4 text-foreground/70">{f.name}</td>
-                    <td className="p-4 text-center">
-                      {f.whatisbest ? <Check className="w-3.5 h-3.5 text-emerald-400 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.g2 ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.capterra ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                    <td className="p-4 text-center">
-                      {f.trustradius ? <Check className="w-3.5 h-3.5 text-emerald-400/50 mx-auto" /> : <X className="w-3.5 h-3.5 text-muted-foreground/30 mx-auto" />}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function PrinciplesSection() {
-  const { theme } = useTheme();
-  const principles = [
-    {
-      icon: Shield,
-      title: "No affiliate rankings",
-      description: "Products are ranked by fit, not commission. WhatisBest doesn't accept pay-for-placement. Recommendations are conditional: \"best for X, not Y.\"",
-    },
-    {
-      icon: Users,
-      title: "Named expert authors",
-      description: "Every comparison has a named author with linked credentials. No anonymous listicles. Expertise is traceable and verifiable.",
-    },
-    {
-      icon: RefreshCw,
-      title: "Timestamped and maintained",
-      description: "Every page shows when it was last reviewed. Outdated comparisons are flagged and updated. dateModified is part of the schema.",
-    },
-  ];
-
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-principles">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-16">
-          <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
-            Editorial principles
-          </Badge>
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-principles-heading">
-            What makes this different from a review site.
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          {principles.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div
-                key={p.title}
-                className={`rounded-xl border p-5 ${
-                  theme === "sparkle"
-                    ? "border-purple-900/20 bg-card/40"
-                    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40"
-                }`}
-                data-testid={`principle-${i}`}
-              >
-                <div className="flex items-center justify-center w-8 h-8 rounded-lg border border-border/40 bg-background/40 mb-4">
-                  <Icon className="w-4 h-4 text-muted-foreground/60" />
-                </div>
-                <h3 className="text-sm font-semibold text-foreground mb-2">{p.title}</h3>
-                <p className="text-xs leading-relaxed text-muted-foreground/60">{p.description}</p>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function CtaSection() {
-  const { theme } = useTheme();
-  return (
-    <section className="relative px-6 py-24 md:py-32" data-testid="section-cta">
-      <div className="max-w-4xl mx-auto relative">
-        <div
-          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 card-glow ${
-            theme === "sparkle"
-              ? "border-purple-900/20 bg-card/30"
-              : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
-          }`}
-        >
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-cta-heading">
-            Comparisons that AI trusts enough to cite.
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground max-w-md">
-            Structured, expert-vetted, and maintained. When AI recommends software, these are the comparisons it pulls from.
-          </p>
-          <div className="mt-8 flex items-center gap-3 flex-wrap">
-            <Button variant="outline" data-testid="button-cta-browse">
-              Browse All Comparisons
-              <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-            </Button>
-          </div>
-        </div>
-      </div>
-    </section>
   );
 }
 
 function Footer() {
   return (
-    <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
-      <div className="max-w-4xl mx-auto">
+    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
+      <div className="max-w-6xl mx-auto">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           <div>
             <span className="text-sm font-semibold text-foreground">
               WhatisBest<span className="font-normal text-muted-foreground">.com</span>
             </span>
             <p className="mt-1 text-xs text-muted-foreground/60">
-              Expert-vetted B2B SaaS comparisons for AI search.
+              Expert-vetted B2B SaaS comparisons built for AI citations.
             </p>
           </div>
           <div className="text-right">
@@ -668,7 +651,17 @@ function Footer() {
           </div>
         </div>
 
-        <div className="mt-8 pt-6 border-t border-border/20">
+        <div className="mt-6 flex items-center gap-4 flex-wrap text-[10px] text-muted-foreground/30">
+          <span>No affiliate rankings</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>Named expert authors</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>Quarterly updates</span>
+          <span className="text-muted-foreground/10">|</span>
+          <span>Schema-first architecture</span>
+        </div>
+
+        <div className="mt-6 pt-6 border-t border-border/20">
           <p className="text-[10px] text-muted-foreground/30">
             &copy; 2026 Brandvious, Inc. All rights reserved.
           </p>
@@ -822,28 +815,61 @@ function AuroraCanvas() {
 
 export default function WhatisBest() {
   const { theme } = useTheme();
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const [selectedComparison, setSelectedComparison] = useState<string | null>(null);
+
+  const filtered = activeCategory
+    ? COMPARISONS.filter((c) => c.category === activeCategory)
+    : COMPARISONS;
+
+  const selected = selectedComparison
+    ? COMPARISONS.find((c) => c.id === selectedComparison)
+    : null;
+
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar />
-        <Hero />
-        <SectionDivider />
-        <ProblemSection />
-        <SectionDivider />
-        <ComparisonExample />
-        <SectionDivider />
-        <HowItWorksSection />
-        <SectionDivider />
-        <AnatomySection />
-        <SectionDivider />
-        <CategoriesSection />
-        <SectionDivider />
-        <DifferenceSection />
-        <SectionDivider />
-        <PrinciplesSection />
-        <SectionDivider />
-        <CtaSection />
+        <Navbar activeCategory={activeCategory} onCategoryChange={(c) => { setActiveCategory(c); setSelectedComparison(null); }} />
+        <div className="pt-28 px-6 pb-6">
+          <div className="max-w-6xl mx-auto">
+            {selected ? (
+              <ComparisonArticle
+                comparison={selected}
+                onBack={() => setSelectedComparison(null)}
+              />
+            ) : (
+              <>
+                <div className="mb-8">
+                  <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl" data-testid="text-page-title">
+                    {activeCategory ? `${activeCategory} Comparisons` : "B2B Software Comparisons"}
+                  </h1>
+                  <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
+                    Expert-vetted, schema-structured comparisons that AI search engines cite. No affiliate rankings. Updated quarterly.
+                  </p>
+                </div>
+
+                {!activeCategory && <FeaturedStats />}
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {filtered.map((c) => (
+                    <ComparisonCard
+                      key={c.id}
+                      comparison={c}
+                      onClick={() => setSelectedComparison(c.id)}
+                    />
+                  ))}
+                </div>
+
+                {filtered.length === 0 && (
+                  <div className="text-center py-16">
+                    <p className="text-sm text-muted-foreground/40">No comparisons in this category yet.</p>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
