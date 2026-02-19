@@ -405,43 +405,11 @@
   .icon-pulse:nth-child(3)::after { animation-delay: 0.6s; }
   .icon-pulse:nth-child(4)::after { animation-delay: 0.9s; }
 
-  /* ===== SPARKLE MODE — cranked to 11 ===== */
+  /* ===== SPARKLE MODE — deep purple orb atmosphere ===== */
 
-  @keyframes sparkle-hue-rotate {
-    0% { filter: hue-rotate(0deg); }
-    100% { filter: hue-rotate(360deg); }
-  }
-
-  @keyframes sparkle-border-rotate {
-    0% { --gradient-angle: 0deg; }
-    100% { --gradient-angle: 360deg; }
-  }
-
-  @keyframes sparkle-pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.15); }
-  }
-
-  @keyframes sparkle-float {
-    0%, 100% {
-      transform: translateY(0) translateX(0);
-      opacity: 0;
-    }
-    10% {
-      opacity: 1;
-    }
-    50% {
-      transform: translateY(-50vh) translateX(30px);
-      opacity: 0.8;
-    }
-    90% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes sparkle-glow-breathe {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 0.9; transform: scale(1.1); }
+  @keyframes sparkle-orb-breathe {
+    0%, 100% { opacity: 0.25; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.04); }
   }
 
   @keyframes sparkle-shimmer {
@@ -449,48 +417,45 @@
     100% { background-position: 200% center; }
   }
 
-  .sparkle .animate-float-particle {
-    animation: sparkle-float var(--duration, 8s) var(--delay, 0s) infinite ease-in-out !important;
-  }
-
   .sparkle .animate-subtle-glow {
-    animation: sparkle-glow-breathe 3s infinite ease-in-out !important;
+    animation: sparkle-orb-breathe 10s infinite ease-in-out !important;
   }
 
   .sparkle .card-glow::before {
     background: conic-gradient(
       from var(--gradient-angle, 0deg),
-      rgba(139, 92, 246, 0.6) 0%,
-      rgba(59, 130, 246, 0.6) 25%,
-      rgba(236, 72, 153, 0.6) 50%,
-      rgba(16, 185, 129, 0.6) 75%,
-      rgba(139, 92, 246, 0.6) 100%
+      transparent 30%,
+      rgba(120, 40, 160, 0.25) 50%,
+      transparent 70%
     ) !important;
-    animation: gradient-rotate 2s linear infinite !important;
+    animation: gradient-rotate 12s linear infinite !important;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .sparkle .card-glow:hover::before {
     opacity: 1 !important;
   }
 
   .sparkle .dot-pattern {
-    background-image: radial-gradient(circle, rgba(139, 92, 246, 0.15) 1px, transparent 1px) !important;
+    background-image: radial-gradient(circle, rgba(100, 30, 140, 0.08) 1px, transparent 1px) !important;
   }
 
   .sparkle .section-glow::before {
     background: radial-gradient(
       ellipse,
-      rgba(139, 92, 246, 0.12) 0%,
-      rgba(59, 130, 246, 0.06) 40%,
+      rgba(100, 30, 140, 0.08) 0%,
+      rgba(60, 10, 90, 0.04) 40%,
       transparent 70%
     ) !important;
   }
 
   .sparkle .divider-glow {
-    height: 2px !important;
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(139, 92, 246, 0.5),
-      rgba(59, 130, 246, 0.5),
-      rgba(236, 72, 153, 0.5),
+      rgba(120, 40, 160, 0.3),
+      rgba(80, 20, 120, 0.2),
       transparent
     ) !important;
   }
@@ -499,43 +464,38 @@
     background: linear-gradient(
       90deg,
       transparent,
-      rgba(255, 255, 255, 0.6),
+      rgba(160, 80, 200, 0.3),
       transparent
     ) !important;
-    animation: line-shimmer 2s ease-in-out infinite !important;
+    animation: line-shimmer 6s ease-in-out infinite !important;
   }
 
   .sparkle .icon-pulse::after {
-    border-color: rgba(139, 92, 246, 0.4) !important;
-    animation: sparkle-pulse 1.5s ease-in-out infinite !important;
-    box-shadow: 0 0 12px rgba(139, 92, 246, 0.3);
+    border-color: rgba(120, 40, 160, 0.15) !important;
+    animation: none !important;
+    box-shadow: none;
   }
 
   .sparkle .sparkle-text {
     background: linear-gradient(
       90deg,
-      #8b5cf6,
-      #3b82f6,
-      #ec4899,
-      #10b981,
-      #8b5cf6
+      rgba(180, 120, 220, 1),
+      rgba(220, 180, 255, 1),
+      rgba(180, 120, 220, 1)
     );
     background-size: 200% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: sparkle-shimmer 3s linear infinite;
+    animation: sparkle-shimmer 8s linear infinite;
   }
 
   .sparkle .sparkle-border {
-    border-color: rgba(139, 92, 246, 0.3) !important;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.15), 0 0 40px rgba(59, 130, 246, 0.08);
+    border-color: rgba(120, 40, 160, 0.15) !important;
+    box-shadow: 0 0 25px rgba(100, 30, 140, 0.08);
   }
 
   .sparkle .sparkle-glow-bg {
-    box-shadow:
-      0 0 30px rgba(139, 92, 246, 0.2),
-      0 0 60px rgba(59, 130, 246, 0.1),
-      0 0 90px rgba(236, 72, 153, 0.05);
+    box-shadow: 0 0 40px rgba(100, 30, 140, 0.12), 0 0 80px rgba(60, 10, 90, 0.06);
   }
 }
