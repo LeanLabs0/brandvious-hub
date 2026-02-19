@@ -130,7 +130,7 @@ function IconBar() {
           <a
             key={project.name}
             href="#projects"
-            className="flex items-center justify-center w-12 h-12 rounded-xl border border-border/60 bg-card/80 transition-colors duration-200 hover-elevate"
+            className="flex items-center justify-center w-12 h-12 rounded-xl border border-border/60 bg-card/80 transition-colors duration-200 hover-elevate icon-pulse"
             title={project.name}
             data-testid={`icon-bar-${i}`}
           >
@@ -279,7 +279,7 @@ function Beliefs() {
   return (
     <section
       id="principles"
-      className="relative px-6 py-24 md:py-32"
+      className="relative px-6 py-24 md:py-32 section-glow dot-pattern"
       data-testid="section-beliefs"
     >
       <div className="max-w-4xl mx-auto">
@@ -350,7 +350,7 @@ function ProjectCard({
       href={project.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group flex flex-col rounded-xl border border-border/40 bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible"
+      className="group flex flex-col rounded-xl border border-border/40 bg-card/40 p-6 transition-all duration-300 hover-elevate overflow-visible card-glow"
       data-testid={`card-project-${index}`}
     >
       <div className="flex items-center justify-between gap-2 mb-1 flex-wrap">
@@ -482,7 +482,7 @@ function Projects() {
   return (
     <section
       id="projects"
-      className="relative px-6 py-24 md:py-32"
+      className="relative px-6 py-24 md:py-32 dot-pattern"
       data-testid="section-projects"
     >
       <div className="max-w-5xl mx-auto">
@@ -527,11 +527,20 @@ function Projects() {
   );
 }
 
+function SectionDivider() {
+  return (
+    <div className="max-w-3xl mx-auto px-6">
+      <div className="divider-glow" />
+    </div>
+  );
+}
+
 function ClosingStatement() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-closing">
-      <div className="max-w-4xl mx-auto">
-        <div className="rounded-xl border border-border/30 bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center">
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[300px] rounded-full bg-white/[0.015] blur-[100px] pointer-events-none" />
+      <div className="max-w-4xl mx-auto relative">
+        <div className="rounded-xl border border-border/30 bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center card-glow">
           <p className="text-xl font-medium leading-relaxed text-foreground/80 sm:text-2xl max-w-xl mx-auto" data-testid="text-closing">
             AI is changing how people find, trust, and choose.
           </p>
@@ -585,8 +594,11 @@ export default function Home() {
     <div className="min-h-screen bg-background">
       <Navbar />
       <Hero />
+      <SectionDivider />
       <Beliefs />
+      <SectionDivider />
       <Projects />
+      <SectionDivider />
       <ClosingStatement />
       <Footer />
     </div>
