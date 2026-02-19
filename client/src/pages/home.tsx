@@ -661,16 +661,20 @@ function Footer() {
 
 function SparkleBackground() {
   const entities = [
-    { top: "5%", left: "10%", size: 1200, blur: 200, drift: "entity-drift-1", duration: "28s", delay: "0s",
-      outer: "rgba(80, 20, 140, 0.15)", inner: "rgba(120, 40, 180, 0.35)" },
-    { top: "30%", left: "60%", size: 1000, blur: 180, drift: "entity-drift-2", duration: "34s", delay: "2s",
-      outer: "rgba(60, 10, 100, 0.12)", inner: "rgba(100, 20, 160, 0.28)" },
-    { top: "60%", left: "30%", size: 1100, blur: 190, drift: "entity-drift-3", duration: "30s", delay: "5s",
-      outer: "rgba(90, 30, 150, 0.12)", inner: "rgba(140, 50, 200, 0.30)" },
-    { top: "20%", left: "80%", size: 800, blur: 160, drift: "entity-drift-1", duration: "36s", delay: "8s",
-      outer: "rgba(70, 15, 120, 0.10)", inner: "rgba(110, 30, 170, 0.25)" },
-    { top: "75%", left: "70%", size: 900, blur: 170, drift: "entity-drift-2", duration: "32s", delay: "4s",
-      outer: "rgba(80, 25, 130, 0.10)", inner: "rgba(130, 40, 190, 0.22)" },
+    { top: "5%", left: "12%", size: 350, blur: 60, drift: "entity-drift-1", duration: "28s", delay: "0s",
+      outer: "rgba(100, 30, 160, 0.20)", inner: "rgba(160, 70, 240, 0.50)" },
+    { top: "25%", left: "70%", size: 280, blur: 50, drift: "entity-drift-2", duration: "34s", delay: "2s",
+      outer: "rgba(80, 20, 140, 0.18)", inner: "rgba(140, 50, 220, 0.45)" },
+    { top: "55%", left: "20%", size: 320, blur: 55, drift: "entity-drift-3", duration: "30s", delay: "5s",
+      outer: "rgba(110, 35, 170, 0.20)", inner: "rgba(170, 80, 250, 0.48)" },
+    { top: "15%", left: "85%", size: 220, blur: 45, drift: "entity-drift-1", duration: "36s", delay: "8s",
+      outer: "rgba(70, 15, 130, 0.15)", inner: "rgba(130, 50, 210, 0.40)" },
+    { top: "70%", left: "65%", size: 300, blur: 55, drift: "entity-drift-2", duration: "32s", delay: "4s",
+      outer: "rgba(90, 25, 150, 0.18)", inner: "rgba(150, 60, 230, 0.45)" },
+    { top: "45%", left: "45%", size: 250, blur: 48, drift: "entity-drift-3", duration: "26s", delay: "7s",
+      outer: "rgba(85, 20, 145, 0.16)", inner: "rgba(145, 55, 225, 0.42)" },
+    { top: "85%", left: "30%", size: 200, blur: 40, drift: "entity-drift-1", duration: "38s", delay: "3s",
+      outer: "rgba(75, 18, 135, 0.14)", inner: "rgba(135, 45, 215, 0.38)" },
   ];
 
   return (
@@ -691,8 +695,8 @@ function SparkleBackground() {
           <div
             className="absolute inset-0 rounded-full"
             style={{
-              background: `radial-gradient(circle, ${e.inner} 0%, ${e.outer} 30%, transparent 65%)`,
-              animation: `entity-pulse ${parseInt(e.duration) * 0.4}s ${e.delay} infinite ease-in-out`,
+              background: `radial-gradient(circle, ${e.inner} 0%, ${e.outer} 35%, transparent 60%)`,
+              animation: `entity-pulse ${parseInt(e.duration) * 0.35}s ${e.delay} infinite ease-in-out`,
             }}
           />
         </div>
