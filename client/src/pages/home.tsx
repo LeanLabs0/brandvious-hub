@@ -625,7 +625,7 @@ function Footer() {
               Brandvious<span className="font-normal text-muted-foreground">, Inc.</span>
             </span>
             <p className="mt-1 text-xs text-muted-foreground/60">
-              Fair. Factual. Functional.
+              Fair. Factual. Functional for AI.
             </p>
           </div>
         </div>

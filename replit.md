@@ -4,7 +4,7 @@
 Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired by GrowthRocket.ai's dark theme. Minimal content style similar to payloadcms.com.
 
 ## Brand
-- **Tagline**: Fair. Factual. Friendly.
+- **Tagline**: Fair. Factual. Functional for AI.
 - **Mission**: Building products that make the internet work for both humans and machines.
 - **Tone**: Professional, minimal, sharp — not "vibe coder" casual
 
