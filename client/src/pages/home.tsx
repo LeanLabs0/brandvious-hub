@@ -542,10 +542,7 @@ function ClosingStatement() {
       <div className="max-w-4xl mx-auto relative">
         <div className="rounded-xl border border-border/30 bg-card/20 px-8 py-12 md:px-16 md:py-16 text-center card-glow">
           <p className="text-xl font-medium leading-relaxed text-foreground/80 sm:text-2xl max-w-xl mx-auto" data-testid="text-closing">
-            AI is changing how people find, trust, and choose.
-          </p>
-          <p className="mt-3 text-base text-muted-foreground max-w-md mx-auto">
-            We build the products that make sure the answers are right.
+            The answer is the new first impression.
           </p>
         </div>
       </div>
