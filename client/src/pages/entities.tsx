@@ -185,14 +185,14 @@ function DisambiguationSection() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-disambiguation">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
             Entity disambiguation
           </Badge>
           <h2 className="text-2xl font-bold tracking-tight sm:text-3xl text-foreground" data-testid="text-disambiguation-heading">
             Same name. Wrong company.
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
             Search "Mercury" and see why names alone aren't enough. Every entity gets a disambiguation statement — what it is, what it isn't, and which similarly-named entities exist.
           </p>
         </div>
@@ -330,7 +330,7 @@ function FourSteps() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-steps">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-16">
+        <div className="mb-16">
           <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
             How entities get listed
           </Badge>
@@ -465,7 +465,7 @@ function RegistrySection() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-registry">
       <div className="max-w-5xl mx-auto">
-        <div className="text-center mb-14">
+        <div className="mb-14">
           <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
             The registry
           </Badge>
@@ -500,7 +500,7 @@ function RegistrySection() {
           ))}
         </div>
 
-        <div className="text-center mt-8">
+        <div className="mt-8">
           <Button variant="outline" data-testid="button-view-all">
             View all 24 entities
             <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
@@ -633,7 +633,7 @@ function OpenDataSection() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-opendata">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-14">
+        <div className="mb-14">
           <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
             Open data
           </Badge>
@@ -642,10 +642,10 @@ function OpenDataSection() {
             <br className="hidden sm:block" />
             No keys. No auth.
           </h2>
-          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg mx-auto">
+          <p className="mt-3 text-sm leading-relaxed text-muted-foreground max-w-lg">
             Every entity produces Schema.org JSON-LD with sameAs cross-links, disambiguation, and relationship edges. Query it directly or expand the full schema.
           </p>
-          <div className="mt-6 flex items-center justify-center gap-3 flex-wrap">
+          <div className="mt-6 flex items-center gap-3 flex-wrap">
             <Button variant="outline" data-testid="button-api-docs">
               API documentation
               <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
@@ -707,7 +707,7 @@ function ComparisonTable() {
   return (
     <section className="relative px-6 py-24 md:py-32" data-testid="section-comparison">
       <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-14">
+        <div className="mb-14">
           <Badge variant="outline" className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground font-medium px-3 py-1 mb-4">
             How Entities compares
           </Badge>
@@ -764,7 +764,7 @@ function ClaimSection() {
     <section className="relative px-6 py-24 md:py-32" data-testid="section-claim">
       <div className="max-w-4xl mx-auto relative">
         <div
-          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 text-center card-glow ${
+          className={`rounded-xl border px-8 py-12 md:px-16 md:py-16 card-glow ${
             theme === "sparkle"
               ? "border-purple-900/20 bg-card/30"
               : "border-border/60 bg-card/60 dark:border-border/30 dark:bg-card/20"
@@ -776,7 +776,7 @@ function ClaimSection() {
           <p className="mt-3 text-sm text-muted-foreground">
             Free to list. Domain verification when you're ready.
           </p>
-          <div className="mt-8 flex items-center justify-center gap-3 flex-wrap">
+          <div className="mt-8 flex items-center gap-3 flex-wrap">
             <Button variant="outline" data-testid="button-submit-entity">
               Submit an Entity
               <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
