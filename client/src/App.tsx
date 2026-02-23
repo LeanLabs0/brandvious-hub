@@ -5,7 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import Home from "@/pages/home";
-import Entities from "@/pages/entities";
+import EntitiesHome from "@/pages/entities-home";
+import EntitiesPreview from "@/pages/entities";
 import Schema from "@/pages/schema";
 import WhatisBest from "@/pages/whatisbest";
 import AnswerStack from "@/pages/answerstack";
@@ -16,8 +17,8 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/entities" component={Entities} />
-      <Route path="/entitiespreview" component={Entities} />
+      <Route path="/entities" component={EntitiesHome} />
+      <Route path="/entitiespreview" component={EntitiesPreview} />
       <Route path="/schema" component={Schema} />
       <Route path="/whatisbest" component={WhatisBest} />
       <Route path="/answerstack" component={AnswerStack} />

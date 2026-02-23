@@ -18,6 +18,11 @@ import {
   Hash,
   Tag,
   Layers,
+  Shield,
+  Zap,
+  Code2,
+  FileJson,
+  Send,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -492,9 +497,10 @@ function Navbar({ onHome }: { onHome: () => void }) {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-entities">Entities</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-registry">Registry</Button>
           <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-api">API</Button>
           <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-submit">Submit</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-about">About</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -502,7 +508,126 @@ function Navbar({ onHome }: { onHome: () => void }) {
   );
 }
 
-function EntityListPage({
+function HeroSection({ onBrowse }: { onBrowse: () => void }) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  return (
+    <div className="max-w-5xl mx-auto pt-24 pb-16" data-testid="section-hero">
+      <div className="max-w-2xl">
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate mb-4">
+          Open Registry
+        </Badge>
+        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl leading-[1.1]" data-testid="text-hero-title">
+          The structured entity registry
+          <br />
+          <span className="text-muted-foreground/70">for the AI web.</span>
+        </h1>
+        <p className="mt-4 text-base text-muted-foreground/70 leading-relaxed max-w-lg" data-testid="text-hero-subtitle">
+          Verified, machine-readable data about real companies and organizations. Built for AI systems that need facts, not guesses.
+        </p>
+
+        <div className="flex items-center gap-3 mt-6 flex-wrap">
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-xs"
+            onClick={onBrowse}
+            data-testid="button-browse-registry"
+          >
+            Browse the Registry
+            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="text-xs text-muted-foreground/70"
+            data-testid="button-view-api"
+          >
+            View API Docs
+          </Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-12">
+        {[
+          { label: "Entities Listed", value: String(ENTITIES.length), icon: Database },
+          { label: "Industries", value: String(INDUSTRIES.length), icon: Building2 },
+          { label: "Relationships Mapped", value: String(ENTITIES.reduce((sum, e) => sum + e.relationships.length, 0)), icon: Link2 },
+          { label: "Data Format", value: "JSON-LD", icon: FileJson },
+        ].map((stat) => (
+          <div key={stat.label} className={`rounded-xl border p-4 ${cardClass}`}>
+            <stat.icon className="w-4 h-4 text-muted-foreground/60 mb-2" />
+            <div className="text-lg font-bold text-foreground font-mono">{stat.value}</div>
+            <div className="text-[10px] text-muted-foreground/60">{stat.label}</div>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        {[
+          {
+            icon: Shield,
+            title: "Verified & Fact-Checked",
+            description: "Every entity is manually reviewed. Core facts are sourced from public filings, official websites, and authoritative databases.",
+          },
+          {
+            icon: Code2,
+            title: "Machine-Readable",
+            description: "JSON-LD structured data with schema.org types. sameAs links to Wikidata, LinkedIn, and Crunchbase for disambiguation.",
+          },
+          {
+            icon: Zap,
+            title: "Built for AI",
+            description: "Natural language statements pre-formatted for LLM citation. Relationship graphs that AI systems can traverse and reason about.",
+          },
+        ].map((feature) => (
+          <div key={feature.title} className={`rounded-xl border p-5 ${cardClass}`}>
+            <feature.icon className="w-4 h-4 text-muted-foreground/60 mb-3" />
+            <h3 className="text-sm font-semibold text-foreground mb-1">{feature.title}</h3>
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
+  return (
+    <div className="flex items-center gap-2">
+      <Icon className="w-3.5 h-3.5 text-muted-foreground/60" />
+      <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">{label}</span>
+      {count !== undefined && (
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{count}</Badge>
+      )}
+    </div>
+  );
+}
+
+function EntityRow({ entity, onClick }: { entity: Entity; onClick: () => void }) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
+      data-testid={`entity-row-${entity.id}`}
+    >
+      <div className="flex items-center gap-3 min-w-0 flex-wrap">
+        <span className="text-sm font-semibold text-foreground group-hover:text-foreground whitespace-nowrap">{entity.name}</span>
+        <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
+        <span className="text-[10px] text-muted-foreground/70 hidden sm:inline">{entity.hq}</span>
+      </div>
+      <div className="flex items-center gap-3 shrink-0">
+        <span className="text-[10px] text-muted-foreground/70 font-mono hidden sm:inline">{entity.updated}</span>
+        <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors" />
+      </div>
+    </button>
+  );
+}
+
+function RegistrySection({
   onSelectEntity,
   searchQuery,
   setSearchQuery,
@@ -533,12 +658,12 @@ function EntityListPage({
   });
 
   return (
-    <div className="max-w-5xl mx-auto">
-      <div className="mb-10">
+    <div className="max-w-5xl mx-auto" id="registry" data-testid="section-registry">
+      <div className="mb-10 border-t border-border/20 pt-10">
         <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">Registry</span>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mt-1" data-testid="text-page-title">
-          Entities
-        </h1>
+        <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+          Browse Entities
+        </h2>
         <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
           {ENTITIES.length} structured entities across {INDUSTRIES.length} industries. Search, browse by relationship, or crawl the full index.
         </p>
@@ -638,44 +763,12 @@ function EntityListPage({
 
           <div className="mb-6 text-center py-8">
             <Layers className="w-5 h-5 text-muted-foreground/70 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-foreground">Full A–Z Index</p>
+            <p className="text-sm font-semibold text-foreground">Full A-Z Index</p>
             <p className="text-xs text-muted-foreground/60 mt-1">Plain list of all {ENTITIES.length} entities. Optimized for crawlers and AI.</p>
           </div>
         </>
       )}
     </div>
-  );
-}
-
-function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Icon className="w-3.5 h-3.5 text-muted-foreground/60" />
-      <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">{label}</span>
-      {count !== undefined && (
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{count}</Badge>
-      )}
-    </div>
-  );
-}
-
-function EntityRow({ entity, onClick }: { entity: Entity; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="w-full flex items-center justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
-      data-testid={`entity-row-${entity.id}`}
-    >
-      <div className="flex items-center gap-3 min-w-0 flex-wrap">
-        <span className="text-sm font-semibold text-foreground group-hover:text-foreground whitespace-nowrap">{entity.name}</span>
-        <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
-        <span className="text-[10px] text-muted-foreground/70 hidden sm:inline">{entity.hq}</span>
-      </div>
-      <div className="flex items-center gap-3 shrink-0">
-        <span className="text-[10px] text-muted-foreground/70 font-mono hidden sm:inline">{entity.updated}</span>
-        <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors" />
-      </div>
-    </button>
   );
 }
 
@@ -848,6 +941,38 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
   );
 }
 
+function SubmitSection() {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  return (
+    <div className="max-w-5xl mx-auto mt-16 mb-8" data-testid="section-submit">
+      <div className={`rounded-xl border p-8 text-center ${cardClass}`}>
+        <Send className="w-5 h-5 text-muted-foreground/60 mx-auto mb-3" />
+        <h2 className="text-xl font-bold tracking-tight text-foreground mb-2">Submit an Entity</h2>
+        <p className="text-sm text-muted-foreground/60 max-w-md mx-auto mb-5 leading-relaxed">
+          Know a company or organization that should be in the registry? Submit it for review. We verify every entry before publication.
+        </p>
+        <div className={`rounded-xl border px-4 py-3 max-w-md mx-auto flex items-center gap-3 ${cardClass}`}>
+          <input
+            type="text"
+            placeholder="Company name or website..."
+            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/60 outline-none"
+            data-testid="input-submit-entity"
+          />
+          <Button variant="outline" size="sm" className="text-xs shrink-0" data-testid="button-submit-entity">
+            Submit
+            <ArrowRight className="w-3 h-3 ml-1" />
+          </Button>
+        </div>
+        <p className="text-[10px] text-muted-foreground/50 mt-3">Submissions are reviewed within 48 hours. Entities must be real, verifiable organizations.</p>
+      </div>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
@@ -861,7 +986,7 @@ function Footer() {
               </span>
             </div>
             <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
-              Structured entity data for machines and people.
+              Structured entity data for machines and people. Open, verified, and built for the AI web.
             </p>
             <p className="text-[10px] text-muted-foreground/70 mt-2">
               {ENTITIES.length} entities listed | {INDUSTRIES.length} industries
@@ -870,7 +995,7 @@ function Footer() {
           <div>
             <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Registry</span>
             <div className="mt-2 space-y-1.5">
-              {["Entity Index", "Full A–Z List", "Submit Entity"].map((item) => (
+              {["Entity Index", "Full A-Z List", "Submit Entity", "Recent Additions"].map((item) => (
                 <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
@@ -878,7 +1003,7 @@ function Footer() {
           <div>
             <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
             <div className="mt-2 space-y-1.5">
-              {["API Documentation", "LLM Analytics", "Pricing"].map((item) => (
+              {["API Documentation", "Schema Reference", "Data Licensing", "Status"].map((item) => (
                 <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
               ))}
             </div>
@@ -902,7 +1027,7 @@ function Footer() {
               Land O' Lakes, Florida
             </p>
           </div>
-          <p className="text-[10px] text-muted-foreground/35">
+          <p className="text-[10px] text-muted-foreground/50">
             &copy; 2026 Entities, LLC. All rights reserved.
           </p>
         </div>
@@ -1053,10 +1178,11 @@ function AuroraCanvas() {
   return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0" />;
 }
 
-export default function Entities() {
+export default function EntitiesHome() {
   const { theme } = useTheme();
   const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
+  const registryRef = useRef<HTMLDivElement>(null);
 
   const entity = selectedEntity ? ENTITIES.find((e) => e.id === selectedEntity) : null;
 
@@ -1070,20 +1196,31 @@ export default function Entities() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const handleBrowse = () => {
+    const el = document.getElementById("registry");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
         <Navbar onHome={handleBack} />
-        <div className="pt-20 px-6 pb-6">
+        <div className="px-6 pb-6">
           {entity ? (
-            <EntityDetailPage entity={entity} onBack={handleBack} onSelectEntity={handleSelect} />
+            <div className="pt-20">
+              <EntityDetailPage entity={entity} onBack={handleBack} onSelectEntity={handleSelect} />
+            </div>
           ) : (
-            <EntityListPage
-              onSelectEntity={handleSelect}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+            <>
+              <HeroSection onBrowse={handleBrowse} />
+              <RegistrySection
+                onSelectEntity={handleSelect}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+              <SubmitSection />
+            </>
           )}
         </div>
         <Footer />

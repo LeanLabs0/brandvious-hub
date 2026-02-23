@@ -8,12 +8,12 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - **Mission**: Building products that make the internet work for both humans and machines.
 - **Tone**: Professional, minimal, sharp — not "vibe coder" casual
 
-## Products Showcased (all have internal preview pages)
-1. **SchemaRocket** (Established) — AEO / Structured data for AI visibility → `/schema`
-2. **Entities.org** (Growing) — Structured entity registry → `/entities` or `/entitiespreview`
-3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest`
-4. **AnswerStack.com** (In Development) — Structured authority hub for AI search → `/answerstack`
-5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms → `/reviewradar`
+## Products Showcased
+1. **SchemaRocket** (Established) — AEO / Structured data for AI visibility → `/schema` (preview)
+2. **Entities.org** (Growing) — Structured entity registry → `/entities` (real homepage) | `/entitiespreview` (preview)
+3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest` (preview)
+4. **AnswerStack.com** (In Development) — Structured authority hub for AI search → `/answerstack` (preview)
+5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms → `/reviewradar` (preview)
 
 ## Design
 - Three-mode theme system: Light, Dark, Sparkle (with aurora canvas animation)
@@ -33,7 +33,8 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 ## Key Files
 - `client/src/pages/home.tsx` — Homepage (Navbar, Hero, Projects, Thesis, Footer)
 - `client/src/pages/schema.tsx` — SchemaRocket preview page
-- `client/src/pages/entities.tsx` — Entities.org preview page
+- `client/src/pages/entities-home.tsx` — Entities.org real homepage (hero + registry + submit CTA)
+- `client/src/pages/entities.tsx` — Entities.org preview page (registry only, used at /entitiespreview)
 - `client/src/pages/whatisbest.tsx` — WhatisBest preview page
 - `client/src/pages/answerstack.tsx` — AnswerStack preview page
 - `client/src/pages/reviewradar.tsx` — ReviewRadar preview page
