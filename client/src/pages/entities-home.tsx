@@ -5,6 +5,7 @@ import {
   Moon,
   Sparkles,
   ChevronRight,
+  ChevronDown,
   Calendar,
   MapPin,
   Building2,
@@ -23,6 +24,8 @@ import {
   Code2,
   FileJson,
   Send,
+  Copy,
+  Check,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -475,7 +478,7 @@ function ThemeToggle() {
   );
 }
 
-function Navbar({ onHome }: { onHome: () => void }) {
+function Navbar({ onHome, onBrowse }: { onHome: () => void; onBrowse: () => void }) {
   const { theme } = useTheme();
   return (
     <nav
@@ -497,10 +500,13 @@ function Navbar({ onHome }: { onHome: () => void }) {
           </span>
         </button>
         <div className="flex items-center gap-1">
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-registry">Registry</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onHome} data-testid="nav-home">Home</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" onClick={onBrowse} data-testid="nav-entities">
+            Entities <ChevronDown className="w-3 h-3 ml-0.5" />
+          </Button>
           <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-api">API</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-submit">Submit</Button>
-          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-about">About</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-docs">Docs</Button>
+          <Button variant="ghost" size="sm" className="text-[11px] text-muted-foreground/70" data-testid="nav-support">Support</Button>
           <ThemeToggle />
         </div>
       </div>
@@ -508,86 +514,111 @@ function Navbar({ onHome }: { onHome: () => void }) {
   );
 }
 
-function HeroSection({ onBrowse }: { onBrowse: () => void }) {
+function EntityPreviewCard({ onSelectEntity }: { onSelectEntity: (id: string) => void }) {
   const { theme } = useTheme();
   const cardClass = theme === "sparkle"
     ? "border-purple-900/20 bg-card/40"
     : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
 
-  return (
-    <div className="max-w-5xl mx-auto pt-24 pb-16" data-testid="section-hero">
-      <div className="max-w-2xl">
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate mb-4">
-          Open Registry
-        </Badge>
-        <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl leading-[1.1]" data-testid="text-hero-title">
-          The structured entity registry
-          <br />
-          <span className="text-muted-foreground/70">for the AI web.</span>
-        </h1>
-        <p className="mt-4 text-base text-muted-foreground/70 leading-relaxed max-w-lg" data-testid="text-hero-subtitle">
-          Verified, machine-readable data about real companies and organizations. Built for AI systems that need facts, not guesses.
-        </p>
+  const sf = ENTITIES.find((e) => e.id === "salesforce")!;
 
-        <div className="flex items-center gap-3 mt-6 flex-wrap">
-          <Button
-            variant="outline"
-            size="sm"
-            className="text-xs"
-            onClick={onBrowse}
-            data-testid="button-browse-registry"
-          >
-            Browse the Registry
-            <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-xs text-muted-foreground/70"
-            data-testid="button-view-api"
-          >
-            View API Docs
-          </Button>
+  return (
+    <div className={`rounded-xl border p-5 ${cardClass}`} data-testid="entity-preview-card">
+      <div className="flex items-start justify-between gap-2 mb-1 flex-wrap">
+        <span className="text-base font-bold text-foreground">{sf.name}</span>
+        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate">{sf.type}</Badge>
+      </div>
+
+      <div className="space-y-2.5 mt-4">
+        <div className="flex items-center gap-2">
+          <MapPin className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+          <span className="text-[12px] text-foreground/80 flex-1">{sf.hq}</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Users className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+          <span className="text-[12px] text-foreground/80 flex-1">Marc Benioff</span>
+          <span className="text-[10px] text-muted-foreground/50">Founder</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Tag className="w-3.5 h-3.5 text-muted-foreground/50 shrink-0" />
+          <span className="text-[12px] text-foreground/80 flex-1">CRM / Enterprise Software</span>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-12">
-        {[
-          { label: "Entities Listed", value: String(ENTITIES.length), icon: Database },
-          { label: "Industries", value: String(INDUSTRIES.length), icon: Building2 },
-          { label: "Relationships Mapped", value: String(ENTITIES.reduce((sum, e) => sum + e.relationships.length, 0)), icon: Link2 },
-          { label: "Data Format", value: "JSON-LD", icon: FileJson },
-        ].map((stat) => (
-          <div key={stat.label} className={`rounded-xl border p-4 ${cardClass}`}>
-            <stat.icon className="w-4 h-4 text-muted-foreground/60 mb-2" />
-            <div className="text-lg font-bold text-foreground font-mono">{stat.value}</div>
-            <div className="text-[10px] text-muted-foreground/60">{stat.label}</div>
-          </div>
-        ))}
-      </div>
+      <p className="text-[11px] text-muted-foreground/60 leading-relaxed mt-3 line-clamp-2">
+        {sf.description}
+      </p>
 
-      <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-4">
-        {[
-          {
-            icon: Shield,
-            title: "Verified & Fact-Checked",
-            description: "Every entity is manually reviewed. Core facts are sourced from public filings, official websites, and authoritative databases.",
-          },
-          {
-            icon: Code2,
-            title: "Machine-Readable",
-            description: "JSON-LD structured data with schema.org types. sameAs links to Wikidata, LinkedIn, and Crunchbase for disambiguation.",
-          },
-          {
-            icon: Zap,
-            title: "Built for AI",
-            description: "Natural language statements pre-formatted for LLM citation. Relationship graphs that AI systems can traverse and reason about.",
-          },
-        ].map((feature) => (
-          <div key={feature.title} className={`rounded-xl border p-5 ${cardClass}`}>
-            <feature.icon className="w-4 h-4 text-muted-foreground/60 mb-3" />
-            <h3 className="text-sm font-semibold text-foreground mb-1">{feature.title}</h3>
-            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">{feature.description}</p>
+      <div className="mt-3 flex items-center gap-1.5 flex-wrap">
+        <span className="text-[10px] text-muted-foreground/50">Related:</span>
+        {sf.relationships.map((rel) => {
+          const linked = ENTITIES.find((e) => e.name === rel.entity);
+          return (
+            <button
+              key={rel.entity}
+              className="text-[10px] text-foreground/60 hover:text-foreground transition-colors"
+              onClick={() => linked && onSelectEntity(linked.id)}
+              data-testid={`preview-link-${rel.entity.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              {rel.entity}{rel !== sf.relationships[sf.relationships.length - 1] ? "," : ""}
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function HeroSection({ onBrowse, onSelectEntity }: { onBrowse: () => void; onSelectEntity: (id: string) => void }) {
+  return (
+    <div className="max-w-5xl mx-auto pt-24 pb-16" data-testid="section-hero">
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 items-start">
+        <div className="lg:col-span-3">
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl leading-[1.1]" data-testid="text-hero-title">
+            The entity registry for the AI web.
+          </h1>
+          <p className="mt-5 text-sm text-muted-foreground/70 leading-relaxed max-w-xl" data-testid="text-hero-subtitle">
+            Entities.org is an open registry of structured, machine-readable records for real organizations. Each record contains facts, type-aware relationships, links to canonical sources, and schema.org-compliant JSON-LD. Records are available as public pages, JSON-LD at crawlable URLs, and as an open API. No authentication required.
+          </p>
+          <div className="flex items-center gap-4 mt-6 flex-wrap">
+            <button
+              onClick={onBrowse}
+              className="text-sm text-foreground/80 hover:text-foreground transition-colors flex items-center gap-1"
+              data-testid="button-browse-registry"
+            >
+              Browse the registry <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+            <button
+              className="text-sm text-muted-foreground/60 hover:text-foreground transition-colors flex items-center gap-1"
+              data-testid="button-view-api"
+            >
+              View API documentation <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
+        </div>
+        <div className="lg:col-span-2">
+          <EntityPreviewCard onSelectEntity={onSelectEntity} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function StatsRow() {
+  const stats = [
+    { value: "5,412", label: "Entities" },
+    { value: "18", label: "Industries" },
+    { value: "41,200", label: "Relationships" },
+    { value: "Open", label: "License" },
+  ];
+
+  return (
+    <div className="max-w-5xl mx-auto py-12 border-t border-border/20" data-testid="section-stats">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
+        {stats.map((s) => (
+          <div key={s.label} className="text-center" data-testid={`stat-${s.label.toLowerCase()}`}>
+            <div className="text-3xl sm:text-4xl font-bold font-mono text-foreground">{s.value}</div>
+            <div className="text-xs text-muted-foreground/60 mt-1">{s.label}</div>
           </div>
         ))}
       </div>
@@ -595,180 +626,387 @@ function HeroSection({ onBrowse }: { onBrowse: () => void }) {
   );
 }
 
-function SectionLabel({ icon: Icon, label, count }: { icon: typeof Search; label: string; count?: number }) {
-  return (
-    <div className="flex items-center gap-2">
-      <Icon className="w-3.5 h-3.5 text-muted-foreground/60" />
-      <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium">{label}</span>
-      {count !== undefined && (
-        <Badge variant="outline" className="text-[9px] text-muted-foreground/60 no-default-hover-elevate font-mono">{count}</Badge>
-      )}
-    </div>
-  );
-}
-
-function EntityRow({ entity, onClick }: { entity: Entity; onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="w-full flex items-center justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
-      data-testid={`entity-row-${entity.id}`}
-    >
-      <div className="flex items-center gap-3 min-w-0 flex-wrap">
-        <span className="text-sm font-semibold text-foreground group-hover:text-foreground whitespace-nowrap">{entity.name}</span>
-        <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
-        <span className="text-[10px] text-muted-foreground/70 hidden sm:inline">{entity.hq}</span>
-      </div>
-      <div className="flex items-center gap-3 shrink-0">
-        <span className="text-[10px] text-muted-foreground/70 font-mono hidden sm:inline">{entity.updated}</span>
-        <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors" />
-      </div>
-    </button>
-  );
-}
-
-function RegistrySection({
-  onSelectEntity,
-  searchQuery,
-  setSearchQuery,
-}: {
-  onSelectEntity: (id: string) => void;
-  searchQuery: string;
-  setSearchQuery: (q: string) => void;
-}) {
+function RelationshipsSection({ onSelectEntity }: { onSelectEntity: (id: string) => void }) {
   const { theme } = useTheme();
   const cardClass = theme === "sparkle"
     ? "border-purple-900/20 bg-card/40"
     : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const [activeTab, setActiveTab] = useState(0);
+  const group = RELATIONSHIP_GROUPS[activeTab];
 
-  const filtered = searchQuery.trim()
-    ? ENTITIES.filter((e) =>
-        e.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        e.industry.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        e.hq.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : ENTITIES;
+  return (
+    <div className="max-w-5xl mx-auto py-16 border-t border-border/20" data-testid="section-relationships">
+      <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">ALL ENTITIES</span>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+        Typed relationships, not flat lists.
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground/60 max-w-xl leading-relaxed">
+        Entity records feature structured relationship graphs — typed edges connecting organizations, people, products, and platforms. Relationships are directional, labeled where possible, and traversable via the API.
+      </p>
 
-  const recentAdditions = [...ENTITIES].sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 5);
+      <div className="flex items-center gap-1 mt-8 flex-wrap">
+        {RELATIONSHIP_GROUPS.map((g, i) => (
+          <Button
+            key={g.title}
+            variant={activeTab === i ? "outline" : "ghost"}
+            size="sm"
+            className="text-xs"
+            onClick={() => setActiveTab(i)}
+            data-testid={`tab-rel-${i}`}
+          >
+            {g.title}
+          </Button>
+        ))}
+      </div>
 
+      <p className="mt-4 text-sm text-foreground/80 font-medium">
+        {group.title}: {group.description}
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+        {group.items.map((item) => {
+          const entityObj = ENTITIES.find((e) => e.name === item.entity);
+          return (
+            <button
+              key={item.entity + item.role}
+              className={`rounded-xl border p-4 text-left hover-elevate ${cardClass}`}
+              onClick={() => entityObj && onSelectEntity(entityObj.id)}
+              data-testid={`rel-card-${item.entity.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              <span className="text-sm font-semibold text-foreground block">{item.entity}</span>
+              <span className="text-[11px] text-muted-foreground/60">{item.role}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <button className="mt-6 text-sm text-muted-foreground/60 hover:text-foreground transition-colors flex items-center gap-1" data-testid="link-browse-relationships">
+        Browse all relationships <ArrowRight className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+function RegistrySection({ onSelectEntity }: { onSelectEntity: (id: string) => void }) {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const [activeTab, setActiveTab] = useState(0);
+
+  const recentAdditions = [...ENTITIES].sort((a, b) => b.updated.localeCompare(a.updated));
   const industriesByGroup: Record<string, Entity[]> = {};
   ENTITIES.forEach((e) => {
     if (!industriesByGroup[e.industry]) industriesByGroup[e.industry] = [];
     industriesByGroup[e.industry].push(e);
   });
+  const allEntities = [...ENTITIES].sort((a, b) => a.name.localeCompare(b.name));
+
+  const tabs = ["Recent additions", "By industry", "Full index"];
 
   return (
-    <div className="max-w-5xl mx-auto" id="registry" data-testid="section-registry">
-      <div className="mb-10 border-t border-border/20 pt-10">
-        <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">Registry</span>
-        <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
-          Browse Entities
-        </h2>
-        <p className="mt-2 text-sm text-muted-foreground/60 max-w-lg">
-          {ENTITIES.length} structured entities across {INDUSTRIES.length} industries. Search, browse by relationship, or crawl the full index.
-        </p>
+    <div className="max-w-5xl mx-auto py-16 border-t border-border/20" id="registry" data-testid="section-registry">
+      <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">FULL REGISTRY</span>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+        Browse the registry.
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground/60 max-w-xl leading-relaxed">
+        The full entity index is publicly browsable. Each record links to its page, JSON-LD endpoint, and API response.
+      </p>
+
+      <div className="flex items-center gap-1 mt-8 flex-wrap">
+        {tabs.map((tab, i) => (
+          <Button
+            key={tab}
+            variant={activeTab === i ? "outline" : "ghost"}
+            size="sm"
+            className="text-xs"
+            onClick={() => setActiveTab(i)}
+            data-testid={`tab-registry-${i}`}
+          >
+            {tab}
+          </Button>
+        ))}
       </div>
 
-      <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-10 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/60 shrink-0" />
-        <input
-          type="text"
-          placeholder="Find an entity..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/70 outline-none"
-          data-testid="input-search"
-        />
-      </div>
-
-      {searchQuery.trim() ? (
-        <div className="mb-12">
-          <SectionLabel icon={Search} label={`Results for "${searchQuery}"`} count={filtered.length} />
-          <div className="space-y-0 mt-4">
-            {filtered.map((entity) => (
-              <EntityRow key={entity.id} entity={entity} onClick={() => onSelectEntity(entity.id)} />
+      <div className="mt-6">
+        {activeTab === 0 && (
+          <div className="space-y-0">
+            {recentAdditions.map((entity) => (
+              <button
+                key={entity.id}
+                onClick={() => onSelectEntity(entity.id)}
+                className="w-full flex items-start justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
+                data-testid={`entity-row-${entity.id}`}
+              >
+                <div className="min-w-0">
+                  <div className="flex items-center gap-3 flex-wrap">
+                    <span className="text-sm font-semibold text-foreground">{entity.name}</span>
+                    <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
+                  </div>
+                  <p className="text-[11px] text-muted-foreground/50 mt-0.5 line-clamp-1">{entity.description}</p>
+                </div>
+                <div className="flex items-center gap-3 shrink-0 pt-1">
+                  <span className="text-[10px] text-muted-foreground/70 font-mono hidden sm:inline">{entity.updated}</span>
+                  <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors" />
+                </div>
+              </button>
             ))}
-            {filtered.length === 0 && (
-              <p className="text-sm text-muted-foreground/60 py-8 text-center">No entities match that query.</p>
-            )}
+          </div>
+        )}
+
+        {activeTab === 1 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {Object.entries(industriesByGroup).map(([industry, entities]) => (
+              <div key={industry} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`industry-${industry.toLowerCase().replace(/[\s/]+/g, "-")}`}>
+                <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
+                  <h3 className="text-sm font-semibold text-foreground">{industry}</h3>
+                  <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{entities.length}</Badge>
+                </div>
+                <div className="space-y-1.5">
+                  {entities.map((e) => (
+                    <button
+                      key={e.id}
+                      onClick={() => onSelectEntity(e.id)}
+                      className="flex items-center gap-2 w-full text-left group"
+                      data-testid={`industry-link-${e.id}`}
+                    >
+                      <ChevronRight className="w-3 h-3 text-muted-foreground/70" />
+                      <span className="text-[12px] text-foreground/80 group-hover:text-foreground transition-colors">{e.name}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {activeTab === 2 && (
+          <div className="space-y-0">
+            {allEntities.map((entity) => (
+              <button
+                key={entity.id}
+                onClick={() => onSelectEntity(entity.id)}
+                className="w-full flex items-center justify-between gap-4 py-3 border-b border-border/20 text-left group hover-elevate rounded-md px-2 -mx-2"
+                data-testid={`entity-row-${entity.id}`}
+              >
+                <div className="flex items-center gap-3 min-w-0 flex-wrap">
+                  <span className="text-sm font-semibold text-foreground">{entity.name}</span>
+                  <span className="text-[11px] text-muted-foreground/60">{entity.industry}</span>
+                  <span className="text-[10px] text-muted-foreground/70 hidden sm:inline">{entity.hq}</span>
+                </div>
+                <ArrowRight className="w-3 h-3 text-muted-foreground/35 group-hover:text-muted-foreground/70 transition-colors shrink-0" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <button className="mt-6 text-sm text-muted-foreground/60 hover:text-foreground transition-colors flex items-center gap-1" data-testid="link-full-index">
+        Full index <ArrowRight className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+function DataFormatSection() {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+
+  const cards = [
+    {
+      title: "Schema.org JSON-LD",
+      description: "Machine-readable structured data. Compatible with AI systems, crawlers, and RAG pipelines directly.",
+      icon: FileJson,
+    },
+    {
+      title: "Open API",
+      description: "REST endpoint at api/entities/{slug}. No key required. Returns full records with schema, relationships, and metadata.",
+      icon: Code2,
+    },
+    {
+      title: "Clean SAT",
+      description: "Verified entities are included in the registry feed for direct AI agent discovery.",
+      icon: Shield,
+    },
+  ];
+
+  return (
+    <div className="max-w-5xl mx-auto py-16 border-t border-border/20" data-testid="section-data-format">
+      <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">DATA FORMAT</span>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+        What each record contains.
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground/60 max-w-xl leading-relaxed">
+        Every entity record contains a standard name, entity type, and a fact set (core facts, a schema.org-compliant representation, sameAs links for cross-referencing, natural language summaries, structured relationship lists, and meta fields (created, modified, status, contributor)).
+      </p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+        {cards.map((card) => (
+          <div key={card.title} className={`rounded-xl border p-5 ${cardClass}`}>
+            <card.icon className="w-4 h-4 text-muted-foreground/60 mb-3" />
+            <h3 className="text-sm font-semibold text-foreground mb-1">{card.title}</h3>
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">{card.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ApiSection() {
+  const { theme } = useTheme();
+  const cardClass = theme === "sparkle"
+    ? "border-purple-900/20 bg-card/40"
+    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const [copied, setCopied] = useState(false);
+
+  const endpoint = "https://entities.org/api/entity/stripe";
+  const handleCopy = () => {
+    navigator.clipboard.writeText(endpoint);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const jsonExample = `{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Salesforce",
+  "foundingDate": "1999",
+  "location": {
+    "@type": "Place",
+    "name": "San Francisco, California, USA"
+  },
+  "industry": "CRM / Enterprise Software",
+  "tickerSymbol": "CRM",
+  "url": "https://salesforce.com",
+  "sameAs": [
+    "https://wikidata.org/wiki/Q941127",
+    "https://linkedin.com/company/salesforce",
+    "https://crunchbase.com/organization/salesforce"
+  ],
+  "dateModified": "2026-02-14"
+}`;
+
+  return (
+    <div className="max-w-5xl mx-auto py-16 border-t border-border/20" data-testid="section-api">
+      <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">DEVELOPER</span>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+        Open API. No auth.
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground/60 max-w-xl leading-relaxed">
+        The registry API is publicly accessible without authentication. Queries return Streaming JSON-LD with sameAs cross-links, per-field source citations, relationship edges, and timestamped modification history.
+      </p>
+
+      <div className={`rounded-xl border px-4 py-3 mt-8 flex items-center justify-between gap-3 ${cardClass}`}>
+        <code className="text-sm font-mono text-foreground/80 truncate" data-testid="text-api-endpoint">{endpoint}</code>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleCopy}
+          data-testid="button-copy-endpoint"
+        >
+          {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
+        </Button>
+      </div>
+
+      <div className={`rounded-xl border mt-4 overflow-hidden ${cardClass}`}>
+        <div className="px-4 py-2 border-b border-border/20">
+          <span className="text-[10px] text-muted-foreground/60 font-mono">Response — application/ld+json</span>
+        </div>
+        <pre className="p-4 font-mono text-[11px] leading-relaxed overflow-x-auto text-foreground/70" data-testid="text-api-response">
+          {jsonExample}
+        </pre>
+      </div>
+
+      <button className="mt-6 text-sm text-muted-foreground/60 hover:text-foreground transition-colors flex items-center gap-1" data-testid="link-api-docs">
+        Full API documentation <ArrowRight className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+function SubmitSection() {
+  return (
+    <div className="max-w-5xl mx-auto py-16 border-t border-border/20" data-testid="section-submit">
+      <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.15em] font-medium">CONTRIBUTE</span>
+      <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl mt-1">
+        Submitting an entity.
+      </h2>
+      <p className="mt-2 text-sm text-muted-foreground/60 max-w-xl leading-relaxed">
+        Any organization, person, or product may be submitted for review. Each record is verified from public sources. Entities that cannot be authenticated from public sources will not be published.
+      </p>
+      <div className="flex items-center gap-4 mt-6 flex-wrap">
+        <button className="text-sm text-foreground/80 hover:text-foreground transition-colors flex items-center gap-1" data-testid="link-submit-entity">
+          Submit an entity <ArrowRight className="w-3.5 h-3.5" />
+        </button>
+        <button className="text-sm text-muted-foreground/60 hover:text-foreground transition-colors flex items-center gap-1" data-testid="link-view-faqs">
+          View FAQs <ArrowRight className="w-3.5 h-3.5" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
+      <div className="max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <Database className="w-3.5 h-3.5 text-muted-foreground/60" />
+              <span className="text-sm font-semibold text-foreground">
+                entities<span className="font-normal text-muted-foreground">.org</span>
+              </span>
+            </div>
+            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
+              Structured entity data for machines and people. Open, verified, and built for the AI web.
+            </p>
+            <p className="text-[10px] text-muted-foreground/70 mt-2">
+              Land O' Lakes, Florida
+            </p>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Registry</span>
+            <div className="mt-2 space-y-1.5">
+              {["Entity Index", "A-Z List", "Leaderboard", "Submit", "Pricing"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
+            <div className="mt-2 space-y-1.5">
+              {["API Documentation", "LLM Integration"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
+              ))}
+            </div>
+          </div>
+          <div>
+            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
+            <div className="mt-2 space-y-1.5">
+              {["About", "Privacy Policy", "Terms of Service"].map((item) => (
+                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
+              ))}
+            </div>
           </div>
         </div>
-      ) : (
-        <>
-          <div className="mb-12">
-            <SectionLabel icon={Clock} label="Recent Additions" />
-            <div className="space-y-0 mt-4">
-              {recentAdditions.map((entity) => (
-                <EntityRow key={entity.id} entity={entity} onClick={() => onSelectEntity(entity.id)} />
-              ))}
-            </div>
-          </div>
 
-          <div className="mb-12">
-            <SectionLabel icon={Building2} label="Browse by Industry" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-              {Object.entries(industriesByGroup).map(([industry, entities]) => (
-                <div key={industry} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`industry-${industry.toLowerCase().replace(/[\s/]+/g, "-")}`}>
-                  <div className="flex items-center justify-between gap-2 mb-3 flex-wrap">
-                    <h3 className="text-sm font-semibold text-foreground">{industry}</h3>
-                    <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{entities.length}</Badge>
-                  </div>
-                  <div className="space-y-1.5">
-                    {entities.slice(0, 3).map((e) => (
-                      <button
-                        key={e.id}
-                        onClick={() => onSelectEntity(e.id)}
-                        className="flex items-center gap-2 w-full text-left group"
-                        data-testid={`industry-link-${e.id}`}
-                      >
-                        <ChevronRight className="w-3 h-3 text-muted-foreground/70" />
-                        <span className="text-[12px] text-foreground/80 group-hover:text-foreground transition-colors">{e.name}</span>
-                      </button>
-                    ))}
-                    {entities.length > 3 && (
-                      <span className="text-[10px] text-muted-foreground/70 pl-5">+ {entities.length - 3} more</span>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <p className="text-[10px] text-muted-foreground/50">
+            &copy; 2026 Entities.org
+          </p>
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] text-muted-foreground/50">Privacy</span>
+            <span className="text-[10px] text-muted-foreground/50">Terms</span>
+            <span className="text-[10px] text-muted-foreground/50">Status</span>
           </div>
-
-          <div className="mb-12">
-            <SectionLabel icon={Link2} label="Browse by Relationship" />
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
-              {RELATIONSHIP_GROUPS.map((group) => (
-                <div key={group.title} className={`rounded-xl border p-4 ${cardClass}`} data-testid={`rel-group-${group.title.toLowerCase().replace(/[\s&]+/g, "-")}`}>
-                  <h3 className="text-sm font-semibold text-foreground">{group.title}</h3>
-                  <p className="text-[10px] text-muted-foreground/60 mb-3">{group.description}</p>
-                  <div className="space-y-1.5">
-                    {group.items.slice(0, 4).map((item) => {
-                      const entityObj = ENTITIES.find((e) => e.name === item.entity);
-                      return (
-                        <div
-                          key={item.entity + item.role}
-                          className="flex items-center justify-between gap-2 cursor-pointer group"
-                          onClick={() => entityObj && onSelectEntity(entityObj.id)}
-                        >
-                          <span className="text-[12px] text-foreground/80 group-hover:text-foreground transition-colors">{item.entity}</span>
-                          <span className="text-[10px] text-muted-foreground/70">{item.role}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="mb-6 text-center py-8">
-            <Layers className="w-5 h-5 text-muted-foreground/70 mx-auto mb-2" />
-            <p className="text-sm font-semibold text-foreground">Full A-Z Index</p>
-            <p className="text-xs text-muted-foreground/60 mt-1">Plain list of all {ENTITIES.length} entities. Optimized for crawlers and AI.</p>
-          </div>
-        </>
-      )}
-    </div>
+        </div>
+      </div>
+    </footer>
   );
 }
 
@@ -941,101 +1179,6 @@ function EntityDetailPage({ entity, onBack, onSelectEntity }: { entity: Entity; 
   );
 }
 
-function SubmitSection() {
-  const { theme } = useTheme();
-  const cardClass = theme === "sparkle"
-    ? "border-purple-900/20 bg-card/40"
-    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
-
-  return (
-    <div className="max-w-5xl mx-auto mt-16 mb-8" data-testid="section-submit">
-      <div className={`rounded-xl border p-8 text-center ${cardClass}`}>
-        <Send className="w-5 h-5 text-muted-foreground/60 mx-auto mb-3" />
-        <h2 className="text-xl font-bold tracking-tight text-foreground mb-2">Submit an Entity</h2>
-        <p className="text-sm text-muted-foreground/60 max-w-md mx-auto mb-5 leading-relaxed">
-          Know a company or organization that should be in the registry? Submit it for review. We verify every entry before publication.
-        </p>
-        <div className={`rounded-xl border px-4 py-3 max-w-md mx-auto flex items-center gap-3 ${cardClass}`}>
-          <input
-            type="text"
-            placeholder="Company name or website..."
-            className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/60 outline-none"
-            data-testid="input-submit-entity"
-          />
-          <Button variant="outline" size="sm" className="text-xs shrink-0" data-testid="button-submit-entity">
-            Submit
-            <ArrowRight className="w-3 h-3 ml-1" />
-          </Button>
-        </div>
-        <p className="text-[10px] text-muted-foreground/50 mt-3">Submissions are reviewed within 48 hours. Entities must be real, verifiable organizations.</p>
-      </div>
-    </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="px-6 py-12 border-t border-border/30 mt-12" data-testid="section-footer">
-      <div className="max-w-5xl mx-auto">
-        <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Database className="w-3.5 h-3.5 text-muted-foreground/60" />
-              <span className="text-sm font-semibold text-foreground">
-                entities<span className="font-normal text-muted-foreground">.org</span>
-              </span>
-            </div>
-            <p className="text-[11px] text-muted-foreground/60 leading-relaxed">
-              Structured entity data for machines and people. Open, verified, and built for the AI web.
-            </p>
-            <p className="text-[10px] text-muted-foreground/70 mt-2">
-              {ENTITIES.length} entities listed | {INDUSTRIES.length} industries
-            </p>
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Registry</span>
-            <div className="mt-2 space-y-1.5">
-              {["Entity Index", "Full A-Z List", "Submit Entity", "Recent Additions"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
-              ))}
-            </div>
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Platform</span>
-            <div className="mt-2 space-y-1.5">
-              {["API Documentation", "Schema Reference", "Data Licensing", "Status"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
-              ))}
-            </div>
-          </div>
-          <div>
-            <span className="text-[10px] text-muted-foreground/70 uppercase tracking-wider font-medium">Company</span>
-            <div className="mt-2 space-y-1.5">
-              {["About", "Contact", "Privacy Policy", "Terms of Service"].map((item) => (
-                <p key={item} className="text-[11px] text-muted-foreground/60">{item}</p>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8 pt-4 border-t border-border/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-          <div>
-            <p className="text-[10px] text-muted-foreground/70">
-              Operated by Entities, LLC. A subsidiary of Brandvious, Inc.
-            </p>
-            <p className="text-[10px] text-muted-foreground/70">
-              Land O' Lakes, Florida
-            </p>
-          </div>
-          <p className="text-[10px] text-muted-foreground/50">
-            &copy; 2026 Entities, LLC. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
 function AuroraCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
@@ -1181,8 +1324,6 @@ function AuroraCanvas() {
 export default function EntitiesHome() {
   const { theme } = useTheme();
   const [selectedEntity, setSelectedEntity] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const registryRef = useRef<HTMLDivElement>(null);
 
   const entity = selectedEntity ? ENTITIES.find((e) => e.id === selectedEntity) : null;
 
@@ -1205,7 +1346,7 @@ export default function EntitiesHome() {
     <div className="min-h-screen bg-background relative">
       {theme === "sparkle" && <AuroraCanvas />}
       <div className="relative z-10">
-        <Navbar onHome={handleBack} />
+        <Navbar onHome={handleBack} onBrowse={handleBrowse} />
         <div className="px-6 pb-6">
           {entity ? (
             <div className="pt-20">
@@ -1213,12 +1354,12 @@ export default function EntitiesHome() {
             </div>
           ) : (
             <>
-              <HeroSection onBrowse={handleBrowse} />
-              <RegistrySection
-                onSelectEntity={handleSelect}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-              />
+              <HeroSection onBrowse={handleBrowse} onSelectEntity={handleSelect} />
+              <StatsRow />
+              <RelationshipsSection onSelectEntity={handleSelect} />
+              <RegistrySection onSelectEntity={handleSelect} />
+              <DataFormatSection />
+              <ApiSection />
               <SubmitSection />
             </>
           )}

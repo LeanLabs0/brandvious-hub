@@ -1,0 +1,145 @@
+The entity registry
+for the AI web.
+Entities.org is an open registry of structured, machine-readable records for real organizations. Each record contains canonical facts, source citations, disambiguation statements, and sameAs links across authoritative platforms.
+
+Records are available as public pages, JSON-LD endpoints, and via an open API. No authentication required.
+
+5,412
+Entities
+18
+Industries
+41,200
+Relationships
+Open
+API access
+Stripe, Inc.
+@type: Organization
+✓ Verified
+foundingDate
+2010
+Crunchbase
+headquarters
+San Francisco, USA
+LinkedIn
+founder
+Patrick Collison, John Collison
+Wikipedia
+industry
+Financial Technology
+Wikidata
+disambig.
+Payment infrastructure company. Not Stripe (textile pattern) or Stripe Climate (subsidiary).
+sameAs
+wikidata.org
+crunchbase.com
+linkedin.com
+entities.org
+Relationships
+Typed relationships, not flat lists.
+Entity records include structured relationship graphs — typed edges connecting organizations, people, products, and platforms. Relationships are directional, dated where possible, and traversable via the API.
+
+HubSpot Ecosystem
+Partners, products, and integrations
+HubSpot
+Platform
+Lean Labs
+Diamond Partner
+Bluleadz
+Diamond Partner
+New Breed Revenue
+Elite Partner
+Founders & Leadership
+People connected to listed entities
+HubSpot
+Brian Halligan & Dharmesh Shah
+Salesforce
+Marc Benioff
+Lean Labs
+Kevin Barber
+E-commerce & Cloud
+Companies in digital commerce and infrastructure
+Amazon
+E-commerce / Cloud
+Shopify
+E-commerce
+Salesforce
+Cloud / CRM
+Browse all relationships →
+Registry
+Browse the registry.
+The full entity index is publicly browsable. Each record links to its page, JSON-LD endpoint, and API response.
+
+Entity
+Headquarters
+Type
+Status
+Amazon.com, Inc.
+E-commerce · Technology
+Seattle, USA
+Organization
+Verified
+HubSpot, Inc.
+Tech / SaaS
+Cambridge, USA
+Organization
+Verified
+Lean Labs
+Marketing Services
+Overland Park, USA
+Organization
+Verified
+Salesforce, Inc.
+Tech / SaaS · CRM
+San Francisco, USA
+Organization
+Verified
+Shopify Inc.
+E-commerce Technology
+Ottawa, Canada
+Organization
+Listed
+Stripe, Inc.
+Financial Technology
+San Francisco, USA
+Organization
+Verified
+Showing 6 of 5,412 entities
+Full index →
+Records
+What each record contains.
+Every entity record includes a canonical name, entity type, core facts with per-fact source citations, a disambiguation statement, and sameAs links to corresponding records on authoritative external platforms. Verified records include domain ownership confirmation. Full Profile records extend to relationships, products, services, and leadership.
+
+Schema.org JSON-LD
+Machine-readable structured data. Queryable by AI systems, crawlers, and RAG pipelines directly.
+Open API
+REST endpoint at /api/entity/{slug}. No key required. Returns full record with sameAs, relationships, and dateModified.
+llms.txt
+Verified entities are included in the registry llms.txt feed for AI agent discovery.
+API
+Open API. No auth.
+The registry API is publicly accessible without authentication. Queries return Schema.org JSON-LD with sameAs cross-links, per-fact source citations, relationship edges, and a timestamped modification date.
+
+GET
+https://entities.org/api/entity/stripe
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Stripe, Inc.",
+  "foundingDate": "2010",
+  "disambiguatingDescription": "Payment infrastructure. Not Stripe (textile) or Stripe Climate.",
+  "dateModified": "2026-02-13",
+  "sameAs": [
+    "https://wikidata.org/wiki/Q15052388",
+    "https://crunchbase.com/organization/stripe",
+    "https://linkedin.com/company/stripe",
+    "https://entities.org/entity/stripe"
+  ]
+}
+Full API documentation →
+Listing
+Submitting an entity.
+Any organization, person, or product may be submitted for review. Basic records are created from public sources. Domain verification is available to organizations that control the associated domain. Extended records with relationship graphs and full JSON-LD are available under the Full Profile tier.
+
+Entities.org does not independently fact-check listed data. Records are formatted from public sources. Entities that cannot be substantiated will not be published.
+
+Submit an entity →    View fees →
