@@ -41,7 +41,7 @@ const projects = [
       "A canonical entity registry for machines. Verified data so AI always gets the right company.",
     status: "Growing",
     statusColor: "text-blue-400",
-    url: "/entitiespreview",
+    url: "https://entitiesregistry.replit.app",
     icon: Globe,
   },
   {
