@@ -165,6 +165,13 @@ function V2Navbar() {
           <Button size="icon" variant="ghost" onClick={toggleTheme} className="text-white/70 hover:text-white" data-testid="v2-button-theme-toggle">
             {icon}
           </Button>
+          <a
+            href="/"
+            className="text-xs font-medium text-white/50 hover:text-white transition-colors px-2 py-1 rounded border border-white/10 hover:border-white/25"
+            data-testid="v2-link-v1"
+          >
+            v1
+          </a>
         </div>
       </div>
     </nav>

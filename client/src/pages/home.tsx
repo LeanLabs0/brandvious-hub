@@ -205,7 +205,16 @@ function Navbar() {
         >
           Brandvious <span className="font-normal text-muted-foreground">Digital</span>
         </a>
-        <ThemeToggle />
+        <div className="flex items-center gap-2">
+          <ThemeToggle />
+          <a
+            href="/v2"
+            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border/50 hover:border-border"
+            data-testid="link-v2"
+          >
+            v2
+          </a>
+        </div>
       </div>
     </nav>
   );
