@@ -196,7 +196,7 @@ function V2Hero() {
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: "linear-gradient(135deg, #f97316, #fb923c, #fbbf24)",
+              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))",
             }}
           >
             make the internet
@@ -205,7 +205,7 @@ function V2Hero() {
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: "linear-gradient(135deg, #f97316, #fb923c, #fbbf24)",
+              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3))",
             }}
           >
             {" "}work for AI.
@@ -388,7 +388,7 @@ function ThesisSection() {
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: "linear-gradient(135deg, #f97316, #fb923c, #fbbf24)",
+                backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
               }}
             >
               Functional for AI.
@@ -442,20 +442,23 @@ function EcosystemVisual() {
               <div className="grid grid-cols-2 gap-3">
                 {products.map((p, i) => {
                   const Icon = p.icon;
+                  const isExternal = !p.url.startsWith("/");
                   return (
-                    <div
+                    <a
                       key={p.name}
-                      className={`rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex items-center gap-3 ${
+                      href={p.url}
+                      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className={`group rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex items-center gap-3 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] ${
                         i === 4 ? "col-span-2" : ""
                       }`}
                       data-testid={`v2-ecosystem-item-${i}`}
                     >
-                      <Icon className="w-4 h-4 text-white/50 flex-shrink-0" />
+                      <Icon className="w-4 h-4 text-white/50 flex-shrink-0 group-hover:text-white/70 transition-colors" />
                       <div>
-                        <div className="text-sm font-medium text-white/80">{p.name}</div>
+                        <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">{p.name}</div>
                         <div className="text-[10px] text-white/50 uppercase tracking-wider">{p.label}</div>
                       </div>
-                    </div>
+                    </a>
                   );
                 })}
               </div>
