@@ -20,6 +20,7 @@ const products = [
     name: "SchemaRocket",
     domain: "schemarocket.ai",
     label: "Structured Data",
+    subtitle: "Structured data for AI",
     description: "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
     status: "Established",
     statusColor: "text-emerald-400",
@@ -31,6 +32,7 @@ const products = [
     name: "Entities.org",
     domain: "entities.org",
     label: "Entity Registry",
+    subtitle: "Entity registry for AI",
     description: "A canonical entity registry for machines. Verified data so AI always gets the right company.",
     status: "Growing",
     statusColor: "text-blue-400",
@@ -42,6 +44,7 @@ const products = [
     name: "WhatisBest",
     domain: "whatisbest.com",
     label: "Comparisons",
+    subtitle: "Comparisons for AI",
     description: "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
     status: "Launching",
     statusColor: "text-amber-400",
@@ -53,6 +56,7 @@ const products = [
     name: "AnswerStack",
     domain: "answerstack.com",
     label: "Answers",
+    subtitle: "Answers for AI",
     description: "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
     status: "In Development",
     statusColor: "text-neutral-400",
@@ -64,6 +68,7 @@ const products = [
     name: "ReviewRadar",
     domain: "reviewradar.com",
     label: "Trust",
+    subtitle: "Reviews AI can trust",
     description: "Real-time sentiment from leading platforms and communities. Not biased. Not stale.",
     status: "Backlog",
     statusColor: "text-neutral-500",
@@ -480,7 +485,7 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
           isSparkle
             ? "text-purple-300/40 group-hover:text-purple-200/60"
             : "text-white/40 group-hover:text-white/60"
-        }`}>{product.label}</div>
+        }`}>{product.subtitle}</div>
       </div>
 
       <ChevronRight className={`w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 ${
