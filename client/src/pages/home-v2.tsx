@@ -416,17 +416,98 @@ function ThesisSection() {
   );
 }
 
+function EcosystemCard({ product, index }: { product: typeof products[0]; index: number }) {
+  const { theme } = useTheme();
+  const Icon = product.icon;
+  const isExternal = !product.url.startsWith("/");
+  const isSparkle = theme === "sparkle";
+
+  return (
+    <a
+      key={product.name}
+      href={product.url}
+      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 ${
+        index === 4 ? "col-span-2" : ""
+      } ${
+        isSparkle
+          ? "border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/40 hover:bg-purple-900/25 hover:shadow-[0_0_30px_rgba(140,50,200,0.15)]"
+          : "border border-white/[0.08] bg-white/[0.04] hover:border-white/[0.20] hover:bg-white/[0.08] hover:shadow-[0_0_20px_rgba(255,255,255,0.04)]"
+      }`}
+      style={isSparkle ? {
+        animationDelay: `${index * 0.6}s`,
+      } as React.CSSProperties : undefined}
+      data-testid={`v2-ecosystem-item-${index}`}
+    >
+      <div
+        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none ${
+          isSparkle
+            ? "bg-[radial-gradient(ellipse_at_center,rgba(140,50,200,0.08),transparent_70%)]"
+            : "bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03),transparent_70%)]"
+        }`}
+      />
+
+      {isSparkle && (
+        <div
+          className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity duration-700"
+          style={{
+            background: `linear-gradient(135deg, transparent 30%, rgba(160,80,220,0.08) 50%, transparent 70%)`,
+            backgroundSize: "200% 200%",
+            animation: "sparkle-shimmer 6s linear infinite",
+          }}
+        />
+      )}
+
+      <div className={`relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300 ${
+        isSparkle
+          ? "bg-purple-500/10 group-hover:bg-purple-500/20 group-hover:shadow-[0_0_12px_rgba(140,50,200,0.2)]"
+          : "bg-white/[0.06] group-hover:bg-white/[0.10]"
+      }`}>
+        <Icon className={`w-4.5 h-4.5 transition-all duration-300 ${
+          isSparkle
+            ? "text-purple-300/60 group-hover:text-purple-200/90"
+            : "text-white/50 group-hover:text-white/80"
+        }`} />
+      </div>
+
+      <div className="relative">
+        <div className={`text-sm font-semibold transition-colors duration-300 ${
+          isSparkle
+            ? "text-purple-100/80 group-hover:text-white"
+            : "text-white/80 group-hover:text-white"
+        }`}>{product.name}</div>
+        <div className={`text-[10px] uppercase tracking-wider mt-0.5 ${
+          isSparkle
+            ? "text-purple-300/40 group-hover:text-purple-200/60"
+            : "text-white/40 group-hover:text-white/60"
+        }`}>{product.label}</div>
+      </div>
+
+      <ChevronRight className={`w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 ${
+        isSparkle ? "text-purple-300/60" : "text-white/40"
+      }`} />
+    </a>
+  );
+}
+
 function EcosystemVisual() {
+  const { theme } = useTheme();
+  const isSparkle = theme === "sparkle";
+
   return (
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-ecosystem">
       <div className="max-w-6xl mx-auto">
-        <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 md:p-12">
+        <div className={`rounded-2xl p-8 md:p-12 transition-all duration-500 ${
+          isSparkle
+            ? "border border-purple-500/10 bg-purple-950/10 shadow-[0_0_60px_rgba(100,30,160,0.06)]"
+            : "border border-white/[0.06] bg-white/[0.02]"
+        }`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
                 One ecosystem.{" "}
-                <span className="text-white/50">Every layer of AI visibility.</span>
+                <span className={isSparkle ? "sparkle-text" : "text-white/50"}>Every layer of AI visibility.</span>
               </h2>
               <p className="text-sm text-white/60 leading-relaxed mb-8">
                 SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewRadar makes your reputation transparent.
@@ -442,31 +523,15 @@ function EcosystemVisual() {
 
             <div className="relative">
               <div className="grid grid-cols-2 gap-3">
-                {products.map((p, i) => {
-                  const Icon = p.icon;
-                  const isExternal = !p.url.startsWith("/");
-                  return (
-                    <a
-                      key={p.name}
-                      href={p.url}
-                      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className={`group rounded-xl border border-white/[0.06] bg-white/[0.03] p-4 flex items-center gap-3 transition-all duration-300 hover:border-white/[0.15] hover:bg-white/[0.06] ${
-                        i === 4 ? "col-span-2" : ""
-                      }`}
-                      data-testid={`v2-ecosystem-item-${i}`}
-                    >
-                      <Icon className="w-4 h-4 text-white/50 flex-shrink-0 group-hover:text-white/70 transition-colors" />
-                      <div>
-                        <div className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">{p.name}</div>
-                        <div className="text-[10px] text-white/50 uppercase tracking-wider">{p.label}</div>
-                      </div>
-                    </a>
-                  );
-                })}
+                {products.map((p, i) => (
+                  <EcosystemCard key={p.name} product={p} index={i} />
+                ))}
               </div>
-              <div className="absolute inset-0 pointer-events-none rounded-xl" style={{
-                background: "radial-gradient(circle at 50% 50%, rgba(120,80,255,0.04), transparent 70%)",
-              }} />
+              {isSparkle && (
+                <div className="absolute inset-0 pointer-events-none rounded-xl" style={{
+                  background: "radial-gradient(circle at 50% 50%, rgba(140,50,200,0.06), transparent 60%)",
+                }} />
+              )}
             </div>
           </div>
         </div>
