@@ -26,7 +26,6 @@ const products = [
     statusColor: "text-emerald-400",
     url: "/schema",
     icon: Braces,
-    gradient: "from-orange-500 to-amber-400",
   },
   {
     name: "Entities.org",
@@ -38,7 +37,6 @@ const products = [
     statusColor: "text-blue-400",
     url: "https://entitiesregistry.replit.app",
     icon: Globe,
-    gradient: "from-blue-500 to-cyan-400",
   },
   {
     name: "WhatisBest",
@@ -50,7 +48,6 @@ const products = [
     statusColor: "text-amber-400",
     url: "/whatisbest",
     icon: Trophy,
-    gradient: "from-amber-500 to-yellow-400",
   },
   {
     name: "AnswerStack",
@@ -62,7 +59,6 @@ const products = [
     statusColor: "text-neutral-400",
     url: "/answerstack",
     icon: Layers,
-    gradient: "from-violet-500 to-purple-400",
   },
   {
     name: "ReviewRadar",
@@ -74,7 +70,6 @@ const products = [
     statusColor: "text-neutral-500",
     url: "/reviewradar",
     icon: Radar,
-    gradient: "from-rose-500 to-pink-400",
   },
 ];
 
@@ -83,6 +78,20 @@ const stats = [
   { value: "1", label: "Mission" },
   { value: "∞", label: "Machines served" },
 ];
+
+function NoiseOverlay() {
+  return (
+    <div
+      className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03]"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: "repeat",
+        backgroundSize: "128px 128px",
+      }}
+      data-testid="noise-overlay"
+    />
+  );
+}
 
 function LightBeam({ party }: { party: boolean }) {
   return (
@@ -225,6 +234,13 @@ function GlowDivider() {
   );
 }
 
+const glassCard = "backdrop-blur-sm bg-white/[0.03]";
+const glassCardBorder = "border border-white/[0.07]";
+const glassCardHover = "hover:bg-white/[0.06] hover:border-white/[0.14]";
+const cardShadowBase = "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]";
+const cardShadowHover = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]";
+const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
+
 function V2Navbar() {
   const { theme, toggleTheme } = useTheme();
   const icon =
@@ -236,8 +252,9 @@ function V2Navbar() {
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
       style={{
-        backdropFilter: "blur(16px)",
-        backgroundColor: "hsl(220 10% 6% / 0.7)",
+        backdropFilter: "blur(20px) saturate(180%)",
+        backgroundColor: "hsl(220 10% 4% / 0.75)",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
       }}
       data-testid="v2-navbar"
     >
@@ -315,10 +332,10 @@ function V2Hero() {
         <div className="mt-10 flex flex-wrap gap-4">
           <a
             href="#products"
-            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border text-white text-sm font-medium transition-all duration-300 ${
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm ${
               party
-                ? "border-white/20 hover:border-white/40 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(120,60,220,0.15)]"
-                : "border-white/20 hover:border-white/40 hover:bg-white/5"
+                ? "border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_0_20px_rgba(120,60,220,0.1)]"
+                : "border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
             }`}
             data-testid="v2-button-see-products"
           >
@@ -326,7 +343,7 @@ function V2Hero() {
           </a>
           <a
             href="#mission"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/15 text-white/70 text-sm font-medium hover:border-white/30 hover:text-white transition-all"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.08] text-white/70 text-sm font-medium hover:border-white/[0.16] hover:text-white transition-all duration-300"
             data-testid="v2-button-mission"
           >
             Our mission <ArrowRight className="w-4 h-4" />
@@ -355,13 +372,19 @@ function StatsRow() {
           />
         </div>
       )}
-      <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8 relative z-10">
-        {stats.map((s, i) => (
-          <div key={i} className="text-center" data-testid={`v2-stat-${i}`}>
-            <div className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tight">{s.value}</div>
-            <div className="mt-2 text-sm text-white/60 uppercase tracking-widest">{s.label}</div>
-          </div>
-        ))}
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div className="grid grid-cols-3 gap-8">
+          {stats.map((s, i) => (
+            <div
+              key={i}
+              className={`text-center ${i < 2 ? "border-r border-white/[0.06]" : ""}`}
+              data-testid={`v2-stat-${i}`}
+            >
+              <div className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tight">{s.value}</div>
+              <div className="mt-2 text-sm text-white/50 uppercase tracking-widest">{s.label}</div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
@@ -377,29 +400,35 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
     <a
       href={product.url}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`group relative block rounded-2xl border p-8 transition-all duration-500 ${
-        party
-          ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04] hover:shadow-[0_0_40px_rgba(100,40,200,0.08)]"
-          : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
-      }`}
+      className={`group relative block rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
       data-testid={`v2-product-card-${index}`}
     >
-      {party && (
-        <div
-          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-          style={{
-            background: "radial-gradient(600px circle at 50% 50%, rgba(100,40,200,0.06), transparent 60%)",
-          }}
-        />
-      )}
+      <div
+        className="absolute inset-x-0 top-0 h-px"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+        }}
+      />
+
+      <div
+        className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        style={{
+          background: party
+            ? "radial-gradient(600px circle at 50% 0%, rgba(100,40,200,0.06), transparent 60%)"
+            : "radial-gradient(600px circle at 50% 0%, rgba(255,255,255,0.04), transparent 60%)",
+        }}
+      />
 
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-6">
           <div
-            className="flex items-center justify-center w-12 h-12 rounded-xl"
-            style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))" }}
+            className="flex items-center justify-center w-12 h-12 rounded-xl backdrop-blur-sm"
+            style={{
+              background: "linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02))",
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.06), 0 2px 8px rgba(0,0,0,0.2)",
+            }}
           >
-            <Icon className="w-5 h-5 text-white/70" />
+            <Icon className="w-5 h-5 text-white/60 group-hover:text-white/80 transition-colors duration-300" />
           </div>
           <span className={`text-xs font-medium ${product.statusColor}`} data-testid={`v2-product-status-${index}`}>
             {product.status}
@@ -409,10 +438,10 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
         <h3 className="text-xl font-semibold text-white mb-1" data-testid={`v2-product-name-${index}`}>
           {product.name}
         </h3>
-        <p className="text-xs text-white/50 font-mono mb-4">{product.domain}</p>
-        <p className="text-sm text-white/60 leading-relaxed mb-6">{product.description}</p>
+        <p className="text-xs text-white/40 font-mono mb-4">{product.domain}</p>
+        <p className="text-sm text-white/55 leading-relaxed mb-6">{product.description}</p>
 
-        <div className="flex items-center gap-1 text-sm text-white/50 group-hover:text-white/80 transition-colors">
+        <div className="flex items-center gap-1 text-sm text-white/40 group-hover:text-white/70 transition-colors duration-300">
           {isExternal ? (
             <>Visit site <ExternalLink className="w-3.5 h-3.5" /></>
           ) : (
@@ -433,7 +462,7 @@ function ProductsSection() {
       <SectionGlow party={party} />
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">The Ecosystem</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
             Five products.{" "}
             <span
@@ -480,7 +509,7 @@ function MissionSection() {
         ) : (
           <div
             className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px]"
-            style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.05), transparent 70%)" }}
+            style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.02), transparent 70%)" }}
           />
         )}
       </div>
@@ -488,14 +517,14 @@ function MissionSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">The Mission</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Mission</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
               Consensus is King.
             </h2>
           </div>
 
           <div className="space-y-8 pt-2">
-            <p className="text-base text-white/60 leading-relaxed">
+            <p className="text-base text-white/55 leading-relaxed">
               AI is rewriting how people find, trust, and choose. Brandvious delivers factual brand data that LLMs can ingest and cite with ease.
             </p>
           </div>
@@ -541,7 +570,7 @@ function ThesisSection() {
       )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">Our Thesis</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
             Fair. Factual.{" "}
             <span
@@ -559,16 +588,18 @@ function ThesisSection() {
           {principles.map((p, i) => (
             <div
               key={p.number}
-              className={`rounded-2xl border p-8 transition-all duration-300 ${
-                party
-                  ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:shadow-[0_0_30px_rgba(100,40,200,0.06)]"
-                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.10]"
-              }`}
+              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
               data-testid={`v2-thesis-card-${i}`}
             >
-              <span className="text-xs font-mono text-white/40">{p.number}</span>
+              <div
+                className="absolute inset-x-0 top-0 h-px"
+                style={{
+                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                }}
+              />
+              <span className="text-xs font-mono text-white/30">{p.number}</span>
               <h3 className="text-2xl font-bold text-white mt-3 mb-4">{p.title}</h3>
-              <p className="text-sm text-white/60 leading-relaxed">{p.description}</p>
+              <p className="text-sm text-white/55 leading-relaxed">{p.description}</p>
             </div>
           ))}
         </div>
@@ -590,34 +621,38 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 ${
         index === 4 ? "col-span-2" : ""
-      } border border-white/[0.08] bg-white/[0.04] hover:border-white/[0.20] hover:bg-white/[0.08] ${
+      } backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-white/[0.14] shadow-[0_2px_12px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.04)] ${
         party
-          ? "hover:shadow-[0_0_30px_rgba(100,40,200,0.12)]"
-          : "hover:shadow-[0_0_20px_rgba(255,255,255,0.04)]"
+          ? "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),0_0_20px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]"
+          : "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]"
       }`}
       data-testid={`v2-ecosystem-item-${index}`}
     >
       <div
+        className="absolute inset-x-0 top-0 h-px pointer-events-none"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+        }}
+      />
+
+      <div
         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
         style={{
           background: party
-            ? "radial-gradient(ellipse at center, rgba(100,40,200,0.06), transparent 70%)"
+            ? "radial-gradient(ellipse at center, rgba(100,40,200,0.05), transparent 70%)"
             : "radial-gradient(ellipse at center, rgba(255,255,255,0.03), transparent 70%)",
         }}
       />
 
-      {party && (
-        <div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-          style={{
-            background: "linear-gradient(135deg, transparent 20%, rgba(120,50,200,0.04) 50%, transparent 80%)",
-          }}
-        />
-      )}
-
-      <div className={`relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300 bg-white/[0.06] group-hover:bg-white/[0.10] ${
-        party ? "group-hover:shadow-[0_0_12px_rgba(100,40,200,0.12)]" : ""
-      }`}>
+      <div
+        className="relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
+          boxShadow: party
+            ? "inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 4px rgba(0,0,0,0.15)"
+            : "inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 4px rgba(0,0,0,0.15)",
+        }}
+      >
         <Icon className="w-4.5 h-4.5 transition-all duration-300 text-white/50 group-hover:text-white/80" />
       </div>
 
@@ -625,7 +660,7 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
         <div className="text-sm font-semibold transition-colors duration-300 text-white/80 group-hover:text-white">
           {product.name}
         </div>
-        <div className="text-[10px] uppercase tracking-wider mt-0.5 text-white/40 group-hover:text-white/60">
+        <div className="text-[10px] uppercase tracking-wider mt-0.5 text-white/35 group-hover:text-white/55">
           {product.subtitle}
         </div>
       </div>
@@ -652,14 +687,16 @@ function EcosystemVisual() {
         </div>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`rounded-2xl p-8 md:p-12 transition-all duration-500 ${
-          party
-            ? "border border-white/[0.06] bg-white/[0.02] shadow-[0_0_60px_rgba(100,40,200,0.05)]"
-            : "border border-white/[0.06] bg-white/[0.02]"
-        }`}>
+        <div className={`rounded-2xl overflow-hidden p-8 md:p-12 transition-all duration-500 ${glassCard} ${glassCardBorder} ${party ? `${cardShadowBase} shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]` : cardShadowBase}`}>
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+            }}
+          />
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">How It Connects</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
                 One ecosystem.{" "}
                 <span
@@ -671,12 +708,12 @@ function EcosystemVisual() {
                   Every layer of AI visibility.
                 </span>
               </h2>
-              <p className="text-sm text-white/60 leading-relaxed mb-8">
+              <p className="text-sm text-white/55 leading-relaxed mb-8">
                 SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewRadar makes your reputation transparent.
               </p>
               <a
                 href="#products"
-                className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-300"
                 data-testid="v2-link-explore-products"
               >
                 Explore the products <ArrowRight className="w-3.5 h-3.5" />
@@ -699,23 +736,23 @@ function EcosystemVisual() {
 
 function V2Footer() {
   return (
-    <footer className="relative py-16 px-6 border-t border-white/[0.06]" data-testid="v2-footer">
+    <footer className="relative py-16 px-6 border-t border-white/[0.04]" data-testid="v2-footer">
       <div className="max-w-6xl mx-auto">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
             <div className="text-base font-semibold text-white mb-2">
               Brandvious<span className="font-light text-white/60">, Inc.</span>
             </div>
-            <p className="text-sm text-white/50 max-w-xs mb-4">
+            <p className="text-sm text-white/45 max-w-xs mb-4">
               Fair. Factual. Functional for AI.
             </p>
             <div className="space-y-1">
-              <p className="text-xs text-white/40" data-testid="v2-text-address">
+              <p className="text-xs text-white/30" data-testid="v2-text-address">
                 16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
               </p>
               <a
                 href="tel:+19138716500"
-                className="text-xs text-white/40 hover:text-white/60 transition-colors block"
+                className="text-xs text-white/30 hover:text-white/50 transition-colors block"
                 data-testid="v2-link-phone"
               >
                 1-913-871-6500
@@ -725,7 +762,7 @@ function V2Footer() {
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-16 gap-y-4 text-sm">
             <div className="space-y-3">
-              <p className="text-white/40 uppercase tracking-wider text-xs">Products</p>
+              <p className="text-white/30 uppercase tracking-wider text-xs">Products</p>
               {products.map((p) => {
                 const isExternal = !p.url.startsWith("/");
                 return (
@@ -733,7 +770,7 @@ function V2Footer() {
                     key={p.name}
                     href={p.url}
                     {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="block text-white/60 hover:text-white transition-colors"
+                    className="block text-white/50 hover:text-white transition-colors"
                     data-testid={`v2-footer-link-${p.name.toLowerCase().replace(/\./g, "-")}`}
                   >
                     {p.name}
@@ -742,20 +779,20 @@ function V2Footer() {
               })}
             </div>
             <div className="space-y-3">
-              <p className="text-white/40 uppercase tracking-wider text-xs">Company</p>
-              <a href="#mission" className="block text-white/60 hover:text-white transition-colors" data-testid="v2-footer-link-mission">Mission</a>
-              <a href="#thesis" className="block text-white/60 hover:text-white transition-colors" data-testid="v2-footer-link-thesis">Thesis</a>
+              <p className="text-white/30 uppercase tracking-wider text-xs">Company</p>
+              <a href="#mission" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-mission">Mission</a>
+              <a href="#thesis" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-thesis">Thesis</a>
             </div>
             <div className="space-y-3">
-              <p className="text-white/40 uppercase tracking-wider text-xs">Connect</p>
-              <a href="mailto:hello@brandvious.com" className="block text-white/60 hover:text-white transition-colors" data-testid="v2-footer-link-email">Contact</a>
+              <p className="text-white/30 uppercase tracking-wider text-xs">Connect</p>
+              <a href="mailto:hello@brandvious.com" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-email">Contact</a>
             </div>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">&copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.</p>
-          <p className="text-xs text-white/40">Fair. Factual. Functional for AI.</p>
+          <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.</p>
+          <p className="text-xs text-white/30">Fair. Factual. Functional for AI.</p>
         </div>
       </div>
     </footer>
@@ -765,6 +802,7 @@ function V2Footer() {
 export default function HomeV2() {
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white" data-testid="v2-page">
+      <NoiseOverlay />
       <V2Navbar />
       <V2Hero />
       <StatsRow />
