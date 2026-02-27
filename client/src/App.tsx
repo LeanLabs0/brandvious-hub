@@ -11,6 +11,7 @@ import Schema from "@/pages/schema";
 import WhatisBest from "@/pages/whatisbest";
 import AnswerStack from "@/pages/answerstack";
 import ReviewRadar from "@/pages/reviewradar";
+import HomeV2 from "@/pages/home-v2";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/whatisbest" component={WhatisBest} />
       <Route path="/answerstack" component={AnswerStack} />
       <Route path="/reviewradar" component={ReviewRadar} />
+      <Route path="/v2" component={HomeV2} />
       <Route component={NotFound} />
     </Switch>
   );

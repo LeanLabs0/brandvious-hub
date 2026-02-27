@@ -31,7 +31,8 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - Preview pages are factual/explanatory, not sales-focused
 
 ## Key Files
-- `client/src/pages/home.tsx` — Homepage (Navbar, Hero, Projects, Thesis, Footer)
+- `client/src/pages/home.tsx` — Homepage v1 (Navbar, Hero, Projects, Thesis, Footer)
+- `client/src/pages/home-v2.tsx` — Homepage v2 at `/v2` (demand.io/huly.io inspired, cinematic dark design)
 - `client/src/pages/schema.tsx` — SchemaRocket preview page
 - `client/src/pages/entities-home.tsx` — Entities.org real homepage (hero + registry + submit CTA)
 - `client/src/pages/entities.tsx` — Entities.org preview page (registry only, used at /entitiespreview)
