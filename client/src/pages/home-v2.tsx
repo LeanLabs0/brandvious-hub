@@ -552,11 +552,23 @@ function V2Footer() {
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
             <div className="text-base font-semibold text-white mb-2">
-              Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
+              Brandvious<span className="font-light text-white/60">, Inc.</span>
             </div>
-            <p className="text-sm text-white/50 max-w-xs">
-              Building products that make the internet work for both humans and machines.
+            <p className="text-sm text-white/50 max-w-xs mb-4">
+              Fair. Factual. Functional for AI.
             </p>
+            <div className="space-y-1">
+              <p className="text-xs text-white/40" data-testid="v2-text-address">
+                16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
+              </p>
+              <a
+                href="tel:+19138716500"
+                className="text-xs text-white/40 hover:text-white/60 transition-colors block"
+                data-testid="v2-link-phone"
+              >
+                1-913-871-6500
+              </a>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-16 gap-y-4 text-sm">
@@ -590,7 +602,7 @@ function V2Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">&copy; {new Date().getFullYear()} Brandvious Digital. All rights reserved.</p>
+          <p className="text-xs text-white/40">&copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.</p>
           <p className="text-xs text-white/40">Fair. Factual. Functional for AI.</p>
         </div>
       </div>
