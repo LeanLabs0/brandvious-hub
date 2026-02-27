@@ -76,7 +76,6 @@ const products = [
 const stats = [
   { value: "5", label: "Products" },
   { value: "1", label: "Mission" },
-  { value: "0", label: "Ad budgets required" },
   { value: "∞", label: "Machines served" },
 ];
 
@@ -247,7 +246,7 @@ function V2Hero() {
 function StatsRow() {
   return (
     <section className="relative py-16 px-6 border-t border-white/[0.06]" data-testid="v2-section-stats">
-      <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8">
         {stats.map((s, i) => (
           <div key={i} className="text-center" data-testid={`v2-stat-${i}`}>
             <div className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tight">{s.value}</div>
@@ -347,17 +346,13 @@ function MissionSection() {
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">The Mission</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-              The internet wasn't built for machines.{" "}
-              <span className="text-white/50">We're fixing that.</span>
+              Consensus is King.
             </h2>
           </div>
 
           <div className="space-y-8 pt-2">
             <p className="text-base text-white/60 leading-relaxed">
-              AI search engines, assistants, and agents need structured, verified data to give accurate answers. Most of the web is unstructured noise. Brandvious builds the infrastructure that turns web content into machine-readable truth.
-            </p>
-            <p className="text-base text-white/60 leading-relaxed">
-              We don't sell ads. We don't do SEO tricks. We build data products that give every business — not just the ones with the biggest budgets — a fair shot at being found by AI.
+              AI is rewriting how people find, trust, and choose. Brandvious delivers factual brand data that LLMs can ingest and cite with ease.
             </p>
           </div>
         </div>
