@@ -436,7 +436,14 @@ function ProductsSection() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
             Five products.{" "}
-            <span className="text-white/50">One goal: make the internet machine-readable.</span>
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
+              }}
+            >
+              One goal: make the internet machine-readable.
+            </span>
           </h2>
         </div>
 
@@ -655,7 +662,14 @@ function EcosystemVisual() {
               <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
                 One ecosystem.{" "}
-                <span className="text-white/50">Every layer of AI visibility.</span>
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
+                  }}
+                >
+                  Every layer of AI visibility.
+                </span>
               </h2>
               <p className="text-sm text-white/60 leading-relaxed mb-8">
                 SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewRadar makes your reputation transparent.
