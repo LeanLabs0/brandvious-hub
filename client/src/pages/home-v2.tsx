@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import {
   ArrowRight,
   Braces,
@@ -84,42 +84,78 @@ const stats = [
   { value: "∞", label: "Machines served" },
 ];
 
-function LightBeam() {
+function LightBeam({ party }: { party: boolean }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" data-testid="light-beam">
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-[60vh]"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px]"
         style={{
-          background: "linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(120,80,255,0.3), transparent)",
+          height: party ? "80vh" : "60vh",
+          background: party
+            ? "linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(140,80,255,0.5), rgba(80,40,200,0.2), transparent)"
+            : "linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(120,80,255,0.3), transparent)",
         }}
       />
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[200px] h-[60vh] blur-[80px]"
+        className="absolute left-1/2 -translate-x-1/2 top-0 blur-[80px]"
         style={{
-          background: "linear-gradient(to bottom, rgba(120,80,255,0.15), rgba(80,120,255,0.08), transparent)",
+          width: party ? "300px" : "200px",
+          height: party ? "80vh" : "60vh",
+          background: party
+            ? "linear-gradient(to bottom, rgba(140,80,255,0.25), rgba(100,50,220,0.15), rgba(60,20,160,0.05), transparent)"
+            : "linear-gradient(to bottom, rgba(120,80,255,0.15), rgba(80,120,255,0.08), transparent)",
         }}
       />
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[600px] h-[40vh] blur-[120px]"
+        className="absolute left-1/2 -translate-x-1/2 top-0 blur-[120px]"
         style={{
-          background: "radial-gradient(ellipse at center top, rgba(100,60,255,0.08), transparent 70%)",
+          width: party ? "900px" : "600px",
+          height: party ? "50vh" : "40vh",
+          background: party
+            ? "radial-gradient(ellipse at center top, rgba(120,60,255,0.14), rgba(80,30,180,0.06), transparent 70%)"
+            : "radial-gradient(ellipse at center top, rgba(100,60,255,0.08), transparent 70%)",
         }}
       />
+      {party && (
+        <>
+          <div
+            className="absolute left-1/2 -translate-x-1/2 top-0 w-[1200px] h-[30vh] blur-[160px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(ellipse at center top, rgba(100,40,200,0.08), transparent 60%)",
+            }}
+          />
+          <div
+            className="absolute left-[30%] top-[10%] w-[400px] h-[400px] rounded-full blur-[140px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(circle, rgba(80,30,180,0.06), transparent 70%)",
+              animationDelay: "2s",
+            }}
+          />
+          <div
+            className="absolute left-[65%] top-[5%] w-[350px] h-[350px] rounded-full blur-[130px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(circle, rgba(120,50,220,0.05), transparent 70%)",
+              animationDelay: "4s",
+            }}
+          />
+        </>
+      )}
     </div>
   );
 }
 
-function FloatingParticles() {
+function FloatingParticles({ party }: { party: boolean }) {
+  const count = party ? 50 : 30;
   const particles = useMemo(
     () =>
-      Array.from({ length: 30 }).map(() => ({
-        size: Math.random() * 2 + 1,
+      Array.from({ length: count }).map(() => ({
+        size: Math.random() * 2 + (party ? 1.5 : 1),
         left: Math.random() * 100,
-        bottom: Math.random() * 40,
-        duration: Math.random() * 12 + 10,
+        bottom: Math.random() * (party ? 60 : 40),
+        duration: Math.random() * 12 + (party ? 8 : 10),
         delay: Math.random() * 10,
       })),
-    [],
+    [party, count],
   );
 
   return (
@@ -127,7 +163,9 @@ function FloatingParticles() {
       {particles.map((p, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-white/[0.08] animate-float-particle"
+          className={`absolute rounded-full animate-float-particle ${
+            party ? "bg-purple-300/[0.12]" : "bg-white/[0.08]"
+          }`}
           style={{
             width: `${p.size}px`,
             height: `${p.size}px`,
@@ -138,6 +176,51 @@ function FloatingParticles() {
           }}
         />
       ))}
+    </div>
+  );
+}
+
+function AmbientOrb({ left, top, size, delay }: { left: string; top: string; size: string; delay: string }) {
+  return (
+    <div
+      className="absolute rounded-full blur-[140px] pointer-events-none animate-subtle-glow"
+      style={{
+        left,
+        top,
+        width: size,
+        height: size,
+        background: "radial-gradient(circle, rgba(100,40,200,0.07), transparent 70%)",
+        animationDelay: delay,
+      }}
+    />
+  );
+}
+
+function SectionGlow({ party }: { party: boolean }) {
+  if (!party) return null;
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <AmbientOrb left="10%" top="20%" size="500px" delay="0s" />
+      <AmbientOrb left="70%" top="60%" size="400px" delay="3s" />
+    </div>
+  );
+}
+
+function GlowDivider() {
+  return (
+    <div className="relative h-px w-full overflow-visible">
+      <div
+        className="absolute inset-0"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(120,50,200,0.3), rgba(160,80,220,0.4), rgba(120,50,200,0.3), transparent)",
+        }}
+      />
+      <div
+        className="absolute -top-[6px] left-0 right-0 h-[13px] blur-[8px]"
+        style={{
+          background: "linear-gradient(90deg, transparent, rgba(120,50,200,0.15), rgba(140,60,220,0.2), rgba(120,50,200,0.15), transparent)",
+        }}
+      />
     </div>
   );
 }
@@ -183,6 +266,8 @@ function V2Navbar() {
 }
 
 function V2Hero() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
@@ -191,8 +276,8 @@ function V2Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-start justify-center px-6 overflow-hidden" data-testid="v2-section-hero">
-      <LightBeam />
-      <FloatingParticles />
+      <LightBeam party={party} />
+      <FloatingParticles party={party} />
 
       <div
         className={`relative z-10 max-w-6xl mx-auto w-full transition-all duration-1000 ${
@@ -230,7 +315,11 @@ function V2Hero() {
         <div className="mt-10 flex flex-wrap gap-4">
           <a
             href="#products"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/20 text-white text-sm font-medium hover:border-white/40 hover:bg-white/5 transition-all"
+            className={`inline-flex items-center gap-2 px-6 py-3 rounded-full border text-white text-sm font-medium transition-all duration-300 ${
+              party
+                ? "border-white/20 hover:border-white/40 hover:bg-white/5 hover:shadow-[0_0_20px_rgba(120,60,220,0.15)]"
+                : "border-white/20 hover:border-white/40 hover:bg-white/5"
+            }`}
             data-testid="v2-button-see-products"
           >
             See the products <ArrowRight className="w-4 h-4" />
@@ -249,9 +338,24 @@ function V2Hero() {
 }
 
 function StatsRow() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
   return (
-    <section className="relative py-16 px-6 border-t border-white/[0.06]" data-testid="v2-section-stats">
-      <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8">
+    <section
+      className={`relative py-16 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      data-testid="v2-section-stats"
+    >
+      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
+      {party && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] blur-[120px]"
+            style={{ background: "radial-gradient(ellipse, rgba(100,40,200,0.05), transparent 70%)" }}
+          />
+        </div>
+      )}
+      <div className="max-w-6xl mx-auto grid grid-cols-3 gap-8 relative z-10">
         {stats.map((s, i) => (
           <div key={i} className="text-center" data-testid={`v2-stat-${i}`}>
             <div className="text-4xl sm:text-5xl font-bold text-white font-mono tracking-tight">{s.value}</div>
@@ -264,30 +368,36 @@ function StatsRow() {
 }
 
 function ProductCard({ product, index }: { product: typeof products[0]; index: number }) {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
   const isExternal = !product.url.startsWith("/");
-  const [hovered, setHovered] = useState(false);
   const Icon = product.icon;
 
   return (
     <a
       href={product.url}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className="group relative block rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-500 hover:border-white/[0.12] hover:bg-white/[0.04]"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      className={`group relative block rounded-2xl border p-8 transition-all duration-500 ${
+        party
+          ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04] hover:shadow-[0_0_40px_rgba(100,40,200,0.08)]"
+          : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:bg-white/[0.04]"
+      }`}
       data-testid={`v2-product-card-${index}`}
     >
-      <div
-        className={`absolute inset-0 rounded-2xl opacity-0 transition-opacity duration-500 pointer-events-none ${hovered ? "opacity-100" : ""}`}
-        style={{
-          background: `radial-gradient(600px circle at ${hovered ? "50% 50%" : "50% 50%"}, rgba(255,255,255,0.03), transparent 60%)`,
-        }}
-      />
+      {party && (
+        <div
+          className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+          style={{
+            background: "radial-gradient(600px circle at 50% 50%, rgba(100,40,200,0.06), transparent 60%)",
+          }}
+        />
+      )}
 
       <div className="relative z-10">
         <div className="flex items-center justify-between mb-6">
-          <div className={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${product.gradient} bg-opacity-10`}
-            style={{ background: `linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))` }}
+          <div
+            className="flex items-center justify-center w-12 h-12 rounded-xl"
+            style={{ background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))" }}
           >
             <Icon className="w-5 h-5 text-white/70" />
           </div>
@@ -315,9 +425,13 @@ function ProductCard({ product, index }: { product: typeof products[0]; index: n
 }
 
 function ProductsSection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
   return (
     <section id="products" className="relative py-24 px-6" data-testid="v2-section-products">
-      <div className="max-w-6xl mx-auto">
+      <SectionGlow party={party} />
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
@@ -337,13 +451,31 @@ function ProductsSection() {
 }
 
 function MissionSection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
   return (
-    <section id="mission" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-mission">
+    <section
+      id="mission"
+      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      data-testid="v2-section-mission"
+    >
+      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div
-          className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px]"
-          style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.05), transparent 70%)" }}
-        />
+        {party ? (
+          <>
+            <div
+              className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px] animate-subtle-glow"
+              style={{ background: "radial-gradient(ellipse, rgba(100,40,200,0.08), transparent 70%)" }}
+            />
+            <AmbientOrb left="20%" top="30%" size="350px" delay="1s" />
+          </>
+        ) : (
+          <div
+            className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px]"
+            style={{ background: "radial-gradient(ellipse, rgba(249,115,22,0.05), transparent 70%)" }}
+          />
+        )}
       </div>
 
       <div className="max-w-6xl mx-auto relative z-10">
@@ -367,6 +499,9 @@ function MissionSection() {
 }
 
 function ThesisSection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
   const principles = [
     {
       number: "01",
@@ -386,8 +521,18 @@ function ThesisSection() {
   ];
 
   return (
-    <section id="thesis" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-thesis">
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="thesis"
+      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      data-testid="v2-section-thesis"
+    >
+      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
+      {party && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <AmbientOrb left="60%" top="10%" size="500px" delay="2s" />
+        </div>
+      )}
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
@@ -407,7 +552,11 @@ function ThesisSection() {
           {principles.map((p, i) => (
             <div
               key={p.number}
-              className="rounded-2xl border border-white/[0.06] bg-white/[0.02] p-8 transition-all duration-300 hover:border-white/[0.10]"
+              className={`rounded-2xl border p-8 transition-all duration-300 ${
+                party
+                  ? "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.12] hover:shadow-[0_0_30px_rgba(100,40,200,0.06)]"
+                  : "border-white/[0.06] bg-white/[0.02] hover:border-white/[0.10]"
+              }`}
               data-testid={`v2-thesis-card-${i}`}
             >
               <span className="text-xs font-mono text-white/40">{p.number}</span>
@@ -425,7 +574,7 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
   const { theme } = useTheme();
   const Icon = product.icon;
   const isExternal = !product.url.startsWith("/");
-  const isSparkle = theme === "sparkle";
+  const party = theme === "sparkle";
 
   return (
     <a
@@ -434,77 +583,71 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 ${
         index === 4 ? "col-span-2" : ""
-      } ${
-        isSparkle
-          ? "border border-purple-500/20 bg-purple-950/20 hover:border-purple-400/40 hover:bg-purple-900/25 hover:shadow-[0_0_30px_rgba(140,50,200,0.15)]"
-          : "border border-white/[0.08] bg-white/[0.04] hover:border-white/[0.20] hover:bg-white/[0.08] hover:shadow-[0_0_20px_rgba(255,255,255,0.04)]"
+      } border border-white/[0.08] bg-white/[0.04] hover:border-white/[0.20] hover:bg-white/[0.08] ${
+        party
+          ? "hover:shadow-[0_0_30px_rgba(100,40,200,0.12)]"
+          : "hover:shadow-[0_0_20px_rgba(255,255,255,0.04)]"
       }`}
-      style={isSparkle ? {
-        animationDelay: `${index * 0.6}s`,
-      } as React.CSSProperties : undefined}
       data-testid={`v2-ecosystem-item-${index}`}
     >
       <div
-        className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none ${
-          isSparkle
-            ? "bg-[radial-gradient(ellipse_at_center,rgba(140,50,200,0.08),transparent_70%)]"
-            : "bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.03),transparent_70%)]"
-        }`}
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+        style={{
+          background: party
+            ? "radial-gradient(ellipse at center, rgba(100,40,200,0.06), transparent 70%)"
+            : "radial-gradient(ellipse at center, rgba(255,255,255,0.03), transparent 70%)",
+        }}
       />
 
-      {isSparkle && (
+      {party && (
         <div
-          className="absolute inset-0 pointer-events-none opacity-30 group-hover:opacity-60 transition-opacity duration-700"
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700"
           style={{
-            background: `linear-gradient(135deg, transparent 30%, rgba(160,80,220,0.08) 50%, transparent 70%)`,
-            backgroundSize: "200% 200%",
-            animation: "sparkle-shimmer 6s linear infinite",
+            background: "linear-gradient(135deg, transparent 20%, rgba(120,50,200,0.04) 50%, transparent 80%)",
           }}
         />
       )}
 
-      <div className={`relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300 ${
-        isSparkle
-          ? "bg-purple-500/10 group-hover:bg-purple-500/20 group-hover:shadow-[0_0_12px_rgba(140,50,200,0.2)]"
-          : "bg-white/[0.06] group-hover:bg-white/[0.10]"
+      <div className={`relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300 bg-white/[0.06] group-hover:bg-white/[0.10] ${
+        party ? "group-hover:shadow-[0_0_12px_rgba(100,40,200,0.12)]" : ""
       }`}>
-        <Icon className={`w-4.5 h-4.5 transition-all duration-300 ${
-          isSparkle
-            ? "text-purple-300/60 group-hover:text-purple-200/90"
-            : "text-white/50 group-hover:text-white/80"
-        }`} />
+        <Icon className="w-4.5 h-4.5 transition-all duration-300 text-white/50 group-hover:text-white/80" />
       </div>
 
       <div className="relative">
-        <div className={`text-sm font-semibold transition-colors duration-300 ${
-          isSparkle
-            ? "text-purple-100/80 group-hover:text-white"
-            : "text-white/80 group-hover:text-white"
-        }`}>{product.name}</div>
-        <div className={`text-[10px] uppercase tracking-wider mt-0.5 ${
-          isSparkle
-            ? "text-purple-300/40 group-hover:text-purple-200/60"
-            : "text-white/40 group-hover:text-white/60"
-        }`}>{product.subtitle}</div>
+        <div className="text-sm font-semibold transition-colors duration-300 text-white/80 group-hover:text-white">
+          {product.name}
+        </div>
+        <div className="text-[10px] uppercase tracking-wider mt-0.5 text-white/40 group-hover:text-white/60">
+          {product.subtitle}
+        </div>
       </div>
 
-      <ChevronRight className={`w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 ${
-        isSparkle ? "text-purple-300/60" : "text-white/40"
-      }`} />
+      <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 text-white/40" />
     </a>
   );
 }
 
 function EcosystemVisual() {
   const { theme } = useTheme();
-  const isSparkle = theme === "sparkle";
+  const party = theme === "sparkle";
 
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-ecosystem">
-      <div className="max-w-6xl mx-auto">
+    <section
+      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      data-testid="v2-section-ecosystem"
+    >
+      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
+      {party && (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <AmbientOrb left="40%" top="20%" size="600px" delay="0s" />
+          <AmbientOrb left="80%" top="60%" size="350px" delay="4s" />
+        </div>
+      )}
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className={`rounded-2xl p-8 md:p-12 transition-all duration-500 ${
-          isSparkle
-            ? "border border-purple-500/10 bg-purple-950/10 shadow-[0_0_60px_rgba(100,30,160,0.06)]"
+          party
+            ? "border border-white/[0.06] bg-white/[0.02] shadow-[0_0_60px_rgba(100,40,200,0.05)]"
             : "border border-white/[0.06] bg-white/[0.02]"
         }`}>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -512,7 +655,7 @@ function EcosystemVisual() {
               <p className="text-xs uppercase tracking-[0.2em] text-white/50 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
                 One ecosystem.{" "}
-                <span className={isSparkle ? "sparkle-text" : "text-white/50"}>Every layer of AI visibility.</span>
+                <span className="text-white/50">Every layer of AI visibility.</span>
               </h2>
               <p className="text-sm text-white/60 leading-relaxed mb-8">
                 SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewRadar makes your reputation transparent.
@@ -532,11 +675,6 @@ function EcosystemVisual() {
                   <EcosystemCard key={p.name} product={p} index={i} />
                 ))}
               </div>
-              {isSparkle && (
-                <div className="absolute inset-0 pointer-events-none rounded-xl" style={{
-                  background: "radial-gradient(circle at 50% 50%, rgba(140,50,200,0.06), transparent 60%)",
-                }} />
-              )}
             </div>
           </div>
         </div>
