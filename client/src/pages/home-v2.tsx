@@ -696,9 +696,36 @@ function EcosystemVisual() {
 }
 
 function V2Footer() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
   return (
-    <footer className="relative py-16 px-6 border-t border-white/[0.04]" data-testid="v2-footer">
-      <div className="max-w-6xl mx-auto">
+    <footer className="relative py-16 px-6 border-t border-white/[0.04] overflow-hidden" data-testid="v2-footer">
+      {party && (
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[600px] h-[300px] blur-[160px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(ellipse at center bottom, rgba(100,40,200,0.08), transparent 70%)",
+            }}
+          />
+          <div
+            className="absolute left-[20%] bottom-[10%] w-[300px] h-[300px] rounded-full blur-[120px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
+              animationDelay: "2s",
+            }}
+          />
+          <div
+            className="absolute right-[15%] bottom-[20%] w-[250px] h-[250px] rounded-full blur-[110px] animate-subtle-glow"
+            style={{
+              background: "radial-gradient(circle, rgba(110,45,210,0.04), transparent 70%)",
+              animationDelay: "5s",
+            }}
+          />
+        </div>
+      )}
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
             <div className="text-base font-semibold text-white mb-2">
