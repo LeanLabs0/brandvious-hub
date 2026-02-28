@@ -128,23 +128,21 @@ function LightBeam({ party }: { party: boolean }) {
       {party && (
         <>
           <div
-            className="absolute left-1/2 -translate-x-1/2 top-0 w-[1200px] h-[30vh] blur-[160px] animate-subtle-glow"
+            className="absolute left-1/2 -translate-x-1/2 top-0 w-[1200px] h-[30vh] blur-[160px]"
             style={{
               background: "radial-gradient(ellipse at center top, rgba(100,40,200,0.08), transparent 60%)",
             }}
           />
           <div
-            className="absolute left-[30%] top-[10%] w-[400px] h-[400px] rounded-full blur-[140px] animate-subtle-glow"
+            className="absolute left-[30%] top-[10%] w-[400px] h-[400px] rounded-full blur-[140px]"
             style={{
               background: "radial-gradient(circle, rgba(80,30,180,0.06), transparent 70%)",
-              animationDelay: "2s",
             }}
           />
           <div
-            className="absolute left-[65%] top-[5%] w-[350px] h-[350px] rounded-full blur-[130px] animate-subtle-glow"
+            className="absolute left-[65%] top-[5%] w-[350px] h-[350px] rounded-full blur-[130px]"
             style={{
               background: "radial-gradient(circle, rgba(120,50,220,0.05), transparent 70%)",
-              animationDelay: "4s",
             }}
           />
         </>
@@ -211,31 +209,27 @@ function PartyAtmosphere() {
         }}
       />
       <div
-        className="absolute left-[25%] top-[15%] w-[500px] h-[500px] rounded-full blur-[160px] animate-subtle-glow"
+        className="absolute left-[25%] top-[15%] w-[500px] h-[500px] rounded-full blur-[160px]"
         style={{
           background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
-          animationDelay: "0s",
         }}
       />
       <div
-        className="absolute left-[65%] top-[35%] w-[400px] h-[400px] rounded-full blur-[150px] animate-subtle-glow"
+        className="absolute left-[65%] top-[35%] w-[400px] h-[400px] rounded-full blur-[150px]"
         style={{
           background: "radial-gradient(circle, rgba(100,40,200,0.04), transparent 70%)",
-          animationDelay: "3s",
         }}
       />
       <div
-        className="absolute left-[20%] top-[55%] w-[450px] h-[450px] rounded-full blur-[160px] animate-subtle-glow"
+        className="absolute left-[20%] top-[55%] w-[450px] h-[450px] rounded-full blur-[160px]"
         style={{
           background: "radial-gradient(circle, rgba(90,35,190,0.035), transparent 70%)",
-          animationDelay: "6s",
         }}
       />
       <div
-        className="absolute left-[70%] top-[75%] w-[350px] h-[350px] rounded-full blur-[140px] animate-subtle-glow"
+        className="absolute left-[70%] top-[75%] w-[350px] h-[350px] rounded-full blur-[140px]"
         style={{
           background: "radial-gradient(circle, rgba(80,30,170,0.03), transparent 70%)",
-          animationDelay: "9s",
         }}
       />
     </div>
@@ -711,19 +705,17 @@ function V2Footer() {
             }}
           />
           <div
-            className="absolute left-[5%] top-[10%] w-[500px] h-[500px] rounded-full animate-subtle-glow"
+            className="absolute left-[5%] top-[10%] w-[500px] h-[500px] rounded-full"
             style={{
               background: "radial-gradient(circle, rgba(90,35,190,0.25), transparent 65%)",
               filter: "blur(70px)",
-              animationDelay: "2s",
             }}
           />
           <div
-            className="absolute right-[5%] top-[15%] w-[450px] h-[450px] rounded-full animate-subtle-glow"
+            className="absolute right-[5%] top-[15%] w-[450px] h-[450px] rounded-full"
             style={{
               background: "radial-gradient(circle, rgba(130,55,230,0.22), transparent 65%)",
               filter: "blur(70px)",
-              animationDelay: "4s",
             }}
           />
         </div>
