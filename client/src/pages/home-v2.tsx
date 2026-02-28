@@ -704,22 +704,25 @@ function V2Footer() {
       {party && (
         <div className="absolute inset-0 pointer-events-none z-[1]">
           <div
-            className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[900px] h-[500px] blur-[120px] animate-subtle-glow"
+            className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(120,50,220,0.22), rgba(80,30,180,0.10), transparent 70%)",
+              background: "radial-gradient(ellipse at center, rgba(120,50,220,0.35), rgba(80,30,180,0.15) 50%, transparent 80%)",
+              filter: "blur(80px)",
             }}
           />
           <div
-            className="absolute left-[10%] top-[20%] w-[400px] h-[400px] rounded-full blur-[100px] animate-subtle-glow"
+            className="absolute left-[5%] top-[10%] w-[500px] h-[500px] rounded-full animate-subtle-glow"
             style={{
-              background: "radial-gradient(circle, rgba(90,35,190,0.15), transparent 70%)",
+              background: "radial-gradient(circle, rgba(90,35,190,0.25), transparent 65%)",
+              filter: "blur(70px)",
               animationDelay: "2s",
             }}
           />
           <div
-            className="absolute right-[10%] top-[30%] w-[350px] h-[350px] rounded-full blur-[100px] animate-subtle-glow"
+            className="absolute right-[5%] top-[15%] w-[450px] h-[450px] rounded-full animate-subtle-glow"
             style={{
-              background: "radial-gradient(circle, rgba(130,55,230,0.13), transparent 70%)",
+              background: "radial-gradient(circle, rgba(130,55,230,0.22), transparent 65%)",
+              filter: "blur(70px)",
               animationDelay: "4s",
             }}
           />
