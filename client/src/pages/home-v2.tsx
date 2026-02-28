@@ -217,17 +217,17 @@ function SectionGlow({ party }: { party: boolean }) {
 
 function GlowDivider() {
   return (
-    <div className="relative h-px w-full overflow-visible">
+    <div className="relative h-px w-full overflow-hidden">
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(120,50,200,0.3), rgba(160,80,220,0.4), rgba(120,50,200,0.3), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
         }}
       />
       <div
-        className="absolute -top-[6px] left-0 right-0 h-[13px] blur-[8px]"
+        className="absolute top-0 h-px w-[120px] animate-sweep-divider"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(120,50,200,0.15), rgba(140,60,220,0.2), rgba(120,50,200,0.15), transparent)",
+          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), rgba(255,255,255,0.4), rgba(255,255,255,0.25), transparent)",
         }}
       />
     </div>
