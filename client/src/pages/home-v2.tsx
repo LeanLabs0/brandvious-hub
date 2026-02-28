@@ -695,27 +695,36 @@ function V2Footer() {
 
   return (
     <footer
-      className="relative py-16 px-6"
-      style={{
-        borderTop: party ? "1px solid rgba(120,60,220,0.15)" : "1px solid rgba(255,255,255,0.04)",
-      }}
+      className="relative py-16 px-6 border-t border-white/[0.04]"
       data-testid="v2-footer"
     >
       {party && (
-        <>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
+            className="absolute top-0 left-[10%] right-[10%] h-[1px]"
             style={{
-              background: "linear-gradient(90deg, transparent 10%, rgba(120,60,220,0.3) 50%, transparent 90%)",
+              background: "linear-gradient(90deg, transparent, rgba(160,100,255,0.6) 30%, rgba(200,150,255,0.8) 50%, rgba(160,100,255,0.6) 70%, transparent)",
             }}
           />
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute top-0 left-[20%] right-[20%] h-[80px]"
             style={{
-              background: "linear-gradient(to bottom, transparent 0%, rgba(100,40,200,0.06) 30%, rgba(120,50,220,0.12) 100%)",
+              background: "linear-gradient(to bottom, rgba(140,80,255,0.12), transparent)",
             }}
           />
-        </>
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[120px]"
+            style={{
+              background: "radial-gradient(ellipse at top center, rgba(160,100,255,0.15), transparent 80%)",
+            }}
+          />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[200px]"
+            style={{
+              background: "linear-gradient(to top, rgba(80,30,180,0.08), transparent)",
+            }}
+          />
+        </div>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
@@ -785,22 +794,9 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
-function PartyFooterWash() {
-  const { theme } = useTheme();
-  if (theme !== "sparkle") return null;
-  return (
-    <div
-      className="absolute bottom-0 left-0 right-0 h-[400px] pointer-events-none z-[1]"
-      style={{
-        background: "radial-gradient(ellipse 120% 100% at 50% 100%, rgba(100,40,200,0.10) 0%, rgba(80,30,180,0.04) 40%, transparent 70%)",
-      }}
-    />
-  );
-}
-
 export default function HomeV2() {
   return (
-    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative overflow-hidden" data-testid="v2-page">
+    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="v2-page">
       <PartyLayer />
       <NoiseOverlay />
       <V2Navbar />
@@ -811,7 +807,6 @@ export default function HomeV2() {
       <ThesisSection />
       <EcosystemVisual />
       <V2Footer />
-      <PartyFooterWash />
     </div>
   );
 }
