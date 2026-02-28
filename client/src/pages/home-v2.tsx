@@ -189,45 +189,53 @@ function FloatingParticles({ party }: { party: boolean }) {
   );
 }
 
-function AmbientOrb({ left, top, size, delay }: { left: string; top: string; size: string; delay: string }) {
+function PartyAtmosphere() {
   return (
-    <div
-      className="absolute rounded-full blur-[140px] pointer-events-none animate-subtle-glow"
-      style={{
-        left,
-        top,
-        width: size,
-        height: size,
-        background: "radial-gradient(circle, rgba(100,40,200,0.07), transparent 70%)",
-        animationDelay: delay,
-      }}
-    />
-  );
-}
-
-function SectionGlow({ party }: { party: boolean }) {
-  if (!party) return null;
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      <AmbientOrb left="10%" top="20%" size="500px" delay="0s" />
-      <AmbientOrb left="70%" top="60%" size="400px" delay="3s" />
-    </div>
-  );
-}
-
-function GlowDivider() {
-  return (
-    <div className="relative h-px w-full overflow-hidden">
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div
-        className="absolute inset-0"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-full"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+          background: "linear-gradient(to bottom, rgba(140,80,255,0.4) 0%, rgba(100,50,220,0.15) 20%, rgba(80,30,180,0.06) 40%, rgba(60,20,140,0.03) 60%, transparent 80%)",
         }}
       />
       <div
-        className="absolute top-0 h-px w-[120px] animate-sweep-divider"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[200px] h-full blur-[100px]"
         style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.25), rgba(255,255,255,0.4), rgba(255,255,255,0.25), transparent)",
+          background: "linear-gradient(to bottom, rgba(120,60,255,0.12) 0%, rgba(100,40,200,0.06) 25%, rgba(80,30,160,0.03) 50%, rgba(60,20,120,0.015) 75%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-full blur-[180px]"
+        style={{
+          background: "linear-gradient(to bottom, rgba(100,40,200,0.06) 0%, rgba(80,30,160,0.025) 30%, rgba(60,20,120,0.01) 60%, transparent 100%)",
+        }}
+      />
+      <div
+        className="absolute left-[25%] top-[15%] w-[500px] h-[500px] rounded-full blur-[160px] animate-subtle-glow"
+        style={{
+          background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
+          animationDelay: "0s",
+        }}
+      />
+      <div
+        className="absolute left-[65%] top-[35%] w-[400px] h-[400px] rounded-full blur-[150px] animate-subtle-glow"
+        style={{
+          background: "radial-gradient(circle, rgba(100,40,200,0.04), transparent 70%)",
+          animationDelay: "3s",
+        }}
+      />
+      <div
+        className="absolute left-[20%] top-[55%] w-[450px] h-[450px] rounded-full blur-[160px] animate-subtle-glow"
+        style={{
+          background: "radial-gradient(circle, rgba(90,35,190,0.035), transparent 70%)",
+          animationDelay: "6s",
+        }}
+      />
+      <div
+        className="absolute left-[70%] top-[75%] w-[350px] h-[350px] rounded-full blur-[140px] animate-subtle-glow"
+        style={{
+          background: "radial-gradient(circle, rgba(80,30,170,0.03), transparent 70%)",
+          animationDelay: "9s",
         }}
       />
     </div>
@@ -355,23 +363,11 @@ function V2Hero() {
 }
 
 function StatsRow() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-
   return (
     <section
-      className={`relative py-16 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      className="relative py-16 px-6 border-t border-white/[0.06]"
       data-testid="v2-section-stats"
     >
-      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
-      {party && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[200px] blur-[120px]"
-            style={{ background: "radial-gradient(ellipse, rgba(100,40,200,0.05), transparent 70%)" }}
-          />
-        </div>
-      )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-3 gap-8">
           {stats.map((s, i) => (
@@ -459,7 +455,6 @@ function ProductsSection() {
 
   return (
     <section id="products" className="relative py-24 px-6" data-testid="v2-section-products">
-      <SectionGlow party={party} />
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
@@ -487,33 +482,12 @@ function ProductsSection() {
 }
 
 function MissionSection() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-
   return (
     <section
       id="mission"
-      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      className="relative py-24 px-6 border-t border-white/[0.06]"
       data-testid="v2-section-mission"
     >
-      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {party ? (
-          <>
-            <div
-              className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px] animate-subtle-glow"
-              style={{ background: "radial-gradient(ellipse, rgba(100,40,200,0.08), transparent 70%)" }}
-            />
-            <AmbientOrb left="20%" top="30%" size="350px" delay="1s" />
-          </>
-        ) : (
-          <div
-            className="absolute left-1/2 top-0 -translate-x-1/2 w-[800px] h-[400px] blur-[150px]"
-            style={{ background: "radial-gradient(ellipse, rgba(255,255,255,0.02), transparent 70%)" }}
-          />
-        )}
-      </div>
-
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           <div>
@@ -559,15 +533,9 @@ function ThesisSection() {
   return (
     <section
       id="thesis"
-      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      className="relative py-24 px-6 border-t border-white/[0.06]"
       data-testid="v2-section-thesis"
     >
-      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
-      {party && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <AmbientOrb left="60%" top="10%" size="500px" delay="2s" />
-        </div>
-      )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
@@ -676,16 +644,9 @@ function EcosystemVisual() {
 
   return (
     <section
-      className={`relative py-24 px-6 ${party ? "" : "border-t border-white/[0.06]"}`}
+      className="relative py-24 px-6 border-t border-white/[0.06]"
       data-testid="v2-section-ecosystem"
     >
-      {party && <div className="absolute top-0 left-0 right-0"><GlowDivider /></div>}
-      {party && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <AmbientOrb left="40%" top="20%" size="600px" delay="0s" />
-          <AmbientOrb left="80%" top="60%" size="350px" delay="4s" />
-        </div>
-      )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className={`rounded-2xl overflow-hidden p-8 md:p-12 transition-all duration-500 ${glassCard} ${glassCardBorder} ${party ? `${cardShadowBase} shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]` : cardShadowBase}`}>
           <div
@@ -799,9 +760,16 @@ function V2Footer() {
   );
 }
 
+function PartyLayer() {
+  const { theme } = useTheme();
+  if (theme !== "sparkle") return null;
+  return <PartyAtmosphere />;
+}
+
 export default function HomeV2() {
   return (
-    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white" data-testid="v2-page">
+    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="v2-page">
+      <PartyLayer />
       <NoiseOverlay />
       <V2Navbar />
       <V2Hero />

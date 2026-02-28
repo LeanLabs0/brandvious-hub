@@ -268,15 +268,6 @@
     animation: subtle-glow 6s infinite ease-in-out;
   }
 
-  @keyframes sweep-divider {
-    0% { left: -120px; }
-    100% { left: 100%; }
-  }
-
-  .animate-sweep-divider {
-    animation: sweep-divider 8s ease-in-out infinite;
-  }
-
   @keyframes gradient-rotate {
     0% { --gradient-angle: 0deg; }
     100% { --gradient-angle: 360deg; }
