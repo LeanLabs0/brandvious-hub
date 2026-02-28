@@ -694,31 +694,28 @@ function V2Footer() {
   const party = theme === "sparkle";
 
   return (
-    <footer className="relative py-16 px-6 border-t border-white/[0.04] overflow-hidden" data-testid="v2-footer">
+    <footer
+      className="relative py-16 px-6"
+      style={{
+        borderTop: party ? "1px solid rgba(120,60,220,0.15)" : "1px solid rgba(255,255,255,0.04)",
+      }}
+      data-testid="v2-footer"
+    >
       {party && (
-        <div className="absolute inset-0 pointer-events-none z-[1]">
+        <>
           <div
-            className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full"
+            className="absolute top-0 left-0 right-0 h-[1px] pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse at center, rgba(120,50,220,0.35), rgba(80,30,180,0.15) 50%, transparent 80%)",
-              filter: "blur(80px)",
+              background: "linear-gradient(90deg, transparent 10%, rgba(120,60,220,0.3) 50%, transparent 90%)",
             }}
           />
           <div
-            className="absolute left-[5%] top-[10%] w-[500px] h-[500px] rounded-full"
+            className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(circle, rgba(90,35,190,0.25), transparent 65%)",
-              filter: "blur(70px)",
+              background: "linear-gradient(to bottom, transparent 0%, rgba(100,40,200,0.06) 30%, rgba(120,50,220,0.12) 100%)",
             }}
           />
-          <div
-            className="absolute right-[5%] top-[15%] w-[450px] h-[450px] rounded-full"
-            style={{
-              background: "radial-gradient(circle, rgba(130,55,230,0.22), transparent 65%)",
-              filter: "blur(70px)",
-            }}
-          />
-        </div>
+        </>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
@@ -788,9 +785,22 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
+function PartyFooterWash() {
+  const { theme } = useTheme();
+  if (theme !== "sparkle") return null;
+  return (
+    <div
+      className="absolute bottom-0 left-0 right-0 h-[400px] pointer-events-none z-[1]"
+      style={{
+        background: "radial-gradient(ellipse 120% 100% at 50% 100%, rgba(100,40,200,0.10) 0%, rgba(80,30,180,0.04) 40%, transparent 70%)",
+      }}
+    />
+  );
+}
+
 export default function HomeV2() {
   return (
-    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="v2-page">
+    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative overflow-hidden" data-testid="v2-page">
       <PartyLayer />
       <NoiseOverlay />
       <V2Navbar />
@@ -801,6 +811,7 @@ export default function HomeV2() {
       <ThesisSection />
       <EcosystemVisual />
       <V2Footer />
+      <PartyFooterWash />
     </div>
   );
 }
