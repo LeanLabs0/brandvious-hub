@@ -193,43 +193,25 @@ function PartyAtmosphere() {
       <div
         className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-full"
         style={{
-          background: "linear-gradient(to bottom, rgba(140,80,255,0.4) 0%, rgba(100,50,220,0.15) 20%, rgba(80,30,180,0.06) 40%, rgba(60,20,140,0.03) 60%, transparent 80%)",
+          background: "linear-gradient(to bottom, rgba(140,80,255,0.4) 0%, rgba(100,50,220,0.15) 20%, rgba(80,30,180,0.06) 40%, rgba(60,20,140,0.04) 60%, rgba(60,20,140,0.03) 80%, rgba(100,50,220,0.08) 92%, rgba(140,80,255,0.25) 100%)",
         }}
       />
       <div
         className="absolute left-1/2 -translate-x-1/2 top-0 w-[200px] h-full blur-[100px]"
         style={{
-          background: "linear-gradient(to bottom, rgba(120,60,255,0.12) 0%, rgba(100,40,200,0.06) 25%, rgba(80,30,160,0.03) 50%, rgba(60,20,120,0.015) 75%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(120,60,255,0.12) 0%, rgba(100,40,200,0.06) 25%, rgba(80,30,160,0.02) 50%, rgba(60,20,120,0.015) 75%, rgba(100,40,200,0.06) 92%, rgba(120,60,255,0.10) 100%)",
         }}
       />
       <div
         className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-full blur-[180px]"
         style={{
-          background: "linear-gradient(to bottom, rgba(100,40,200,0.06) 0%, rgba(80,30,160,0.025) 30%, rgba(60,20,120,0.01) 60%, transparent 100%)",
+          background: "linear-gradient(to bottom, rgba(100,40,200,0.06) 0%, rgba(80,30,160,0.02) 30%, rgba(60,20,120,0.008) 60%, rgba(80,30,160,0.02) 85%, rgba(100,40,200,0.05) 100%)",
         }}
       />
       <div
-        className="absolute left-[25%] top-[15%] w-[500px] h-[500px] rounded-full blur-[160px]"
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[600px] h-[250px] blur-[120px]"
         style={{
-          background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute left-[65%] top-[35%] w-[400px] h-[400px] rounded-full blur-[150px]"
-        style={{
-          background: "radial-gradient(circle, rgba(100,40,200,0.04), transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute left-[20%] top-[55%] w-[450px] h-[450px] rounded-full blur-[160px]"
-        style={{
-          background: "radial-gradient(circle, rgba(90,35,190,0.035), transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute left-[70%] top-[75%] w-[350px] h-[350px] rounded-full blur-[140px]"
-        style={{
-          background: "radial-gradient(circle, rgba(80,30,170,0.03), transparent 70%)",
+          background: "radial-gradient(ellipse at center bottom, rgba(120,50,220,0.12), transparent 70%)",
         }}
       />
     </div>
@@ -701,27 +683,15 @@ function V2Footer() {
       {party && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <div
-            className="absolute top-0 left-[10%] right-[10%] h-[1px]"
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[1px]"
             style={{
-              background: "linear-gradient(90deg, transparent, rgba(160,100,255,0.6) 30%, rgba(200,150,255,0.8) 50%, rgba(160,100,255,0.6) 70%, transparent)",
+              boxShadow: "0 0 80px 40px rgba(140,80,255,0.15), 0 0 160px 80px rgba(100,40,200,0.08)",
             }}
           />
           <div
-            className="absolute top-0 left-[20%] right-[20%] h-[80px]"
+            className="absolute top-0 left-[15%] right-[15%] h-[1px]"
             style={{
-              background: "linear-gradient(to bottom, rgba(140,80,255,0.12), transparent)",
-            }}
-          />
-          <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[120px]"
-            style={{
-              background: "radial-gradient(ellipse at top center, rgba(160,100,255,0.15), transparent 80%)",
-            }}
-          />
-          <div
-            className="absolute bottom-0 left-0 right-0 h-[200px]"
-            style={{
-              background: "linear-gradient(to top, rgba(80,30,180,0.08), transparent)",
+              background: "linear-gradient(90deg, transparent, rgba(140,80,255,0.35) 40%, rgba(160,100,255,0.5) 50%, rgba(140,80,255,0.35) 60%, transparent)",
             }}
           />
         </div>
