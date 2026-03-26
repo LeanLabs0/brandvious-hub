@@ -8,16 +8,12 @@ import {
   ArrowRight,
   TrendingUp,
   BookOpen,
-  Calendar,
-  Clock,
   Layers,
   BarChart3,
   Zap,
   Shield,
-  Globe,
   Award,
   Target,
-  Lightbulb,
   Building2,
   Car,
   Heart,
@@ -29,7 +25,6 @@ import {
   Cpu,
   ArrowUpRight,
   ChevronDown,
-  Hash,
   Cloud,
   Code,
   CreditCard,
@@ -846,18 +841,21 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
       <h3 className="text-xl font-semibold text-foreground mb-2 leading-snug">{article.title}</h3>
       <p className="text-sm text-muted-foreground/50 mb-4">{article.subtitle}</p>
 
-      <div className="flex items-center gap-2 mb-5 flex-wrap">
-        {article.mentions.slice(0, 3).map((m) => (
-          <span key={m.name} className="text-[13px] text-muted-foreground/60">{m.name}</span>
+      <div className="flex items-center gap-0 mb-5 flex-wrap text-[13px] text-muted-foreground/50">
+        {article.mentions.slice(0, 3).map((m, i) => (
+          <span key={m.name} className="flex items-center gap-0">
+            {i > 0 && <span className="text-muted-foreground/20 mx-1.5">·</span>}
+            {m.name}
+          </span>
         ))}
         {article.mentions.length > 3 && (
-          <span className="text-[13px] text-muted-foreground/30">+{article.mentions.length - 3}</span>
+          <span className="text-muted-foreground/25 ml-1.5">+{article.mentions.length - 3}</span>
         )}
       </div>
 
-      <div className="flex items-center justify-between text-[13px] text-muted-foreground/30 pt-4 border-t border-border/10">
+      <div className="flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t border-border/8">
         <span>{article.readTime} · {article.updated}</span>
-        <ArrowRight className="w-3.5 h-3.5" />
+        <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/15" />
       </div>
     </div>
   );
@@ -888,7 +886,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
 
   return (
     <div>
-      <div className="mb-16">
+      <div className="mb-8">
         <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/30 mb-6 font-medium">WhatisBest.com</p>
         <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl mb-4 leading-[1.05]" data-testid="text-page-title">
           B2B product research.
@@ -898,7 +896,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </p>
       </div>
 
-      <div className={`rounded-2xl border px-5 py-3.5 flex items-center gap-4 mb-16 ${cardClass} transition-all focus-within:border-muted-foreground/30`}>
+      <div className={`rounded-2xl border px-5 py-3.5 flex items-center gap-4 mb-20 ${cardClass} transition-all focus-within:border-muted-foreground/30`}>
         <Sparkles className="w-4 h-4 text-muted-foreground/30 shrink-0" />
         <input
           type="text"
@@ -928,56 +926,48 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </div>
       ) : (
         <>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-16">
-            {[
-              { label: "Sectors", value: String(ALL_SECTORS.length) },
-              { label: "Articles", value: String(totalArticles) },
-              { label: "Brands Covered", value: totalBrands.toLocaleString() },
-              { label: "Avg. Depth", value: "3,900 words" },
-            ].map((s) => (
-              <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
-                <div className="text-2xl font-bold text-foreground tracking-tight">{s.value}</div>
-                <div className="text-[13px] text-muted-foreground/40 font-medium">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
           <div className="mb-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
-              {CLUSTERS.map((cluster) => (
-                <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
-                  <h2 className="text-2xl font-bold tracking-tight text-foreground mb-6">{cluster.name}</h2>
-                  <div className="space-y-0">
-                    {cluster.sectors.map((sector) => {
-                      const Icon = sector.icon;
-                      const sectorArticleCount = ARTICLES.filter(a => a.sectorId === sector.id).length;
-                      return (
-                        <button
-                          key={sector.id}
-                          className="w-full text-left group flex items-center justify-between py-3 border-b border-border/10 hover:border-border/30 transition-colors"
-                          onClick={() => onSelectSector(sector.id)}
-                          data-testid={`sector-link-${sector.id}`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <Icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors shrink-0" />
-                            <span className="text-[15px] font-normal text-foreground/80 group-hover:text-foreground transition-colors">{sector.name}</span>
-                          </div>
-                          <div className="flex items-center gap-3">
-                            <span className="text-sm text-muted-foreground/40">{sector.articleCount}</span>
-                            <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/20 group-hover:text-muted-foreground/60 transition-colors" />
-                          </div>
-                        </button>
-                      );
-                    })}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
+              {CLUSTERS.map((cluster) => {
+                const clusterSectorCount = cluster.sectors.length;
+                const clusterBrandCount = cluster.sectors.reduce((a, s) => a + s.brandCount, 0);
+                return (
+                  <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
+                    <div className="mb-5">
+                      <h2 className="text-xl font-bold tracking-tight text-foreground">{cluster.name}</h2>
+                      <p className="text-[13px] text-muted-foreground/30 mt-1">{clusterSectorCount} sectors · {clusterBrandCount} brands</p>
+                    </div>
+                    <div>
+                      {cluster.sectors.map((sector, i) => {
+                        const Icon = sector.icon;
+                        return (
+                          <button
+                            key={sector.id}
+                            className={`w-full text-left group flex items-center justify-between py-3 transition-colors ${i < cluster.sectors.length - 1 ? "border-b border-border/8" : ""}`}
+                            onClick={() => onSelectSector(sector.id)}
+                            data-testid={`sector-link-${sector.id}`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <Icon className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-muted-foreground/60 transition-colors shrink-0" />
+                              <span className="text-[15px] font-normal text-foreground/70 group-hover:text-foreground transition-colors">{sector.name}</span>
+                            </div>
+                            <div className="flex items-center gap-3">
+                              <span className="text-[13px] text-muted-foreground/25 tabular-nums">{sector.articleCount}</span>
+                              <ArrowUpRight className="w-3 h-3 text-muted-foreground/0 group-hover:text-muted-foreground/40 transition-colors" />
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
           {featuredArticles.length > 0 && (
-            <div className="mb-10">
-              <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/30 mb-8 font-medium">Featured</p>
+            <div className="mb-10 pt-12 border-t border-border/10">
+              <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 mb-8 font-medium">Featured</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {featuredArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
               </div>
@@ -1030,48 +1020,35 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
         </div>
       </div>
 
-      <div className={`rounded-xl border p-5 mb-8 ${cardClass}`}>
-        <div className="flex items-center gap-2 mb-4">
-          <Lightbulb className="w-3.5 h-3.5 text-muted-foreground/50" />
-          <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Popular Topics</span>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-          {sector.sampleTopics.map((t) => (
-            <div key={t} className="text-sm text-foreground/75 flex items-center gap-2 py-1.5">
-              <Hash className="w-3 h-3 text-muted-foreground/40 shrink-0" />
-              {t}
-            </div>
-          ))}
-        </div>
+      <div className="flex items-center gap-2 mb-10 flex-wrap">
+        {sector.sampleTopics.map((t, i) => (
+          <span key={t} className="flex items-center gap-0 text-[13px] text-muted-foreground/40">
+            {i > 0 && <span className="text-muted-foreground/15 mx-2">·</span>}
+            {t}
+          </span>
+        ))}
       </div>
 
       {sectorArticles.length > 0 ? (
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-5">
-            <BookOpen className="w-3.5 h-3.5 text-muted-foreground/50" />
-            <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Articles</span>
-            <Badge variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate">{sectorArticles.length}</Badge>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="mb-16">
+          <p className="text-[13px] text-muted-foreground/25 mb-6 font-medium">{sectorArticles.length} articles</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {sectorArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
           </div>
         </div>
       ) : (
-        <div className={`rounded-xl border p-8 text-center mb-12 ${cardClass}`}>
-          <p className="text-base text-muted-foreground/60">Articles for this sector are in development.</p>
-          <p className="text-sm text-muted-foreground/30 mt-1">{sector.articleCount} planned articles covering {sector.brandCount} brands.</p>
+        <div className={`rounded-xl border p-8 text-center mb-16 ${cardClass}`}>
+          <p className="text-base text-muted-foreground/50">Articles for this sector are in development.</p>
+          <p className="text-sm text-muted-foreground/25 mt-1">{sector.articleCount} planned · {sector.brandCount} brands</p>
         </div>
       )}
 
       {relatedSectors.length > 0 && (
-        <div className="mb-10">
-          <div className="flex items-center gap-2 mb-5">
-            <Globe className="w-3.5 h-3.5 text-muted-foreground/50" />
-            <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">
-              {parentCluster ? `More in ${parentCluster.name}` : "Explore Other Sectors"}
-            </span>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        <div className="mb-10 pt-10 border-t border-border/10">
+          <p className="text-[13px] text-muted-foreground/25 mb-6 font-medium">
+            {parentCluster ? `More in ${parentCluster.name}` : "Other sectors"}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             {relatedSectors.map((s) => {
               const SectorIcon = s.icon;
               return (
@@ -1081,9 +1058,9 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
                   onClick={() => onSelectSector(s.id)}
                   data-testid={`related-sector-${s.id}`}
                 >
-                  <SectorIcon className="w-4 h-4 text-muted-foreground/50 mb-2" />
-                  <div className="text-sm font-medium text-foreground">{s.name}</div>
-                  <div className="text-[13px] text-muted-foreground/50">{s.articleCount} articles</div>
+                  <SectorIcon className="w-3.5 h-3.5 text-muted-foreground/30 mb-2" />
+                  <div className="text-sm font-medium text-foreground/80">{s.name}</div>
+                  <div className="text-[12px] text-muted-foreground/30 mt-0.5">{s.articleCount} articles</div>
                 </button>
               );
             })}
@@ -1114,79 +1091,62 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         Back to {sector?.name || "sector"}
       </button>
 
-      <div className="flex items-center gap-2 mb-4 flex-wrap">
+      <div className="flex items-center gap-2 mb-5 text-[13px] text-muted-foreground/35">
         {sector && (
-          <button onClick={() => onSelectSector(sector.id)}>
-            <Badge variant="outline" className="text-sm text-muted-foreground/60 no-default-hover-elevate cursor-pointer">
-              {sector.name}
-            </Badge>
+          <button onClick={() => onSelectSector(sector.id)} className="hover:text-muted-foreground/60 transition-colors">
+            {sector.name}
           </button>
         )}
-        <Badge variant="outline" className="text-sm text-muted-foreground/60 no-default-hover-elevate flex items-center gap-1">
-          <TypeIcon className="w-3 h-3" />
+        <span className="text-muted-foreground/15">·</span>
+        <span className="flex items-center gap-1">
+          <TypeIcon className="w-2.5 h-2.5" />
           {TYPE_LABELS[article.type].label}
-        </Badge>
+        </span>
+        <span className="text-muted-foreground/15">·</span>
+        <span>{article.readTime}</span>
+        <span className="text-muted-foreground/15">·</span>
+        <span>{article.updated}</span>
       </div>
 
       <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl mb-3" data-testid="text-article-title">
         {article.title}
       </h1>
-      <p className="text-lg text-muted-foreground/60 mb-6">{article.subtitle}</p>
+      <p className="text-lg text-muted-foreground/50 mb-8">{article.subtitle}</p>
 
-      <div className="flex items-center gap-4 text-sm text-muted-foreground/50 mb-8 pb-8 border-b border-border/20">
-        <div className="flex items-center gap-1.5">
-          <Calendar className="w-3.5 h-3.5" />
-          <span>{article.updated}</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <Clock className="w-3.5 h-3.5" />
-          <span>{article.readTime}</span>
-        </div>
-      </div>
-
-      <p className="text-base text-foreground/80 leading-relaxed mb-8" data-testid="text-intro">{article.intro}</p>
+      <p className="text-base text-foreground/75 leading-[1.8] mb-10" data-testid="text-intro">{article.intro}</p>
 
       {article.sections.length > 0 && (
-        <div className="space-y-6 mb-8">
+        <div className="space-y-8 mb-10">
           {article.sections.map((section, i) => (
             <div key={i}>
-              <h2 className="text-lg font-semibold text-foreground mb-3">{section.heading}</h2>
-              <p className="text-sm text-foreground/80 leading-relaxed">{section.content}</p>
+              <h2 className="text-lg font-bold text-foreground mb-3">{section.heading}</h2>
+              <p className="text-base text-foreground/70 leading-[1.8]">{section.content}</p>
             </div>
           ))}
         </div>
       )}
 
-      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <div className="flex items-center gap-2 mb-4">
-          <Target className="w-3.5 h-3.5 text-emerald-500/70" />
-          <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">The Bottom Line</span>
-        </div>
-        <p className="text-base text-foreground/80 leading-relaxed font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
+      <div className="rounded-xl border-l-2 border-foreground/10 pl-6 py-4 mb-10">
+        <p className="text-[13px] text-muted-foreground/30 font-medium mb-3">The Bottom Line</p>
+        <p className="text-base text-foreground/80 leading-[1.7] font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
 
-      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium">Products Mentioned</span>
-          <Badge variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate">{article.mentions.length}</Badge>
-        </div>
-        <div className="space-y-2.5">
+      <div className="mb-8 pt-8 border-t border-border/10">
+        <p className="text-[13px] text-muted-foreground/25 font-medium mb-5">Products Mentioned</p>
+        <div className="space-y-2">
           {article.mentions.map((m) => (
-            <div key={m.name} className="rounded-lg bg-background/40 px-4 py-3 flex items-start justify-between gap-4 flex-wrap">
-              <span className="text-sm font-semibold text-foreground">{m.name}</span>
-              <span className="text-[13px] text-muted-foreground/60">{m.verdict}</span>
+            <div key={m.name} className="flex items-start justify-between gap-4 py-2.5 flex-wrap">
+              <span className="text-sm font-semibold text-foreground/80">{m.name}</span>
+              <span className="text-[13px] text-muted-foreground/40">{m.verdict}</span>
             </div>
           ))}
         </div>
       </div>
 
-      <div className={`rounded-xl border p-5 mb-6 ${cardClass}`}>
-        <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em] font-medium mb-3 block">Tags</span>
-        <div className="flex items-center gap-2 flex-wrap">
-          {article.tags.map((t) => (
-            <Badge key={t} variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate">{t}</Badge>
-          ))}
-        </div>
+      <div className="mb-8 flex items-center gap-2 flex-wrap">
+        {article.tags.map((t) => (
+          <span key={t} className="text-[12px] text-muted-foreground/30 border border-border/10 rounded-md px-2 py-1">{t}</span>
+        ))}
       </div>
 
       <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-sm text-muted-foreground/50">
