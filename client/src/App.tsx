@@ -28,7 +28,6 @@ function Router() {
       <Route path="/whatisbest/sector/:sectorId/:articleId" component={WhatisBestV3} />
       <Route path="/whatisbest/v1" component={WhatisBest} />
       <Route path="/whatisbest/v2" component={WhatisBestV2} />
-      <Route path="/whatisbest/v3" component={WhatisBestV3} />
       <Route path="/answerstack" component={AnswerStack} />
       <Route path="/reviewradar" component={ReviewRadar} />
       <Route path="/v2" component={HomeV2} />
