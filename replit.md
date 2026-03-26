@@ -40,7 +40,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - `client/src/pages/entities.tsx` — Entities.org preview page (registry only, used at /entitiespreview)
 - `client/src/pages/whatisbest.tsx` — WhatisBest v1 (flat category structure, at /whatisbest/v1)
 - `client/src/pages/whatisbest-v2.tsx` — WhatisBest v2 (9-sector card grid, at /whatisbest/v2)
-- `client/src/pages/whatisbest-v3.tsx` — WhatisBest v3 (30 sectors in 6 clusters, editorial layout, at /whatisbest and /whatisbest/v3)
+- `client/src/pages/whatisbest-v3.tsx` — WhatisBest v3 (30 sectors in 6 clusters, editorial layout with ProductScorecard system, at /whatisbest and /whatisbest/v3)
 - `client/src/pages/answerstack.tsx` — AnswerStack preview page
 - `client/src/pages/reviewradar.tsx` — ReviewRadar preview page
 - `client/src/index.css` — Dark theme tokens
