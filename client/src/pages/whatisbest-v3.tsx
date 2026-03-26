@@ -1557,36 +1557,59 @@ function SparkleBackground() {
   );
 }
 
+function LightBackground() {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsl(40 20% 97%) 0%, hsl(40 10% 98%) 30%, hsl(220 10% 97%) 100%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[400px]" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,170,120,0.06), transparent)" }} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[120px]" style={{ background: "linear-gradient(to bottom, rgba(180,150,100,0.15), transparent)" }} />
+    </div>
+  );
+}
+
+function DarkBackground() {
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, hsl(210 15% 7%) 0%, hsl(220 10% 6%) 40%, hsl(215 12% 5%) 100%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 90% 50% at 50% 0%, rgba(60,100,140,0.08), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-[300px]" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(40,70,100,0.05), transparent)" }} />
+      <div className="absolute left-[15%] top-[20%] w-[350px] h-[350px] rounded-full blur-[150px]" style={{ background: "radial-gradient(circle, rgba(50,90,130,0.04), transparent 70%)" }} />
+      <div className="absolute left-[75%] top-[40%] w-[300px] h-[300px] rounded-full blur-[140px]" style={{ background: "radial-gradient(circle, rgba(40,80,120,0.03), transparent 70%)" }} />
+    </div>
+  );
+}
+
 function useCardStyles() {
   const { theme } = useTheme();
   const isSparkle = theme === "sparkle";
   const isLight = theme === "light";
+  const isDark = theme === "dark";
 
   const card = isSparkle
     ? "backdrop-blur-md bg-white/[0.04] border border-purple-400/[0.08]"
     : isLight
-    ? "bg-white border border-black/[0.08] shadow-sm"
-    : "backdrop-blur-sm bg-white/[0.02] border border-white/[0.06]";
+    ? "bg-[hsl(40_15%_99%)] border border-[rgba(180,160,120,0.12)] rounded-xl"
+    : "backdrop-blur-sm bg-white/[0.025] border border-white/[0.07] rounded-xl";
 
   const cardHover = isSparkle
     ? "hover:bg-white/[0.07] hover:border-purple-400/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_30px_rgba(100,40,200,0.1),0_0_60px_rgba(120,50,220,0.04)]"
     : isLight
-    ? "hover:shadow-md hover:border-black/[0.12]"
-    : "hover:bg-white/[0.04] hover:border-white/[0.12] hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]";
+    ? "hover:shadow-[0_8px_30px_rgba(120,100,60,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:border-[rgba(180,160,120,0.18)] hover:-translate-y-[1px]"
+    : "hover:bg-white/[0.04] hover:border-[rgba(120,160,200,0.12)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(60,100,140,0.06)] hover:-translate-y-[1px]";
 
   const cardShadow = isSparkle
     ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_15px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]"
     : isLight
-    ? ""
-    : "shadow-[0_1px_10px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.03)]";
+    ? "shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_16px_rgba(120,100,60,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]"
+    : "shadow-[0_2px_16px_rgba(0,0,0,0.3),0_0_8px_rgba(40,70,100,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]";
 
   const promptGlow = isSparkle
     ? "shadow-[0_0_40px_rgba(100,40,200,0.12),0_0_80px_rgba(120,50,220,0.04),inset_0_1px_0_rgba(255,255,255,0.05)] focus-within:shadow-[0_0_50px_rgba(100,40,200,0.18),0_0_100px_rgba(120,50,220,0.06),inset_0_1px_0_rgba(255,255,255,0.07)]"
     : isLight
-    ? "shadow-sm focus-within:shadow-md"
-    : "shadow-[0_1px_10px_rgba(0,0,0,0.2)] focus-within:shadow-[0_2px_20px_rgba(0,0,0,0.3)]";
+    ? "shadow-[0_1px_4px_rgba(0,0,0,0.04),0_4px_20px_rgba(120,100,60,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] focus-within:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_30px_rgba(120,100,60,0.1),inset_0_1px_0_rgba(255,255,255,0.9)]"
+    : "shadow-[0_2px_16px_rgba(0,0,0,0.3),0_0_10px_rgba(40,70,100,0.05),inset_0_1px_0_rgba(255,255,255,0.04)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_20px_rgba(60,100,140,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
 
-  return { card, cardHover, cardShadow, promptGlow, isSparkle, isLight };
+  return { card, cardHover, cardShadow, promptGlow, isSparkle, isLight, isDark };
 }
 
 function ThemeToggle() {
@@ -1616,11 +1639,11 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
     <nav
       className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
-        backdropFilter: "blur(12px)",
+        backdropFilter: "blur(16px)",
         backgroundColor:
           theme === "sparkle" ? "hsl(220 10% 6% / 0.7)" :
-          theme === "dark" ? "hsl(220 10% 6% / 0.8)" :
-          "hsl(220 10% 97% / 0.8)",
+          theme === "dark" ? "hsl(215 14% 7% / 0.85)" :
+          "hsl(40 15% 97% / 0.85)",
       }}
       data-testid="navbar"
     >
@@ -1686,7 +1709,7 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
 }
 
 function ArticleCard({ article, onClick }: { article: Article; onClick: () => void }) {
-  const { card, cardHover, cardShadow } = useCardStyles();
+  const { card, cardHover, cardShadow, isLight } = useCardStyles();
   const TypeIcon = TYPE_LABELS[article.type].icon;
   const sector = ALL_SECTORS.find(s => s.id === article.sectorId);
 
@@ -1722,7 +1745,7 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
         )}
       </div>
 
-      <div className="flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t border-white/[0.04]">
+      <div className={`flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t ${isLight ? "border-[rgba(180,160,120,0.08)]" : "border-white/[0.04]"}`}>
         <span>{article.readTime} · {article.updated}</span>
         <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/15" />
       </div>
@@ -1762,8 +1785,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </p>
       </div>
 
-      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} focus-within:border-white/[0.15]`}>
-        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : "text-muted-foreground/30"}`} />
+      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} ${isLight ? "focus-within:border-[rgba(180,160,120,0.22)]" : "focus-within:border-white/[0.15]"}`}>
+        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : isLight ? "text-[rgba(160,140,100,0.5)]" : "text-muted-foreground/30"}`} />
         <input
           type="text"
           placeholder="What are you evaluating?"
@@ -1926,9 +1949,9 @@ function RatingBar({ rating }: { rating: number }) {
   const percentage = (rating / 10) * 100;
   return (
     <div className="flex items-center gap-3">
-      <div className={`h-1.5 rounded-full flex-1 ${isLight ? "bg-black/[0.06]" : "bg-white/[0.06]"}`}>
+      <div className={`h-1.5 rounded-full flex-1 ${isLight ? "bg-[rgba(180,160,120,0.12)]" : "bg-white/[0.06]"}`}>
         <div
-          className={`h-full rounded-full transition-all duration-500 ${isSparkle ? "bg-purple-400/40" : isLight ? "bg-foreground/30" : "bg-foreground/25"}`}
+          className={`h-full rounded-full transition-all duration-500 ${isSparkle ? "bg-purple-400/40" : isLight ? "bg-[rgba(140,120,80,0.35)]" : "bg-[rgba(100,150,200,0.3)]"}`}
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -2064,7 +2087,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
       )}
 
       {article.keyTakeaways.length > 0 && (
-        <div id="takeaways" className={`rounded-xl p-6 mb-12 ${isSparkle ? "border border-purple-400/[0.1] bg-purple-500/[0.03]" : isLight ? "border border-black/[0.06] bg-black/[0.015]" : "border border-white/[0.06] bg-white/[0.02]"}`}>
+        <div id="takeaways" className={`rounded-xl p-6 mb-12 ${isSparkle ? "border border-purple-400/[0.1] bg-purple-500/[0.03]" : isLight ? "border border-[rgba(180,160,120,0.1)] bg-[hsl(40_15%_98%)]" : "border border-[rgba(60,100,140,0.08)] bg-white/[0.02]"}`}>
           <p className="text-[13px] font-semibold text-foreground/80 mb-4 flex items-center gap-2">
             <Zap className={`w-3.5 h-3.5 ${isSparkle ? "text-purple-400/50" : "text-foreground/30"}`} />
             Key Takeaways
@@ -2102,13 +2125,13 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         </div>
       )}
 
-      <div id="bottom-line" className={`rounded-xl border-l-2 pl-6 py-5 mb-12 ${isSparkle ? "border-purple-500/25" : "border-foreground/10"}`}>
+      <div id="bottom-line" className={`rounded-xl border-l-2 pl-6 py-5 mb-12 ${isSparkle ? "border-purple-500/25" : isLight ? "border-[rgba(180,160,120,0.25)]" : "border-[rgba(60,100,140,0.2)]"}`}>
         <p className="text-[13px] text-muted-foreground/35 font-semibold mb-3 uppercase tracking-[0.1em]">The Bottom Line</p>
         <p className="text-base text-foreground/80 leading-[1.8] font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
 
       {article.methodology && (
-        <div id="methodology" className={`rounded-xl p-5 mb-12 ${isLight ? "bg-black/[0.02] border border-black/[0.05]" : "bg-white/[0.015] border border-white/[0.04]"}`}>
+        <div id="methodology" className={`rounded-xl p-5 mb-12 ${isLight ? "bg-[hsl(40_15%_98%)] border border-[rgba(180,160,120,0.08)]" : "bg-white/[0.015] border border-[rgba(60,100,140,0.06)]"}`}>
           <p className="text-[13px] text-muted-foreground/35 font-semibold mb-3 uppercase tracking-[0.1em] flex items-center gap-2">
             <ClipboardList className="w-3.5 h-3.5 text-muted-foreground/30" />
             Methodology
@@ -2119,11 +2142,11 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
 
       <div className="mb-8 flex items-center gap-2 flex-wrap">
         {article.tags.map((t) => (
-          <span key={t} className={`text-[12px] rounded-md px-2.5 py-1 ${isLight ? "text-foreground/40 border border-black/[0.08] bg-black/[0.02]" : "text-muted-foreground/30 border border-white/[0.06] bg-white/[0.02]"}`}>{t}</span>
+          <span key={t} className={`text-[12px] rounded-md px-2.5 py-1 ${isLight ? "text-foreground/40 border border-[rgba(180,160,120,0.1)] bg-[hsl(40_15%_98%)]" : "text-muted-foreground/30 border border-white/[0.06] bg-white/[0.02]"}`}>{t}</span>
         ))}
       </div>
 
-      <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-black/[0.06]" : "border-white/[0.06]"}`}>
+      <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-[rgba(180,160,120,0.1)]" : "border-[rgba(60,100,140,0.08)]"}`}>
         <div className="flex items-center gap-3">
           <Shield className="w-3.5 h-3.5 text-muted-foreground/25" />
           <span>No affiliate links</span>
@@ -2180,9 +2203,14 @@ export default function WhatisBestV3() {
 
   const article = activeArticle ? ARTICLES.find(a => a.id === activeArticle) : null;
 
+  const isDark = theme === "dark";
+  const isLight = theme === "light";
+
   return (
-    <div className="min-h-screen bg-background text-foreground relative" data-testid="whatisbest-v3-page">
+    <div className="min-h-screen bg-background text-foreground relative transition-colors duration-300" data-testid="whatisbest-v3-page">
       {isSparkle && <SparkleBackground />}
+      {isDark && <DarkBackground />}
+      {isLight && <LightBackground />}
 
       <Navbar
         activeSector={view !== "home" ? activeSector : null}
@@ -2202,7 +2230,7 @@ export default function WhatisBestV3() {
         )}
       </main>
 
-      <footer className={`relative z-10 py-8 ${isSparkle ? "border-t border-purple-500/10" : "border-t border-border/20"}`}>
+      <footer className={`relative z-10 py-8 border-t ${isSparkle ? "border-purple-500/10" : isDark ? "border-[rgba(60,100,140,0.1)]" : isLight ? "border-[rgba(180,160,120,0.12)]" : "border-border/20"}`}>
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground/50">
           <div className="flex items-center gap-2">
             <Award className="w-3 h-3" />
