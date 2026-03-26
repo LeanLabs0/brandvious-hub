@@ -16,12 +16,14 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms → `/reviewradar` (preview)
 
 ## Design
-- Three-mode theme system: Light, Dark, Sparkle (with aurora canvas animation)
-- Dark near-black background, subtle gray cards, white text
-- No bright colors — fully muted palette
-- Buttons are outline/ghost style only — no colored fills
+- Three-mode theme system: Light, Dark, Sparkle
 - Font: Plus Jakarta Sans throughout (single font, hierarchy via weight/size/opacity)
+- Dark mode: glass morphism cards (backdrop-blur, bg-white/[0.02], inset highlights), subtle shadows
+- Light mode: clean white cards, border-black/[0.08], real shadows
+- Sparkle mode: spine beam, ambient orbs, floating particles, purple box-shadow halos on cards (NO colored text, NO purple fills — purple only in shadows/glow)
+- Buttons are outline/ghost style only — no colored fills
 - Color variables use HSL format: H S% L%
+- Cards use `useCardStyles()` hook for mode-aware glass/shadow/hover treatment
 
 ## Architecture
 - Frontend-only static landing page (no database, no backend logic)

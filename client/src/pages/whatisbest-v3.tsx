@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import {
   Sun,
   Moon,
@@ -715,6 +715,107 @@ const TYPE_LABELS: Record<ArticleType, { label: string; icon: typeof BookOpen }>
   trending: { label: "Trending", icon: TrendingUp },
 };
 
+function SparkleBackground() {
+  const particles = useMemo(
+    () =>
+      Array.from({ length: 35 }).map(() => ({
+        size: Math.random() * 2 + 1,
+        left: Math.random() * 100,
+        bottom: Math.random() * 50,
+        duration: Math.random() * 14 + 10,
+        delay: Math.random() * 10,
+      })),
+    [],
+  );
+
+  return (
+    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[1px] h-full"
+        style={{
+          background: "linear-gradient(to bottom, rgba(140,80,255,0.3) 0%, rgba(100,50,220,0.1) 25%, rgba(80,30,180,0.04) 50%, rgba(60,20,140,0.03) 75%, rgba(100,50,220,0.06) 92%, rgba(140,80,255,0.2) 100%)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[150px] h-full blur-[80px]"
+        style={{
+          background: "linear-gradient(to bottom, rgba(120,60,255,0.1) 0%, rgba(100,40,200,0.04) 30%, rgba(60,20,120,0.01) 60%, rgba(100,40,200,0.04) 85%, rgba(120,60,255,0.08) 100%)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[600px] h-[40vh] blur-[120px]"
+        style={{
+          background: "radial-gradient(ellipse at center top, rgba(100,60,255,0.07), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-[25%] top-[15%] w-[300px] h-[300px] rounded-full blur-[120px]"
+        style={{
+          background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-[70%] top-[8%] w-[250px] h-[250px] rounded-full blur-[110px]"
+        style={{
+          background: "radial-gradient(circle, rgba(120,50,220,0.04), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[500px] h-[200px] blur-[100px]"
+        style={{
+          background: "radial-gradient(ellipse at center bottom, rgba(120,50,220,0.1), transparent 70%)",
+        }}
+      />
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className="absolute rounded-full bg-purple-300/[0.1] animate-float-particle"
+          style={{
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            left: `${p.left}%`,
+            bottom: `${p.bottom}%`,
+            ["--duration" as string]: `${p.duration}s`,
+            ["--delay" as string]: `${p.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function useCardStyles() {
+  const { theme } = useTheme();
+  const isSparkle = theme === "sparkle";
+  const isLight = theme === "light";
+
+  const card = isSparkle
+    ? "backdrop-blur-sm bg-white/[0.03] border border-white/[0.06]"
+    : isLight
+    ? "bg-white border border-black/[0.08] shadow-sm"
+    : "backdrop-blur-sm bg-white/[0.02] border border-white/[0.06]";
+
+  const cardHover = isSparkle
+    ? "hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_25px_rgba(100,40,200,0.06)]"
+    : isLight
+    ? "hover:shadow-md hover:border-black/[0.12]"
+    : "hover:bg-white/[0.04] hover:border-white/[0.12] hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]";
+
+  const cardShadow = isSparkle
+    ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.03)]"
+    : isLight
+    ? ""
+    : "shadow-[0_1px_10px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.03)]";
+
+  const promptGlow = isSparkle
+    ? "shadow-[0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.04)] focus-within:shadow-[0_0_40px_rgba(100,40,200,0.12),inset_0_1px_0_rgba(255,255,255,0.06)]"
+    : isLight
+    ? "shadow-sm focus-within:shadow-md"
+    : "shadow-[0_1px_10px_rgba(0,0,0,0.2)] focus-within:shadow-[0_2px_20px_rgba(0,0,0,0.3)]";
+
+  return { card, cardHover, cardShadow, promptGlow, isSparkle, isLight };
+}
+
 function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const icon =
@@ -812,16 +913,13 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
 }
 
 function ArticleCard({ article, onClick }: { article: Article; onClick: () => void }) {
-  const { theme } = useTheme();
-  const cardClass = theme === "sparkle"
-    ? "border-purple-900/20 bg-card/40"
-    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const { card, cardHover, cardShadow } = useCardStyles();
   const TypeIcon = TYPE_LABELS[article.type].icon;
   const sector = ALL_SECTORS.find(s => s.id === article.sectorId);
 
   return (
     <div
-      className={`rounded-xl border p-6 cursor-pointer hover-elevate ${cardClass}`}
+      className={`rounded-xl p-6 cursor-pointer transition-all duration-300 ${card} ${cardShadow} ${cardHover}`}
       onClick={onClick}
       data-testid={`card-article-${article.id}`}
     >
@@ -851,7 +949,7 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
         )}
       </div>
 
-      <div className="flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t border-border/8">
+      <div className="flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t border-white/[0.04]">
         <span>{article.readTime} · {article.updated}</span>
         <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/15" />
       </div>
@@ -863,10 +961,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
   onSelectSector: (id: string) => void;
   onSelectArticle: (id: string) => void;
 }) {
-  const { theme } = useTheme();
-  const cardClass = theme === "sparkle"
-    ? "border-purple-900/20 bg-card/40"
-    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const { card, cardHover, cardShadow, promptGlow, isSparkle, isLight } = useCardStyles();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -894,8 +989,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </p>
       </div>
 
-      <div className={`rounded-2xl border px-5 py-3.5 flex items-center gap-4 mb-20 ${cardClass} transition-all focus-within:border-muted-foreground/30`}>
-        <Sparkles className="w-4 h-4 text-muted-foreground/30 shrink-0" />
+      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} focus-within:border-white/[0.15]`}>
+        <Sparkles className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : "text-muted-foreground/30"}`} />
         <input
           type="text"
           placeholder="What are you evaluating?"
@@ -904,7 +999,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
           className="flex-1 bg-transparent text-[15px] text-foreground placeholder:text-muted-foreground/25 outline-none font-normal"
           data-testid="input-search"
         />
-        <kbd className="hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 border border-border/20 rounded-md px-1.5 py-0.5 font-medium">⌘K</kbd>
+        <kbd className={`hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 rounded-md px-1.5 py-0.5 font-medium ${isLight ? "border border-black/[0.08]" : "border border-white/[0.06]"}`}>⌘K</kbd>
       </div>
 
       {searchQuery.trim() ? (
@@ -978,10 +1073,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
   onSelectArticle: (id: string) => void;
   onSelectSector: (id: string) => void;
 }) {
-  const { theme } = useTheme();
-  const cardClass = theme === "sparkle"
-    ? "border-purple-900/20 bg-card/40"
-    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const { card, cardHover, cardShadow } = useCardStyles();
 
   const sector = ALL_SECTORS.find(s => s.id === sectorId);
   if (!sector) return null;
@@ -1022,7 +1114,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
           </div>
         </div>
       ) : (
-        <div className={`rounded-xl border p-8 text-center mb-16 ${cardClass}`}>
+        <div className={`rounded-xl p-8 text-center mb-16 ${card} ${cardShadow}`}>
           <p className="text-base text-muted-foreground/50">We're researching {sector.name}.</p>
           <p className="text-sm text-muted-foreground/25 mt-1">{sector.articleCount} articles planned covering {sector.brandCount} brands.</p>
         </div>
@@ -1039,7 +1131,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
               return (
                 <button
                   key={s.id}
-                  className={`rounded-xl border p-4 text-left hover-elevate ${cardClass}`}
+                  className={`rounded-xl p-4 text-left transition-all duration-300 ${card} ${cardShadow} ${cardHover}`}
                   onClick={() => onSelectSector(s.id)}
                   data-testid={`related-sector-${s.id}`}
                 >
@@ -1061,10 +1153,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
   onBack: () => void;
   onSelectSector: (id: string) => void;
 }) {
-  const { theme } = useTheme();
-  const cardClass = theme === "sparkle"
-    ? "border-purple-900/20 bg-card/40"
-    : "border-border/60 bg-card/80 dark:border-border/40 dark:bg-card/40";
+  const { isSparkle } = useCardStyles();
 
   const TypeIcon = TYPE_LABELS[article.type].icon;
   const sector = ALL_SECTORS.find(s => s.id === article.sectorId);
@@ -1111,7 +1200,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         </div>
       )}
 
-      <div className="rounded-xl border-l-2 border-foreground/10 pl-6 py-4 mb-10">
+      <div className={`rounded-xl border-l-2 pl-6 py-4 mb-10 ${isSparkle ? "border-purple-500/20" : "border-foreground/10"}`}>
         <p className="text-[13px] text-muted-foreground/30 font-medium mb-3">The Bottom Line</p>
         <p className="text-base text-foreground/80 leading-[1.7] font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
@@ -1148,6 +1237,8 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
 }
 
 export default function WhatisBestV3() {
+  const { theme } = useTheme();
+  const isSparkle = theme === "sparkle";
   const [view, setView] = useState<"home" | "sector" | "article">("home");
   const [activeSector, setActiveSector] = useState<string | null>(null);
   const [activeArticle, setActiveArticle] = useState<string | null>(null);
@@ -1189,14 +1280,16 @@ export default function WhatisBestV3() {
   const article = activeArticle ? ARTICLES.find(a => a.id === activeArticle) : null;
 
   return (
-    <div className="min-h-screen bg-background text-foreground" data-testid="whatisbest-v3-page">
+    <div className="min-h-screen bg-background text-foreground relative" data-testid="whatisbest-v3-page">
+      {isSparkle && <SparkleBackground />}
+
       <Navbar
         activeSector={view !== "home" ? activeSector : null}
         onHome={handleHome}
         onSelectSector={handleSelectSector}
       />
 
-      <main className={`max-w-6xl mx-auto px-6 pb-16 ${view !== "home" || activeSector ? "pt-28" : "pt-24"}`}>
+      <main className={`relative z-10 max-w-6xl mx-auto px-6 pb-16 ${view !== "home" || activeSector ? "pt-28" : "pt-24"}`}>
         {view === "home" && (
           <HomePage onSelectSector={handleSelectSector} onSelectArticle={handleSelectArticle} />
         )}
@@ -1208,7 +1301,7 @@ export default function WhatisBestV3() {
         )}
       </main>
 
-      <footer className="border-t border-border/20 py-8">
+      <footer className={`relative z-10 py-8 ${isSparkle ? "border-t border-purple-500/10" : "border-t border-border/20"}`}>
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground/50">
           <div className="flex items-center gap-2">
             <Award className="w-3 h-3" />
