@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {
-  Search,
   Sun,
   Moon,
   Sparkles,
@@ -44,7 +43,6 @@ import {
   ClipboardList,
   Brain,
 } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 
@@ -910,32 +908,37 @@ function HomePage({ onSelectSector, onSelectArticle }: {
       </div>
 
       {searchQuery.trim() ? (
-        <div className="mb-12">
-          <div className="flex items-center gap-2 mb-4">
-            <Search className="w-3.5 h-3.5 text-muted-foreground/50" />
-            <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.12em]">Results for "{searchQuery}"</span>
-            <Badge variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate">{searchResults.length}</Badge>
-          </div>
+        <div className="mb-12 animate-in fade-in duration-200">
+          <p className="text-[13px] text-muted-foreground/30 mb-6 font-medium">{searchResults.length} results for "{searchQuery}"</p>
           {searchResults.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {searchResults.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
             </div>
           ) : (
-            <p className="text-base text-muted-foreground/60 py-12 text-center">No articles match that query across any sector.</p>
+            <p className="text-base text-muted-foreground/40 py-12 text-center">No articles match that query.</p>
           )}
         </div>
       ) : (
         <>
+          {featuredArticles.length > 0 && (
+            <div className="mb-20 animate-in fade-in duration-300">
+              <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 mb-8 font-medium">Featured</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                {featuredArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
+              </div>
+            </div>
+          )}
+
           <div className="mb-20">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-16">
+            <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 mb-10 font-medium">All Sectors</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
               {CLUSTERS.map((cluster) => {
-                const clusterSectorCount = cluster.sectors.length;
                 const clusterBrandCount = cluster.sectors.reduce((a, s) => a + s.brandCount, 0);
                 return (
                   <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
-                    <div className="mb-5">
-                      <h2 className="text-xl font-bold tracking-tight text-foreground">{cluster.name}</h2>
-                      <p className="text-[13px] text-muted-foreground/30 mt-1">{clusterSectorCount} sectors · {clusterBrandCount} brands</p>
+                    <div className="mb-4 pb-3 border-b border-border/10">
+                      <h2 className="text-base font-semibold tracking-tight text-foreground/90">{cluster.name}</h2>
+                      <p className="text-[12px] text-muted-foreground/25 mt-0.5">{cluster.sectors.length} sectors · {clusterBrandCount} brands</p>
                     </div>
                     <div>
                       {cluster.sectors.map((sector, i) => {
@@ -943,16 +946,16 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                         return (
                           <button
                             key={sector.id}
-                            className={`w-full text-left group flex items-center justify-between py-3 transition-colors ${i < cluster.sectors.length - 1 ? "border-b border-border/8" : ""}`}
+                            className={`w-full text-left group flex items-center justify-between py-2.5 transition-colors ${i < cluster.sectors.length - 1 ? "border-b border-border/5" : ""}`}
                             onClick={() => onSelectSector(sector.id)}
                             data-testid={`sector-link-${sector.id}`}
                           >
                             <div className="flex items-center gap-3">
-                              <Icon className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-muted-foreground/60 transition-colors shrink-0" />
-                              <span className="text-[15px] font-normal text-foreground/70 group-hover:text-foreground transition-colors">{sector.name}</span>
+                              <Icon className="w-3.5 h-3.5 text-muted-foreground/25 group-hover:text-muted-foreground/50 transition-colors shrink-0" />
+                              <span className="text-[14px] font-normal text-foreground/60 group-hover:text-foreground transition-colors">{sector.name}</span>
                             </div>
                             <div className="flex items-center gap-3">
-                              <span className="text-[13px] text-muted-foreground/25 tabular-nums">{sector.articleCount}</span>
+                              <span className="text-[12px] text-muted-foreground/20 tabular-nums">{sector.articleCount}</span>
                               <ArrowUpRight className="w-3 h-3 text-muted-foreground/0 group-hover:text-muted-foreground/40 transition-colors" />
                             </div>
                           </button>
@@ -964,15 +967,6 @@ function HomePage({ onSelectSector, onSelectArticle }: {
               })}
             </div>
           </div>
-
-          {featuredArticles.length > 0 && (
-            <div className="mb-10 pt-12 border-t border-border/10">
-              <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 mb-8 font-medium">Featured</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                {featuredArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
-              </div>
-            </div>
-          )}
         </>
       )}
     </div>
@@ -1000,29 +994,21 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
     : ALL_SECTORS.filter(s => s.id !== sectorId).slice(0, 4);
 
   return (
-    <div>
+    <div className="animate-in fade-in duration-300">
       <div className="mb-10">
-        <div className="flex items-center gap-2 mb-4">
-          <Icon className="w-5 h-5 text-muted-foreground/50" />
-          {parentCluster && (
-            <span className="text-sm text-muted-foreground/40 uppercase tracking-[0.12em]">{parentCluster.name}</span>
-          )}
-        </div>
+        {parentCluster && (
+          <p className="text-[13px] text-muted-foreground/30 mb-4 font-medium">{parentCluster.name}</p>
+        )}
         <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl mb-3" data-testid="text-sector-title">
           {sector.name}
         </h1>
-        <p className="text-lg text-muted-foreground/60 max-w-2xl leading-relaxed">{sector.description}</p>
-
-        <div className="flex items-center gap-4 text-sm text-muted-foreground/50 mt-4">
-          <span>{sector.articleCount} articles</span>
-          <span className="text-muted-foreground/20">·</span>
-          <span>{sector.brandCount} brands covered</span>
-        </div>
+        <p className="text-base text-muted-foreground/50 max-w-2xl leading-relaxed">{sector.description}</p>
+        <p className="text-[13px] text-muted-foreground/25 mt-4">{sector.articleCount} articles · {sector.brandCount} brands</p>
       </div>
 
-      <div className="flex items-center gap-2 mb-10 flex-wrap">
+      <div className="flex items-center gap-0 mb-10 flex-wrap">
         {sector.sampleTopics.map((t, i) => (
-          <span key={t} className="flex items-center gap-0 text-[13px] text-muted-foreground/40">
+          <span key={t} className="flex items-center gap-0 text-[13px] text-muted-foreground/35">
             {i > 0 && <span className="text-muted-foreground/15 mx-2">·</span>}
             {t}
           </span>
@@ -1031,15 +1017,14 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
 
       {sectorArticles.length > 0 ? (
         <div className="mb-16">
-          <p className="text-[13px] text-muted-foreground/25 mb-6 font-medium">{sectorArticles.length} articles</p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {sectorArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
           </div>
         </div>
       ) : (
         <div className={`rounded-xl border p-8 text-center mb-16 ${cardClass}`}>
-          <p className="text-base text-muted-foreground/50">Articles for this sector are in development.</p>
-          <p className="text-sm text-muted-foreground/25 mt-1">{sector.articleCount} planned · {sector.brandCount} brands</p>
+          <p className="text-base text-muted-foreground/50">We're researching {sector.name}.</p>
+          <p className="text-sm text-muted-foreground/25 mt-1">{sector.articleCount} articles planned covering {sector.brandCount} brands.</p>
         </div>
       )}
 
@@ -1085,7 +1070,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
   const sector = ALL_SECTORS.find(s => s.id === article.sectorId);
 
   return (
-    <div className="max-w-3xl">
+    <div className="max-w-3xl animate-in fade-in duration-300">
       <button onClick={onBack} className="text-sm text-muted-foreground/50 mb-6 flex items-center gap-1" data-testid="button-back">
         <ChevronRight className="w-3 h-3 rotate-180" />
         Back to {sector?.name || "sector"}
