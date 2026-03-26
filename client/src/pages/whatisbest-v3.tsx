@@ -894,11 +894,10 @@ function HomePage({ onSelectSector, onSelectArticle }: {
       <div className="mb-12">
         <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground/50 mb-4">AI-Native B2B Intelligence</p>
         <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-5 leading-[1.1]" data-testid="text-page-title">
-          B2B product research{" "}
-          <span className="text-muted-foreground/50">without the affiliate links.</span>
+          B2B product research.
         </h1>
         <p className="text-lg text-muted-foreground/60 max-w-2xl leading-relaxed">
-          Comparisons, roundups, and buyer's guides across {ALL_SECTORS.length} industries and {totalBrands.toLocaleString()} brands. No sponsored rankings. Independent research only.
+          Comparisons, roundups, and buyer's guides across {ALL_SECTORS.length} industries and {totalBrands.toLocaleString()} brands.
         </p>
       </div>
 
