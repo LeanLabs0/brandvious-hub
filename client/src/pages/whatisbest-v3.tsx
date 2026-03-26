@@ -406,6 +406,7 @@ interface Article {
   sections: { heading: string; content: string }[];
   methodology?: string;
   faqs?: { question: string; answer: string }[];
+  relatedArticles?: { title: string; subtitle: string; type: ArticleType; readTime: string; sectorName: string }[];
 }
 
 const ARTICLES: Article[] = [
@@ -495,6 +496,11 @@ const ARTICLES: Article[] = [
       { question: "How much do AI agent platforms cost?", answer: "Most AI agent platforms are open-source with free self-hosted options. Cloud-hosted plans range from $0 (limited usage) to $500+/month for enterprise tiers. The real cost is in the underlying LLM API calls — expect $50–$500/month in API costs depending on usage volume and model choice." },
       { question: "Can AI agents replace human workers?", answer: "AI agents augment rather than replace most knowledge workers today. They handle repetitive tasks like data entry, research compilation, and report generation. The most effective deployments use agents for 60–70% of a workflow while keeping humans in the loop for judgment calls, client interaction, and quality assurance." },
       { question: "What is the difference between an AI agent and a chatbot?", answer: "A chatbot responds to individual messages in a conversation. An AI agent takes a goal, breaks it into steps, uses tools (APIs, databases, web search), makes decisions based on intermediate results, and completes multi-step workflows autonomously. Agents can run for minutes or hours; chatbots respond in seconds. The key difference is autonomy — agents act, chatbots react." },
+    ],
+    relatedArticles: [
+      { title: "Best AI Writing Assistants in 2026", subtitle: "GPT-4o, Claude, Jasper, and 7 more ranked for content teams", type: "roundup", readTime: "15 min", sectorName: "Artificial Intelligence" },
+      { title: "Enterprise AI Platforms Compared", subtitle: "How Google Vertex, AWS Bedrock, and Azure AI stack up for production ML", type: "comparison", readTime: "18 min", sectorName: "Artificial Intelligence" },
+      { title: "AI Customer Service Tools Ranked", subtitle: "Intercom, Zendesk AI, Ada, and the rest — tested on real support tickets", type: "roundup", readTime: "14 min", sectorName: "Artificial Intelligence" },
     ],
   },
   {
@@ -1919,15 +1925,6 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
         <p className="text-[13px] text-muted-foreground/25 mt-4">{sector.articleCount} articles · {sector.brandCount} brands</p>
       </div>
 
-      <div className="flex items-center gap-0 mb-10 flex-wrap">
-        {sector.sampleTopics.map((t, i) => (
-          <span key={t} className="flex items-center gap-0 text-[13px] text-muted-foreground/35">
-            {i > 0 && <span className="text-muted-foreground/15 mx-2">·</span>}
-            {t}
-          </span>
-        ))}
-      </div>
-
       {sectorArticles.length > 0 ? (
         <div className="mb-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -2176,6 +2173,34 @@ function ArticleDetailPage({ article, onSelectSector }: {
           <span key={t} className={`text-[12px] rounded-md px-2.5 py-1 ${isLight ? "text-foreground/40 border border-[rgba(120,125,150,0.1)] bg-[hsl(220_12%_97%)]" : "text-muted-foreground/30 border border-white/[0.06] bg-white/[0.02]"}`}>{t}</span>
         ))}
       </div>
+
+      {article.relatedArticles && article.relatedArticles.length > 0 && (
+        <div className={`pt-10 mb-10 border-t ${isLight ? "border-[rgba(120,125,150,0.08)]" : "border-[rgba(60,100,140,0.08)]"}`}>
+          <p className="text-[13px] text-muted-foreground/35 font-semibold mb-6 uppercase tracking-[0.1em]">Related Articles</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {article.relatedArticles.map((ra) => {
+              const RaIcon = TYPE_LABELS[ra.type].icon;
+              return (
+                <div
+                  key={ra.title}
+                  className={`rounded-xl p-5 transition-all duration-300 cursor-pointer ${card} ${cardShadow} hover:shadow-lg hover:-translate-y-[1px]`}
+                  data-testid={`related-article-${ra.title.toLowerCase().replace(/\s+/g, '-').slice(0, 40)}`}
+                >
+                  <div className="flex items-center gap-1.5 mb-3 text-[11px] text-muted-foreground/30">
+                    <RaIcon className="w-2.5 h-2.5" />
+                    <span>{TYPE_LABELS[ra.type].label}</span>
+                    <span className="text-muted-foreground/15">·</span>
+                    <span>{ra.sectorName}</span>
+                  </div>
+                  <h3 className="text-[14px] font-semibold text-foreground/85 mb-1.5 leading-snug">{ra.title}</h3>
+                  <p className="text-[12px] text-muted-foreground/40 leading-relaxed mb-3">{ra.subtitle}</p>
+                  <span className="text-[11px] text-muted-foreground/25">{ra.readTime}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-[rgba(120,125,150,0.08)]" : "border-[rgba(60,100,140,0.08)]"}`}>
         <div className="flex items-center gap-3">
