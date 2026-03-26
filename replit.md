@@ -20,7 +20,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - Dark near-black background, subtle gray cards, white text
 - No bright colors — fully muted palette
 - Buttons are outline/ghost style only — no colored fills
-- Font: Inter for body, JetBrains Mono for mono
+- Font: Plus Jakarta Sans for body, Instrument Serif for headlines
 - Color variables use HSL format: H S% L%
 
 ## Architecture
