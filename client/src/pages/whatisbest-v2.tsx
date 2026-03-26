@@ -559,7 +559,7 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
                       <Icon className="w-4 h-4 text-muted-foreground/60 shrink-0" />
                       <div>
                         <div className="text-[12px] font-medium text-foreground">{s.name}</div>
-                        <div className="text-[10px] text-muted-foreground/50">{s.articleCount} articles</div>
+                        <div className="text-[10px] text-muted-foreground/70">{s.articleCount} articles</div>
                       </div>
                     </button>
                   );
@@ -574,8 +574,8 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
       {activeSector && (
         <div className="border-t border-border/20">
           <div className="max-w-6xl mx-auto px-6 py-1.5 flex items-center gap-2 text-[11px]">
-            <button onClick={onHome} className="text-muted-foreground/50 hover:text-muted-foreground transition-colors" data-testid="breadcrumb-home">All Sectors</button>
-            <ChevronRight className="w-3 h-3 text-muted-foreground/30" />
+            <button onClick={onHome} className="text-muted-foreground/70 hover:text-muted-foreground transition-colors" data-testid="breadcrumb-home">All Sectors</button>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/70" />
             <span className="text-foreground/70 font-medium">{SECTORS.find(s => s.id === activeSector)?.name}</span>
           </div>
         </div>
@@ -605,13 +605,13 @@ function SectorCard({ sector, onClick }: { sector: Sector; onClick: () => void }
         >
           <Icon className="w-5 h-5" style={{ color: sector.color }} />
         </div>
-        <ArrowUpRight className="w-4 h-4 text-muted-foreground/30 group-hover:text-muted-foreground/60 transition-colors" />
+        <ArrowUpRight className="w-4 h-4 text-muted-foreground/70 group-hover:text-muted-foreground/60 transition-colors" />
       </div>
 
       <h3 className="text-sm font-semibold text-foreground mb-1">{sector.name}</h3>
-      <p className="text-[11px] text-muted-foreground/50 mb-4 leading-relaxed">{sector.description}</p>
+      <p className="text-[11px] text-muted-foreground/70 mb-4 leading-relaxed">{sector.description}</p>
 
-      <div className="flex items-center gap-3 text-[10px] text-muted-foreground/50 mb-4">
+      <div className="flex items-center gap-3 text-[10px] text-muted-foreground/70 mb-4">
         <span className="font-mono">{sector.articleCount} articles</span>
         <span className="text-muted-foreground/25">·</span>
         <span className="font-mono">{sector.brandCount} brands</span>
@@ -619,7 +619,7 @@ function SectorCard({ sector, onClick }: { sector: Sector; onClick: () => void }
 
       <div className="space-y-1.5">
         {sector.sampleTopics.slice(0, 2).map((t) => (
-          <div key={t} className="text-[10px] text-muted-foreground/40 flex items-center gap-1.5 truncate">
+          <div key={t} className="text-[10px] text-muted-foreground/60 flex items-center gap-1.5 truncate">
             <Hash className="w-2.5 h-2.5 shrink-0" />
             <span className="truncate">{t}</span>
           </div>
@@ -652,19 +652,19 @@ function ArticleRow({ article, onClick }: { article: Article; onClick: () => voi
           </Badge>
         </div>
         <h3 className="text-sm font-semibold text-foreground mb-1 group-hover:text-foreground/90">{article.title}</h3>
-        <p className="text-[11px] text-muted-foreground/50 mb-2">{article.subtitle}</p>
+        <p className="text-[11px] text-muted-foreground/70 mb-2">{article.subtitle}</p>
         <div className="flex items-center gap-2 flex-wrap">
           {article.mentions.slice(0, 3).map((m) => (
             <Badge key={m.name} variant="outline" className="text-[9px] text-emerald-500/70 no-default-hover-elevate">{m.name}</Badge>
           ))}
           {article.mentions.length > 3 && (
-            <span className="text-[9px] text-muted-foreground/40">+{article.mentions.length - 3}</span>
+            <span className="text-[9px] text-muted-foreground/60">+{article.mentions.length - 3}</span>
           )}
         </div>
       </div>
       <div className="text-right shrink-0 pt-1">
-        <div className="text-[10px] text-muted-foreground/40">{article.readTime}</div>
-        <div className="text-[10px] text-muted-foreground/30 mt-0.5">{article.updated}</div>
+        <div className="text-[10px] text-muted-foreground/60">{article.readTime}</div>
+        <div className="text-[10px] text-muted-foreground/70 mt-0.5">{article.updated}</div>
       </div>
     </div>
   );
@@ -697,8 +697,8 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
       </div>
 
       <h3 className="text-sm font-semibold text-foreground mb-1">{article.title}</h3>
-      <p className="text-[11px] text-muted-foreground/50 mb-3">{article.subtitle}</p>
-      <p className="text-[12px] text-foreground/60 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
+      <p className="text-[11px] text-muted-foreground/70 mb-3">{article.subtitle}</p>
+      <p className="text-[12px] text-foreground/75 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
 
       <div className="flex items-center gap-2 mb-3 flex-wrap">
         {article.mentions.slice(0, 4).map((m) => (
@@ -706,7 +706,7 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
         ))}
       </div>
 
-      <div className="flex items-center justify-between text-[10px] text-muted-foreground/40">
+      <div className="flex items-center justify-between text-[10px] text-muted-foreground/60">
         <span>{article.readTime} · {article.updated}</span>
         <ArrowRight className="w-3.5 h-3.5" />
       </div>
@@ -740,24 +740,24 @@ function HomePage({ onSelectSector, onSelectArticle }: {
   return (
     <div className="max-w-6xl mx-auto">
       <div className="mb-10">
-        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/40 mb-3">AI-Native B2B Intelligence</p>
+        <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 mb-3">AI-Native B2B Intelligence</p>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl mb-3" data-testid="text-page-title">
           Every sector. Every product.{" "}
-          <span className="text-muted-foreground/50">One source of truth.</span>
+          <span className="text-muted-foreground/70">One source of truth.</span>
         </h1>
-        <p className="text-sm text-muted-foreground/50 max-w-xl leading-relaxed">
+        <p className="text-sm text-muted-foreground/70 max-w-xl leading-relaxed">
           In-depth comparisons, roundups, and buyer's guides across {SECTORS.length} industries and {totalBrands.toLocaleString()} brands. No affiliate links. No sponsored rankings. Just research.
         </p>
       </div>
 
       <div className={`rounded-xl border px-4 py-2.5 flex items-center gap-3 mb-8 ${cardClass}`}>
-        <Search className="w-4 h-4 text-muted-foreground/50 shrink-0" />
+        <Search className="w-4 h-4 text-muted-foreground/70 shrink-0" />
         <input
           type="text"
           placeholder="Search across all sectors — brands, tools, or topics..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/40 outline-none"
+          className="flex-1 bg-transparent text-sm text-foreground placeholder:text-muted-foreground/50 outline-none"
           data-testid="input-search"
         />
       </div>
@@ -765,16 +765,16 @@ function HomePage({ onSelectSector, onSelectArticle }: {
       {searchQuery.trim() ? (
         <div className="mb-12">
           <div className="flex items-center gap-2 mb-4">
-            <Search className="w-3.5 h-3.5 text-muted-foreground/50" />
+            <Search className="w-3.5 h-3.5 text-muted-foreground/70" />
             <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em]">Results for "{searchQuery}"</span>
-            <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{searchResults.length}</Badge>
+            <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{searchResults.length}</Badge>
           </div>
           {searchResults.length > 0 ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {searchResults.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
             </div>
           ) : (
-            <p className="text-sm text-muted-foreground/50 py-12 text-center">No articles match that query across any sector.</p>
+            <p className="text-sm text-muted-foreground/70 py-12 text-center">No articles match that query across any sector.</p>
           )}
         </div>
       ) : (
@@ -788,14 +788,14 @@ function HomePage({ onSelectSector, onSelectArticle }: {
             ].map((s) => (
               <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
                 <div className="text-lg font-bold text-foreground font-mono">{s.value}</div>
-                <div className="text-[10px] text-muted-foreground/50">{s.label}</div>
+                <div className="text-[10px] text-muted-foreground/70">{s.label}</div>
               </div>
             ))}
           </div>
 
           <div className="mb-10">
             <div className="flex items-center gap-2 mb-5">
-              <Globe className="w-3.5 h-3.5 text-muted-foreground/50" />
+              <Globe className="w-3.5 h-3.5 text-muted-foreground/70" />
               <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Sectors</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -808,7 +808,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
           {featuredArticles.length > 0 && (
             <div className="mb-10">
               <div className="flex items-center gap-2 mb-5">
-                <Zap className="w-3.5 h-3.5 text-muted-foreground/50" />
+                <Zap className="w-3.5 h-3.5 text-muted-foreground/70" />
                 <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Featured Across Sectors</span>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -853,11 +853,11 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
             <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl" data-testid="text-sector-title">
               {sector.name}
             </h1>
-            <p className="text-[11px] text-muted-foreground/50">{sector.description}</p>
+            <p className="text-[11px] text-muted-foreground/70">{sector.description}</p>
           </div>
         </div>
 
-        <div className="flex items-center gap-4 text-[11px] text-muted-foreground/50 mb-6">
+        <div className="flex items-center gap-4 text-[11px] text-muted-foreground/70 mb-6">
           <span className="font-mono">{sector.articleCount} articles</span>
           <span className="text-muted-foreground/25">·</span>
           <span className="font-mono">{sector.brandCount} brands covered</span>
@@ -874,13 +874,13 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
 
       <div className={`rounded-xl border p-5 mb-8 ${cardClass}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Lightbulb className="w-3.5 h-3.5 text-muted-foreground/50" />
+          <Lightbulb className="w-3.5 h-3.5 text-muted-foreground/70" />
           <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Popular Topics in {sector.shortName}</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {sector.sampleTopics.map((t) => (
-            <div key={t} className="text-[12px] text-foreground/60 flex items-center gap-2 py-1.5">
-              <Hash className="w-3 h-3 text-muted-foreground/30 shrink-0" />
+            <div key={t} className="text-[12px] text-foreground/75 flex items-center gap-2 py-1.5">
+              <Hash className="w-3 h-3 text-muted-foreground/70 shrink-0" />
               {t}
             </div>
           ))}
@@ -890,9 +890,9 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
       {sectorArticles.length > 0 ? (
         <div className="mb-10">
           <div className="flex items-center gap-2 mb-4">
-            <BookOpen className="w-3.5 h-3.5 text-muted-foreground/50" />
+            <BookOpen className="w-3.5 h-3.5 text-muted-foreground/70" />
             <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Articles</span>
-            <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{sectorArticles.length}</Badge>
+            <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{sectorArticles.length}</Badge>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {sectorArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
@@ -900,14 +900,14 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
         </div>
       ) : (
         <div className={`rounded-xl border p-8 text-center mb-10 ${cardClass}`}>
-          <p className="text-sm text-muted-foreground/50">Articles for this sector are in development.</p>
+          <p className="text-sm text-muted-foreground/70">Articles for this sector are in development.</p>
           <p className="text-[11px] text-muted-foreground/35 mt-1">{sector.articleCount} planned articles covering {sector.brandCount} brands.</p>
         </div>
       )}
 
       <div className="mb-10">
         <div className="flex items-center gap-2 mb-4">
-          <Globe className="w-3.5 h-3.5 text-muted-foreground/50" />
+          <Globe className="w-3.5 h-3.5 text-muted-foreground/70" />
           <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Explore Other Sectors</span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -959,7 +959,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
       </h1>
       <p className="text-sm text-muted-foreground/60 mb-4">{article.subtitle}</p>
 
-      <div className="flex items-center gap-4 text-[11px] text-muted-foreground/50 mb-8 flex-wrap">
+      <div className="flex items-center gap-4 text-[11px] text-muted-foreground/70 mb-8 flex-wrap">
         <div className="flex items-center gap-1.5">
           <User className="w-3 h-3" />
           <span>{article.author}</span>
@@ -999,7 +999,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         <div className="flex items-center gap-2 mb-4">
           <Lightbulb className="w-3.5 h-3.5 text-emerald-500/70" />
           <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium">Products Mentioned</span>
-          <Badge variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate font-mono">{article.mentions.length}</Badge>
+          <Badge variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate font-mono">{article.mentions.length}</Badge>
         </div>
         <div className="space-y-2.5">
           {article.mentions.map((m) => (
@@ -1015,12 +1015,12 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         <span className="text-[10px] text-muted-foreground/60 uppercase tracking-[0.12em] font-medium mb-3 block">Tags</span>
         <div className="flex items-center gap-2 flex-wrap">
           {article.tags.map((t) => (
-            <Badge key={t} variant="outline" className="text-[9px] text-muted-foreground/50 no-default-hover-elevate">{t}</Badge>
+            <Badge key={t} variant="outline" className="text-[9px] text-muted-foreground/70 no-default-hover-elevate">{t}</Badge>
           ))}
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/40">
+      <div className="flex items-center justify-between gap-4 py-6 border-t border-border/20 text-[10px] text-muted-foreground/60">
         <div className="flex items-center gap-3">
           <span>No affiliate links</span>
           <span className="text-muted-foreground/20">|</span>
@@ -1095,7 +1095,7 @@ export default function WhatisBestV2() {
       </main>
 
       <footer className="border-t border-border/20 py-8 px-6">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-muted-foreground/40">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-muted-foreground/60">
           <div className="flex items-center gap-2">
             <Award className="w-3 h-3" />
             <span>WhatisBest.com — A Brandvious Product</span>
