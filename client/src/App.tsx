@@ -10,6 +10,7 @@ import EntitiesPreview from "@/pages/entities";
 import Schema from "@/pages/schema";
 import WhatisBest from "@/pages/whatisbest";
 import WhatisBestV2 from "@/pages/whatisbest-v2";
+import WhatisBestV3 from "@/pages/whatisbest-v3";
 import AnswerStack from "@/pages/answerstack";
 import ReviewRadar from "@/pages/reviewradar";
 import HomeV2 from "@/pages/home-v2";
@@ -22,9 +23,10 @@ function Router() {
       <Route path="/entities" component={EntitiesHome} />
       <Route path="/entitiespreview" component={EntitiesPreview} />
       <Route path="/schema" component={Schema} />
-      <Route path="/whatisbest" component={WhatisBestV2} />
+      <Route path="/whatisbest" component={WhatisBestV3} />
       <Route path="/whatisbest/v1" component={WhatisBest} />
       <Route path="/whatisbest/v2" component={WhatisBestV2} />
+      <Route path="/whatisbest/v3" component={WhatisBestV3} />
       <Route path="/answerstack" component={AnswerStack} />
       <Route path="/reviewradar" component={ReviewRadar} />
       <Route path="/v2" component={HomeV2} />

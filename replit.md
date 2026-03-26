@@ -11,7 +11,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 ## Products Showcased
 1. **SchemaRocket** (Established) — AEO / Structured data for AI visibility → `/schema` (preview)
 2. **Entities.org** (Growing) — Structured entity registry → `/entities` (real homepage) | `/entitiespreview` (preview)
-3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest` (v2, sector-based) | `/whatisbest/v1` (original flat categories)
+3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest` (v3, 30-sector clustered) | `/whatisbest/v2` (9-sector cards) | `/whatisbest/v1` (original flat categories)
 4. **AnswerStack.com** (In Development) — Structured authority hub for AI search → `/answerstack` (preview)
 5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms → `/reviewradar` (preview)
 
@@ -37,7 +37,8 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - `client/src/pages/entities-home.tsx` — Entities.org real homepage (hero + registry + submit CTA)
 - `client/src/pages/entities.tsx` — Entities.org preview page (registry only, used at /entitiespreview)
 - `client/src/pages/whatisbest.tsx` — WhatisBest v1 (flat category structure, at /whatisbest/v1)
-- `client/src/pages/whatisbest-v2.tsx` — WhatisBest v2 (sector-based architecture, at /whatisbest and /whatisbest/v2)
+- `client/src/pages/whatisbest-v2.tsx` — WhatisBest v2 (9-sector card grid, at /whatisbest/v2)
+- `client/src/pages/whatisbest-v3.tsx` — WhatisBest v3 (30 sectors in 6 clusters, editorial layout, at /whatisbest and /whatisbest/v3)
 - `client/src/pages/answerstack.tsx` — AnswerStack preview page
 - `client/src/pages/reviewradar.tsx` — ReviewRadar preview page
 - `client/src/index.css` — Dark theme tokens
