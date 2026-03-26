@@ -828,36 +828,34 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
 
   return (
     <div
-      className={`rounded-xl border p-5 cursor-pointer hover-elevate ${cardClass}`}
+      className={`rounded-xl border p-6 cursor-pointer hover-elevate ${cardClass}`}
       onClick={onClick}
       data-testid={`card-article-${article.id}`}
     >
-      <div className="flex items-center gap-2 mb-3 flex-wrap">
+      <div className="flex items-center gap-2 mb-4">
         {sector && (
-          <Badge variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate">
-            {sector.name}
-          </Badge>
+          <span className="text-[12px] text-muted-foreground/40 uppercase tracking-[0.1em]">{sector.name}</span>
         )}
-        <Badge variant="outline" className="text-[13px] text-muted-foreground/60 no-default-hover-elevate flex items-center gap-1">
+        <span className="text-muted-foreground/20">·</span>
+        <span className="text-[12px] text-muted-foreground/40 flex items-center gap-1">
           <TypeIcon className="w-2.5 h-2.5" />
           {TYPE_LABELS[article.type].label}
-        </Badge>
+        </span>
       </div>
 
-      <h3 className="text-base font-semibold text-foreground mb-1">{article.title}</h3>
-      <p className="text-sm text-muted-foreground/70 mb-3">{article.subtitle}</p>
-      <p className="text-sm text-foreground/75 mb-4 leading-relaxed line-clamp-2">{article.intro}</p>
+      <h3 className="text-xl font-semibold text-foreground mb-2 leading-snug">{article.title}</h3>
+      <p className="text-sm text-muted-foreground/50 mb-4">{article.subtitle}</p>
 
-      <div className="flex items-center gap-2 mb-3 flex-wrap">
+      <div className="flex items-center gap-2 mb-5 flex-wrap">
         {article.mentions.slice(0, 3).map((m) => (
-          <Badge key={m.name} variant="outline" className="text-[13px] text-emerald-500/70 no-default-hover-elevate">{m.name}</Badge>
+          <span key={m.name} className="text-[13px] text-muted-foreground/60">{m.name}</span>
         ))}
         {article.mentions.length > 3 && (
-          <span className="text-[13px] text-muted-foreground/60">+{article.mentions.length - 3}</span>
+          <span className="text-[13px] text-muted-foreground/30">+{article.mentions.length - 3}</span>
         )}
       </div>
 
-      <div className="flex items-center justify-between text-sm text-muted-foreground/60">
+      <div className="flex items-center justify-between text-[13px] text-muted-foreground/30 pt-4 border-t border-border/10">
         <span>{article.readTime} · {article.updated}</span>
         <ArrowRight className="w-3.5 h-3.5" />
       </div>
@@ -890,29 +888,27 @@ function HomePage({ onSelectSector, onSelectArticle }: {
 
   return (
     <div>
-      <div className="mb-12">
-        <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground/50 mb-4">AI-Native B2B Intelligence</p>
-        <h1 className="text-5xl font-bold tracking-tight text-foreground sm:text-6xl mb-5 leading-[1.1]" data-testid="text-page-title">
+      <div className="mb-16">
+        <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/30 mb-6 font-medium">WhatisBest.com</p>
+        <h1 className="text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl mb-4 leading-[1.05]" data-testid="text-page-title">
           B2B product research.
         </h1>
-        <p className="text-lg text-muted-foreground/60 max-w-2xl leading-relaxed">
-          Comparisons, roundups, and buyer's guides across {ALL_SECTORS.length} industries and {totalBrands.toLocaleString()} brands.
+        <p className="text-base text-muted-foreground/40 max-w-xl leading-relaxed font-normal">
+          {ALL_SECTORS.length} sectors · {totalBrands.toLocaleString()} brands · {totalArticles} comparisons
         </p>
       </div>
 
-      <div className={`rounded-2xl border px-5 py-4 flex items-center gap-4 mb-12 ${cardClass} transition-all focus-within:border-muted-foreground/30`}>
-        <div className="w-8 h-8 rounded-lg bg-muted/40 flex items-center justify-center shrink-0">
-          <Sparkles className="w-4 h-4 text-muted-foreground/50" />
-        </div>
+      <div className={`rounded-2xl border px-5 py-3.5 flex items-center gap-4 mb-16 ${cardClass} transition-all focus-within:border-muted-foreground/30`}>
+        <Sparkles className="w-4 h-4 text-muted-foreground/30 shrink-0" />
         <input
           type="text"
           placeholder="What are you evaluating?"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 bg-transparent text-base text-foreground placeholder:text-muted-foreground/30 outline-none"
+          className="flex-1 bg-transparent text-[15px] text-foreground placeholder:text-muted-foreground/25 outline-none font-normal"
           data-testid="input-search"
         />
-        <kbd className="hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/30 border border-border/30 rounded-md px-1.5 py-0.5">⌘K</kbd>
+        <kbd className="hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 border border-border/20 rounded-md px-1.5 py-0.5 font-medium">⌘K</kbd>
       </div>
 
       {searchQuery.trim() ? (
@@ -940,8 +936,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
               { label: "Avg. Depth", value: "3,900 words" },
             ].map((s) => (
               <div key={s.label} className={`rounded-xl border px-4 py-3 text-center ${cardClass}`}>
-                <div className="text-2xl font-semibold text-foreground font-serif">{s.value}</div>
-                <div className="text-sm text-muted-foreground/60">{s.label}</div>
+                <div className="text-2xl font-bold text-foreground tracking-tight">{s.value}</div>
+                <div className="text-[13px] text-muted-foreground/40 font-medium">{s.label}</div>
               </div>
             ))}
           </div>
@@ -950,7 +946,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
               {CLUSTERS.map((cluster) => (
                 <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
-                  <h2 className="text-3xl font-normal tracking-tight text-foreground mb-6 font-serif">{cluster.name}</h2>
+                  <h2 className="text-2xl font-bold tracking-tight text-foreground mb-6">{cluster.name}</h2>
                   <div className="space-y-0">
                     {cluster.sectors.map((sector) => {
                       const Icon = sector.icon;
@@ -964,7 +960,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                         >
                           <div className="flex items-center gap-3">
                             <Icon className="w-4 h-4 text-muted-foreground/40 group-hover:text-muted-foreground/70 transition-colors shrink-0" />
-                            <span className="text-base font-medium text-foreground group-hover:text-foreground/80 transition-colors">{sector.name}</span>
+                            <span className="text-[15px] font-normal text-foreground/80 group-hover:text-foreground transition-colors">{sector.name}</span>
                           </div>
                           <div className="flex items-center gap-3">
                             <span className="text-sm text-muted-foreground/40">{sector.articleCount}</span>
@@ -981,11 +977,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
 
           {featuredArticles.length > 0 && (
             <div className="mb-10">
-              <div className="flex items-center gap-2 mb-6">
-                <Zap className="w-4 h-4 text-muted-foreground/50" />
-                <span className="text-sm text-muted-foreground/50 uppercase tracking-[0.15em] font-medium">Featured Across Sectors</span>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/30 mb-8 font-medium">Featured</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 {featuredArticles.map(a => <ArticleCard key={a.id} article={a} onClick={() => onSelectArticle(a.id)} />)}
               </div>
             </div>
@@ -1025,7 +1018,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
             <span className="text-sm text-muted-foreground/40 uppercase tracking-[0.12em]">{parentCluster.name}</span>
           )}
         </div>
-        <h1 className="text-4xl font-normal tracking-tight text-foreground sm:text-5xl mb-3 font-serif" data-testid="text-sector-title">
+        <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl mb-3" data-testid="text-sector-title">
           {sector.name}
         </h1>
         <p className="text-lg text-muted-foreground/60 max-w-2xl leading-relaxed">{sector.description}</p>
@@ -1135,7 +1128,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         </Badge>
       </div>
 
-      <h1 className="text-3xl font-normal tracking-tight text-foreground sm:text-4xl mb-3 font-serif" data-testid="text-article-title">
+      <h1 className="text-3xl font-extrabold tracking-tight text-foreground sm:text-4xl mb-3" data-testid="text-article-title">
         {article.title}
       </h1>
       <p className="text-lg text-muted-foreground/60 mb-6">{article.subtitle}</p>
