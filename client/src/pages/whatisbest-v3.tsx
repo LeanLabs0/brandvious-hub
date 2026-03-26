@@ -718,11 +718,11 @@ const TYPE_LABELS: Record<ArticleType, { label: string; icon: typeof BookOpen }>
 function SparkleBackground() {
   const particles = useMemo(
     () =>
-      Array.from({ length: 35 }).map(() => ({
-        size: Math.random() * 2 + 1,
+      Array.from({ length: 45 }).map(() => ({
+        size: Math.random() * 2.5 + 1.5,
         left: Math.random() * 100,
-        bottom: Math.random() * 50,
-        duration: Math.random() * 14 + 10,
+        bottom: Math.random() * 60,
+        duration: Math.random() * 12 + 8,
         delay: Math.random() * 10,
       })),
     [],
@@ -731,45 +731,57 @@ function SparkleBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[1px] h-full"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px] h-full"
         style={{
-          background: "linear-gradient(to bottom, rgba(140,80,255,0.3) 0%, rgba(100,50,220,0.1) 25%, rgba(80,30,180,0.04) 50%, rgba(60,20,140,0.03) 75%, rgba(100,50,220,0.06) 92%, rgba(140,80,255,0.2) 100%)",
+          background: "linear-gradient(to bottom, rgba(140,80,255,0.5) 0%, rgba(120,60,240,0.25) 15%, rgba(100,50,220,0.1) 35%, rgba(80,30,180,0.05) 55%, rgba(100,50,220,0.08) 80%, rgba(140,80,255,0.4) 100%)",
         }}
       />
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[150px] h-full blur-[80px]"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[250px] h-full blur-[90px]"
         style={{
-          background: "linear-gradient(to bottom, rgba(120,60,255,0.1) 0%, rgba(100,40,200,0.04) 30%, rgba(60,20,120,0.01) 60%, rgba(100,40,200,0.04) 85%, rgba(120,60,255,0.08) 100%)",
+          background: "linear-gradient(to bottom, rgba(120,60,255,0.18) 0%, rgba(100,40,200,0.08) 25%, rgba(60,20,120,0.02) 50%, rgba(100,40,200,0.06) 80%, rgba(120,60,255,0.15) 100%)",
         }}
       />
       <div
-        className="absolute left-1/2 -translate-x-1/2 top-0 w-[600px] h-[40vh] blur-[120px]"
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[50vh] blur-[140px]"
         style={{
-          background: "radial-gradient(ellipse at center top, rgba(100,60,255,0.07), transparent 70%)",
+          background: "radial-gradient(ellipse at center top, rgba(100,60,255,0.14), rgba(80,40,200,0.06) 50%, transparent 80%)",
         }}
       />
       <div
-        className="absolute left-[25%] top-[15%] w-[300px] h-[300px] rounded-full blur-[120px]"
+        className="absolute left-[20%] top-[10%] w-[400px] h-[400px] rounded-full blur-[140px]"
         style={{
-          background: "radial-gradient(circle, rgba(80,30,180,0.05), transparent 70%)",
+          background: "radial-gradient(circle, rgba(80,30,180,0.1), transparent 70%)",
         }}
       />
       <div
-        className="absolute left-[70%] top-[8%] w-[250px] h-[250px] rounded-full blur-[110px]"
+        className="absolute left-[72%] top-[5%] w-[350px] h-[350px] rounded-full blur-[130px]"
         style={{
-          background: "radial-gradient(circle, rgba(120,50,220,0.04), transparent 70%)",
+          background: "radial-gradient(circle, rgba(120,50,220,0.08), transparent 70%)",
         }}
       />
       <div
-        className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[500px] h-[200px] blur-[100px]"
+        className="absolute left-[15%] top-[60%] w-[300px] h-[300px] rounded-full blur-[120px]"
         style={{
-          background: "radial-gradient(ellipse at center bottom, rgba(120,50,220,0.1), transparent 70%)",
+          background: "radial-gradient(circle, rgba(100,40,200,0.06), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-[80%] top-[50%] w-[250px] h-[250px] rounded-full blur-[110px]"
+        style={{
+          background: "radial-gradient(circle, rgba(90,35,190,0.07), transparent 70%)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 bottom-0 w-[700px] h-[300px] blur-[120px]"
+        style={{
+          background: "radial-gradient(ellipse at center bottom, rgba(120,50,220,0.18), transparent 70%)",
         }}
       />
       {particles.map((p, i) => (
         <div
           key={i}
-          className="absolute rounded-full bg-purple-300/[0.1] animate-float-particle"
+          className="absolute rounded-full bg-purple-300/[0.15] animate-float-particle"
           style={{
             width: `${p.size}px`,
             height: `${p.size}px`,
@@ -790,25 +802,25 @@ function useCardStyles() {
   const isLight = theme === "light";
 
   const card = isSparkle
-    ? "backdrop-blur-sm bg-white/[0.03] border border-white/[0.06]"
+    ? "backdrop-blur-md bg-white/[0.04] border border-purple-400/[0.08]"
     : isLight
     ? "bg-white border border-black/[0.08] shadow-sm"
     : "backdrop-blur-sm bg-white/[0.02] border border-white/[0.06]";
 
   const cardHover = isSparkle
-    ? "hover:bg-white/[0.06] hover:border-white/[0.12] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_25px_rgba(100,40,200,0.06)]"
+    ? "hover:bg-white/[0.07] hover:border-purple-400/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_30px_rgba(100,40,200,0.1),0_0_60px_rgba(120,50,220,0.04)]"
     : isLight
     ? "hover:shadow-md hover:border-black/[0.12]"
     : "hover:bg-white/[0.04] hover:border-white/[0.12] hover:shadow-[0_8px_30px_rgba(0,0,0,0.3)]";
 
   const cardShadow = isSparkle
-    ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.03)]"
+    ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_15px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]"
     : isLight
     ? ""
     : "shadow-[0_1px_10px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.03)]";
 
   const promptGlow = isSparkle
-    ? "shadow-[0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.04)] focus-within:shadow-[0_0_40px_rgba(100,40,200,0.12),inset_0_1px_0_rgba(255,255,255,0.06)]"
+    ? "shadow-[0_0_40px_rgba(100,40,200,0.12),0_0_80px_rgba(120,50,220,0.04),inset_0_1px_0_rgba(255,255,255,0.05)] focus-within:shadow-[0_0_50px_rgba(100,40,200,0.18),0_0_100px_rgba(120,50,220,0.06),inset_0_1px_0_rgba(255,255,255,0.07)]"
     : isLight
     ? "shadow-sm focus-within:shadow-md"
     : "shadow-[0_1px_10px_rgba(0,0,0,0.2)] focus-within:shadow-[0_2px_20px_rgba(0,0,0,0.3)]";
