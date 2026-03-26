@@ -24,6 +24,8 @@ function Router() {
       <Route path="/entitiespreview" component={EntitiesPreview} />
       <Route path="/schema" component={Schema} />
       <Route path="/whatisbest" component={WhatisBestV3} />
+      <Route path="/whatisbest/sector/:sectorId" component={WhatisBestV3} />
+      <Route path="/whatisbest/sector/:sectorId/:articleId" component={WhatisBestV3} />
       <Route path="/whatisbest/v1" component={WhatisBest} />
       <Route path="/whatisbest/v2" component={WhatisBestV2} />
       <Route path="/whatisbest/v3" component={WhatisBestV3} />

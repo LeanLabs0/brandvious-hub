@@ -11,15 +11,15 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 ## Products Showcased
 1. **SchemaRocket** (Established) — AEO / Structured data for AI visibility → `/schema` (preview)
 2. **Entities.org** (Growing) — Structured entity registry → `/entities` (real homepage) | `/entitiespreview` (preview)
-3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest` (v3, 30-sector clustered) | `/whatisbest/v2` (9-sector cards) | `/whatisbest/v1` (original flat categories)
+3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine → `/whatisbest` (v3, 30-sector clustered, crawlable URLs) | `/whatisbest/v2` (9-sector cards) | `/whatisbest/v1` (original flat categories)
 4. **AnswerStack.com** (In Development) — Structured authority hub for AI search → `/answerstack` (preview)
 5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms → `/reviewradar` (preview)
 
 ## Design
 - Three-mode theme system: Light, Dark, Sparkle
 - Font: Plus Jakarta Sans throughout (single font, hierarchy via weight/size/opacity)
-- Dark mode: glass morphism cards (backdrop-blur, bg-white/[0.02], inset highlights), subtle shadows
-- Light mode: clean white cards, border-black/[0.08], real shadows
+- Dark mode: deep navy background (hsl 220° 20% 7%), blue-tinted ambient orbs, cards with cool-blue borders/inset glow
+- Light mode: warm cream background (hsl 42° 30% 95%), golden accent spine, white cards with warm golden borders/shadows
 - Sparkle mode: spine beam, ambient orbs, floating particles, purple box-shadow halos on cards (NO colored text, NO purple fills — purple only in shadows/glow)
 - Buttons are outline/ghost style only — no colored fills
 - Color variables use HSL format: H S% L%
@@ -40,7 +40,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - `client/src/pages/entities.tsx` — Entities.org preview page (registry only, used at /entitiespreview)
 - `client/src/pages/whatisbest.tsx` — WhatisBest v1 (flat category structure, at /whatisbest/v1)
 - `client/src/pages/whatisbest-v2.tsx` — WhatisBest v2 (9-sector card grid, at /whatisbest/v2)
-- `client/src/pages/whatisbest-v3.tsx` — WhatisBest v3 (30 sectors in 6 clusters, editorial layout with ProductScorecard system, at /whatisbest and /whatisbest/v3)
+- `client/src/pages/whatisbest-v3.tsx` — WhatisBest v3 (30 sectors in 6 clusters, editorial layout with ProductScorecard system, FAQ sections, crawlable URLs at /whatisbest/sector/:sectorId/:articleId)
 - `client/src/pages/answerstack.tsx` — AnswerStack preview page
 - `client/src/pages/reviewradar.tsx` — ReviewRadar preview page
 - `client/src/index.css` — Dark theme tokens

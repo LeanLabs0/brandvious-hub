@@ -1,4 +1,5 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { useRoute, useLocation } from "wouter";
 import {
   Sun,
   Moon,
@@ -404,6 +405,7 @@ interface Article {
   bottomLine: string;
   sections: { heading: string; content: string }[];
   methodology?: string;
+  faqs?: { question: string; answer: string }[];
 }
 
 const ARTICLES: Article[] = [
@@ -486,6 +488,13 @@ const ARTICLES: Article[] = [
       { heading: "Enterprise Readiness", content: "Only three platforms currently meet enterprise security requirements out of the box: Microsoft AutoGen (Azure compliance inheritance), Relevance AI (SOC 2 Type II certified), and CrewAI Enterprise (SOC 2 in progress, expected Q2 2026). The open-source frameworks require self-hosting to meet compliance requirements, which adds $5K–$15K/mo in infrastructure and DevOps overhead." },
       { heading: "Cost Analysis", content: "Agent costs vary dramatically. For 10,000 agent executions per month using GPT-4o: Langbase runs approximately $2,400/mo, Relevance AI approximately $999/mo (includes platform fee), CrewAI self-hosted approximately $800/mo (compute only), and AutoGen on Azure approximately $3,200/mo. The biggest cost driver isn't the platform — it's the underlying model. Teams using Claude 3.5 Sonnet instead of GPT-4o cut costs 40% with minimal quality impact on most tasks." },
       { heading: "What to Choose", content: "If you're a developer team building multi-agent systems: CrewAI. If you're a GTM team that needs agents connected to your CRM: Relevance AI. If you need a single agent shipped this week: Langbase. If you're an enterprise with complex compliance requirements and Azure infrastructure: AutoGen. If you need stateful agent workflows with replay and debugging: LangGraph." },
+    ],
+    faqs: [
+      { question: "What is an AI agent builder platform?", answer: "An AI agent builder is a platform that lets you create autonomous AI programs that can perform multi-step tasks, make decisions, and use external tools without constant human input. Unlike simple chatbots, AI agents can chain actions together — researching data, calling APIs, writing code, and completing workflows end-to-end." },
+      { question: "Which AI agent platform is best for enterprise use?", answer: "LangChain and CrewAI lead for enterprise deployments. LangChain has the largest ecosystem and production track record, while CrewAI offers the best multi-agent orchestration for complex workflows. Both support SOC 2 compliance and enterprise SSO." },
+      { question: "How much do AI agent platforms cost?", answer: "Most AI agent platforms are open-source with free self-hosted options. Cloud-hosted plans range from $0 (limited usage) to $500+/month for enterprise tiers. The real cost is in the underlying LLM API calls — expect $50–$500/month in API costs depending on usage volume and model choice." },
+      { question: "Can AI agents replace human workers?", answer: "AI agents augment rather than replace most knowledge workers today. They handle repetitive tasks like data entry, research compilation, and report generation. The most effective deployments use agents for 60–70% of a workflow while keeping humans in the loop for judgment calls, client interaction, and quality assurance." },
+      { question: "What is the difference between an AI agent and a chatbot?", answer: "A chatbot responds to individual messages in a conversation. An AI agent takes a goal, breaks it into steps, uses tools (APIs, databases, web search), makes decisions based on intermediate results, and completes multi-step workflows autonomously. Agents can run for minutes or hours; chatbots respond in seconds. The key difference is autonomy — agents act, chatbots react." },
     ],
   },
   {
@@ -1876,7 +1885,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
   onSelectArticle: (id: string) => void;
   onSelectSector: (id: string) => void;
 }) {
-  const { card, cardHover, cardShadow } = useCardStyles();
+  const { card, cardHover, cardShadow, isLight, isDark } = useCardStyles();
 
   const sector = ALL_SECTORS.find(s => s.id === sectorId);
   if (!sector) return null;
@@ -2039,6 +2048,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
     ...(article.products.length > 0 ? [{ id: "products", label: "Product Scorecards" }] : []),
     ...article.sections.map((s, i) => ({ id: `section-${i}`, label: s.heading })),
     { id: "bottom-line", label: "The Bottom Line" },
+    ...(article.faqs && article.faqs.length > 0 ? [{ id: "faqs", label: "FAQs" }] : []),
     ...(article.methodology ? [{ id: "methodology", label: "Methodology" }] : []),
   ];
 
@@ -2137,6 +2147,23 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         <p className="text-base text-foreground/80 leading-[1.8] font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
 
+      {article.faqs && article.faqs.length > 0 && (
+        <div id="faqs" className="mb-12">
+          <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 font-medium mb-6 flex items-center gap-2">
+            <MessageSquare className="w-3.5 h-3.5" />
+            Frequently Asked Questions
+          </p>
+          <div className="space-y-0">
+            {article.faqs.map((faq, i) => (
+              <div key={i} className={`py-5 ${i < article.faqs!.length - 1 ? `border-b ${isLight ? "border-[rgba(180,155,100,0.08)]" : "border-white/[0.04]"}` : ""}`}>
+                <h3 className="text-[15px] font-semibold text-foreground/90 mb-2.5 leading-snug">{faq.question}</h3>
+                <p className="text-[14px] text-foreground/60 leading-[1.75]">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {article.methodology && (
         <div id="methodology" className={`rounded-xl p-5 mb-12 ${isLight ? "bg-[hsl(40_15%_98%)] border border-[rgba(180,160,120,0.08)]" : "bg-white/[0.015] border border-[rgba(60,100,140,0.06)]"}`}>
           <p className="text-[13px] text-muted-foreground/35 font-semibold mb-3 uppercase tracking-[0.1em] flex items-center gap-2">
@@ -2170,45 +2197,43 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
 export default function WhatisBestV3() {
   const { theme } = useTheme();
   const isSparkle = theme === "sparkle";
-  const [view, setView] = useState<"home" | "sector" | "article">("home");
-  const [activeSector, setActiveSector] = useState<string | null>(null);
-  const [activeArticle, setActiveArticle] = useState<string | null>(null);
+  const [, navigate] = useLocation();
+
+  const [, sectorParams] = useRoute("/whatisbest/sector/:sectorId");
+  const [, articleParams] = useRoute("/whatisbest/sector/:sectorId/:articleId");
+
+  const activeSector = articleParams?.sectorId || sectorParams?.sectorId || null;
+  const activeArticle = articleParams?.articleId || null;
+
+  const view = activeArticle ? "article" : activeSector ? "sector" : "home";
+  const article = activeArticle ? ARTICLES.find(a => a.id === activeArticle) : null;
 
   const handleSelectSector = (id: string) => {
-    setActiveSector(id);
-    setActiveArticle(null);
-    setView("sector");
+    navigate(`/whatisbest/sector/${id}`);
     window.scrollTo(0, 0);
   };
 
   const handleSelectArticle = (id: string) => {
-    const article = ARTICLES.find(a => a.id === id);
-    if (article) {
-      setActiveArticle(id);
-      setActiveSector(article.sectorId);
-      setView("article");
+    const a = ARTICLES.find(a => a.id === id);
+    if (a) {
+      navigate(`/whatisbest/sector/${a.sectorId}/${id}`);
       window.scrollTo(0, 0);
     }
   };
 
   const handleHome = () => {
-    setView("home");
-    setActiveSector(null);
-    setActiveArticle(null);
+    navigate("/whatisbest");
     window.scrollTo(0, 0);
   };
 
   const handleBack = () => {
     if (view === "article" && activeSector) {
-      setView("sector");
-      setActiveArticle(null);
+      navigate(`/whatisbest/sector/${activeSector}`);
       window.scrollTo(0, 0);
     } else {
       handleHome();
     }
   };
-
-  const article = activeArticle ? ARTICLES.find(a => a.id === activeArticle) : null;
 
   const isDark = theme === "dark";
   const isLight = theme === "light";
