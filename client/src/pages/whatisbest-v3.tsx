@@ -1637,8 +1637,9 @@ function ThemeToggle() {
   );
 }
 
-function Navbar({ activeSector, onHome, onSelectSector }: {
+function Navbar({ activeSector, activeArticleTitle, onHome, onSelectSector }: {
   activeSector: string | null;
+  activeArticleTitle?: string | null;
   onHome: () => void;
   onSelectSector: (id: string) => void;
 }) {
@@ -1713,10 +1714,18 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
       </div>
       {activeSectorData && (
         <div className="border-t border-border/20">
-          <div className="max-w-6xl mx-auto px-6 py-1.5 flex items-center gap-2 text-[13px]">
-            <button onClick={onHome} className="text-muted-foreground/70 hover:text-muted-foreground transition-colors" data-testid="breadcrumb-home">All Sectors</button>
-            <ChevronRight className="w-3 h-3 text-muted-foreground/70" />
-            <span className="text-foreground/70 font-medium">{activeSectorData.name}</span>
+          <div className="max-w-6xl mx-auto px-6 py-1.5 flex items-center gap-2 text-[13px] min-w-0">
+            <button onClick={onHome} className="text-muted-foreground/70 hover:text-muted-foreground transition-colors shrink-0" data-testid="breadcrumb-home">All Sectors</button>
+            <ChevronRight className="w-3 h-3 text-muted-foreground/70 shrink-0" />
+            {activeArticleTitle ? (
+              <>
+                <button onClick={() => onSelectSector(activeSectorData.id)} className="text-muted-foreground/70 hover:text-muted-foreground transition-colors shrink-0" data-testid="breadcrumb-sector">{activeSectorData.name}</button>
+                <ChevronRight className="w-3 h-3 text-muted-foreground/70 shrink-0" />
+                <span className="text-foreground/70 font-medium truncate" data-testid="breadcrumb-article">{activeArticleTitle}</span>
+              </>
+            ) : (
+              <span className="text-foreground/70 font-medium">{activeSectorData.name}</span>
+            )}
           </div>
         </div>
       )}
@@ -2033,9 +2042,8 @@ function ProductCard({ product }: { product: ProductScorecard }) {
   );
 }
 
-function ArticleDetailPage({ article, onBack, onSelectSector }: {
+function ArticleDetailPage({ article, onSelectSector }: {
   article: Article;
-  onBack: () => void;
   onSelectSector: (id: string) => void;
 }) {
   const { card, cardShadow, isSparkle, isLight } = useCardStyles();
@@ -2054,18 +2062,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
 
   return (
     <div className="max-w-3xl animate-in fade-in duration-300">
-      <button onClick={onBack} className="text-sm text-muted-foreground/50 mb-8 flex items-center gap-1 hover:text-muted-foreground/70 transition-colors" data-testid="button-back">
-        <ChevronRight className="w-3 h-3 rotate-180" />
-        Back to {sector?.name || "sector"}
-      </button>
-
       <div className="flex items-center gap-2 mb-5 text-[13px] text-muted-foreground/35">
-        {sector && (
-          <button onClick={() => onSelectSector(sector.id)} className="hover:text-muted-foreground/60 transition-colors">
-            {sector.name}
-          </button>
-        )}
-        <span className="text-muted-foreground/15">·</span>
         <span className="flex items-center gap-1">
           <TypeIcon className="w-2.5 h-2.5" />
           {TYPE_LABELS[article.type].label}
@@ -2226,15 +2223,6 @@ export default function WhatisBestV3() {
     window.scrollTo(0, 0);
   };
 
-  const handleBack = () => {
-    if (view === "article" && activeSector) {
-      navigate(`/whatisbest/sector/${activeSector}`);
-      window.scrollTo(0, 0);
-    } else {
-      handleHome();
-    }
-  };
-
   const isDark = theme === "dark";
   const isLight = theme === "light";
 
@@ -2246,6 +2234,7 @@ export default function WhatisBestV3() {
 
       <Navbar
         activeSector={view !== "home" ? activeSector : null}
+        activeArticleTitle={view === "article" && article ? article.title : null}
         onHome={handleHome}
         onSelectSector={handleSelectSector}
       />
@@ -2258,7 +2247,7 @@ export default function WhatisBestV3() {
           <SectorPage sectorId={activeSector} onSelectArticle={handleSelectArticle} onSelectSector={handleSelectSector} />
         )}
         {view === "article" && article && (
-          <ArticleDetailPage article={article} onBack={handleBack} onSelectSector={handleSelectSector} />
+          <ArticleDetailPage article={article} onSelectSector={handleSelectSector} />
         )}
       </main>
 
