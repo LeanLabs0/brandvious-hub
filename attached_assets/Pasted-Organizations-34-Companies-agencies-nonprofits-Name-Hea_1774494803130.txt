@@ -1,0 +1,285 @@
+Organizations
+
+34
+Companies, agencies, nonprofits
+
+Name
+
+Headquarters
+
+Type
+
+Status
+
+Amazon
+
+E-commerce
+
+Seattle, USA
+
+Organization
+VERIFIED
+AstraZeneca
+
+Pharmaceuticals
+
+Cambridge, UK
+
+Organization
+VERIFIED
+Atlantech Online
+
+Telecommunications
+
+Silver Spring, Maryland
+
+Organization
+CONFIRMED
+Bluleadz
+
+Digital Marketing
+
+Tampa, Florida
+
+Organization
+CONFIRMED
+Digital Momentum
+
+Digital Marketing
+
+Davidson, North Carolina
+
+Organization
+CONFIRMED
+eBay
+
+E-commerce
+
+San Jose, USA
+
+Organization
+VERIFIED
+eImmigration
+
+Legal Technology
+
+Los Angeles, California
+
+Organization
+CONFIRMED
+Etsy
+
+E-commerce
+
+Brooklyn, USA
+
+Organization
+VERIFIED
+Ford
+
+Automotive
+
+Dearborn, USA
+
+Organization
+VERIFIED
+General Motors
+
+Automotive
+
+Detroit, USA
+
+Organization
+VERIFIED
+Greenline
+
+Construction & Engineering
+
+Wagga Wagga, New South Wales
+
+Organization
+CONFIRMED
+Greentec
+
+Tech / SaaS
+
+Cambridge, Ontario
+
+Organization
+CONFIRMED
+HighByte
+
+Tech / SaaS
+
+Portland, Maine
+
+Organization
+CONFIRMED
+HubSpot
+
+Tech / SaaS
+
+Cambridge, USA
+
+Organization
+VERIFIED
+InfoTrack
+
+Legal Technology
+
+Sydney, New South Wales
+
+Organization
+CONFIRMED
+Johnson & Johnson
+
+Pharmaceuticals
+
+New Brunswick, USA
+
+Organization
+VERIFIED
+Katapult Engineering
+
+Tech / SaaS
+
+Dillsburg, Pennsylvania
+
+Organization
+CONFIRMED
+Lean Labs
+
+Digital Marketing
+
+Overland Park, Kansas
+
+Organization
+CONFIRMED
+LRN Corporation
+
+Tech / SaaS
+
+New York, New York
+
+Organization
+CONFIRMED
+Merck
+
+Pharmaceuticals
+
+Rahway, USA
+
+Organization
+VERIFIED
+Moderna
+
+Pharmaceuticals
+
+Cambridge, USA
+
+Organization
+VERIFIED
+New Breed Revenue
+
+Digital Marketing
+
+Burlington, Vermont
+
+Organization
+CONFIRMED
+Pfizer
+
+Pharmaceuticals
+
+New York, USA
+
+Organization
+VERIFIED
+PropertyRadar
+
+Real Estate Technology
+
+Truckee, California
+
+Organization
+CONFIRMED
+Rivian
+
+Automotive
+
+Irvine, USA
+
+Organization
+CONFIRMED
+Salesforce
+
+Tech / SaaS
+
+San Francisco, USA
+
+Organization
+VERIFIED
+Shopify
+
+E-commerce
+
+Ottawa, Canada
+
+Organization
+VERIFIED
+Slack
+
+Tech / SaaS
+
+San Francisco, USA
+
+Organization
+VERIFIED
+SmartBug Media
+
+Digital Marketing
+
+Newport Beach, California
+
+Organization
+CONFIRMED
+Stripe
+
+Tech / SaaS
+
+San Francisco, USA
+
+Organization
+VERIFIED
+Tesla
+
+Automotive
+
+Austin, USA
+
+Organization
+VERIFIED
+Toyota
+
+Automotive
+
+Toyota City, Japan
+
+Organization
+VERIFIED
+Walmart
+
+E-commerce
+
+Bentonville, USA
+
+Organization
+VERIFIED
+Zoom
+
+Tech / SaaS
+
+San Jose, USA
+
+Organization
+VERIFIED
