@@ -13,6 +13,7 @@ import WhatisBestV2 from "@/pages/whatisbest-v2";
 import WhatisBestV3 from "@/pages/whatisbest-v3";
 import AnswerStack from "@/pages/answerstack";
 import ReviewRadar from "@/pages/reviewradar";
+import Mentions from "@/pages/mentions";
 import HomeV2 from "@/pages/home-v2";
 import NotFound from "@/pages/not-found";
 
@@ -30,6 +31,8 @@ function Router() {
       <Route path="/whatisbest/v2" component={WhatisBestV2} />
       <Route path="/answerstack" component={AnswerStack} />
       <Route path="/reviewradar" component={ReviewRadar} />
+      <Route path="/mentions" component={Mentions} />
+      <Route path="/mentions/:entityId" component={Mentions} />
       <Route path="/v2" component={HomeV2} />
       <Route component={NotFound} />
     </Switch>
