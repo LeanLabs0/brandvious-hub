@@ -77,7 +77,7 @@ const products = [
     domain: "mentions.io",
     label: "Presence",
     subtitle: "Proof of presence",
-    description: "A public record showing how often a brand is mentioned across articles, blogs, comparisons, and reputable sources.",
+    description: "Records when a brand is mentioned across articles, blogs, comparisons, and more.",
     status: "Prototype",
     statusColor: "text-purple-400",
     url: "/mentions",
@@ -575,9 +575,7 @@ function EcosystemCard({ product, index }: { product: typeof products[0]; index:
       key={product.name}
       href={product.url}
       {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 ${
-        index === 4 ? "col-span-2" : ""
-      } backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-white/[0.14] shadow-[0_2px_12px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.04)] ${
+      className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-white/[0.14] shadow-[0_2px_12px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.04)] ${
         party
           ? "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),0_0_20px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]"
           : "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]"

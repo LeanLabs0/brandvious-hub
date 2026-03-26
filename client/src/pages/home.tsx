@@ -79,7 +79,7 @@ const projects = [
     name: "Mentions.io",
     label: "PRESENCE",
     description:
-      "A public record showing how often a brand is mentioned across articles, blogs, comparisons, and reputable sources.",
+      "Records when a brand is mentioned across articles, blogs, comparisons, and more.",
     status: "Prototype",
     statusColor: "text-purple-400",
     url: "/mentions",
