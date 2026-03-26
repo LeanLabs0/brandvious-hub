@@ -1560,9 +1560,11 @@ function SparkleBackground() {
 function LightBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, hsl(40 20% 97%) 0%, hsl(40 10% 98%) 30%, hsl(220 10% 97%) 100%)" }} />
-      <div className="absolute top-0 left-0 right-0 h-[400px]" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 0%, rgba(200,170,120,0.06), transparent)" }} />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[120px]" style={{ background: "linear-gradient(to bottom, rgba(180,150,100,0.15), transparent)" }} />
+      <div className="absolute inset-0" style={{ background: "hsl(42 30% 95%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[600px]" style={{ background: "linear-gradient(180deg, hsl(38 35% 93%) 0%, hsl(42 30% 95%) 100%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(190,160,100,0.15), transparent)" }} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[200px]" style={{ background: "linear-gradient(to bottom, rgba(180,150,90,0.4), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-[400px]" style={{ background: "linear-gradient(to top, hsl(40 20% 94%), transparent)" }} />
     </div>
   );
 }
@@ -1570,11 +1572,12 @@ function LightBackground() {
 function DarkBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: "linear-gradient(170deg, hsl(210 15% 7%) 0%, hsl(220 10% 6%) 40%, hsl(215 12% 5%) 100%)" }} />
-      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 90% 50% at 50% 0%, rgba(60,100,140,0.08), transparent)" }} />
-      <div className="absolute bottom-0 left-0 right-0 h-[300px]" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(40,70,100,0.05), transparent)" }} />
-      <div className="absolute left-[15%] top-[20%] w-[350px] h-[350px] rounded-full blur-[150px]" style={{ background: "radial-gradient(circle, rgba(50,90,130,0.04), transparent 70%)" }} />
-      <div className="absolute left-[75%] top-[40%] w-[300px] h-[300px] rounded-full blur-[140px]" style={{ background: "radial-gradient(circle, rgba(40,80,120,0.03), transparent 70%)" }} />
+      <div className="absolute inset-0" style={{ background: "hsl(220 20% 7%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[700px]" style={{ background: "linear-gradient(180deg, hsl(215 30% 10%) 0%, hsl(220 20% 7%) 100%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(40,90,160,0.18), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-[400px]" style={{ background: "radial-gradient(ellipse 80% 60% at 50% 100%, rgba(20,60,120,0.1), transparent)" }} />
+      <div className="absolute left-[10%] top-[15%] w-[500px] h-[500px] rounded-full blur-[180px]" style={{ background: "radial-gradient(circle, rgba(30,80,150,0.1), transparent 70%)" }} />
+      <div className="absolute right-[10%] top-[50%] w-[400px] h-[400px] rounded-full blur-[160px]" style={{ background: "radial-gradient(circle, rgba(20,70,140,0.07), transparent 70%)" }} />
     </div>
   );
 }
@@ -1588,26 +1591,26 @@ function useCardStyles() {
   const card = isSparkle
     ? "backdrop-blur-md bg-white/[0.04] border border-purple-400/[0.08]"
     : isLight
-    ? "bg-[hsl(40_15%_99%)] border border-[rgba(180,160,120,0.12)] rounded-xl"
-    : "backdrop-blur-sm bg-white/[0.025] border border-white/[0.07] rounded-xl";
+    ? "bg-white border border-[rgba(180,155,100,0.18)] rounded-xl"
+    : "backdrop-blur-sm bg-[rgba(15,25,45,0.6)] border border-[rgba(60,120,200,0.12)] rounded-xl";
 
   const cardHover = isSparkle
     ? "hover:bg-white/[0.07] hover:border-purple-400/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_30px_rgba(100,40,200,0.1),0_0_60px_rgba(120,50,220,0.04)]"
     : isLight
-    ? "hover:shadow-[0_8px_30px_rgba(120,100,60,0.08),0_2px_8px_rgba(0,0,0,0.04)] hover:border-[rgba(180,160,120,0.18)] hover:-translate-y-[1px]"
-    : "hover:bg-white/[0.04] hover:border-[rgba(120,160,200,0.12)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_20px_rgba(60,100,140,0.06)] hover:-translate-y-[1px]";
+    ? "hover:shadow-[0_12px_40px_rgba(160,130,60,0.12),0_4px_12px_rgba(0,0,0,0.06)] hover:border-[rgba(180,155,100,0.28)] hover:-translate-y-[2px]"
+    : "hover:bg-[rgba(20,35,60,0.7)] hover:border-[rgba(60,120,200,0.22)] hover:shadow-[0_12px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(40,90,180,0.1)] hover:-translate-y-[2px]";
 
   const cardShadow = isSparkle
     ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_15px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]"
     : isLight
-    ? "shadow-[0_1px_3px_rgba(0,0,0,0.04),0_4px_16px_rgba(120,100,60,0.04),inset_0_1px_0_rgba(255,255,255,0.8)]"
-    : "shadow-[0_2px_16px_rgba(0,0,0,0.3),0_0_8px_rgba(40,70,100,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]";
+    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(160,130,60,0.07),inset_0_1px_0_rgba(255,255,255,0.9)]"
+    : "shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_12px_rgba(30,70,140,0.08),inset_0_1px_0_rgba(80,140,220,0.06)]";
 
   const promptGlow = isSparkle
     ? "shadow-[0_0_40px_rgba(100,40,200,0.12),0_0_80px_rgba(120,50,220,0.04),inset_0_1px_0_rgba(255,255,255,0.05)] focus-within:shadow-[0_0_50px_rgba(100,40,200,0.18),0_0_100px_rgba(120,50,220,0.06),inset_0_1px_0_rgba(255,255,255,0.07)]"
     : isLight
-    ? "shadow-[0_1px_4px_rgba(0,0,0,0.04),0_4px_20px_rgba(120,100,60,0.06),inset_0_1px_0_rgba(255,255,255,0.9)] focus-within:shadow-[0_2px_8px_rgba(0,0,0,0.06),0_8px_30px_rgba(120,100,60,0.1),inset_0_1px_0_rgba(255,255,255,0.9)]"
-    : "shadow-[0_2px_16px_rgba(0,0,0,0.3),0_0_10px_rgba(40,70,100,0.05),inset_0_1px_0_rgba(255,255,255,0.04)] focus-within:shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_20px_rgba(60,100,140,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
+    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(160,130,60,0.08),inset_0_2px_0_rgba(255,255,255,0.95)] focus-within:shadow-[0_4px_16px_rgba(0,0,0,0.08),0_12px_40px_rgba(160,130,60,0.14),inset_0_2px_0_rgba(255,255,255,0.95)]"
+    : "shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_16px_rgba(30,70,140,0.08),inset_0_1px_0_rgba(80,140,220,0.06)] focus-within:shadow-[0_8px_36px_rgba(0,0,0,0.5),0_0_30px_rgba(40,90,180,0.12),inset_0_1px_0_rgba(80,140,220,0.1)]";
 
   return { card, cardHover, cardShadow, promptGlow, isSparkle, isLight, isDark };
 }
@@ -1639,11 +1642,15 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
     <nav
       className="fixed top-0 left-0 right-0 z-[9999]"
       style={{
-        backdropFilter: "blur(16px)",
+        backdropFilter: "blur(20px)",
         backgroundColor:
           theme === "sparkle" ? "hsl(220 10% 6% / 0.7)" :
-          theme === "dark" ? "hsl(215 14% 7% / 0.85)" :
-          "hsl(40 15% 97% / 0.85)",
+          theme === "dark" ? "hsl(220 25% 8% / 0.9)" :
+          "hsl(42 30% 94% / 0.9)",
+        borderBottom:
+          theme === "sparkle" ? "1px solid rgba(120,50,220,0.06)" :
+          theme === "dark" ? "1px solid rgba(40,90,180,0.1)" :
+          "1px solid rgba(180,155,100,0.12)",
       }}
       data-testid="navbar"
     >
@@ -1757,7 +1764,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
   onSelectSector: (id: string) => void;
   onSelectArticle: (id: string) => void;
 }) {
-  const { card, cardHover, cardShadow, promptGlow, isSparkle, isLight } = useCardStyles();
+  const { card, cardHover, cardShadow, promptGlow, isSparkle, isLight, isDark } = useCardStyles();
 
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -1785,8 +1792,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </p>
       </div>
 
-      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} ${isLight ? "focus-within:border-[rgba(180,160,120,0.22)]" : "focus-within:border-white/[0.15]"}`}>
-        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : isLight ? "text-[rgba(160,140,100,0.5)]" : "text-muted-foreground/30"}`} />
+      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} ${isLight ? "focus-within:border-[rgba(180,155,100,0.35)]" : isDark ? "focus-within:border-[rgba(60,120,200,0.25)]" : "focus-within:border-white/[0.15]"}`}>
+        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : isLight ? "text-[rgba(160,130,70,0.6)]" : isDark ? "text-[rgba(80,140,220,0.4)]" : "text-muted-foreground/30"}`} />
         <input
           type="text"
           placeholder="What are you evaluating?"
@@ -1795,7 +1802,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
           className="flex-1 bg-transparent text-[15px] text-foreground placeholder:text-muted-foreground/25 outline-none font-normal"
           data-testid="input-search"
         />
-        <kbd className={`hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 rounded-md px-1.5 py-0.5 font-medium ${isLight ? "border border-black/[0.08]" : "border border-white/[0.06]"}`}>⌘K</kbd>
+        <kbd className={`hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 rounded-md px-1.5 py-0.5 font-medium ${isLight ? "border border-[rgba(180,155,100,0.15)] bg-[rgba(200,180,120,0.06)]" : isDark ? "border border-[rgba(60,120,200,0.1)] bg-[rgba(40,90,180,0.05)]" : "border border-white/[0.06]"}`}>⌘K</kbd>
       </div>
 
       {searchQuery.trim() ? (
@@ -1827,7 +1834,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                 const clusterBrandCount = cluster.sectors.reduce((a, s) => a + s.brandCount, 0);
                 return (
                   <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
-                    <div className="mb-4 pb-3 border-b border-border/10">
+                    <div className={`mb-4 pb-3 border-b ${isLight ? "border-[rgba(180,155,100,0.12)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
                       <h2 className="text-base font-semibold tracking-tight text-foreground/90">{cluster.name}</h2>
                       <p className="text-[12px] text-muted-foreground/25 mt-0.5">{cluster.sectors.length} sectors · {clusterBrandCount} brands</p>
                     </div>
@@ -1837,7 +1844,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                         return (
                           <button
                             key={sector.id}
-                            className={`w-full text-left group flex items-center justify-between py-2.5 transition-colors ${i < cluster.sectors.length - 1 ? "border-b border-border/5" : ""}`}
+                            className={`w-full text-left group flex items-center justify-between py-2.5 transition-colors ${i < cluster.sectors.length - 1 ? `border-b ${isLight ? "border-[rgba(180,155,100,0.06)]" : isDark ? "border-[rgba(60,120,200,0.04)]" : "border-border/5"}` : ""}`}
                             onClick={() => onSelectSector(sector.id)}
                             data-testid={`sector-link-${sector.id}`}
                           >
@@ -1917,7 +1924,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
       )}
 
       {relatedSectors.length > 0 && (
-        <div className="mb-10 pt-10 border-t border-border/10">
+        <div className={`mb-10 pt-10 border-t ${isLight ? "border-[rgba(180,155,100,0.12)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
           <p className="text-[13px] text-muted-foreground/25 mb-6 font-medium">
             {parentCluster ? `More in ${parentCluster.name}` : "Other sectors"}
           </p>
