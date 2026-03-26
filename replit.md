@@ -19,7 +19,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - Three-mode theme system: Light, Dark, Sparkle
 - Font: Plus Jakarta Sans throughout (single font, hierarchy via weight/size/opacity)
 - Dark mode: deep navy background (hsl 220° 20% 7%), blue-tinted ambient orbs, cards with cool-blue borders/inset glow
-- Light mode: warm cream background (hsl 42° 30% 95%), golden accent spine, white cards with warm golden borders/shadows
+- Light mode: cool silver-gray background (hsl 220° 12% 95%), slate accent spine, white cards with cool blue-gray borders/shadows
 - Sparkle mode: spine beam, ambient orbs, floating particles, purple box-shadow halos on cards (NO colored text, NO purple fills — purple only in shadows/glow)
 - Buttons are outline/ghost style only — no colored fills
 - Color variables use HSL format: H S% L%

@@ -1569,11 +1569,11 @@ function SparkleBackground() {
 function LightBackground() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-      <div className="absolute inset-0" style={{ background: "hsl(42 30% 95%)" }} />
-      <div className="absolute top-0 left-0 right-0 h-[600px]" style={{ background: "linear-gradient(180deg, hsl(38 35% 93%) 0%, hsl(42 30% 95%) 100%)" }} />
-      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(190,160,100,0.15), transparent)" }} />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[200px]" style={{ background: "linear-gradient(to bottom, rgba(180,150,90,0.4), transparent)" }} />
-      <div className="absolute bottom-0 left-0 right-0 h-[400px]" style={{ background: "linear-gradient(to top, hsl(40 20% 94%), transparent)" }} />
+      <div className="absolute inset-0" style={{ background: "hsl(220 12% 95%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[600px]" style={{ background: "linear-gradient(180deg, hsl(225 14% 93%) 0%, hsl(220 12% 95%) 100%)" }} />
+      <div className="absolute top-0 left-0 right-0 h-[500px]" style={{ background: "radial-gradient(ellipse 70% 50% at 50% 0%, rgba(120,130,170,0.1), transparent)" }} />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-[200px]" style={{ background: "linear-gradient(to bottom, rgba(100,110,150,0.25), transparent)" }} />
+      <div className="absolute bottom-0 left-0 right-0 h-[400px]" style={{ background: "linear-gradient(to top, hsl(220 10% 94%), transparent)" }} />
     </div>
   );
 }
@@ -1600,25 +1600,25 @@ function useCardStyles() {
   const card = isSparkle
     ? "backdrop-blur-md bg-white/[0.04] border border-purple-400/[0.08]"
     : isLight
-    ? "bg-white border border-[rgba(180,155,100,0.18)] rounded-xl"
+    ? "bg-white border border-[rgba(120,125,150,0.15)] rounded-xl"
     : "backdrop-blur-sm bg-[rgba(15,25,45,0.6)] border border-[rgba(60,120,200,0.12)] rounded-xl";
 
   const cardHover = isSparkle
     ? "hover:bg-white/[0.07] hover:border-purple-400/[0.15] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3),0_0_30px_rgba(100,40,200,0.1),0_0_60px_rgba(120,50,220,0.04)]"
     : isLight
-    ? "hover:shadow-[0_12px_40px_rgba(160,130,60,0.12),0_4px_12px_rgba(0,0,0,0.06)] hover:border-[rgba(180,155,100,0.28)] hover:-translate-y-[2px]"
+    ? "hover:shadow-[0_12px_40px_rgba(100,110,150,0.1),0_4px_12px_rgba(0,0,0,0.06)] hover:border-[rgba(120,125,150,0.25)] hover:-translate-y-[2px]"
     : "hover:bg-[rgba(20,35,60,0.7)] hover:border-[rgba(60,120,200,0.22)] hover:shadow-[0_12px_50px_rgba(0,0,0,0.5),0_0_30px_rgba(40,90,180,0.1)] hover:-translate-y-[2px]";
 
   const cardShadow = isSparkle
     ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_15px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]"
     : isLight
-    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(160,130,60,0.07),inset_0_1px_0_rgba(255,255,255,0.9)]"
+    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(100,110,150,0.06),inset_0_1px_0_rgba(255,255,255,0.9)]"
     : "shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_12px_rgba(30,70,140,0.08),inset_0_1px_0_rgba(80,140,220,0.06)]";
 
   const promptGlow = isSparkle
     ? "shadow-[0_0_40px_rgba(100,40,200,0.12),0_0_80px_rgba(120,50,220,0.04),inset_0_1px_0_rgba(255,255,255,0.05)] focus-within:shadow-[0_0_50px_rgba(100,40,200,0.18),0_0_100px_rgba(120,50,220,0.06),inset_0_1px_0_rgba(255,255,255,0.07)]"
     : isLight
-    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(160,130,60,0.08),inset_0_2px_0_rgba(255,255,255,0.95)] focus-within:shadow-[0_4px_16px_rgba(0,0,0,0.08),0_12px_40px_rgba(160,130,60,0.14),inset_0_2px_0_rgba(255,255,255,0.95)]"
+    ? "shadow-[0_2px_8px_rgba(0,0,0,0.05),0_8px_30px_rgba(100,110,150,0.07),inset_0_2px_0_rgba(255,255,255,0.95)] focus-within:shadow-[0_4px_16px_rgba(0,0,0,0.08),0_12px_40px_rgba(100,110,150,0.12),inset_0_2px_0_rgba(255,255,255,0.95)]"
     : "shadow-[0_4px_24px_rgba(0,0,0,0.4),0_0_16px_rgba(30,70,140,0.08),inset_0_1px_0_rgba(80,140,220,0.06)] focus-within:shadow-[0_8px_36px_rgba(0,0,0,0.5),0_0_30px_rgba(40,90,180,0.12),inset_0_1px_0_rgba(80,140,220,0.1)]";
 
   return { card, cardHover, cardShadow, promptGlow, isSparkle, isLight, isDark };
@@ -1655,11 +1655,11 @@ function Navbar({ activeSector, onHome, onSelectSector }: {
         backgroundColor:
           theme === "sparkle" ? "hsl(220 10% 6% / 0.7)" :
           theme === "dark" ? "hsl(220 25% 8% / 0.9)" :
-          "hsl(42 30% 94% / 0.9)",
+          "hsl(220 12% 94% / 0.9)",
         borderBottom:
           theme === "sparkle" ? "1px solid rgba(120,50,220,0.06)" :
           theme === "dark" ? "1px solid rgba(40,90,180,0.1)" :
-          "1px solid rgba(180,155,100,0.12)",
+          "1px solid rgba(120,125,150,0.1)",
       }}
       data-testid="navbar"
     >
@@ -1761,7 +1761,7 @@ function ArticleCard({ article, onClick }: { article: Article; onClick: () => vo
         )}
       </div>
 
-      <div className={`flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t ${isLight ? "border-[rgba(180,160,120,0.08)]" : "border-white/[0.04]"}`}>
+      <div className={`flex items-center justify-between text-[13px] text-muted-foreground/25 pt-4 border-t ${isLight ? "border-[rgba(120,125,150,0.08)]" : "border-white/[0.04]"}`}>
         <span>{article.readTime} · {article.updated}</span>
         <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/15" />
       </div>
@@ -1801,8 +1801,8 @@ function HomePage({ onSelectSector, onSelectArticle }: {
         </p>
       </div>
 
-      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} ${isLight ? "focus-within:border-[rgba(180,155,100,0.35)]" : isDark ? "focus-within:border-[rgba(60,120,200,0.25)]" : "focus-within:border-white/[0.15]"}`}>
-        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : isLight ? "text-[rgba(160,130,70,0.6)]" : isDark ? "text-[rgba(80,140,220,0.4)]" : "text-muted-foreground/30"}`} />
+      <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} ${isLight ? "focus-within:border-[rgba(120,125,150,0.3)]" : isDark ? "focus-within:border-[rgba(60,120,200,0.25)]" : "focus-within:border-white/[0.15]"}`}>
+        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : isLight ? "text-[rgba(100,110,150,0.5)]" : isDark ? "text-[rgba(80,140,220,0.4)]" : "text-muted-foreground/30"}`} />
         <input
           type="text"
           placeholder="What are you evaluating?"
@@ -1811,7 +1811,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
           className="flex-1 bg-transparent text-[15px] text-foreground placeholder:text-muted-foreground/25 outline-none font-normal"
           data-testid="input-search"
         />
-        <kbd className={`hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 rounded-md px-1.5 py-0.5 font-medium ${isLight ? "border border-[rgba(180,155,100,0.15)] bg-[rgba(200,180,120,0.06)]" : isDark ? "border border-[rgba(60,120,200,0.1)] bg-[rgba(40,90,180,0.05)]" : "border border-white/[0.06]"}`}>⌘K</kbd>
+        <kbd className={`hidden sm:inline-flex items-center gap-1 text-[11px] text-muted-foreground/20 rounded-md px-1.5 py-0.5 font-medium ${isLight ? "border border-[rgba(120,125,150,0.12)] bg-[rgba(120,125,150,0.04)]" : isDark ? "border border-[rgba(60,120,200,0.1)] bg-[rgba(40,90,180,0.05)]" : "border border-white/[0.06]"}`}>⌘K</kbd>
       </div>
 
       {searchQuery.trim() ? (
@@ -1843,7 +1843,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                 const clusterBrandCount = cluster.sectors.reduce((a, s) => a + s.brandCount, 0);
                 return (
                   <div key={cluster.id} data-testid={`cluster-${cluster.id}`}>
-                    <div className={`mb-4 pb-3 border-b ${isLight ? "border-[rgba(180,155,100,0.12)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
+                    <div className={`mb-4 pb-3 border-b ${isLight ? "border-[rgba(120,125,150,0.1)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
                       <h2 className="text-base font-semibold tracking-tight text-foreground/90">{cluster.name}</h2>
                       <p className="text-[12px] text-muted-foreground/25 mt-0.5">{cluster.sectors.length} sectors · {clusterBrandCount} brands</p>
                     </div>
@@ -1853,7 +1853,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
                         return (
                           <button
                             key={sector.id}
-                            className={`w-full text-left group flex items-center justify-between py-2.5 transition-colors ${i < cluster.sectors.length - 1 ? `border-b ${isLight ? "border-[rgba(180,155,100,0.06)]" : isDark ? "border-[rgba(60,120,200,0.04)]" : "border-border/5"}` : ""}`}
+                            className={`w-full text-left group flex items-center justify-between py-2.5 transition-colors ${i < cluster.sectors.length - 1 ? `border-b ${isLight ? "border-[rgba(120,125,150,0.06)]" : isDark ? "border-[rgba(60,120,200,0.04)]" : "border-border/5"}` : ""}`}
                             onClick={() => onSelectSector(sector.id)}
                             data-testid={`sector-link-${sector.id}`}
                           >
@@ -1933,7 +1933,7 @@ function SectorPage({ sectorId, onSelectArticle, onSelectSector }: {
       )}
 
       {relatedSectors.length > 0 && (
-        <div className={`mb-10 pt-10 border-t ${isLight ? "border-[rgba(180,155,100,0.12)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
+        <div className={`mb-10 pt-10 border-t ${isLight ? "border-[rgba(120,125,150,0.1)]" : isDark ? "border-[rgba(60,120,200,0.08)]" : "border-border/10"}`}>
           <p className="text-[13px] text-muted-foreground/25 mb-6 font-medium">
             {parentCluster ? `More in ${parentCluster.name}` : "Other sectors"}
           </p>
@@ -1965,9 +1965,9 @@ function RatingBar({ rating }: { rating: number }) {
   const percentage = (rating / 10) * 100;
   return (
     <div className="flex items-center gap-3">
-      <div className={`h-1.5 rounded-full flex-1 ${isLight ? "bg-[rgba(180,160,120,0.12)]" : "bg-white/[0.06]"}`}>
+      <div className={`h-1.5 rounded-full flex-1 ${isLight ? "bg-[rgba(120,125,150,0.1)]" : "bg-white/[0.06]"}`}>
         <div
-          className={`h-full rounded-full transition-all duration-500 ${isSparkle ? "bg-purple-400/40" : isLight ? "bg-[rgba(140,120,80,0.35)]" : "bg-[rgba(100,150,200,0.3)]"}`}
+          className={`h-full rounded-full transition-all duration-500 ${isSparkle ? "bg-purple-400/40" : isLight ? "bg-[rgba(100,110,150,0.35)]" : "bg-[rgba(100,150,200,0.3)]"}`}
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -2104,7 +2104,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
       )}
 
       {article.keyTakeaways.length > 0 && (
-        <div id="takeaways" className={`rounded-xl p-6 mb-12 ${isSparkle ? "border border-purple-400/[0.1] bg-purple-500/[0.03]" : isLight ? "border border-[rgba(180,160,120,0.1)] bg-[hsl(40_15%_98%)]" : "border border-[rgba(60,100,140,0.08)] bg-white/[0.02]"}`}>
+        <div id="takeaways" className={`rounded-xl p-6 mb-12 ${isSparkle ? "border border-purple-400/[0.1] bg-purple-500/[0.03]" : isLight ? "border border-[rgba(120,125,150,0.08)] bg-[hsl(220_12%_97%)]" : "border border-[rgba(60,100,140,0.08)] bg-white/[0.02]"}`}>
           <p className="text-[13px] font-semibold text-foreground/80 mb-4 flex items-center gap-2">
             <Zap className={`w-3.5 h-3.5 ${isSparkle ? "text-purple-400/50" : "text-foreground/30"}`} />
             Key Takeaways
@@ -2142,7 +2142,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
         </div>
       )}
 
-      <div id="bottom-line" className={`rounded-xl border-l-2 pl-6 py-5 mb-12 ${isSparkle ? "border-purple-500/25" : isLight ? "border-[rgba(180,160,120,0.25)]" : "border-[rgba(60,100,140,0.2)]"}`}>
+      <div id="bottom-line" className={`rounded-xl border-l-2 pl-6 py-5 mb-12 ${isSparkle ? "border-purple-500/25" : isLight ? "border-[rgba(100,110,150,0.25)]" : "border-[rgba(60,100,140,0.2)]"}`}>
         <p className="text-[13px] text-muted-foreground/35 font-semibold mb-3 uppercase tracking-[0.1em]">The Bottom Line</p>
         <p className="text-base text-foreground/80 leading-[1.8] font-medium" data-testid="text-bottom-line">{article.bottomLine}</p>
       </div>
@@ -2155,7 +2155,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
           </p>
           <div className="space-y-0">
             {article.faqs.map((faq, i) => (
-              <div key={i} className={`py-5 ${i < article.faqs!.length - 1 ? `border-b ${isLight ? "border-[rgba(180,155,100,0.08)]" : "border-white/[0.04]"}` : ""}`}>
+              <div key={i} className={`py-5 ${i < article.faqs!.length - 1 ? `border-b ${isLight ? "border-[rgba(120,125,150,0.06)]" : "border-white/[0.04]"}` : ""}`}>
                 <h3 className="text-[15px] font-semibold text-foreground/90 mb-2.5 leading-snug">{faq.question}</h3>
                 <p className="text-[14px] text-foreground/60 leading-[1.75]">{faq.answer}</p>
               </div>
@@ -2165,7 +2165,7 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
       )}
 
       {article.methodology && (
-        <div id="methodology" className={`rounded-xl p-5 mb-12 ${isLight ? "bg-[hsl(40_15%_98%)] border border-[rgba(180,160,120,0.08)]" : "bg-white/[0.015] border border-[rgba(60,100,140,0.06)]"}`}>
+        <div id="methodology" className={`rounded-xl p-5 mb-12 ${isLight ? "bg-[hsl(220_12%_97%)] border border-[rgba(120,125,150,0.08)]" : "bg-white/[0.015] border border-[rgba(60,100,140,0.06)]"}`}>
           <p className="text-[13px] text-muted-foreground/35 font-semibold mb-3 uppercase tracking-[0.1em] flex items-center gap-2">
             <ClipboardList className="w-3.5 h-3.5 text-muted-foreground/30" />
             Methodology
@@ -2176,11 +2176,11 @@ function ArticleDetailPage({ article, onBack, onSelectSector }: {
 
       <div className="mb-8 flex items-center gap-2 flex-wrap">
         {article.tags.map((t) => (
-          <span key={t} className={`text-[12px] rounded-md px-2.5 py-1 ${isLight ? "text-foreground/40 border border-[rgba(180,160,120,0.1)] bg-[hsl(40_15%_98%)]" : "text-muted-foreground/30 border border-white/[0.06] bg-white/[0.02]"}`}>{t}</span>
+          <span key={t} className={`text-[12px] rounded-md px-2.5 py-1 ${isLight ? "text-foreground/40 border border-[rgba(120,125,150,0.1)] bg-[hsl(220_12%_97%)]" : "text-muted-foreground/30 border border-white/[0.06] bg-white/[0.02]"}`}>{t}</span>
         ))}
       </div>
 
-      <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-[rgba(180,160,120,0.1)]" : "border-[rgba(60,100,140,0.08)]"}`}>
+      <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-[rgba(120,125,150,0.08)]" : "border-[rgba(60,100,140,0.08)]"}`}>
         <div className="flex items-center gap-3">
           <Shield className="w-3.5 h-3.5 text-muted-foreground/25" />
           <span>No affiliate links</span>
@@ -2262,7 +2262,7 @@ export default function WhatisBestV3() {
         )}
       </main>
 
-      <footer className={`relative z-10 py-8 border-t ${isSparkle ? "border-purple-500/10" : isDark ? "border-[rgba(60,100,140,0.1)]" : isLight ? "border-[rgba(180,160,120,0.12)]" : "border-border/20"}`}>
+      <footer className={`relative z-10 py-8 border-t ${isSparkle ? "border-purple-500/10" : isDark ? "border-[rgba(60,100,140,0.1)]" : isLight ? "border-[rgba(120,125,150,0.1)]" : "border-border/20"}`}>
         <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground/50">
           <div className="flex items-center gap-2">
             <Award className="w-3 h-3" />
