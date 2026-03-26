@@ -11,6 +11,7 @@ import {
   Sparkles,
   ExternalLink,
   ChevronRight,
+  Activity,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
@@ -51,7 +52,7 @@ const products = [
   },
   {
     name: "AnswerStack",
-    domain: "answerstack.com",
+    domain: "answerstack.io",
     label: "Answers",
     subtitle: "Answers for AI",
     description: "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
@@ -61,8 +62,8 @@ const products = [
     icon: Layers,
   },
   {
-    name: "ReviewRadar",
-    domain: "reviewradar.com",
+    name: "ReviewInsight",
+    domain: "reviewinsight.com",
     label: "Trust",
     subtitle: "Reviews AI can trust",
     description: "Real-time sentiment from leading platforms and communities. Not biased. Not stale.",
@@ -71,10 +72,21 @@ const products = [
     url: "/reviewradar",
     icon: Radar,
   },
+  {
+    name: "Mentions.io",
+    domain: "mentions.io",
+    label: "Presence",
+    subtitle: "Proof of presence",
+    description: "A public record showing how often a brand is mentioned across articles, blogs, comparisons, and reputable sources.",
+    status: "Prototype",
+    statusColor: "text-purple-400",
+    url: "/mentions",
+    icon: Activity,
+  },
 ];
 
 const stats = [
-  { value: "5", label: "Products" },
+  { value: "6", label: "Products" },
   { value: "1", label: "Mission" },
   { value: "∞", label: "Machines served" },
 ];
@@ -646,7 +658,7 @@ function EcosystemVisual() {
                 </span>
               </h2>
               <p className="text-sm text-white/55 leading-relaxed mb-8">
-                SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewRadar makes your reputation transparent.
+                SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewInsight makes your reputation transparent. Mentions.io makes your presence provable.
               </p>
               <a
                 href="#products"

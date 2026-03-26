@@ -319,7 +319,7 @@ function Navbar({ onHome, activeCategory, onCategoryChange }: {
         <button onClick={onHome} className="flex items-center gap-2">
           <Radar className="w-4 h-4 text-muted-foreground/60" />
           <span className="text-sm font-semibold tracking-tight text-foreground" data-testid="text-logo">
-            ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
+            ReviewInsight<span className="font-normal text-muted-foreground">.com</span>
           </span>
         </button>
         <div className="flex items-center gap-1">
@@ -632,7 +632,7 @@ function ProductDetailPage({ product, onBack }: { product: ProductReport; onBack
         <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
           <span className="text-muted-foreground/60">GET</span>{" "}
-          <span className="text-foreground/80">reviewradar.com/api/report/{product.id}</span>
+          <span className="text-foreground/80">reviewinsight.com/api/report/{product.id}</span>
         </div>
         <span className="text-[10px] text-muted-foreground/50">Returns structured consensus report with source-by-source breakdown.</span>
       </div>
@@ -671,7 +671,7 @@ function Footer() {
             <div className="flex items-center gap-2 mb-2">
               <Radar className="w-3.5 h-3.5 text-muted-foreground/60" />
               <span className="text-sm font-semibold text-foreground">
-                ReviewRadar<span className="font-normal text-muted-foreground">.com</span>
+                ReviewInsight<span className="font-normal text-muted-foreground">.com</span>
               </span>
             </div>
             <p className="text-[11px] text-muted-foreground/60 leading-relaxed">

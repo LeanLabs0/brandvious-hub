@@ -18,6 +18,7 @@ import {
   Sun,
   Moon,
   Sparkles,
+  Activity,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -55,7 +56,7 @@ const projects = [
     icon: Trophy,
   },
   {
-    name: "AnswerStack.com",
+    name: "AnswerStack.io",
     label: "ANSWERS",
     description:
       "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
@@ -65,14 +66,24 @@ const projects = [
     icon: Layers,
   },
   {
-    name: "ReviewRadar.com",
+    name: "ReviewInsight.com",
     label: "TRUST",
     description:
-      "Review sites are biased and stale. ReviewRadar pulls real-time sentiment from leading platforms and communities.",
+      "Review sites are biased and stale. ReviewInsight pulls real-time sentiment from leading platforms and communities.",
     status: "Backlog",
     statusColor: "text-neutral-500",
     url: "/reviewradar",
     icon: Radar,
+  },
+  {
+    name: "Mentions.io",
+    label: "PRESENCE",
+    description:
+      "A public record showing how often a brand is mentioned across articles, blogs, comparisons, and reputable sources.",
+    status: "Prototype",
+    statusColor: "text-purple-400",
+    url: "/mentions",
+    icon: Activity,
   },
 ];
 
@@ -529,12 +540,32 @@ function ReviewRadarVisualInline() {
   );
 }
 
+function MentionsVisualInline() {
+  return (
+    <div className="space-y-1.5">
+      {[
+        { brand: "Lean Labs", mentions: 47, trend: "+12" },
+        { brand: "HubSpot", mentions: 312, trend: "+8" },
+        { brand: "Stripe", mentions: 289, trend: "+5" },
+      ].map((item) => (
+        <div key={item.brand} className="flex items-center justify-between gap-4 rounded-lg bg-background/40 px-3 py-2">
+          <span className="text-xs text-foreground/85">{item.brand}</span>
+          <span className="text-xs font-mono text-emerald-500/70">
+            {item.mentions} · +{item.trend}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const projectVisuals = [
   <SchemaVisualInline />,
   <EntitiesVisualInline />,
   <WhatisBestVisualInline />,
   <AnswerStackVisualInline />,
   <ReviewRadarVisualInline />,
+  <MentionsVisualInline />,
 ];
 
 function Projects() {

@@ -12,8 +12,8 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 1. **SchemaRocket** (Established) — AEO / Structured data for AI visibility
 2. **Entities.org** (Growing) — Structured entity registry
 3. **WhatisBest.com** (Launching) — AI-native B2B SaaS comparison engine
-4. **AnswerStack.com** (In Development) — Structured authority hub for AI search
-5. **ReviewRadar.com** (Backlog) — Consensus review intelligence across all review platforms
+4. **AnswerStack.io** (In Development) — Structured authority hub for AI search
+5. **ReviewInsight.com** (Backlog) — Consensus review intelligence across all review platforms
 6. **Mentions.io** (Prototype) — Public mention tracking and proof of presence for brands
 
 ## URL Map
@@ -30,7 +30,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 | `/whatisbest/v1` | WhatisBest v1 (legacy flat categories) | `whatisbest.tsx` |
 | `/whatisbest/v2` | WhatisBest v2 (legacy 9-sector cards) | `whatisbest-v2.tsx` |
 | `/answerstack` | AnswerStack preview | `answerstack.tsx` |
-| `/reviewradar` | ReviewRadar preview | `reviewradar.tsx` |
+| `/reviewradar` | ReviewInsight preview | `reviewradar.tsx` |
 | `/mentions` | Mentions.io homepage (news feed of brand mentions) | `mentions.tsx` |
 | `/mentions/:entityId` | Mentions.io entity detail (e.g. `/mentions/lean-labs`) | `mentions.tsx` |
 

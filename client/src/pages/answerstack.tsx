@@ -634,7 +634,7 @@ function FaqDetailView({
         <span className="text-[10px] text-muted-foreground/70 uppercase tracking-[0.12em] font-medium mb-3 block">API Access</span>
         <div className="rounded-lg bg-background/40 px-3 py-2 mb-2 font-mono text-[11px]">
           <span className="text-muted-foreground/60">GET</span>{" "}
-          <span className="text-foreground/80">answerstack.com/api/faq/{faq.id}</span>
+          <span className="text-foreground/80">answerstack.io/api/faq/{faq.id}</span>
         </div>
         <span className="text-[10px] text-muted-foreground/50">Returns structured FAQPage JSON-LD with linked entity references.</span>
       </div>
