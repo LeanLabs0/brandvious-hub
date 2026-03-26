@@ -2202,16 +2202,6 @@ function ArticleDetailPage({ article, onSelectSector }: {
         </div>
       )}
 
-      <div className={`flex items-center justify-between gap-4 py-6 border-t text-[13px] text-muted-foreground/40 ${isLight ? "border-[rgba(120,125,150,0.08)]" : "border-[rgba(60,100,140,0.08)]"}`}>
-        <div className="flex items-center gap-3">
-          <Shield className="w-3.5 h-3.5 text-muted-foreground/25" />
-          <span>No affiliate links</span>
-          <span className="text-muted-foreground/15">|</span>
-          <span>No sponsored rankings</span>
-          <span className="text-muted-foreground/15">|</span>
-          <span>Independent research</span>
-        </div>
-      </div>
     </div>
   );
 }
