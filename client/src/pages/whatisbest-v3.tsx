@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import {
   Sun,
   Moon,
+  Search,
   Sparkles,
   ChevronRight,
   ArrowRight,
@@ -1762,7 +1763,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
       </div>
 
       <div className={`rounded-2xl px-5 py-3.5 flex items-center gap-4 mb-20 transition-all duration-300 ${card} ${promptGlow} focus-within:border-white/[0.15]`}>
-        <Sparkles className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : "text-muted-foreground/30"}`} />
+        <Search className={`w-4 h-4 shrink-0 ${isSparkle ? "text-purple-400/40" : "text-muted-foreground/30"}`} />
         <input
           type="text"
           placeholder="What are you evaluating?"
