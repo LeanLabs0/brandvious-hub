@@ -1851,7 +1851,7 @@ function HomePage({ onSelectSector, onSelectArticle }: {
             </div>
           )}
 
-          <div className="mb-20">
+          <div id="all-sectors" className="mb-20 scroll-mt-24">
             <p className="text-[13px] uppercase tracking-[0.15em] text-muted-foreground/25 mb-10 font-medium">All Sectors</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-14">
               {CLUSTERS.map((cluster) => {
@@ -2238,6 +2238,21 @@ export default function WhatisBestV3() {
     window.scrollTo(0, 0);
   };
 
+  const handleAllSectors = () => {
+    const scrollToAnchor = () => {
+      document.getElementById("all-sectors")?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    };
+    if (window.location.pathname === "/whatisbest") {
+      scrollToAnchor();
+    } else {
+      navigate("/whatisbest");
+      setTimeout(scrollToAnchor, 80);
+    }
+  };
+
   const isDark = theme === "dark";
   const isLight = theme === "light";
 
@@ -2271,7 +2286,9 @@ export default function WhatisBestV3() {
         isDark={isDark}
         isLight={isLight}
         onSelectSector={handleSelectSector}
+        onSelectArticle={handleSelectArticle}
         onHome={handleHome}
+        onAllSectors={handleAllSectors}
       />
     </div>
   );
@@ -2380,29 +2397,44 @@ function SiteFooter({
   isDark,
   isLight,
   onSelectSector,
+  onSelectArticle,
   onHome,
+  onAllSectors,
 }: {
   isSparkle: boolean;
   isDark: boolean;
   isLight: boolean;
   onSelectSector: (id: string) => void;
+  onSelectArticle: (id: string) => void;
   onHome: () => void;
+  onAllSectors: () => void;
 }) {
   const allSectors = useMemo(
     () => CLUSTERS.flatMap((c) => c.sectors),
     [],
   );
 
-  const populatedSectors = useMemo(() => {
-    const counts = new Map<string, number>();
-    ARTICLES.forEach((a) =>
-      counts.set(a.sectorId, (counts.get(a.sectorId) || 0) + 1),
-    );
-    return Array.from(counts.entries())
-      .sort(([, a], [, b]) => b - a)
-      .map(([id]) => allSectors.find((s) => s.id === id))
-      .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  const sectorNameById = useMemo(() => {
+    const map = new Map<string, string>();
+    allSectors.forEach((s) => map.set(s.id, s.name));
+    return map;
   }, [allSectors]);
+
+  const featuredArticles = useMemo(() => {
+    return [...ARTICLES]
+      .sort(
+        (a, b) =>
+          new Date(b.updated).getTime() - new Date(a.updated).getTime(),
+      )
+      .slice(0, 5);
+  }, []);
+
+  const articleTypeLabel: Record<ArticleType, string> = {
+    comparison: "Comparison",
+    roundup: "Roundup",
+    guide: "Buyer's Guide",
+    trending: "Trending",
+  };
 
   const borderClass = isSparkle
     ? "border-purple-500/10"
@@ -2435,102 +2467,124 @@ function SiteFooter({
           </p>
         </div>
 
-        {/* Link columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
-          {/* Research Standards */}
-          <div>
-            <h4 className={headingClass}>Research Standards</h4>
-            <ul className="space-y-3">
-              {[
-                "Editorial Policy",
-                "Review Methodology",
-                "How We Rank",
-                "AI & Automation Disclosure",
-                "Affiliate & Commercial Disclosure",
-              ].map((label) => (
-                <li key={label}>
+        {/* 50/50 split: featured articles left, link columns right */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
+          {/* LEFT — Featured Coverage */}
+          <div data-testid="footer-featured-coverage">
+            <h4 className={headingClass}>Featured Coverage</h4>
+            <ul className="space-y-5">
+              {featuredArticles.map((a) => (
+                <li key={a.id}>
                   <button
                     type="button"
-                    onClick={onHome}
-                    className={linkClass}
-                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    onClick={() => onSelectArticle(a.id)}
+                    className="group block w-full text-left"
+                    data-testid={`footer-article-${a.id}`}
                   >
-                    {label}
+                    <div className="text-[15px] leading-snug text-foreground/90 group-hover:text-foreground transition-colors duration-200">
+                      {a.title}
+                    </div>
+                    <div className="mt-1.5 flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-muted-foreground/55">
+                      <span>{sectorNameById.get(a.sectorId) ?? a.sectorId}</span>
+                      <span className="text-muted-foreground/25">·</span>
+                      <span>{articleTypeLabel[a.type]}</span>
+                      <span className="text-muted-foreground/25">·</span>
+                      <span className="normal-case tracking-normal text-muted-foreground/45">
+                        {a.updated}
+                      </span>
+                    </div>
                   </button>
                 </li>
               ))}
             </ul>
+            <button
+              type="button"
+              onClick={onHome}
+              className="mt-7 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
+              data-testid="footer-view-all-comparisons"
+            >
+              View all comparisons
+              <ChevronRight className="w-3 h-3" />
+            </button>
           </div>
 
-          {/* People */}
-          <div>
-            <h4 className={headingClass}>People</h4>
-            <ul className="space-y-3">
-              {[
-                "Authors",
-                "Editorial Team",
-                "Contact Us",
-                "Corrections",
-                "Suggest an Update",
-              ].map((label) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={onHome}
-                    className={linkClass}
-                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          {/* RIGHT — three link columns */}
+          <div className="grid grid-cols-3 gap-x-6 gap-y-10">
+            {/* Research Standards */}
+            <div>
+              <h4 className={headingClass}>Research Standards</h4>
+              <ul className="space-y-3">
+                {[
+                  "Editorial Policy",
+                  "Review Methodology",
+                  "How We Rank",
+                  "AI & Automation Disclosure",
+                  "Affiliate & Commercial Disclosure",
+                ].map((label) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={onHome}
+                      className={linkClass}
+                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Browse */}
-          <div>
-            <h4 className={headingClass}>Browse</h4>
-            <ul className="space-y-3">
-              {[
-                { label: "All Sectors", action: onHome },
-                { label: "Comparisons", action: onHome },
-                { label: "Roundups", action: onHome },
-                { label: "Buyer's Guides", action: onHome },
-                { label: "Search", action: onHome },
-              ].map(({ label, action }) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={action}
-                    className={linkClass}
-                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* People */}
+            <div>
+              <h4 className={headingClass}>People</h4>
+              <ul className="space-y-3">
+                {[
+                  "Authors",
+                  "Editorial Team",
+                  "Contact Us",
+                  "Corrections",
+                  "Suggest an Update",
+                ].map((label) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={onHome}
+                      className={linkClass}
+                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-          {/* Popular Coverage — dynamic */}
-          <div>
-            <h4 className={headingClass}>Popular Coverage</h4>
-            <ul className="space-y-3">
-              {populatedSectors.map((sector) => (
-                <li key={sector.id}>
-                  <button
-                    type="button"
-                    onClick={() => onSelectSector(sector.id)}
-                    className={linkClass}
-                    data-testid={`footer-sector-${sector.id}`}
-                  >
-                    {sector.name}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            {/* Browse */}
+            <div>
+              <h4 className={headingClass}>Browse</h4>
+              <ul className="space-y-3">
+                {[
+                  { label: "All Sectors", action: onAllSectors },
+                  { label: "Comparisons", action: onHome },
+                  { label: "Roundups", action: onHome },
+                  { label: "Buyer's Guides", action: onHome },
+                  { label: "Search", action: onHome },
+                ].map(({ label, action }) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={action}
+                      className={linkClass}
+                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-
         </div>
 
         {/* Sub-footer */}
