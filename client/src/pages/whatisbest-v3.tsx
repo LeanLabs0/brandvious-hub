@@ -2445,10 +2445,8 @@ function SiteFooter({
   const navLinkClass =
     "text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
 
-  const onHowWeResearch = onHome;
-  const onHowWeRank = onHome;
-  const onAIDisclosure = onHome;
-  const onAffiliateDisclosure = onHome;
+  const onResearchAndRank = onHome;
+  const onProcessDisclosures = onHome;
 
   const navItems = [
     { label: "About", action: onHome, testId: "footer-link-about" },
@@ -2458,32 +2456,19 @@ function SiteFooter({
       testId: "footer-link-all-sectors",
     },
     {
+      label: "How We Research & Rank",
+      action: onResearchAndRank,
+      testId: "footer-link-research-and-rank",
+    },
+    {
+      label: "Process Disclosures",
+      action: onProcessDisclosures,
+      testId: "footer-link-process-disclosures",
+    },
+    {
       label: "Contact",
       action: onContact,
       testId: "footer-link-contact",
-    },
-  ];
-
-  const standardsItems = [
-    {
-      label: "How We Research",
-      action: onHowWeResearch,
-      testId: "footer-link-how-we-research",
-    },
-    {
-      label: "How We Rank",
-      action: onHowWeRank,
-      testId: "footer-link-how-we-rank",
-    },
-    {
-      label: "AI & Automation Disclosure",
-      action: onAIDisclosure,
-      testId: "footer-link-ai-disclosure",
-    },
-    {
-      label: "Affiliate Disclosure",
-      action: onAffiliateDisclosure,
-      testId: "footer-link-affiliate-disclosure",
     },
   ];
 
@@ -2528,17 +2513,24 @@ function SiteFooter({
       data-testid="whatisbest-footer"
     >
       <div className="max-w-6xl mx-auto px-6 py-16">
-        {/* Top bar: logo + horizontal nav */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-y-8 gap-x-10">
-          <div className="shrink-0">
-            <WhatIsBestLogo />
-          </div>
+        {/* Brand zone: logo + description, nothing else */}
+        <div>
+          <WhatIsBestLogo />
+          <p className="mt-6 max-w-3xl text-sm text-muted-foreground/80 leading-relaxed">
+            Independent B2B product research across 32+ sectors, featuring
+            roundups and comparisons to help B2B buyers evaluate what is best
+            for their org.
+          </p>
+        </div>
+
+        {/* Dedicated nav bar — premium, breathable */}
+        <div className={`mt-12 py-7 border-y ${borderClass}`}>
           <nav
-            className="flex flex-wrap items-center gap-x-2 gap-y-2 lg:justify-end"
+            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3"
             data-testid="footer-nav"
           >
             {navItems.map(({ label, action, testId }, i, arr) => (
-              <span key={label} className="flex items-center gap-2">
+              <span key={label} className="flex items-center gap-3">
                 <button
                   type="button"
                   onClick={action}
@@ -2555,16 +2547,9 @@ function SiteFooter({
           </nav>
         </div>
 
-        {/* Description sits below the logo */}
-        <p className="mt-6 max-w-3xl text-sm text-muted-foreground/80 leading-relaxed">
-          Independent B2B product research across 32+ sectors, featuring
-          roundups and comparisons to help B2B buyers evaluate what is best for
-          their org.
-        </p>
-
-        {/* Featured content + standards section */}
-        <div className={`mt-12 pt-12 border-t ${borderClass}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
+        {/* Featured content */}
+        <div className="mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
             {renderArticleColumn(
               "Featured Comparisons",
               featuredComparisons,
@@ -2579,24 +2564,6 @@ function SiteFooter({
               "footer-roundups",
               "footer-view-all-roundups",
             )}
-            {/* Editorial Standards column */}
-            <div data-testid="footer-standards">
-              <h4 className={headingClass}>Editorial Standards</h4>
-              <ul className="space-y-3.5">
-                {standardsItems.map(({ label, action, testId }) => (
-                  <li key={label}>
-                    <button
-                      type="button"
-                      onClick={action}
-                      className={articleLinkClass}
-                      data-testid={testId}
-                    >
-                      {label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </div>
         </div>
 
@@ -2636,16 +2603,16 @@ function SiteFooter({
             >
               <button
                 type="button"
-                onClick={onHowWeResearch}
+                onClick={onResearchAndRank}
                 className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
-                data-testid="footer-tagline-research"
+                data-testid="footer-tagline-independent-research"
               >
-                Research
+                Independent Research
               </button>
               <span className="text-muted-foreground/30">·</span>
               <button
                 type="button"
-                onClick={onHowWeRank}
+                onClick={onResearchAndRank}
                 className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
                 data-testid="footer-tagline-fair-rankings"
               >
@@ -2656,9 +2623,9 @@ function SiteFooter({
                 type="button"
                 onClick={onContact}
                 className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
-                data-testid="footer-tagline-corrections"
+                data-testid="footer-tagline-corrections-welcome"
               >
-                Corrections welcome
+                Corrections Welcome
               </button>
             </span>
           </div>
