@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { useRoute, useLocation } from "wouter";
 import {
   Sun,
@@ -2277,6 +2277,104 @@ export default function WhatisBestV3() {
   );
 }
 
+function WhatIsBestLogo() {
+  const leftEyeRef = useRef<HTMLDivElement>(null);
+  const rightEyeRef = useRef<HTMLDivElement>(null);
+  const leftPupilRef = useRef<HTMLDivElement>(null);
+  const rightPupilRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const MAX_OFFSET = 2.5;
+
+    const updatePupils = (clientX: number, clientY: number) => {
+      const move = (
+        eye: HTMLDivElement | null,
+        pupil: HTMLDivElement | null,
+      ) => {
+        if (!eye || !pupil) return;
+        const rect = eye.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const dx = clientX - cx;
+        const dy = clientY - cy;
+        const dist = Math.hypot(dx, dy);
+        if (dist === 0) {
+          pupil.style.transform = "translate(-50%, -50%)";
+          return;
+        }
+        const ox = (dx / dist) * MAX_OFFSET;
+        const oy = (dy / dist) * MAX_OFFSET;
+        pupil.style.transform = `translate(calc(-50% + ${ox}px), calc(-50% + ${oy}px))`;
+      };
+      move(leftEyeRef.current, leftPupilRef.current);
+      move(rightEyeRef.current, rightPupilRef.current);
+    };
+
+    let lastX = 0;
+    let lastY = 0;
+    const handleMove = (e: MouseEvent) => {
+      lastX = e.clientX;
+      lastY = e.clientY;
+      updatePupils(lastX, lastY);
+    };
+    const handleScroll = () => updatePupils(lastX, lastY);
+
+    window.addEventListener("mousemove", handleMove, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  return (
+    <div
+      className="flex items-center gap-3 select-none"
+      data-testid="whatisbest-logo"
+    >
+      <div
+        className="relative w-10 h-10 rounded-xl flex items-center justify-center shadow-[0_4px_14px_rgba(120,50,220,0.3)]"
+        style={{
+          background:
+            "linear-gradient(135deg, hsl(265 75% 60%), hsl(258 70% 48%))",
+        }}
+      >
+        <div className="flex gap-[5px]">
+          <div
+            ref={leftEyeRef}
+            className="relative w-[11px] h-[11px] rounded-full bg-white"
+          >
+            <div
+              ref={leftPupilRef}
+              className="absolute top-1/2 left-1/2 w-[5px] h-[5px] rounded-full bg-slate-900"
+              style={{
+                transform: "translate(-50%, -50%)",
+                transition: "transform 0.08s linear",
+              }}
+            />
+          </div>
+          <div
+            ref={rightEyeRef}
+            className="relative w-[11px] h-[11px] rounded-full bg-white"
+          >
+            <div
+              ref={rightPupilRef}
+              className="absolute top-1/2 left-1/2 w-[5px] h-[5px] rounded-full bg-slate-900"
+              style={{
+                transform: "translate(-50%, -50%)",
+                transition: "transform 0.08s linear",
+              }}
+            />
+          </div>
+        </div>
+      </div>
+      <span className="text-base font-bold tracking-[0.08em] text-foreground">
+        WHAT<span className="text-muted-foreground/60 mx-1 font-semibold">IS</span>BEST
+      </span>
+    </div>
+  );
+}
+
 function SiteFooter({
   isSparkle,
   isDark,
@@ -2327,11 +2425,8 @@ function SiteFooter({
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Brand description */}
         <div className="mb-14 max-w-2xl">
-          <div className="flex items-center gap-2 mb-4">
-            <Award className="w-4 h-4 text-foreground/70" />
-            <h3 className="text-sm font-semibold tracking-wide text-foreground">
-              What is Best
-            </h3>
+          <div className="mb-5">
+            <WhatIsBestLogo />
           </div>
           <p className="text-sm text-muted-foreground/80 leading-relaxed">
             Independent B2B product research across 32+ sectors. We publish
