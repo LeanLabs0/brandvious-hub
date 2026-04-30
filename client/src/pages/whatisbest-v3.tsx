@@ -2439,11 +2439,18 @@ function SiteFooter({
   const headingClass =
     "text-xs font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-5";
 
-  const articleLinkClass =
-    "text-left text-[15px] leading-snug text-foreground/85 hover:text-foreground transition-colors duration-200";
+  // Single hover rule used by EVERY interactive link in the footer.
+  // Base color stays muted; hover/focus pulls to full foreground. No underlines anywhere.
+  const linkHover =
+    "hover:text-foreground focus-visible:text-foreground transition-colors duration-200";
 
-  const navLinkClass =
-    "text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
+  const articleLinkClass = `text-left text-[15px] leading-snug text-foreground/75 ${linkHover}`;
+
+  const navLinkClass = `text-sm text-muted-foreground/70 ${linkHover}`;
+
+  const viewAllLinkClass = `mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground/70 ${linkHover}`;
+
+  const subFooterLinkClass = linkHover;
 
   const onResearchAndRank = onHome;
   const onProcessDisclosures = onHome;
@@ -2498,7 +2505,7 @@ function SiteFooter({
       <button
         type="button"
         onClick={onHome}
-        className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
+        className={viewAllLinkClass}
         data-testid={viewAllTestId}
       >
         {viewAllLabel}
@@ -2578,7 +2585,7 @@ function SiteFooter({
             <button
               type="button"
               onClick={onHome}
-              className="hover:text-foreground transition-colors duration-200"
+              className={subFooterLinkClass}
               data-testid="footer-link-privacy"
             >
               Privacy
@@ -2587,7 +2594,7 @@ function SiteFooter({
             <button
               type="button"
               onClick={onHome}
-              className="hover:text-foreground transition-colors duration-200"
+              className={subFooterLinkClass}
               data-testid="footer-link-terms"
             >
               Terms
@@ -2606,7 +2613,7 @@ function SiteFooter({
               <button
                 type="button"
                 onClick={onResearchAndRank}
-                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                className={subFooterLinkClass}
                 data-testid="footer-tagline-independent-research"
               >
                 Independent Research
@@ -2615,7 +2622,7 @@ function SiteFooter({
               <button
                 type="button"
                 onClick={onResearchAndRank}
-                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                className={subFooterLinkClass}
                 data-testid="footer-tagline-fair-rankings"
               >
                 Fair Rankings
@@ -2624,7 +2631,7 @@ function SiteFooter({
               <button
                 type="button"
                 onClick={onContact}
-                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                className={subFooterLinkClass}
                 data-testid="footer-tagline-corrections-welcome"
               >
                 Corrections Welcome
