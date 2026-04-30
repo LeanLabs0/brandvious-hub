@@ -2554,19 +2554,8 @@ function SiteFooter({
           their org.
         </p>
 
-        {/* Featured content section — clearly demarcated as a curated selection */}
+        {/* Featured content section */}
         <div className={`mt-12 pt-12 border-t ${borderClass}`}>
-          <div className="mb-8 flex items-baseline justify-between gap-4">
-            <span
-              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/60"
-              data-testid="footer-featured-eyebrow"
-            >
-              Featured
-            </span>
-            <span className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground/40">
-              A small selection · more inside
-            </span>
-          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
             {renderArticleColumn(
               "Featured Comparisons",
