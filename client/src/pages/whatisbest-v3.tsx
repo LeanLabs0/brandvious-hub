@@ -2285,7 +2285,6 @@ export default function WhatisBestV3() {
         isSparkle={isSparkle}
         isDark={isDark}
         isLight={isLight}
-        onSelectSector={handleSelectSector}
         onSelectArticle={handleSelectArticle}
         onHome={handleHome}
         onAllSectors={handleAllSectors}
@@ -2396,7 +2395,6 @@ function SiteFooter({
   isSparkle,
   isDark,
   isLight,
-  onSelectSector,
   onSelectArticle,
   onHome,
   onAllSectors,
@@ -2404,24 +2402,13 @@ function SiteFooter({
   isSparkle: boolean;
   isDark: boolean;
   isLight: boolean;
-  onSelectSector: (id: string) => void;
   onSelectArticle: (id: string) => void;
   onHome: () => void;
   onAllSectors: () => void;
 }) {
-  const allSectors = useMemo(
-    () => CLUSTERS.flatMap((c) => c.sectors),
-    [],
-  );
-
-  const sectorNameById = useMemo(() => {
-    const map = new Map<string, string>();
-    allSectors.forEach((s) => map.set(s.id, s.name));
-    return map;
-  }, [allSectors]);
-
-  const featuredArticles = useMemo(() => {
+  const featuredComparisons = useMemo(() => {
     return [...ARTICLES]
+      .filter((a) => a.type === "comparison")
       .sort(
         (a, b) =>
           new Date(b.updated).getTime() - new Date(a.updated).getTime(),
@@ -2429,12 +2416,17 @@ function SiteFooter({
       .slice(0, 5);
   }, []);
 
-  const articleTypeLabel: Record<ArticleType, string> = {
-    comparison: "Comparison",
-    roundup: "Roundup",
-    guide: "Buyer's Guide",
-    trending: "Trending",
-  };
+  const featuredRoundups = useMemo(() => {
+    return [...ARTICLES]
+      .filter((a) => a.type === "roundup")
+      .sort(
+        (a, b) =>
+          new Date(b.updated).getTime() - new Date(a.updated).getTime(),
+      )
+      .slice(0, 5);
+  }, []);
+
+  const onContact = onHome;
 
   const borderClass = isSparkle
     ? "border-purple-500/10"
@@ -2444,10 +2436,38 @@ function SiteFooter({
         ? "border-[rgba(120,125,150,0.1)]"
         : "border-border/20";
 
-  const linkClass =
-    "text-left text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
   const headingClass =
-    "text-xs font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-4";
+    "text-xs font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-5";
+
+  const articleLinkClass =
+    "text-left text-[15px] leading-snug text-foreground/85 hover:text-foreground transition-colors duration-200";
+
+  const navLinkClass =
+    "text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
+
+  const renderArticleColumn = (
+    heading: string,
+    articles: typeof ARTICLES,
+    testId: string,
+  ) => (
+    <div data-testid={testId}>
+      <h4 className={headingClass}>{heading}</h4>
+      <ul className="space-y-3.5">
+        {articles.map((a) => (
+          <li key={a.id}>
+            <button
+              type="button"
+              onClick={() => onSelectArticle(a.id)}
+              className={articleLinkClass}
+              data-testid={`footer-article-${a.id}`}
+            >
+              {a.title}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 
   return (
     <footer
@@ -2455,7 +2475,7 @@ function SiteFooter({
       data-testid="whatisbest-footer"
     >
       <div className="max-w-6xl mx-auto px-6 py-16">
-        {/* Brand description */}
+        {/* Brand */}
         <div className="mb-14 max-w-3xl">
           <div className="mb-5">
             <WhatIsBestLogo />
@@ -2467,143 +2487,50 @@ function SiteFooter({
           </p>
         </div>
 
-        {/* 50/50 split: featured articles left, link columns right */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-12">
-          {/* LEFT — Featured Coverage */}
-          <div data-testid="footer-featured-coverage">
-            <h4 className={headingClass}>Featured Coverage</h4>
-            <ul className="space-y-5">
-              {featuredArticles.map((a) => (
-                <li key={a.id}>
-                  <button
-                    type="button"
-                    onClick={() => onSelectArticle(a.id)}
-                    className="group block w-full text-left"
-                    data-testid={`footer-article-${a.id}`}
-                  >
-                    <div className="text-[15px] leading-snug text-foreground/90 group-hover:text-foreground transition-colors duration-200">
-                      {a.title}
-                    </div>
-                    <div className="mt-1.5 flex items-center gap-2 text-[11px] uppercase tracking-[0.12em] text-muted-foreground/55">
-                      <span>{sectorNameById.get(a.sectorId) ?? a.sectorId}</span>
-                      <span className="text-muted-foreground/25">·</span>
-                      <span>{articleTypeLabel[a.type]}</span>
-                      <span className="text-muted-foreground/25">·</span>
-                      <span className="normal-case tracking-normal text-muted-foreground/45">
-                        {a.updated}
-                      </span>
-                    </div>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <button
-              type="button"
-              onClick={onHome}
-              className="mt-7 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
-              data-testid="footer-view-all-comparisons"
-            >
-              View all comparisons
-              <ChevronRight className="w-3 h-3" />
-            </button>
-          </div>
-
-          {/* RIGHT — three link columns */}
-          <div className="grid grid-cols-3 gap-x-6 gap-y-10">
-            {/* Research Standards */}
-            <div>
-              <h4 className={headingClass}>Research Standards</h4>
-              <ul className="space-y-3">
-                {[
-                  "Editorial Policy",
-                  "Review Methodology",
-                  "How We Rank",
-                  "AI & Automation Disclosure",
-                  "Affiliate & Commercial Disclosure",
-                ].map((label) => (
-                  <li key={label}>
-                    <button
-                      type="button"
-                      onClick={onHome}
-                      className={linkClass}
-                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    >
-                      {label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* People */}
-            <div>
-              <h4 className={headingClass}>People</h4>
-              <ul className="space-y-3">
-                {[
-                  "Authors",
-                  "Editorial Team",
-                  "Contact Us",
-                  "Corrections",
-                  "Suggest an Update",
-                ].map((label) => (
-                  <li key={label}>
-                    <button
-                      type="button"
-                      onClick={onHome}
-                      className={linkClass}
-                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    >
-                      {label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Browse */}
-            <div>
-              <h4 className={headingClass}>Browse</h4>
-              <ul className="space-y-3">
-                {[
-                  { label: "All Sectors", action: onAllSectors },
-                  { label: "Comparisons", action: onHome },
-                  { label: "Roundups", action: onHome },
-                  { label: "Buyer's Guides", action: onHome },
-                  { label: "Search", action: onHome },
-                ].map(({ label, action }) => (
-                  <li key={label}>
-                    <button
-                      type="button"
-                      onClick={action}
-                      className={linkClass}
-                      data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                    >
-                      {label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+        {/* Two columns of featured content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 mb-14">
+          {renderArticleColumn(
+            "Comparisons",
+            featuredComparisons,
+            "footer-comparisons",
+          )}
+          {renderArticleColumn(
+            "Roundups",
+            featuredRoundups,
+            "footer-roundups",
+          )}
         </div>
 
-        {/* Sub-footer */}
-        <div className={`mt-14 pt-6 border-t ${borderClass} flex flex-col gap-4`}>
-          {/* Inline company & legal links */}
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-muted-foreground/70">
+        {/* Minimal inline nav */}
+        <div className={`pt-7 border-t ${borderClass}`}>
+          <nav
+            className="flex flex-wrap items-center gap-x-2 gap-y-2"
+            data-testid="footer-nav"
+          >
             {[
-              "About",
-              "Privacy Policy",
-              "Terms of Service",
-              "Accessibility",
-              "Sitemap",
-            ].map((label, i, arr) => (
+              { label: "About", action: onHome, testId: "footer-link-about" },
+              {
+                label: "How We Research",
+                action: onHome,
+                testId: "footer-link-how-we-research",
+              },
+              {
+                label: "All Sectors",
+                action: onAllSectors,
+                testId: "footer-link-all-sectors",
+              },
+              {
+                label: "Contact",
+                action: onContact,
+                testId: "footer-link-contact",
+              },
+            ].map(({ label, action, testId }, i, arr) => (
               <span key={label} className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={onHome}
-                  className="hover:text-foreground transition-colors duration-200"
-                  data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  onClick={action}
+                  className={navLinkClass}
+                  data-testid={testId}
                 >
                   {label}
                 </button>
@@ -2612,15 +2539,50 @@ function SiteFooter({
                 )}
               </span>
             ))}
+          </nav>
+        </div>
+
+        {/* Sub-footer */}
+        <div
+          className={`mt-7 pt-6 border-t ${borderClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted-foreground/60`}
+        >
+          {/* Legal */}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
+            <button
+              type="button"
+              onClick={onHome}
+              className="hover:text-foreground transition-colors duration-200"
+              data-testid="footer-link-privacy"
+            >
+              Privacy
+            </button>
+            <span className="text-muted-foreground/30">·</span>
+            <button
+              type="button"
+              onClick={onHome}
+              className="hover:text-foreground transition-colors duration-200"
+              data-testid="footer-link-terms"
+            >
+              Terms
+            </button>
           </div>
 
           {/* Publisher + tagline */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground/60">
+          <div className="flex flex-col sm:items-end gap-1.5">
             <span data-testid="footer-publisher">
               Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
             </span>
             <span data-testid="footer-tagline">
-              Independent research · Transparent methodology · Corrections welcome
+              Independent research · Transparent methodology ·{" "}
+              <button
+                type="button"
+                onClick={onContact}
+                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                data-testid="footer-link-corrections"
+              >
+                Corrections
+              </button>{" "}
+              welcome
             </span>
           </div>
         </div>
