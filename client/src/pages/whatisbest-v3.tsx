@@ -2461,9 +2461,9 @@ function SiteFooter({
             <WhatIsBestLogo />
           </div>
           <p className="text-sm text-muted-foreground/80 leading-relaxed">
-            Independent B2B product research across 32+ sectors. Every
-            comparison is built on the kind of methodology and sourcing teams
-            need to make a real decision.
+            Independent B2B product research across 32+ sectors, featuring
+            roundups and comparisons to help B2B buyers evaluate what is best
+            for their org.
           </p>
         </div>
 
