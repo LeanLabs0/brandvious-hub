@@ -2523,14 +2523,16 @@ function SiteFooter({
           </p>
         </div>
 
-        {/* Dedicated nav bar — premium, breathable */}
-        <div className={`mt-12 py-7 border-y ${borderClass}`}>
+        {/* Dedicated nav bar — left-aligned, with a barely-there tint */}
+        <div
+          className={`mt-12 py-7 border-y ${borderClass} bg-foreground/[0.018]`}
+        >
           <nav
-            className="flex flex-wrap items-center justify-center gap-x-3 gap-y-3"
+            className="flex flex-wrap items-center gap-x-4 gap-y-3"
             data-testid="footer-nav"
           >
             {navItems.map(({ label, action, testId }, i, arr) => (
-              <span key={label} className="flex items-center gap-3">
+              <span key={label} className="flex items-center gap-4">
                 <button
                   type="button"
                   onClick={action}
