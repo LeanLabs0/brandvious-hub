@@ -2445,10 +2445,46 @@ function SiteFooter({
   const navLinkClass =
     "text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
 
+  const navItems = [
+    { label: "About", action: onHome, testId: "footer-link-about" },
+    {
+      label: "How We Research",
+      action: onHome,
+      testId: "footer-link-how-we-research",
+    },
+    {
+      label: "How We Rank",
+      action: onHome,
+      testId: "footer-link-how-we-rank",
+    },
+    {
+      label: "AI & Automation Disclosure",
+      action: onHome,
+      testId: "footer-link-ai-disclosure",
+    },
+    {
+      label: "Affiliate Disclosure",
+      action: onHome,
+      testId: "footer-link-affiliate-disclosure",
+    },
+    {
+      label: "All Sectors",
+      action: onAllSectors,
+      testId: "footer-link-all-sectors",
+    },
+    {
+      label: "Contact",
+      action: onContact,
+      testId: "footer-link-contact",
+    },
+  ];
+
   const renderArticleColumn = (
     heading: string,
     articles: typeof ARTICLES,
+    viewAllLabel: string,
     testId: string,
+    viewAllTestId: string,
   ) => (
     <div data-testid={testId}>
       <h4 className={headingClass}>{heading}</h4>
@@ -2466,6 +2502,15 @@ function SiteFooter({
           </li>
         ))}
       </ul>
+      <button
+        type="button"
+        onClick={onHome}
+        className="mt-6 inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground/70 hover:text-foreground transition-colors duration-200"
+        data-testid={viewAllTestId}
+      >
+        {viewAllLabel}
+        <ChevronRight className="w-3 h-3" />
+      </button>
     </div>
   );
 
@@ -2475,56 +2520,16 @@ function SiteFooter({
       data-testid="whatisbest-footer"
     >
       <div className="max-w-6xl mx-auto px-6 py-16">
-        {/* Brand */}
-        <div className="mb-14 max-w-3xl">
-          <div className="mb-5">
+        {/* Top bar: logo + horizontal nav */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-y-8 gap-x-10">
+          <div className="shrink-0">
             <WhatIsBestLogo />
           </div>
-          <p className="text-sm text-muted-foreground/80 leading-relaxed">
-            Independent B2B product research across 32+ sectors, featuring
-            roundups and comparisons to help B2B buyers evaluate what is best
-            for their org.
-          </p>
-        </div>
-
-        {/* Two columns of featured content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 mb-14">
-          {renderArticleColumn(
-            "Comparisons",
-            featuredComparisons,
-            "footer-comparisons",
-          )}
-          {renderArticleColumn(
-            "Roundups",
-            featuredRoundups,
-            "footer-roundups",
-          )}
-        </div>
-
-        {/* Minimal inline nav */}
-        <div className={`pt-7 border-t ${borderClass}`}>
           <nav
-            className="flex flex-wrap items-center gap-x-2 gap-y-2"
+            className="flex flex-wrap items-center gap-x-2 gap-y-2 lg:justify-end"
             data-testid="footer-nav"
           >
-            {[
-              { label: "About", action: onHome, testId: "footer-link-about" },
-              {
-                label: "How We Research",
-                action: onHome,
-                testId: "footer-link-how-we-research",
-              },
-              {
-                label: "All Sectors",
-                action: onAllSectors,
-                testId: "footer-link-all-sectors",
-              },
-              {
-                label: "Contact",
-                action: onContact,
-                testId: "footer-link-contact",
-              },
-            ].map(({ label, action, testId }, i, arr) => (
+            {navItems.map(({ label, action, testId }, i, arr) => (
               <span key={label} className="flex items-center gap-2">
                 <button
                   type="button"
@@ -2542,9 +2547,47 @@ function SiteFooter({
           </nav>
         </div>
 
+        {/* Description sits below the logo */}
+        <p className="mt-6 max-w-3xl text-sm text-muted-foreground/80 leading-relaxed">
+          Independent B2B product research across 32+ sectors, featuring
+          roundups and comparisons to help B2B buyers evaluate what is best for
+          their org.
+        </p>
+
+        {/* Featured content section — clearly demarcated as a curated selection */}
+        <div className={`mt-12 pt-12 border-t ${borderClass}`}>
+          <div className="mb-8 flex items-baseline justify-between gap-4">
+            <span
+              className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/60"
+              data-testid="footer-featured-eyebrow"
+            >
+              Featured
+            </span>
+            <span className="text-[11px] uppercase tracking-[0.14em] text-muted-foreground/40">
+              A small selection · more inside
+            </span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+            {renderArticleColumn(
+              "Featured Comparisons",
+              featuredComparisons,
+              "View all comparisons",
+              "footer-comparisons",
+              "footer-view-all-comparisons",
+            )}
+            {renderArticleColumn(
+              "Featured Roundups",
+              featuredRoundups,
+              "View all roundups",
+              "footer-roundups",
+              "footer-view-all-roundups",
+            )}
+          </div>
+        </div>
+
         {/* Sub-footer */}
         <div
-          className={`mt-7 pt-6 border-t ${borderClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted-foreground/60`}
+          className={`mt-14 pt-6 border-t ${borderClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs text-muted-foreground/60`}
         >
           {/* Legal */}
           <div className="flex flex-wrap items-center gap-x-2 gap-y-2">
