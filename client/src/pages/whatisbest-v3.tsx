@@ -2266,21 +2266,215 @@ export default function WhatisBestV3() {
         )}
       </main>
 
-      <footer className={`relative z-10 py-8 border-t ${isSparkle ? "border-purple-500/10" : isDark ? "border-[rgba(60,100,140,0.1)]" : isLight ? "border-[rgba(120,125,150,0.1)]" : "border-border/20"}`}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground/50">
-          <div className="flex items-center gap-2">
-            <Award className="w-3 h-3" />
-            <span>WhatisBest.com — A Brandvious Product</span>
+      <SiteFooter
+        isSparkle={isSparkle}
+        isDark={isDark}
+        isLight={isLight}
+        onSelectSector={handleSelectSector}
+        onHome={handleHome}
+      />
+    </div>
+  );
+}
+
+function SiteFooter({
+  isSparkle,
+  isDark,
+  isLight,
+  onSelectSector,
+  onHome,
+}: {
+  isSparkle: boolean;
+  isDark: boolean;
+  isLight: boolean;
+  onSelectSector: (id: string) => void;
+  onHome: () => void;
+}) {
+  const allSectors = useMemo(
+    () => CLUSTERS.flatMap((c) => c.sectors),
+    [],
+  );
+
+  const populatedSectors = useMemo(() => {
+    const counts = new Map<string, number>();
+    ARTICLES.forEach((a) =>
+      counts.set(a.sectorId, (counts.get(a.sectorId) || 0) + 1),
+    );
+    return Array.from(counts.entries())
+      .sort(([, a], [, b]) => b - a)
+      .map(([id]) => allSectors.find((s) => s.id === id))
+      .filter((s): s is NonNullable<typeof s> => Boolean(s));
+  }, [allSectors]);
+
+  const borderClass = isSparkle
+    ? "border-purple-500/10"
+    : isDark
+      ? "border-[rgba(60,100,140,0.1)]"
+      : isLight
+        ? "border-[rgba(120,125,150,0.1)]"
+        : "border-border/20";
+
+  const linkClass =
+    "text-left text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
+  const headingClass =
+    "text-xs font-semibold uppercase tracking-[0.14em] text-foreground/80 mb-4";
+
+  return (
+    <footer
+      className={`relative z-10 mt-16 border-t ${borderClass}`}
+      data-testid="whatisbest-footer"
+    >
+      <div className="max-w-6xl mx-auto px-6 py-16">
+        {/* Brand description */}
+        <div className="mb-14 max-w-2xl">
+          <div className="flex items-center gap-2 mb-4">
+            <Award className="w-4 h-4 text-foreground/70" />
+            <h3 className="text-sm font-semibold tracking-wide text-foreground">
+              What is Best
+            </h3>
           </div>
-          <div className="flex items-center gap-3">
-            <span>No affiliate links</span>
-            <span className="text-muted-foreground/20">|</span>
-            <span>No sponsored rankings</span>
-            <span className="text-muted-foreground/20">|</span>
-            <span>Independent research</span>
+          <p className="text-sm text-muted-foreground/80 leading-relaxed">
+            Independent B2B product research across 32+ sectors. We publish
+            comparisons, roundups, and buyer's guides to help teams evaluate
+            software, services, and vendors with clearer methodology, stronger
+            sourcing, and practical decision context.
+          </p>
+        </div>
+
+        {/* Link columns */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10">
+          {/* Research Standards */}
+          <div>
+            <h4 className={headingClass}>Research Standards</h4>
+            <ul className="space-y-3">
+              {[
+                "Editorial Policy",
+                "Review Methodology",
+                "How We Rank",
+                "AI & Automation Disclosure",
+                "Affiliate & Commercial Disclosure",
+              ].map((label) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={onHome}
+                    className={linkClass}
+                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* People */}
+          <div>
+            <h4 className={headingClass}>People</h4>
+            <ul className="space-y-3">
+              {[
+                "Authors",
+                "Editorial Team",
+                "Contact Us",
+                "Corrections",
+                "Suggest an Update",
+              ].map((label) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={onHome}
+                    className={linkClass}
+                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Browse */}
+          <div>
+            <h4 className={headingClass}>Browse</h4>
+            <ul className="space-y-3">
+              {[
+                { label: "All Sectors", action: onHome },
+                { label: "Comparisons", action: onHome },
+                { label: "Roundups", action: onHome },
+                { label: "Buyer's Guides", action: onHome },
+                { label: "Search", action: onHome },
+              ].map(({ label, action }) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={action}
+                    className={linkClass}
+                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Popular Coverage — dynamic */}
+          <div>
+            <h4 className={headingClass}>Popular Coverage</h4>
+            <ul className="space-y-3">
+              {populatedSectors.map((sector) => (
+                <li key={sector.id}>
+                  <button
+                    type="button"
+                    onClick={() => onSelectSector(sector.id)}
+                    className={linkClass}
+                    data-testid={`footer-sector-${sector.id}`}
+                  >
+                    {sector.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company & Legal */}
+          <div>
+            <h4 className={headingClass}>Company & Legal</h4>
+            <ul className="space-y-3">
+              {[
+                "About",
+                "Privacy Policy",
+                "Terms of Service",
+                "Accessibility",
+                "Sitemap",
+              ].map((label) => (
+                <li key={label}>
+                  <button
+                    type="button"
+                    onClick={onHome}
+                    className={linkClass}
+                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                  >
+                    {label}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-      </footer>
-    </div>
+
+        {/* Bottom strip */}
+        <div
+          className={`mt-14 pt-6 border-t ${borderClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground/60`}
+        >
+          <span data-testid="footer-publisher">
+            Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
+          </span>
+          <span data-testid="footer-tagline">
+            Independent research · Transparent methodology · Corrections welcome
+          </span>
+        </div>
+      </div>
+    </footer>
   );
 }
