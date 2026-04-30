@@ -2453,17 +2453,21 @@ function SiteFooter({
   const subFooterLinkClass = linkHover;
 
   // Stub destinations — swap each line to wire real routes later.
-  const onMethodology = onHome;
+  const onResearch = onHome;
   const onDisclosures = onHome;
   const onCorrections = onHome;
 
   const navItems = [
     { label: "About", action: onHome, testId: "footer-link-about" },
-    { label: "Sectors", action: onAllSectors, testId: "footer-link-sectors" },
     {
-      label: "Methodology",
-      action: onMethodology,
-      testId: "footer-link-methodology",
+      label: "All Sectors",
+      action: onAllSectors,
+      testId: "footer-link-all-sectors",
+    },
+    {
+      label: "How We Research",
+      action: onResearch,
+      testId: "footer-link-research",
     },
     {
       label: "Disclosures",
@@ -2532,11 +2536,11 @@ function SiteFooter({
         {/* Dedicated nav bar — left-aligned, no fill (border-only rhythm) */}
         <div className={`mt-12 py-7 border-y ${borderClass}`}>
           <nav
-            className="flex flex-wrap items-center gap-x-4 gap-y-3"
+            className="flex flex-wrap items-center gap-x-8 gap-y-3"
             data-testid="footer-nav"
           >
             {navItems.map(({ label, action, testId }, i, arr) => (
-              <span key={label} className="flex items-center gap-4">
+              <span key={label} className="flex items-center gap-8">
                 <button
                   type="button"
                   onClick={action}
