@@ -2456,6 +2456,7 @@ function SiteFooter({
   const onResearch = onHome;
   const onDisclosures = onHome;
   const onCorrections = onHome;
+  const onLLMAnalytics = onHome;
 
   const navItems = [
     { label: "About", action: onHome, testId: "footer-link-about" },
@@ -2480,6 +2481,11 @@ function SiteFooter({
       testId: "footer-link-corrections",
     },
     { label: "Contact", action: onContact, testId: "footer-link-contact" },
+    {
+      label: "LLM Analytics",
+      action: onLLMAnalytics,
+      testId: "footer-link-llm-analytics",
+    },
   ];
 
   const renderArticleColumn = (
