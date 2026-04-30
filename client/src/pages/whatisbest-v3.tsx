@@ -2452,31 +2452,30 @@ function SiteFooter({
 
   const subFooterLinkClass = linkHover;
 
-  const onResearchAndRank = onHome;
-  const onProcessDisclosures = onHome;
+  // Stub destinations — swap each line to wire real routes later.
+  const onMethodology = onHome;
+  const onDisclosures = onHome;
+  const onCorrections = onHome;
 
   const navItems = [
     { label: "About", action: onHome, testId: "footer-link-about" },
+    { label: "Sectors", action: onAllSectors, testId: "footer-link-sectors" },
     {
-      label: "All Sectors",
-      action: onAllSectors,
-      testId: "footer-link-all-sectors",
+      label: "Methodology",
+      action: onMethodology,
+      testId: "footer-link-methodology",
     },
     {
-      label: "How We Research & Rank",
-      action: onResearchAndRank,
-      testId: "footer-link-research-and-rank",
+      label: "Disclosures",
+      action: onDisclosures,
+      testId: "footer-link-disclosures",
     },
     {
-      label: "Process Disclosures",
-      action: onProcessDisclosures,
-      testId: "footer-link-process-disclosures",
+      label: "Corrections",
+      action: onCorrections,
+      testId: "footer-link-corrections",
     },
-    {
-      label: "Contact",
-      action: onContact,
-      testId: "footer-link-contact",
-    },
+    { label: "Contact", action: onContact, testId: "footer-link-contact" },
   ];
 
   const renderArticleColumn = (
@@ -2530,10 +2529,8 @@ function SiteFooter({
           </p>
         </div>
 
-        {/* Dedicated nav bar — left-aligned, with a barely-there tint */}
-        <div
-          className={`mt-12 py-7 border-y ${borderClass} bg-foreground/[0.018]`}
-        >
+        {/* Dedicated nav bar — left-aligned, no fill (border-only rhythm) */}
+        <div className={`mt-12 py-7 border-y ${borderClass}`}>
           <nav
             className="flex flex-wrap items-center gap-x-4 gap-y-3"
             data-testid="footer-nav"
@@ -2601,43 +2598,10 @@ function SiteFooter({
             </button>
           </div>
 
-          {/* Publisher + tagline */}
-          <div className="flex flex-col sm:items-end gap-1.5">
-            <span data-testid="footer-publisher">
-              Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
-            </span>
-            <span
-              className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:justify-end"
-              data-testid="footer-tagline"
-            >
-              <button
-                type="button"
-                onClick={onResearchAndRank}
-                className={subFooterLinkClass}
-                data-testid="footer-tagline-independent-research"
-              >
-                Independent Research
-              </button>
-              <span className="text-muted-foreground/30">·</span>
-              <button
-                type="button"
-                onClick={onResearchAndRank}
-                className={subFooterLinkClass}
-                data-testid="footer-tagline-fair-rankings"
-              >
-                Fair Rankings
-              </button>
-              <span className="text-muted-foreground/30">·</span>
-              <button
-                type="button"
-                onClick={onContact}
-                className={subFooterLinkClass}
-                data-testid="footer-tagline-corrections-welcome"
-              >
-                Corrections Welcome
-              </button>
-            </span>
-          </div>
+          {/* Publisher line */}
+          <span data-testid="footer-publisher">
+            Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
+          </span>
         </div>
       </div>
     </footer>
