@@ -2445,28 +2445,13 @@ function SiteFooter({
   const navLinkClass =
     "text-sm text-muted-foreground/80 hover:text-foreground transition-colors duration-200";
 
+  const onHowWeResearch = onHome;
+  const onHowWeRank = onHome;
+  const onAIDisclosure = onHome;
+  const onAffiliateDisclosure = onHome;
+
   const navItems = [
     { label: "About", action: onHome, testId: "footer-link-about" },
-    {
-      label: "How We Research",
-      action: onHome,
-      testId: "footer-link-how-we-research",
-    },
-    {
-      label: "How We Rank",
-      action: onHome,
-      testId: "footer-link-how-we-rank",
-    },
-    {
-      label: "AI & Automation Disclosure",
-      action: onHome,
-      testId: "footer-link-ai-disclosure",
-    },
-    {
-      label: "Affiliate Disclosure",
-      action: onHome,
-      testId: "footer-link-affiliate-disclosure",
-    },
     {
       label: "All Sectors",
       action: onAllSectors,
@@ -2476,6 +2461,29 @@ function SiteFooter({
       label: "Contact",
       action: onContact,
       testId: "footer-link-contact",
+    },
+  ];
+
+  const standardsItems = [
+    {
+      label: "How We Research",
+      action: onHowWeResearch,
+      testId: "footer-link-how-we-research",
+    },
+    {
+      label: "How We Rank",
+      action: onHowWeRank,
+      testId: "footer-link-how-we-rank",
+    },
+    {
+      label: "AI & Automation Disclosure",
+      action: onAIDisclosure,
+      testId: "footer-link-ai-disclosure",
+    },
+    {
+      label: "Affiliate Disclosure",
+      action: onAffiliateDisclosure,
+      testId: "footer-link-affiliate-disclosure",
     },
   ];
 
@@ -2554,9 +2562,9 @@ function SiteFooter({
           their org.
         </p>
 
-        {/* Featured content section */}
+        {/* Featured content + standards section */}
         <div className={`mt-12 pt-12 border-t ${borderClass}`}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
             {renderArticleColumn(
               "Featured Comparisons",
               featuredComparisons,
@@ -2571,6 +2579,24 @@ function SiteFooter({
               "footer-roundups",
               "footer-view-all-roundups",
             )}
+            {/* Editorial Standards column */}
+            <div data-testid="footer-standards">
+              <h4 className={headingClass}>Editorial Standards</h4>
+              <ul className="space-y-3.5">
+                {standardsItems.map(({ label, action, testId }) => (
+                  <li key={label}>
+                    <button
+                      type="button"
+                      onClick={action}
+                      className={articleLinkClass}
+                      data-testid={testId}
+                    >
+                      {label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
 
@@ -2604,17 +2630,36 @@ function SiteFooter({
             <span data-testid="footer-publisher">
               Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
             </span>
-            <span data-testid="footer-tagline">
-              Independent research · Transparent methodology ·{" "}
+            <span
+              className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:justify-end"
+              data-testid="footer-tagline"
+            >
+              <button
+                type="button"
+                onClick={onHowWeResearch}
+                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                data-testid="footer-tagline-research"
+              >
+                Research
+              </button>
+              <span className="text-muted-foreground/30">·</span>
+              <button
+                type="button"
+                onClick={onHowWeRank}
+                className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
+                data-testid="footer-tagline-fair-rankings"
+              >
+                Fair Rankings
+              </button>
+              <span className="text-muted-foreground/30">·</span>
               <button
                 type="button"
                 onClick={onContact}
                 className="hover:text-foreground transition-colors duration-200 underline-offset-2 hover:underline"
-                data-testid="footer-link-corrections"
+                data-testid="footer-tagline-corrections"
               >
-                Corrections
-              </button>{" "}
-              welcome
+                Corrections welcome
+              </button>
             </span>
           </div>
         </div>
