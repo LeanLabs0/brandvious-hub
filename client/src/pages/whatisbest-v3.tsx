@@ -2424,20 +2424,19 @@ function SiteFooter({
     >
       <div className="max-w-6xl mx-auto px-6 py-16">
         {/* Brand description */}
-        <div className="mb-14 max-w-2xl">
+        <div className="mb-14 max-w-3xl">
           <div className="mb-5">
             <WhatIsBestLogo />
           </div>
           <p className="text-sm text-muted-foreground/80 leading-relaxed">
-            Independent B2B product research across 32+ sectors. We publish
-            comparisons, roundups, and buyer's guides to help teams evaluate
-            software, services, and vendors with clearer methodology, stronger
-            sourcing, and practical decision context.
+            Independent B2B product research across 32+ sectors. Every
+            comparison is built on the kind of methodology and sourcing teams
+            need to make a real decision.
           </p>
         </div>
 
         {/* Link columns */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-x-8 gap-y-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-10">
           {/* Research Standards */}
           <div>
             <h4 className={headingClass}>Research Standards</h4>
@@ -2532,42 +2531,44 @@ function SiteFooter({
             </ul>
           </div>
 
-          {/* Company & Legal */}
-          <div>
-            <h4 className={headingClass}>Company & Legal</h4>
-            <ul className="space-y-3">
-              {[
-                "About",
-                "Privacy Policy",
-                "Terms of Service",
-                "Accessibility",
-                "Sitemap",
-              ].map((label) => (
-                <li key={label}>
-                  <button
-                    type="button"
-                    onClick={onHome}
-                    className={linkClass}
-                    data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
-        {/* Bottom strip */}
-        <div
-          className={`mt-14 pt-6 border-t ${borderClass} flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground/60`}
-        >
-          <span data-testid="footer-publisher">
-            Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
-          </span>
-          <span data-testid="footer-tagline">
-            Independent research · Transparent methodology · Corrections welcome
-          </span>
+        {/* Sub-footer */}
+        <div className={`mt-14 pt-6 border-t ${borderClass} flex flex-col gap-4`}>
+          {/* Inline company & legal links */}
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-xs text-muted-foreground/70">
+            {[
+              "About",
+              "Privacy Policy",
+              "Terms of Service",
+              "Accessibility",
+              "Sitemap",
+            ].map((label, i, arr) => (
+              <span key={label} className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={onHome}
+                  className="hover:text-foreground transition-colors duration-200"
+                  data-testid={`footer-link-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
+                >
+                  {label}
+                </button>
+                {i < arr.length - 1 && (
+                  <span className="text-muted-foreground/30">·</span>
+                )}
+              </span>
+            ))}
+          </div>
+
+          {/* Publisher + tagline */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted-foreground/60">
+            <span data-testid="footer-publisher">
+              Published by Brandvious, Inc. · Land O' Lakes, Florida · © 2026
+            </span>
+            <span data-testid="footer-tagline">
+              Independent research · Transparent methodology · Corrections welcome
+            </span>
+          </div>
         </div>
       </div>
     </footer>
