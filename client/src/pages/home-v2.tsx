@@ -36,7 +36,7 @@ const products = [
     description: "A canonical entity registry for machines. Verified data so AI always gets the right company.",
     status: "Growing",
     statusColor: "text-blue-400",
-    url: "https://entitiesregistry.replit.app",
+    url: "https://entities.org",
     icon: Globe,
   },
   {
@@ -47,7 +47,7 @@ const products = [
     description: "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
     status: "Launching",
     statusColor: "text-amber-400",
-    url: "/whatisbest",
+    url: "https://whatisbest.com",
     icon: Trophy,
   },
   {
@@ -58,7 +58,7 @@ const products = [
     description: "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
     status: "In Development",
     statusColor: "text-neutral-400",
-    url: "/answerstack",
+    url: "https://answerstack.io",
     icon: Layers,
   },
   {
