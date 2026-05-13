@@ -322,7 +322,7 @@ function V2Hero() {
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed" data-testid="v2-text-subheadline">
-          Fair. Factual. Functional. Five products that give machines structured, verified data — so every business gets a fair shot.
+          Equitable outcomes for businesses across AI. Five products that give machines structured, verified data — so every business gets a fair shot.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
@@ -528,14 +528,14 @@ function ThesisSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Fair. Factual.{" "}
+            Equitable outcomes for{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
               }}
             >
-              Functional for AI.
+              businesses across AI.
             </span>
           </h2>
         </div>
@@ -713,7 +713,7 @@ function V2Footer() {
               Brandvious<span className="font-light text-white/60">, Inc.</span>
             </div>
             <p className="text-sm text-white/45 max-w-xs mb-4">
-              Fair. Factual. Functional for AI.
+              Equitable outcomes for businesses across AI.
             </p>
             <div className="space-y-1">
               <p className="text-xs text-white/30" data-testid="v2-text-address">
@@ -761,7 +761,7 @@ function V2Footer() {
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.</p>
-          <p className="text-xs text-white/30">Fair. Factual. Functional for AI.</p>
+          <p className="text-xs text-white/30">Equitable outcomes for businesses across AI.</p>
         </div>
       </div>
     </footer>
