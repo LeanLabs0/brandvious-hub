@@ -15,6 +15,7 @@ import AnswerStack from "@/pages/answerstack";
 import ReviewRadar from "@/pages/reviewradar";
 import Mentions from "@/pages/mentions";
 import HomeV2 from "@/pages/home-v2";
+import HomeV3 from "@/pages/home-v3";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -34,6 +35,7 @@ function Router() {
       <Route path="/mentions" component={Mentions} />
       <Route path="/mentions/:entityId" component={Mentions} />
       <Route path="/v2" component={HomeV2} />
+      <Route path="/v3" component={HomeV3} />
       <Route component={NotFound} />
     </Switch>
   );

@@ -21,6 +21,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 |---|---|---|
 | `/` | Brandvious homepage (v1) | `home.tsx` |
 | `/v2` | Brandvious homepage (v2, cinematic dark) | `home-v2.tsx` |
+| `/v3` | Brandvious homepage (v3, editable clone of v2) | `home-v3.tsx` |
 | `/schema` | SchemaRocket preview | `schema.tsx` |
 | `/entities` | Entities.org homepage (hero + registry + submit CTA) | `entities-home.tsx` |
 | `/entitiespreview` | Entities.org preview (registry only) | `entities.tsx` |
