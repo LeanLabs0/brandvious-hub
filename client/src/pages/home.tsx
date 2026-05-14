@@ -87,6 +87,14 @@ const projects = [
   },
 ];
 
+// Single source of truth for version links shown in the sub-footer.
+// To add v4/v5/etc, just append a new entry here.
+const versions = [
+  { label: "v1", path: "/" },
+  { label: "v2", path: "/v2" },
+  { label: "v3", path: "/v3" },
+];
+
 const beliefs = [
   {
     number: "01",
@@ -216,16 +224,7 @@ function Navbar() {
         >
           Brandvious <span className="font-normal text-muted-foreground">Digital</span>
         </a>
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <a
-            href="/v2"
-            className="text-xs font-medium text-muted-foreground hover:text-foreground transition-colors px-2 py-1 rounded border border-border/50 hover:border-border"
-            data-testid="link-v2"
-          >
-            v2
-          </a>
-        </div>
+        {/* Theme toggle and version switcher have moved to the sub-footer. */}
       </div>
     </nav>
   );
@@ -656,6 +655,8 @@ function ClosingStatement() {
 }
 
 function Footer() {
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "/";
   return (
     <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
       <div className="max-w-4xl mx-auto">
@@ -664,13 +665,8 @@ function Footer() {
             <span className="text-sm font-semibold text-foreground">
               Brandvious<span className="font-normal text-muted-foreground">, Inc.</span>
             </span>
-            <p className="mt-1 text-xs text-muted-foreground/60">
-              Fair. Factual. Functional for AI.
-            </p>
           </div>
-        </div>
-        <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div className="space-y-1">
+          <div className="space-y-1 sm:text-right">
             <p className="text-xs text-muted-foreground/60" data-testid="text-address">
               16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
             </p>
@@ -682,8 +678,47 @@ function Footer() {
               1-913-871-6500
             </a>
           </div>
-          <p className="text-xs text-muted-foreground/60" data-testid="text-copyright">
-            &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
+        </div>
+
+        {/* Sub-footer: [theme toggle + copyright] [version switcher] [tagline] */}
+        <div className="mt-8 pt-6 border-t border-border/30 grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+          <div className="flex items-center gap-3 justify-self-start">
+            <ThemeToggle />
+            <p className="text-xs text-muted-foreground/60" data-testid="text-copyright">
+              &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
+            </p>
+          </div>
+
+          <nav
+            className="flex items-center gap-3 justify-self-center"
+            data-testid="version-switcher"
+          >
+            {versions.map((v, i) => {
+              const isCurrent = currentPath === v.path;
+              return (
+                <span key={v.label} className="flex items-center gap-3">
+                  <a
+                    href={v.path}
+                    aria-current={isCurrent ? "page" : undefined}
+                    className={`text-xs transition-colors ${
+                      isCurrent
+                        ? "text-foreground font-medium"
+                        : "text-muted-foreground/60 hover:text-foreground"
+                    }`}
+                    data-testid={`version-link-${v.label}`}
+                  >
+                    {v.label}
+                  </a>
+                  {i < versions.length - 1 && (
+                    <span className="text-muted-foreground/30 text-xs">·</span>
+                  )}
+                </span>
+              );
+            })}
+          </nav>
+
+          <p className="text-xs text-muted-foreground/60 justify-self-end text-right">
+            Fair. Factual. Functional for AI.
           </p>
         </div>
       </div>
