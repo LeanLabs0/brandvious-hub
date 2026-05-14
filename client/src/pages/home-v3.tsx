@@ -91,6 +91,14 @@ const stats = [
   { value: "∞", label: "Machines served" },
 ];
 
+// Single source of truth for version links shown in the sub-footer.
+// To add v4/v5/etc, just append a new entry here.
+const versions = [
+  { label: "v1", path: "/" },
+  { label: "v2", path: "/v2" },
+  { label: "v3", path: "/v3" },
+];
+
 function NoiseOverlay() {
   return (
     <div
@@ -238,12 +246,6 @@ const cardShadowHover = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba
 const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
 
 function V2Navbar() {
-  const { theme, toggleTheme } = useTheme();
-  const icon =
-    theme === "dark" ? <Sun className="w-4 h-4" /> :
-    theme === "light" ? <Sparkles className="w-4 h-4" /> :
-    <Moon className="w-4 h-4" />;
-
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -255,23 +257,13 @@ function V2Navbar() {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/v2" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+        <a href="/v3" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
           <a href="#products" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
           <a href="#mission" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-mission">Mission</a>
           <a href="#thesis" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-thesis">Thesis</a>
-          <Button size="icon" variant="ghost" onClick={toggleTheme} className="text-white/70 hover:text-white" data-testid="v2-button-theme-toggle">
-            {icon}
-          </Button>
-          <a
-            href="/"
-            className="text-xs font-medium text-white/50 hover:text-white transition-colors px-2 py-1 rounded border border-white/10 hover:border-white/25"
-            data-testid="v2-link-v1"
-          >
-            v1
-          </a>
         </div>
       </div>
     </nav>
@@ -682,8 +674,14 @@ function EcosystemVisual() {
 }
 
 function V2Footer() {
-  const { theme } = useTheme();
+  const { theme, toggleTheme } = useTheme();
   const party = theme === "sparkle";
+  const themeIcon =
+    theme === "dark" ? <Sun className="w-4 h-4" /> :
+    theme === "light" ? <Sparkles className="w-4 h-4" /> :
+    <Moon className="w-4 h-4" />;
+  const currentPath =
+    typeof window !== "undefined" ? window.location.pathname : "/v3";
 
   return (
     <footer
@@ -759,9 +757,56 @@ function V2Footer() {
           </div>
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/30">&copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.</p>
-          <p className="text-xs text-white/30">Equitable outcomes for businesses across AI.</p>
+        <div className="mt-12 pt-8 border-t border-white/[0.04] grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+          {/* Left: theme toggle + copyright */}
+          <div className="flex items-center gap-3 justify-self-start">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={toggleTheme}
+              className="h-8 w-8 text-white/40 hover:text-white/80"
+              data-testid="v2-button-theme-toggle"
+            >
+              {themeIcon}
+            </Button>
+            <p className="text-xs text-white/30">
+              &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
+            </p>
+          </div>
+
+          {/* Center: version switcher */}
+          <nav
+            className="flex items-center gap-3 justify-self-center"
+            data-testid="v2-version-switcher"
+          >
+            {versions.map((v, i) => {
+              const isCurrent = currentPath === v.path;
+              return (
+                <span key={v.label} className="flex items-center gap-3">
+                  <a
+                    href={v.path}
+                    aria-current={isCurrent ? "page" : undefined}
+                    className={`text-xs transition-colors ${
+                      isCurrent
+                        ? "text-white/80 font-medium"
+                        : "text-white/30 hover:text-white/70"
+                    }`}
+                    data-testid={`v2-version-link-${v.label}`}
+                  >
+                    {v.label}
+                  </a>
+                  {i < versions.length - 1 && (
+                    <span className="text-white/15 text-xs">·</span>
+                  )}
+                </span>
+              );
+            })}
+          </nav>
+
+          {/* Right: tagline */}
+          <p className="text-xs text-white/30 justify-self-end text-right">
+            Equitable outcomes for businesses across AI.
+          </p>
         </div>
       </div>
     </footer>
