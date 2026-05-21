@@ -688,7 +688,7 @@ const leanLabs = {
   cards: [
     {
       title: 'What is the "Agentcy" model?',
-      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+      description: "The \"Agentcy\" model is focused on delivering high value returns on previously labor intensive initiatives. In short, we drive results with more predictable outcomes that help our clients convert business faster.",
     },
     {
       title: "Is SEO dead?",
