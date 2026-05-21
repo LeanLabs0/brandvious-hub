@@ -679,7 +679,10 @@ const leanLabs = {
   eyebrow: "Partner",
   headingWhite: "Lean Labs is the",
   headingGradient: '"Agentcy" behind Brandvious.',
-  body: "Add your Lean Labs description here. This section is editable — update the headline and body copy in the leanLabs constant at the top of V2Footer.",
+  body: [
+    "The world of online search has fundamentally shifted which means your agency should too. At Lean Labs, our priority is getting your brand visible in AI search and to do it, we adopted a new mindset.",
+    "That mindset is built to drive results in days and weeks, not years.",
+  ],
   ctaLabel: "Learn more",
   ctaHref: "https://www.lean-labs.com",
 };
@@ -723,9 +726,13 @@ function LeanLabsSection() {
               {leanLabs.headingGradient}
             </span>
           </h2>
-          <p className="text-sm text-white/55 leading-relaxed mb-8 max-w-3xl">
-            {leanLabs.body}
-          </p>
+          <div className="space-y-4 mb-8 max-w-3xl">
+            {leanLabs.body.map((para, i) => (
+              <p key={i} className="text-sm text-white/55 leading-relaxed">
+                {para}
+              </p>
+            ))}
+          </div>
           {leanLabs.ctaHref && leanLabs.ctaLabel && (
             <a
               href={leanLabs.ctaHref}
