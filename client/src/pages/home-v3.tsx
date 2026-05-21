@@ -500,7 +500,7 @@ function ThesisSection() {
     },
     {
       number: "02",
-      title: "Factual",
+      title: "Just The Facts",
       description: "AI is only as good as its sources. We provide structured, verified, machine-readable data — not SEO noise.",
     },
     {
