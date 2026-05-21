@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+import kevinBarberPhoto from "@assets/kevin-barber.jpg";
 
 const products = [
   {
@@ -728,18 +729,26 @@ function LeanLabsSection() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
             {leanLabs.eyebrow}
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6 max-w-3xl">
-            {leanLabs.headingWhite}{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
-              }}
-            >
-              {leanLabs.headingGradient}
-            </span>
-          </h2>
+          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-6">
+            <img
+              src={kevinBarberPhoto}
+              alt="Kevin Barber, Lean Labs"
+              className="w-16 h-16 rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
+              data-testid="v2-img-kevin-barber"
+            />
+            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight max-w-3xl">
+              {leanLabs.headingWhite}{" "}
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+                }}
+              >
+                {leanLabs.headingGradient}
+              </span>
+            </h2>
+          </div>
           <div className="space-y-4 mb-8 max-w-3xl">
             {leanLabs.body.map((para, i) => (
               <p key={i} className="text-sm text-white/55 leading-relaxed">
