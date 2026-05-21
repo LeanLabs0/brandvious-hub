@@ -717,7 +717,7 @@ function V2Footer() {
               Brandvious<span className="font-light text-white/60">, Inc.</span>
             </a>
             <p className="text-sm text-white/45 max-w-xs mb-4">
-              Equitable outcomes for businesses across AI.
+              Fair and functional tools for LLM consensus.
             </p>
             <div className="space-y-1">
               <p className="text-xs text-white/30" data-testid="v2-text-address">
@@ -816,10 +816,7 @@ function V2Footer() {
             })}
           </nav>
 
-          {/* Right: tagline */}
-          <p className="text-xs text-white/30 justify-self-end text-right">
-            Equitable outcomes for businesses across AI.
-          </p>
+          <div className="justify-self-end" />
         </div>
       </div>
     </footer>
