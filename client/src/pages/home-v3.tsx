@@ -495,7 +495,7 @@ function ThesisSection() {
   const principles = [
     {
       number: "01",
-      title: "Fair",
+      title: "Level Playing Field",
       description: "Every business deserves to be accurately represented to AI. Not just the ones that can afford to game the system.",
     },
     {
