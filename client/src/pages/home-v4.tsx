@@ -788,7 +788,6 @@ export default function HomeV4() {
       <V2Hero />
       <StatsRow />
       <ProductsSection />
-      <ThesisSection />
       <LeanLabsSection />
       <V2Footer />
     </div>
