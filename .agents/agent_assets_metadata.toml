@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "Gq6OcHwsmXKtjEBkdwtKb"
+uri = "file://attached_assets/generated_images/agentcy-transition.png"
+type = "image"
+title = "generated_image"

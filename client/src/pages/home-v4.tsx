@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+import agentcyTransitionImage from "@assets/generated_images/agentcy-transition.png";
 
 const products = [
   {
@@ -582,27 +583,39 @@ function LeanLabsSection() {
                 "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
             }}
           />
-          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
-            {leanLabs.eyebrow}
-          </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight max-w-3xl mb-6">
-            {leanLabs.headingWhite}{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage:
-                  "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
-              }}
-            >
-              {leanLabs.headingGradient}
-            </span>
-          </h2>
-          <div className="space-y-4 mb-8 max-w-3xl">
-            {leanLabs.body.map((para, i) => (
-              <p key={i} className="text-sm text-white/55 leading-relaxed">
-                {para}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
+                {leanLabs.eyebrow}
               </p>
-            ))}
+              <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
+                {leanLabs.headingWhite}{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+                  }}
+                >
+                  {leanLabs.headingGradient}
+                </span>
+              </h2>
+              <div className="space-y-4">
+                {leanLabs.body.map((para, i) => (
+                  <p key={i} className="text-sm text-white/55 leading-relaxed">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </div>
+            <div className="relative">
+              <img
+                src={agentcyTransitionImage}
+                alt="Visualization of the transition from labor-based to agent-based agency model"
+                className="w-full h-auto rounded-xl border border-white/[0.06] shadow-[0_4px_24px_rgba(0,0,0,0.35)]"
+                data-testid="v2-img-agentcy-transition"
+              />
+            </div>
           </div>
           {leanLabs.ctaHref && leanLabs.ctaLabel && (
             <a
@@ -617,7 +630,7 @@ function LeanLabsSection() {
           )}
 
           {leanLabs.showPartners && leanLabs.partners.length > 0 && (
-            <div className="mt-10 pt-8 border-t border-white/[0.06]" data-testid="v2-leanlabs-partners">
+            <div className="mt-12 pt-8 border-t border-white/[0.06]" data-testid="v2-leanlabs-partners">
               <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-5">
                 {leanLabs.partnersEyebrow}
               </p>
