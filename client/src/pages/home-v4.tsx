@@ -687,7 +687,7 @@ const leanLabs = {
   ctaHref: "https://www.lean-labs.com",
   cards: [
     {
-      title: "What is the Agentcy model?",
+      title: 'What is the "Agentcy" model?',
       description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
     },
     {
