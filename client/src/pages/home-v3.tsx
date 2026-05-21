@@ -496,7 +496,7 @@ function ThesisSection() {
     {
       number: "01",
       title: "Level Playing Field",
-      description: "Every business deserves to be accurately represented to AI. Not just the ones that can afford to game the system.",
+      description: "Every business, regardless of their size or budget, deserves the same AI visibility as their most well funded competitors.",
     },
     {
       number: "02",
