@@ -55,7 +55,7 @@ const products = [
     domain: "answerstack.io",
     label: "Answers",
     subtitle: "Answers for AI",
-    description: "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
+    description: "Rich schema content verified by experts that LLMs see as a source of truth in citations.",
     status: "In Development",
     statusColor: "text-neutral-400",
     url: "https://answerstack.io",
