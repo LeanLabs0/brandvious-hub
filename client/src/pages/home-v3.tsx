@@ -691,7 +691,7 @@ const leanLabs = {
       description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
     },
     {
-      title: "Is SEO Dead?",
+      title: "Is SEO dead?",
       description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
     },
     {
