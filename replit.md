@@ -19,10 +19,10 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 ## URL Map
 | Route | Page | File |
 |---|---|---|
-| `/` | Brandvious homepage (default — v2 cinematic dark) | `home-v2.tsx` |
+| `/` | Brandvious homepage (default — v3 editable clone of v2) | `home-v3.tsx` |
 | `/v1` | Brandvious homepage (v1, legacy aurora) | `home.tsx` |
-| `/v2` | Alias for `/` (v2 cinematic dark) | `home-v2.tsx` |
-| `/v3` | Brandvious homepage (v3, editable clone of v2) | `home-v3.tsx` |
+| `/v2` | Brandvious homepage (v2, cinematic dark) | `home-v2.tsx` |
+| `/v3` | Alias for `/` (v3) | `home-v3.tsx` |
 | `/schema` | SchemaRocket preview | `schema.tsx` |
 | `/entities` | Entities.org homepage (hero + registry + submit CTA) | `entities-home.tsx` |
 | `/entitiespreview` | Entities.org preview (registry only) | `entities.tsx` |

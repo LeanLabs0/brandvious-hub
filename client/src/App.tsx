@@ -21,7 +21,7 @@ import NotFound from "@/pages/not-found";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={HomeV2} />
+      <Route path="/" component={HomeV3} />
       <Route path="/v1" component={Home} />
       <Route path="/entities" component={EntitiesHome} />
       <Route path="/entitiespreview" component={EntitiesPreview} />
@@ -37,7 +37,7 @@ function Router() {
       <Route path="/mentions/:entityId" component={Mentions} />
       <Route path="/v2" component={HomeV2} />
       <Route path="/v3" component={HomeV3} />
-      {/* v2 is the default homepage at "/". /v2 is kept as a permanent alias. */}
+      {/* v3 is the default homepage at "/". /v3 is kept as a permanent alias. */}
       <Route component={NotFound} />
     </Switch>
   );
