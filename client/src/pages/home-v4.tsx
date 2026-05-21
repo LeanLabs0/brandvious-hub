@@ -544,18 +544,9 @@ const leanLabs = {
     { name: "Agency Four" },
   ],
   cards: [
-    {
-      title: 'What is the "Agentcy" model?',
-      description: "The \"Agentcy\" model is focused on delivering high value returns on previously labor intensive initiatives. In short, we drive results with more predictable outcomes that help our clients convert business faster.",
-    },
-    {
-      title: "Is SEO dead?",
-      description: "No, it's just evolved. With online search habits changing, buyers are using LLMs over Google to find what brands to consider. Missing this shift means lost business.",
-    },
-    {
-      title: "Where is AI headed?",
-      description: "AI is changing every minute, so while we can't predict the future, we can make sure your brand is prepared for it.",
-    },
+    { title: 'Explore the "agentcy" model', href: "#" },
+    { title: "See how AEO works", href: "/schema" },
+    { title: "Connect with Brandvious", href: "mailto:hello@brandvious.com" },
   ],
 };
 
@@ -650,23 +641,30 @@ function LeanLabsSection() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-          {leanLabs.cards.map((card, i) => (
-            <div
-              key={i}
-              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-              data-testid={`v2-leanlabs-card-${i}`}
-            >
-              <div
-                className="absolute inset-x-0 top-0 h-px"
-                style={{
-                  background:
-                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
-                }}
-              />
-              <h3 className="text-2xl font-bold text-white mb-4">{card.title}</h3>
-              <p className="text-sm text-white/55 leading-relaxed">{card.description}</p>
-            </div>
-          ))}
+          {leanLabs.cards.map((card, i) => {
+            const isExternal = card.href.startsWith("http");
+            return (
+              <a
+                key={i}
+                href={card.href}
+                {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className={`group relative rounded-2xl overflow-hidden p-8 flex items-center justify-between gap-4 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
+                data-testid={`v2-leanlabs-card-${i}`}
+              >
+                <div
+                  className="absolute inset-x-0 top-0 h-px"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                  }}
+                />
+                <h3 className="text-lg font-semibold text-white/85 group-hover:text-white transition-colors duration-300">
+                  {card.title}
+                </h3>
+                <ArrowRight className="w-4 h-4 text-white/40 group-hover:text-white/80 group-hover:translate-x-0.5 transition-all duration-300 shrink-0" />
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
