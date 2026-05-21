@@ -446,7 +446,7 @@ function ProductsSection() {
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
               }}
             >
-              to make the internet easy to read by LLMs.
+              to make brands across the internet easy to read and recommend by LLMs.
             </span>
           </h2>
         </div>
