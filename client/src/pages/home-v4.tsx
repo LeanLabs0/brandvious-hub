@@ -696,9 +696,13 @@ function V2Footer() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
           <div>
-            <div className="text-base font-semibold text-white mb-2">
+            <a
+              href="/v4"
+              className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
+              data-testid="v2-footer-link-home"
+            >
               Brandvious<span className="font-light text-white/60">, Inc.</span>
-            </div>
+            </a>
             <p className="text-sm text-white/45 max-w-xs mb-4">
               Equitable outcomes for businesses across AI.
             </p>
@@ -735,8 +739,16 @@ function V2Footer() {
               })}
             </div>
             <div className="space-y-3">
-              <p className="text-white/30 uppercase tracking-wider text-xs">Company</p>
-              <a href="#thesis" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-thesis">Thesis</a>
+              <p className="text-white/30 uppercase tracking-wider text-xs">Partners</p>
+              {leanLabs.partners.map((p, i) => (
+                <span
+                  key={p.name}
+                  className="block text-white/50"
+                  data-testid={`v2-footer-partner-${i}`}
+                >
+                  {p.name}
+                </span>
+              ))}
             </div>
             <div className="space-y-3">
               <p className="text-white/30 uppercase tracking-wider text-xs">Connect</p>
