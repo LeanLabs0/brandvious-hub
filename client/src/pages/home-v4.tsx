@@ -685,6 +685,20 @@ const leanLabs = {
   ],
   ctaLabel: "Learn more",
   ctaHref: "https://www.lean-labs.com",
+  cards: [
+    {
+      title: "Card One Title",
+      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+    },
+    {
+      title: "Card Two Title",
+      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+    },
+    {
+      title: "Card Three Title",
+      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+    },
+  ],
 };
 
 function LeanLabsSection() {
@@ -744,6 +758,26 @@ function LeanLabsSection() {
               {leanLabs.ctaLabel} <ArrowRight className="w-3.5 h-3.5" />
             </a>
           )}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
+          {leanLabs.cards.map((card, i) => (
+            <div
+              key={i}
+              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
+              data-testid={`v2-leanlabs-card-${i}`}
+            >
+              <div
+                className="absolute inset-x-0 top-0 h-px"
+                style={{
+                  background:
+                    "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)",
+                }}
+              />
+              <h3 className="text-2xl font-bold text-white mb-4">{card.title}</h3>
+              <p className="text-sm text-white/55 leading-relaxed">{card.description}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
