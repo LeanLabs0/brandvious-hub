@@ -520,14 +520,14 @@ function ThesisSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Equitable outcomes for{" "}
+            We believe that with the right solutions,{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
               }}
             >
-              businesses across AI.
+              every business can be trusted and recommended by LLMs.
             </span>
           </h2>
         </div>
