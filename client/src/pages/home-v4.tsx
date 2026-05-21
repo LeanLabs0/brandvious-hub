@@ -430,7 +430,7 @@ function ProductsSection() {
     <section id="products" className="relative py-24 px-6" data-testid="v2-section-products">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Leveling the Playing Field</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
             Our solutions make brands{" "}
             <span
