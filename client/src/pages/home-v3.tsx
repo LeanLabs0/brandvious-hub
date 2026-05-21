@@ -22,7 +22,7 @@ const products = [
     domain: "schemarocket.ai",
     label: "Structured Data",
     subtitle: "Structured data for AI",
-    description: "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
+    description: "Schema markup that is made specifically for your brand, so AI can trust, remember, and cite you to potential customers.",
     status: "Established",
     statusColor: "text-emerald-400",
     url: "/schema",
