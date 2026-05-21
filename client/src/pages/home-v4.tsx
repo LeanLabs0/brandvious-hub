@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
-import kevinBarberPhoto from "@assets/kevin-barber.jpg";
 
 const products = [
   {
@@ -264,7 +263,6 @@ function V2Navbar() {
         </a>
         <div className="flex items-center gap-6">
           <a href="#products" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
-          <a href="#mission" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-mission">Mission</a>
           <a href="#thesis" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-thesis">Thesis</a>
         </div>
       </div>
@@ -295,7 +293,7 @@ function V2Hero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight"
           data-testid="v2-text-headline"
         >
-          <span className="text-white">We build and deploy products that </span>
+          <span className="text-white">Products that </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -311,12 +309,12 @@ function V2Hero() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3))",
             }}
           >
-            {" "}work for your business.
+            {" "}work for businesses.
           </span>
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed" data-testid="v2-text-subheadline">
-          Five products that ensure every business can win online with structured & verified data.
+          We enable innovative companies to compete with structured data, verified entities, and validated authority.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
@@ -330,13 +328,6 @@ function V2Hero() {
             data-testid="v2-button-see-products"
           >
             See the products <ArrowRight className="w-4 h-4" />
-          </a>
-          <a
-            href="#mission"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.08] text-white/70 text-sm font-medium hover:border-white/[0.16] hover:text-white transition-all duration-300"
-            data-testid="v2-button-mission"
-          >
-            Our mission <ArrowRight className="w-4 h-4" />
           </a>
         </div>
       </div>
@@ -441,14 +432,14 @@ function ProductsSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Our solutions work together with a single goal,{" "}
+            Our solutions make brands{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
               }}
             >
-              to make brands across the internet easy to read and recommend by LLMs.
+              easy to understand and recommend by LLMs.
             </span>
           </h2>
         </div>
@@ -457,33 +448,6 @@ function ProductsSection() {
           {products.map((p, i) => (
             <ProductCard key={p.name} product={p} index={i} />
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function MissionSection() {
-  return (
-    <section
-      id="mission"
-      className="relative py-24 px-6 border-t border-white/[0.06]"
-      data-testid="v2-section-mission"
-    >
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Mission</p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-              Consensus is the new Digital Compass.
-            </h2>
-          </div>
-
-          <div className="space-y-8 pt-2">
-            <p className="text-base text-white/55 leading-relaxed">
-              AI has replaced Google as the first destination customers learn about and choose a brand. With Brandvious, your brand's data gets verified and cited, so you get recommended by AI.
-            </p>
-          </div>
         </div>
       </div>
     </section>
@@ -522,14 +486,14 @@ function ThesisSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            We believe that with the right solutions,{" "}
+            Buyers rely upon LLMs to help them select the right vendors, and sellers rely upon LLM consensus around their expertise.{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
               }}
             >
-              every business can be trusted and recommended by LLMs.
+              Our tools enable both to make great choices.
             </span>
           </h2>
         </div>
@@ -677,15 +641,15 @@ function EcosystemVisual() {
 
 // Edit Lean Labs section copy here.
 const leanLabs = {
-  eyebrow: "Partner",
-  headingWhite: "Lean Labs is the",
-  headingGradient: '"Agentcy" behind Brandvious.',
+  eyebrow: "The Agentcy Model",
+  headingWhite: "Our tools empower the new",
+  headingGradient: "agentcy model.",
   body: [
-    "The world of online search has fundamentally shifted which means your agency should too. At Lean Labs, our priority is getting your brand visible in AI search and to do it, we adopted a new mindset.",
-    "That mindset is built to drive results in days and weeks, not years.",
+    "Companies and marketing agencies alike shouldn't be creating solutions from scratch.",
+    "Our tools can be deployed by agencies and consultants to deliver an unmatched implementation rate and return on investment for their clients.",
   ],
-  ctaLabel: "Learn more",
-  ctaHref: "https://www.lean-labs.com",
+  ctaLabel: "",
+  ctaHref: "",
   cards: [
     {
       title: 'What is the "Agentcy" model?',
@@ -729,33 +693,18 @@ function LeanLabsSection() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
             {leanLabs.eyebrow}
           </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight max-w-3xl">
-              {leanLabs.headingWhite}{" "}
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage:
-                    "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
-                }}
-              >
-                {leanLabs.headingGradient}
-              </span>
-            </h2>
-            <div className="flex-1 flex sm:justify-center">
-              <div className="flex flex-col items-center gap-3">
-                <img
-                  src={kevinBarberPhoto}
-                  alt="Kevin Barber, Lean Labs"
-                  className="w-[7.8rem] h-[7.8rem] rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
-                  data-testid="v2-img-kevin-barber"
-                />
-                <p className="text-sm text-white/50 whitespace-nowrap" data-testid="v2-text-kevin-barber-caption">
-                  Kevin Barber, Founder
-                </p>
-              </div>
-            </div>
-          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight max-w-3xl mb-6">
+            {leanLabs.headingWhite}{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+              }}
+            >
+              {leanLabs.headingGradient}
+            </span>
+          </h2>
           <div className="space-y-4 mb-8 max-w-3xl">
             {leanLabs.body.map((para, i) => (
               <p key={i} className="text-sm text-white/55 leading-relaxed">
@@ -876,7 +825,6 @@ function V2Footer() {
             </div>
             <div className="space-y-3">
               <p className="text-white/30 uppercase tracking-wider text-xs">Company</p>
-              <a href="#mission" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-mission">Mission</a>
               <a href="#thesis" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-thesis">Thesis</a>
             </div>
             <div className="space-y-3">
@@ -957,7 +905,6 @@ export default function HomeV4() {
       <V2Hero />
       <StatsRow />
       <ProductsSection />
-      <MissionSection />
       <ThesisSection />
       <EcosystemVisual />
       <LeanLabsSection />
