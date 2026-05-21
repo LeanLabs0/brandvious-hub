@@ -506,7 +506,7 @@ function ThesisSection() {
     {
       number: "03",
       title: "Function Over Fluff",
-      description: "Every product we ship makes web content more useful for humans and AI alike. Real utility, not vaporware.",
+      description: "Our products meet the needs of AI and humans because your MarTech stack has to work as hard as you do.",
     },
   ];
 
