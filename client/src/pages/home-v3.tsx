@@ -637,14 +637,14 @@ function EcosystemVisual() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
-                One ecosystem.{" "}
+                With one ecosystem{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
                   }}
                 >
-                  Every layer of AI visibility.
+                  you'll get insights into every area of AI visibility.
                 </span>
               </h2>
               <p className="text-sm text-white/55 leading-relaxed mb-8">
