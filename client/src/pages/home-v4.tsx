@@ -522,123 +522,6 @@ function ThesisSection() {
   );
 }
 
-function EcosystemCard({ product, index }: { product: typeof products[0]; index: number }) {
-  const { theme } = useTheme();
-  const Icon = product.icon;
-  const isExternal = !product.url.startsWith("/");
-  const party = theme === "sparkle";
-
-  return (
-    <a
-      key={product.name}
-      href={product.url}
-      {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-      className={`group relative overflow-hidden rounded-xl p-5 flex items-center gap-4 transition-all duration-500 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] hover:bg-white/[0.06] hover:border-white/[0.14] shadow-[0_2px_12px_rgba(0,0,0,0.2),inset_0_1px_0_rgba(255,255,255,0.04)] ${
-        party
-          ? "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),0_0_20px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]"
-          : "hover:shadow-[0_4px_24px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.06)]"
-      }`}
-      data-testid={`v2-ecosystem-item-${index}`}
-    >
-      <div
-        className="absolute inset-x-0 top-0 h-px pointer-events-none"
-        style={{
-          background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
-        }}
-      />
-
-      <div
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-        style={{
-          background: party
-            ? "radial-gradient(ellipse at center, rgba(100,40,200,0.05), transparent 70%)"
-            : "radial-gradient(ellipse at center, rgba(255,255,255,0.03), transparent 70%)",
-        }}
-      />
-
-      <div
-        className="relative flex items-center justify-center w-10 h-10 rounded-lg flex-shrink-0 transition-all duration-300"
-        style={{
-          background: "linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02))",
-          boxShadow: party
-            ? "inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 4px rgba(0,0,0,0.15)"
-            : "inset 0 1px 0 rgba(255,255,255,0.05), 0 1px 4px rgba(0,0,0,0.15)",
-        }}
-      >
-        <Icon className="w-4.5 h-4.5 transition-all duration-300 text-white/50 group-hover:text-white/80" />
-      </div>
-
-      <div className="relative">
-        <div className="text-sm font-semibold transition-colors duration-300 text-white/80 group-hover:text-white">
-          {product.name}
-        </div>
-        <div className="text-[10px] uppercase tracking-wider mt-0.5 text-white/35 group-hover:text-white/55">
-          {product.subtitle}
-        </div>
-      </div>
-
-      <ChevronRight className="w-3.5 h-3.5 ml-auto opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 text-white/40" />
-    </a>
-  );
-}
-
-function EcosystemVisual() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-
-  return (
-    <section
-      className="relative py-24 px-6 border-t border-white/[0.06]"
-      data-testid="v2-section-ecosystem"
-    >
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className={`rounded-2xl overflow-hidden p-8 md:p-12 transition-all duration-500 ${glassCard} ${glassCardBorder} ${party ? `${cardShadowBase} shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]` : cardShadowBase}`}>
-          <div
-            className="absolute inset-x-0 top-0 h-px"
-            style={{
-              background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
-            }}
-          />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">How It Connects</p>
-              <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
-                With one ecosystem{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
-                  }}
-                >
-                  you'll get insights into every area of AI visibility.
-                </span>
-              </h2>
-              <p className="text-sm text-white/55 leading-relaxed mb-8">
-                SchemaRocket gives your data structure, while Entities.org guides machine data about your business. For your brand category, WhatisBest shows why you're the one to choose, and AnswerStack tells LLMs why you're trustworthy enough to cite. Finally, Mentions.io shows how strong your brand sentiment really is.
-              </p>
-              <a
-                href="#products"
-                className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-300"
-                data-testid="v2-link-explore-products"
-              >
-                Explore the products <ArrowRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
-
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-3">
-                {products.map((p, i) => (
-                  <EcosystemCard key={p.name} product={p} index={i} />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // Edit Lean Labs section copy here.
 const leanLabs = {
   eyebrow: "The Agentcy Model",
@@ -906,7 +789,6 @@ export default function HomeV4() {
       <StatsRow />
       <ProductsSection />
       <ThesisSection />
-      <EcosystemVisual />
       <LeanLabsSection />
       <V2Footer />
     </div>
