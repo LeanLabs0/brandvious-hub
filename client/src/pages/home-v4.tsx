@@ -743,14 +743,14 @@ function LeanLabsSection() {
               </span>
             </h2>
             <div className="flex-1 flex sm:justify-center">
-              <div className="flex flex-col items-center gap-2">
+              <div className="flex flex-col items-center gap-3">
                 <img
                   src={kevinBarberPhoto}
                   alt="Kevin Barber, Lean Labs"
-                  className="w-[5.2rem] h-[5.2rem] rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
+                  className="w-[7.8rem] h-[7.8rem] rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
                   data-testid="v2-img-kevin-barber"
                 />
-                <p className="text-xs text-white/50 whitespace-nowrap" data-testid="v2-text-kevin-barber-caption">
+                <p className="text-sm text-white/50 whitespace-nowrap" data-testid="v2-text-kevin-barber-caption">
                   Kevin Barber, Founder
                 </p>
               </div>
