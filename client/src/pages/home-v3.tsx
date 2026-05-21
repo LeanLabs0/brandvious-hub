@@ -33,7 +33,7 @@ const products = [
     domain: "entities.org",
     label: "Entity Registry",
     subtitle: "Entity registry for AI",
-    description: "A canonical entity registry for machines. Verified data so AI always gets the right company.",
+    description: "Verified company data listed in a registry, so AI knows who your company is and what you do.",
     status: "Growing",
     statusColor: "text-blue-400",
     url: "https://entities.org",
