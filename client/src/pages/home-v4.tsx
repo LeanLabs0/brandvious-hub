@@ -729,13 +729,7 @@ function LeanLabsSection() {
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
             {leanLabs.eyebrow}
           </p>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-5 mb-6">
-            <img
-              src={kevinBarberPhoto}
-              alt="Kevin Barber, Lean Labs"
-              className="w-16 h-16 rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
-              data-testid="v2-img-kevin-barber"
-            />
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5 mb-6">
             <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight max-w-3xl">
               {leanLabs.headingWhite}{" "}
               <span
@@ -748,6 +742,12 @@ function LeanLabsSection() {
                 {leanLabs.headingGradient}
               </span>
             </h2>
+            <img
+              src={kevinBarberPhoto}
+              alt="Kevin Barber, Lean Labs"
+              className="w-[5.2rem] h-[5.2rem] rounded-full object-cover border border-white/15 shadow-[0_2px_12px_rgba(0,0,0,0.4)] shrink-0"
+              data-testid="v2-img-kevin-barber"
+            />
           </div>
           <div className="space-y-4 mb-8 max-w-3xl">
             {leanLabs.body.map((para, i) => (
