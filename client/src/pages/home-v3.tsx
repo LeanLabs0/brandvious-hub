@@ -473,7 +473,7 @@ function MissionSection() {
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Mission</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-              Consensus is King.
+              Consensus is the new Digital Compass.
             </h2>
           </div>
 
