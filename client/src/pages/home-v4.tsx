@@ -695,7 +695,7 @@ const leanLabs = {
       description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
     },
     {
-      title: "Card Three Title",
+      title: "Where is AI headed?",
       description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
     },
   ],
