@@ -648,7 +648,7 @@ function EcosystemVisual() {
                 </span>
               </h2>
               <p className="text-sm text-white/55 leading-relaxed mb-8">
-                SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewInsight makes your reputation transparent. Mentions.io makes your presence provable.
+                SchemaRocket gives your data structure, while Entities.org guides machine data about your business. For your brand category, WhatisBest shows why you're the one to choose, and AnswerStack tells LLMs why you're trustworthy enough to cite. Finally, Mentions.io shows how strong your brand sentiment really is.
               </p>
               <a
                 href="#products"
