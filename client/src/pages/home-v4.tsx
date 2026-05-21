@@ -692,7 +692,7 @@ const leanLabs = {
     },
     {
       title: "Is SEO dead?",
-      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+      description: "No, it's just evolved. With online search habits changing, buyers are using LLMs over Google to find what brands to consider. Missing this shift means lost business.",
     },
     {
       title: "Where is AI headed?",
