@@ -293,14 +293,14 @@ function V2Hero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight"
           data-testid="v2-text-headline"
         >
-          <span className="text-white">We build products that </span>
+          <span className="text-white">We build and deploy products that </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))",
             }}
           >
-            make the internet
+            make AI
           </span>
           <br />
           <span
@@ -309,7 +309,7 @@ function V2Hero() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3))",
             }}
           >
-            {" "}work for AI.
+            {" "}work for your business.
           </span>
         </h1>
 
