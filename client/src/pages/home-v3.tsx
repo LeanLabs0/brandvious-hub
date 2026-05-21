@@ -673,6 +673,75 @@ function EcosystemVisual() {
   );
 }
 
+// Edit Lean Labs section copy here.
+const leanLabs = {
+  eyebrow: "Partner",
+  headingWhite: "Lean Labs is the",
+  headingGradient: '"Agentcy" behind Brandvious.',
+  body: "Add your Lean Labs description here. This section is editable — update the headline and body copy in the leanLabs constant at the top of V2Footer.",
+  ctaLabel: "Learn more",
+  ctaHref: "https://www.lean-labs.com",
+};
+
+function LeanLabsSection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
+  return (
+    <section
+      className="relative py-24 px-6 border-t border-white/[0.06]"
+      data-testid="v2-section-leanlabs"
+    >
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div
+          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 transition-all duration-500 ${glassCard} ${glassCardBorder} ${
+            party
+              ? `${cardShadowBase} shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]`
+              : cardShadowBase
+          }`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+            }}
+          />
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
+            {leanLabs.eyebrow}
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6 max-w-3xl">
+            {leanLabs.headingWhite}{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+              }}
+            >
+              {leanLabs.headingGradient}
+            </span>
+          </h2>
+          <p className="text-sm text-white/55 leading-relaxed mb-8 max-w-3xl">
+            {leanLabs.body}
+          </p>
+          {leanLabs.ctaHref && leanLabs.ctaLabel && (
+            <a
+              href={leanLabs.ctaHref}
+              target={leanLabs.ctaHref.startsWith("http") ? "_blank" : undefined}
+              rel={leanLabs.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-300"
+              data-testid="v2-link-leanlabs"
+            >
+              {leanLabs.ctaLabel} <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function V2Footer() {
   const { theme, toggleTheme } = useTheme();
   const party = theme === "sparkle";
@@ -833,6 +902,7 @@ export default function HomeV3() {
       <MissionSection />
       <ThesisSection />
       <EcosystemVisual />
+      <LeanLabsSection />
       <V2Footer />
     </div>
   );
