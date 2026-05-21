@@ -696,7 +696,7 @@ const leanLabs = {
     },
     {
       title: "Where is AI headed?",
-      description: "Edit this card description. Use the leanLabs.cards array to update the heading and copy for each card.",
+      description: "AI is changing every minute, so while we can't predict the future, we can make sure your brand is prepared for it.",
     },
   ],
 };
