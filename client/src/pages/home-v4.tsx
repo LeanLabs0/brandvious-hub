@@ -315,7 +315,7 @@ function V2Hero() {
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed" data-testid="v2-text-subheadline">
-          We enable innovative companies to compete with structured data, verified entities, and validated authority.
+          Tools for innovative companies competing with structured data, verified entities, and validated authority.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
