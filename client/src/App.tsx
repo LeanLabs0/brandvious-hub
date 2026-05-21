@@ -16,6 +16,7 @@ import ReviewRadar from "@/pages/reviewradar";
 import Mentions from "@/pages/mentions";
 import HomeV2 from "@/pages/home-v2";
 import HomeV3 from "@/pages/home-v3";
+import HomeV4 from "@/pages/home-v4";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/mentions/:entityId" component={Mentions} />
       <Route path="/v2" component={HomeV2} />
       <Route path="/v3" component={HomeV3} />
+      <Route path="/v4" component={HomeV4} />
       {/* v3 is the default homepage at "/". /v3 is kept as a permanent alias. */}
       <Route component={NotFound} />
     </Switch>

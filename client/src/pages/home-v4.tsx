@@ -22,7 +22,7 @@ const products = [
     domain: "schemarocket.ai",
     label: "Structured Data",
     subtitle: "Structured data for AI",
-    description: "Schema markup that makes your brand machine-readable — so AI can understand, trust, and recommend you.",
+    description: "Schema markup that is made specifically for your brand, so AI can trust, remember, and cite you to potential customers.",
     status: "Established",
     statusColor: "text-emerald-400",
     url: "/schema",
@@ -33,7 +33,7 @@ const products = [
     domain: "entities.org",
     label: "Entity Registry",
     subtitle: "Entity registry for AI",
-    description: "A canonical entity registry for machines. Verified data so AI always gets the right company.",
+    description: "Verified company data listed in a registry, so AI knows who your company is and what you do.",
     status: "Growing",
     statusColor: "text-blue-400",
     url: "https://entities.org",
@@ -44,7 +44,7 @@ const products = [
     domain: "whatisbest.com",
     label: "Comparisons",
     subtitle: "Comparisons for AI",
-    description: "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
+    description: "Real comparisons, vetted by B2B experts, made to be recommended in AI answers.",
     status: "Launching",
     statusColor: "text-amber-400",
     url: "https://whatisbest.com",
@@ -55,7 +55,7 @@ const products = [
     domain: "answerstack.io",
     label: "Answers",
     subtitle: "Answers for AI",
-    description: "Schema-rich, expert-vetted content that AI engines cite as a credible source.",
+    description: "Rich schema content verified by experts that LLMs see as a source of truth in citations.",
     status: "In Development",
     statusColor: "text-neutral-400",
     url: "https://answerstack.io",
@@ -66,7 +66,7 @@ const products = [
     domain: "reviewinsight.com",
     label: "Trust",
     subtitle: "Reviews AI can trust",
-    description: "Real-time sentiment from leading platforms and communities. Not biased. Not stale.",
+    description: "Real reviews from the most trusted online platforms that carry weight in influencing buying behavior from customers.",
     status: "Backlog",
     statusColor: "text-neutral-500",
     url: "/reviewradar",
@@ -77,7 +77,7 @@ const products = [
     domain: "mentions.io",
     label: "Presence",
     subtitle: "Proof of presence",
-    description: "Records when a brand is mentioned across articles, blogs, comparisons, and more.",
+    description: "Online monitoring for brand mentions across web pages, blog articles, whitepapers and more.",
     status: "Prototype",
     statusColor: "text-purple-400",
     url: "/mentions",
@@ -258,7 +258,7 @@ function V2Navbar() {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/v2" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+        <a href="/" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
@@ -294,14 +294,14 @@ function V2Hero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight"
           data-testid="v2-text-headline"
         >
-          <span className="text-white">We build products that </span>
+          <span className="text-white">We build and deploy products that </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.4))",
             }}
           >
-            make the internet
+            make AI
           </span>
           <br />
           <span
@@ -310,12 +310,12 @@ function V2Hero() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.7), rgba(255,255,255,0.3))",
             }}
           >
-            {" "}work for AI.
+            {" "}work for your business.
           </span>
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed" data-testid="v2-text-subheadline">
-          Fair. Factual. Functional. Five products that give machines structured, verified data — so every business gets a fair shot.
+          Five products that ensure every business can win online with structured & verified data.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
@@ -440,14 +440,14 @@ function ProductsSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Five products.{" "}
+            Our solutions work together with a single goal,{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
               }}
             >
-              One goal: make the internet machine-readable.
+              to make brands across the internet easy to read and recommend by LLMs.
             </span>
           </h2>
         </div>
@@ -474,13 +474,13 @@ function MissionSection() {
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Mission</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight">
-              Consensus is King.
+              Consensus is the new Digital Compass.
             </h2>
           </div>
 
           <div className="space-y-8 pt-2">
             <p className="text-base text-white/55 leading-relaxed">
-              AI is rewriting how people find, trust, and choose. Brandvious delivers factual brand data that LLMs can ingest and cite with ease.
+              AI has replaced Google as the first destination customers learn about and choose a brand. With Brandvious, your brand's data gets verified and cited, so you get recommended by AI.
             </p>
           </div>
         </div>
@@ -496,18 +496,18 @@ function ThesisSection() {
   const principles = [
     {
       number: "01",
-      title: "Fair",
-      description: "Every business deserves to be accurately represented to AI. Not just the ones that can afford to game the system.",
+      title: "Level Playing Field",
+      description: "Every business, regardless of their size or budget, deserves the same AI visibility as their most well funded competitors.",
     },
     {
       number: "02",
-      title: "Factual",
-      description: "AI is only as good as its sources. We provide structured, verified, machine-readable data — not SEO noise.",
+      title: "Just The Facts",
+      description: "AI can only ever be as good as its sources. We provide data that's vetted, structured, and LLM-centric so brands can compete.",
     },
     {
       number: "03",
-      title: "Functional",
-      description: "Every product we ship makes web content more useful for humans and AI alike. Real utility, not vaporware.",
+      title: "Function Over Fluff",
+      description: "Our products meet the needs of AI and humans because your MarTech stack has to work as hard as you do.",
     },
   ];
 
@@ -521,14 +521,14 @@ function ThesisSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Our Thesis</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Fair. Factual.{" "}
+            We believe that with the right solutions,{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
               }}
             >
-              Functional for AI.
+              every business can be trusted and recommended by LLMs.
             </span>
           </h2>
         </div>
@@ -638,18 +638,18 @@ function EcosystemVisual() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">How It Connects</p>
               <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6">
-                One ecosystem.{" "}
+                With one ecosystem{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
                   }}
                 >
-                  Every layer of AI visibility.
+                  you'll get insights into every area of AI visibility.
                 </span>
               </h2>
               <p className="text-sm text-white/55 leading-relaxed mb-8">
-                SchemaRocket makes your data structured. Entities.org makes your identity canonical. WhatisBest makes your category clear. AnswerStack makes your expertise citable. ReviewInsight makes your reputation transparent. Mentions.io makes your presence provable.
+                SchemaRocket gives your data structure, while Entities.org guides machine data about your business. For your brand category, WhatisBest shows why you're the one to choose, and AnswerStack tells LLMs why you're trustworthy enough to cite. Finally, Mentions.io shows how strong your brand sentiment really is.
               </p>
               <a
                 href="#products"
@@ -674,6 +674,75 @@ function EcosystemVisual() {
   );
 }
 
+// Edit Lean Labs section copy here.
+const leanLabs = {
+  eyebrow: "Partner",
+  headingWhite: "Lean Labs is the",
+  headingGradient: '"Agentcy" behind Brandvious.',
+  body: "Add your Lean Labs description here. This section is editable — update the headline and body copy in the leanLabs constant at the top of V2Footer.",
+  ctaLabel: "Learn more",
+  ctaHref: "https://www.lean-labs.com",
+};
+
+function LeanLabsSection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
+  return (
+    <section
+      className="relative py-24 px-6 border-t border-white/[0.06]"
+      data-testid="v2-section-leanlabs"
+    >
+      <div className="max-w-6xl mx-auto relative z-10">
+        <div
+          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 transition-all duration-500 ${glassCard} ${glassCardBorder} ${
+            party
+              ? `${cardShadowBase} shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.04),inset_0_1px_0_rgba(255,255,255,0.04)]`
+              : cardShadowBase
+          }`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{
+              background:
+                "linear-gradient(90deg, transparent, rgba(255,255,255,0.06), transparent)",
+            }}
+          />
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">
+            {leanLabs.eyebrow}
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight mb-6 max-w-3xl">
+            {leanLabs.headingWhite}{" "}
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage:
+                  "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+              }}
+            >
+              {leanLabs.headingGradient}
+            </span>
+          </h2>
+          <p className="text-sm text-white/55 leading-relaxed mb-8 max-w-3xl">
+            {leanLabs.body}
+          </p>
+          {leanLabs.ctaHref && leanLabs.ctaLabel && (
+            <a
+              href={leanLabs.ctaHref}
+              target={leanLabs.ctaHref.startsWith("http") ? "_blank" : undefined}
+              rel={leanLabs.ctaHref.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors duration-300"
+              data-testid="v2-link-leanlabs"
+            >
+              {leanLabs.ctaLabel} <ArrowRight className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function V2Footer() {
   const { theme, toggleTheme } = useTheme();
   const party = theme === "sparkle";
@@ -681,8 +750,10 @@ function V2Footer() {
     theme === "dark" ? <Sun className="w-4 h-4" /> :
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
-  const currentPath =
-    typeof window !== "undefined" ? window.location.pathname : "/v2";
+  // "/" and "/v3" both render v3 — normalize so the switcher highlights v3 on either URL.
+  const rawPath =
+    typeof window !== "undefined" ? window.location.pathname : "/";
+  const currentPath = rawPath === "/v3" ? "/" : rawPath;
 
   return (
     <footer
@@ -712,7 +783,7 @@ function V2Footer() {
               Brandvious<span className="font-light text-white/60">, Inc.</span>
             </div>
             <p className="text-sm text-white/45 max-w-xs mb-4">
-              Fair. Factual. Functional for AI.
+              Equitable outcomes for businesses across AI.
             </p>
             <div className="space-y-1">
               <p className="text-xs text-white/30" data-testid="v2-text-address">
@@ -759,6 +830,7 @@ function V2Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/[0.04] grid grid-cols-1 sm:grid-cols-3 items-center gap-4">
+          {/* Left: theme toggle + copyright */}
           <div className="flex items-center gap-3 justify-self-start">
             <Button
               size="icon"
@@ -774,6 +846,7 @@ function V2Footer() {
             </p>
           </div>
 
+          {/* Center: version switcher */}
           <nav
             className="flex items-center gap-3 justify-self-center"
             data-testid="v2-version-switcher"
@@ -802,8 +875,9 @@ function V2Footer() {
             })}
           </nav>
 
+          {/* Right: tagline */}
           <p className="text-xs text-white/30 justify-self-end text-right">
-            Fair. Factual. Functional for AI.
+            Equitable outcomes for businesses across AI.
           </p>
         </div>
       </div>
@@ -817,7 +891,7 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
-export default function HomeV2() {
+export default function HomeV4() {
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="v2-page">
       <PartyLayer />
@@ -829,6 +903,7 @@ export default function HomeV2() {
       <MissionSection />
       <ThesisSection />
       <EcosystemVisual />
+      <LeanLabsSection />
       <V2Footer />
     </div>
   );

@@ -97,6 +97,7 @@ const versions = [
   { label: "v1", path: "/v1" },
   { label: "v2", path: "/v2" },
   { label: "v3", path: "/" },
+  { label: "v4", path: "/v4" },
 ];
 
 function NoiseOverlay() {
