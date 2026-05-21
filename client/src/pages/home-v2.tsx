@@ -94,8 +94,8 @@ const stats = [
 // Single source of truth for version links shown in the sub-footer.
 // To add v4/v5/etc, just append a new entry here.
 const versions = [
-  { label: "v1", path: "/" },
-  { label: "v2", path: "/v2" },
+  { label: "v1", path: "/v1" },
+  { label: "v2", path: "/" },
   { label: "v3", path: "/v3" },
 ];
 
@@ -257,7 +257,7 @@ function V2Navbar() {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/v2" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+        <a href="/" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
@@ -680,8 +680,10 @@ function V2Footer() {
     theme === "dark" ? <Sun className="w-4 h-4" /> :
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
-  const currentPath =
-    typeof window !== "undefined" ? window.location.pathname : "/v2";
+  // "/" and "/v2" both render v2 — normalize so the switcher highlights v2 on either URL.
+  const rawPath =
+    typeof window !== "undefined" ? window.location.pathname : "/";
+  const currentPath = rawPath === "/v2" ? "/" : rawPath;
 
   return (
     <footer

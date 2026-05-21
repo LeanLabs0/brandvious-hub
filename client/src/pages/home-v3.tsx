@@ -94,8 +94,8 @@ const stats = [
 // Single source of truth for version links shown in the sub-footer.
 // To add v4/v5/etc, just append a new entry here.
 const versions = [
-  { label: "v1", path: "/" },
-  { label: "v2", path: "/v2" },
+  { label: "v1", path: "/v1" },
+  { label: "v2", path: "/" },
   { label: "v3", path: "/v3" },
 ];
 

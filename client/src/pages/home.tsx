@@ -90,8 +90,8 @@ const projects = [
 // Single source of truth for version links shown in the sub-footer.
 // To add v4/v5/etc, just append a new entry here.
 const versions = [
-  { label: "v1", path: "/" },
-  { label: "v2", path: "/v2" },
+  { label: "v1", path: "/v1" },
+  { label: "v2", path: "/" },
   { label: "v3", path: "/v3" },
 ];
 
@@ -656,7 +656,7 @@ function ClosingStatement() {
 
 function Footer() {
   const currentPath =
-    typeof window !== "undefined" ? window.location.pathname : "/";
+    typeof window !== "undefined" ? window.location.pathname : "/v1";
   return (
     <footer className="px-6 py-12 border-t border-border/30" data-testid="section-footer">
       <div className="max-w-4xl mx-auto">
