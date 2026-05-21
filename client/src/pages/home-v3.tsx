@@ -439,14 +439,14 @@ function ProductsSection() {
         <div className="mb-16">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Ecosystem</p>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            Five products.{" "}
+            Our solutions work together with a single goal,{" "}
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
               }}
             >
-              One goal: make the internet machine-readable.
+              to make the internet easy to read by LLMs.
             </span>
           </h2>
         </div>
