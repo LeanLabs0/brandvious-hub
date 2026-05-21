@@ -314,7 +314,7 @@ function V2Hero() {
         </h1>
 
         <p className="mt-6 text-lg sm:text-xl text-white/70 max-w-xl leading-relaxed" data-testid="v2-text-subheadline">
-          Equitable outcomes for businesses across AI. Five products that give machines structured, verified data — so every business gets a fair shot.
+          Five products that ensure every business can win online with structured & verified data.
         </p>
 
         <div className="mt-10 flex flex-wrap gap-4">
