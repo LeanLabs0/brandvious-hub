@@ -77,7 +77,7 @@ const products = [
     domain: "mentions.io",
     label: "Presence",
     subtitle: "Proof of presence",
-    description: "Records when a brand is mentioned across articles, blogs, comparisons, and more.",
+    description: "Online monitoring for brand mentions across web pages, blog articles, whitepapers and more.",
     status: "Prototype",
     statusColor: "text-purple-400",
     url: "/mentions",
