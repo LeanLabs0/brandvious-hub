@@ -528,11 +528,20 @@ const leanLabs = {
   headingWhite: "Our tools empower the new",
   headingGradient: '"agentcy" model.',
   body: [
-    "Companies and marketing agencies alike shouldn't be creating solutions from scratch.",
-    "Our tools can be deployed by agencies and consultants to deliver an unmatched implementation rate and return on investment for their clients.",
+    'An "agentcy" is a specialized firm that has shifted from labor-based delivery to agent-based delivery — pairing experts with software agents to get critical work done.',
+    "Companies once relied on in-house teams and outsourced labor for this work. The agentcy model is predictable, scalable, and high-ROI for both providers and their clients — letting firms grow a business without growing headcount.",
+    "Our tools are built to be deployed by agencies and consultants, giving them an unmatched implementation rate for their clients.",
   ],
   ctaLabel: "",
   ctaHref: "",
+  showPartners: true,
+  partnersEyebrow: "Partner Agencies",
+  partners: [
+    { name: "Lean Labs" },
+    { name: "Agency Two" },
+    { name: "Agency Three" },
+    { name: "Agency Four" },
+  ],
   cards: [
     {
       title: 'What is the "Agentcy" model?',
@@ -605,6 +614,25 @@ function LeanLabsSection() {
             >
               {leanLabs.ctaLabel} <ArrowRight className="w-3.5 h-3.5" />
             </a>
+          )}
+
+          {leanLabs.showPartners && leanLabs.partners.length > 0 && (
+            <div className="mt-10 pt-8 border-t border-white/[0.06]" data-testid="v2-leanlabs-partners">
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-5">
+                {leanLabs.partnersEyebrow}
+              </p>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                {leanLabs.partners.map((p, i) => (
+                  <div
+                    key={p.name}
+                    className="flex items-center justify-center h-16 rounded-xl border border-white/[0.06] bg-white/[0.02] text-sm font-medium text-white/55"
+                    data-testid={`v2-leanlabs-partner-${i}`}
+                  >
+                    {p.name}
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </div>
 
