@@ -505,7 +505,7 @@ function ThesisSection() {
     },
     {
       number: "03",
-      title: "Functional",
+      title: "Function Over Fluff",
       description: "Every product we ship makes web content more useful for humans and AI alike. Real utility, not vaporware.",
     },
   ];
