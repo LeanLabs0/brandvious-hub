@@ -44,7 +44,7 @@ const products = [
     domain: "whatisbest.com",
     label: "Comparisons",
     subtitle: "Comparisons for AI",
-    description: "Expert-vetted B2B SaaS comparisons built to surface in AI search results.",
+    description: "Real comparisons, vetted by B2B experts, made to be recommended in AI answers.",
     status: "Launching",
     statusColor: "text-amber-400",
     url: "https://whatisbest.com",
