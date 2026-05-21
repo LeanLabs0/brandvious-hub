@@ -544,8 +544,8 @@ const leanLabs = {
     { name: "Agency Four" },
   ],
   cards: [
-    { title: 'Explore the "agentcy" model', href: "#" },
-    { title: "See how AEO works", href: "/schema" },
+    { title: 'Explore the "agentcy" model', href: "https://agentcymodel.com" },
+    { title: "See how AEO works", href: "https://howaeoworks.com" },
     { title: "Connect with Brandvious", href: "mailto:hello@brandvious.com" },
   ],
 };
