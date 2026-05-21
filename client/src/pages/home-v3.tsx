@@ -66,7 +66,7 @@ const products = [
     domain: "reviewinsight.com",
     label: "Trust",
     subtitle: "Reviews AI can trust",
-    description: "Real-time sentiment from leading platforms and communities. Not biased. Not stale.",
+    description: "Real reviews from the most trusted online platforms that carry weight in influencing buying behavior from customers.",
     status: "Backlog",
     statusColor: "text-neutral-500",
     url: "/reviewradar",
