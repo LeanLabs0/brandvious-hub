@@ -501,7 +501,7 @@ function ThesisSection() {
     {
       number: "02",
       title: "Just The Facts",
-      description: "AI is only as good as its sources. We provide structured, verified, machine-readable data — not SEO noise.",
+      description: "AI can only ever be as good as its sources. We provide data that's vetted, structured, and LLM-centric so brands can compete.",
     },
     {
       number: "03",
