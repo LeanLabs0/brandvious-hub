@@ -1,6 +1,7 @@
 # Brandvious Digital
 
 
+
 ## Overview
 Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired by GrowthRocket.ai's dark theme. Minimal content style similar to payloadcms.com.
 
