@@ -524,9 +524,9 @@ function ThesisSection() {
 
 // Edit Lean Labs section copy here.
 const leanLabs = {
-  eyebrow: "The Agentcy Model",
+  eyebrow: 'The "Agentcy" Model',
   headingWhite: "Our tools empower the new",
-  headingGradient: "agentcy model.",
+  headingGradient: '"agentcy" model.',
   body: [
     "Companies and marketing agencies alike shouldn't be creating solutions from scratch.",
     "Our tools can be deployed by agencies and consultants to deliver an unmatched implementation rate and return on investment for their clients.",
