@@ -479,7 +479,7 @@ function MissionSection() {
 
           <div className="space-y-8 pt-2">
             <p className="text-base text-white/55 leading-relaxed">
-              AI is rewriting how people find, trust, and choose. Brandvious delivers factual brand data that LLMs can ingest and cite with ease.
+              AI has replaced Google as the first destination customers learn about and choose a brand. With Brandvious, your brand's data gets verified and cited, so you get recommended by AI.
             </p>
           </div>
         </div>
