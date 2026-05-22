@@ -794,34 +794,7 @@ function V2Footer() {
             </p>
           </div>
 
-          {/* Center: version switcher */}
-          <nav
-            className="flex items-center gap-3 justify-self-center"
-            data-testid="v2-version-switcher"
-          >
-            {versions.map((v, i) => {
-              const isCurrent = currentPath === v.path;
-              return (
-                <span key={v.label} className="flex items-center gap-3">
-                  <a
-                    href={v.path}
-                    aria-current={isCurrent ? "page" : undefined}
-                    className={`text-xs transition-colors ${
-                      isCurrent
-                        ? "text-white/80 font-medium"
-                        : "text-white/30 hover:text-white/70"
-                    }`}
-                    data-testid={`v2-version-link-${v.label}`}
-                  >
-                    {v.label}
-                  </a>
-                  {i < versions.length - 1 && (
-                    <span className="text-white/15 text-xs">·</span>
-                  )}
-                </span>
-              );
-            })}
-          </nav>
+          <div className="justify-self-center" />
 
           <div className="justify-self-end" />
         </div>

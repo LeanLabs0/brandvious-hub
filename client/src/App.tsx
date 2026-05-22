@@ -22,7 +22,7 @@ import NotFound from "@/pages/not-found";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={HomeV3} />
+      <Route path="/" component={HomeV4} />
       <Route path="/v1" component={Home} />
       <Route path="/entities" component={EntitiesHome} />
       <Route path="/entitiespreview" component={EntitiesPreview} />
