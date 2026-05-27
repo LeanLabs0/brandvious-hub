@@ -26,7 +26,7 @@ const products = [
     description: "Schema markup that is made specifically for your brand, so AI can trust, remember, and cite you to potential customers.",
     status: "Established",
     statusColor: "text-emerald-400",
-    url: "/schema",
+    url: "https://schemarocket.ai",
     icon: Braces,
   },
   {
