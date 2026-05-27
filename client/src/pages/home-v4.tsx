@@ -327,7 +327,7 @@ function V2Hero() {
             }`}
             data-testid="v2-button-see-products"
           >
-            See the products <ArrowRight className="w-4 h-4" />
+            See AEO products <ArrowRight className="w-4 h-4" />
           </a>
           <a
             href="https://howaeoworks.com"
@@ -544,7 +544,7 @@ const leanLabs = {
   ctaLabel: "",
   ctaHref: "",
   showPartners: true,
-  partnersEyebrow: "Partner Agencies",
+  partnersEyebrow: "AGENCY Partners",
   partners: [
     { name: "Lean Labs" },
     { name: "Agency Two" },
