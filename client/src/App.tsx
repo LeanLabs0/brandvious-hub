@@ -115,7 +115,7 @@ function FloatingEditButton() {
   }
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2" data-testid="cms-floating-panel">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-2" data-cms-no-auto data-testid="cms-floating-panel">
       {showApply && (
         <div className="bg-white text-zinc-800 rounded-xl shadow-xl border border-zinc-200 w-96 max-h-[28rem] overflow-hidden flex flex-col">
           <div className="px-4 py-3 border-b border-zinc-100 flex items-center justify-between">
