@@ -551,6 +551,7 @@ const leanLabs = {
     { name: "Agency Two" },
     { name: "Agency Three" },
     { name: "Agency Four" },
+    { name: "Agency Five" },
   ],
   cards: [
     { title: 'Explore the "agentcy" model', href: "https://agentcymodel.com" },
