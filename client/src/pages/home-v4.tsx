@@ -819,7 +819,7 @@ export default function HomeV4() {
       <V2Hero />
       <StatsRow />
       <ProductsSection />
-      <LeanLabsSection />
+      {/* <LeanLabsSection /> — temporarily disabled */}
       <V2Footer />
     </div>
   );
