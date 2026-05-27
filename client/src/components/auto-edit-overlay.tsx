@@ -116,8 +116,11 @@ export function AutoEditOverlay() {
   const writtenRef = useRef(new WeakMap<Element, string>());
 
   // ---- (1) Apply stored overrides to the live DOM ----
+  // Runs in BOTH dev and production so published-site visitors see saved edits.
+  // The edit UI (effect #2 below) stays gated on isEditMode + isEnabled so the
+  // editing button never appears on the public site.
   useEffect(() => {
-    if (!isEnabled || !isReady) return;
+    if (!isReady) return;
     let scheduled = false;
     let disposed = false;
 
