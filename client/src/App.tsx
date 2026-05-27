@@ -166,7 +166,10 @@ function FloatingEditButton() {
       )}
       <div className="flex gap-2">
         <button
-          onClick={() => setShowApply((s) => !s)}
+          onClick={() => {
+            queryClient.invalidateQueries({ queryKey: ["/api/content"] });
+            setShowApply((s) => !s);
+          }}
           className="flex items-center gap-2 px-4 py-3 rounded-full bg-emerald-600 text-white shadow-lg hover:bg-emerald-700 transition-all"
           data-testid="button-apply-to-code"
         >
