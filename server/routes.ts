@@ -47,5 +47,32 @@ export async function registerRoutes(
     }
   });
 
+  app.delete(api.content.deleteAll.path, requireCmsAuth, async (_req, res) => {
+    try {
+      const deleted = await storage.deleteAllContent();
+      res.json({ deleted });
+    } catch (err) {
+      console.error("Error clearing CMS content", err);
+      res.status(500).json({ message: "Failed to clear content" });
+    }
+  });
+
+  app.delete(api.content.deleteOne.path, requireCmsAuth, async (req, res) => {
+    const parsed = api.content.deleteOne.input.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({
+        message: "Invalid input",
+        field: parsed.error.issues[0]?.path.join("."),
+      });
+    }
+    try {
+      const deleted = await storage.deleteContent(parsed.data.key);
+      res.json({ deleted });
+    } catch (err) {
+      console.error("Error deleting CMS content", err);
+      res.status(500).json({ message: "Failed to delete content" });
+    }
+  });
+
   return httpServer;
 }

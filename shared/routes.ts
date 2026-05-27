@@ -29,6 +29,26 @@ export const api = {
         500: errorSchemas.internal,
       },
     },
+    deleteAll: {
+      method: "DELETE" as const,
+      path: "/api/content",
+      responses: {
+        200: z.object({ deleted: z.number() }),
+        401: errorSchemas.unauthorized,
+        500: errorSchemas.internal,
+      },
+    },
+    deleteOne: {
+      method: "DELETE" as const,
+      path: "/api/content/by-key",
+      input: z.object({ key: z.string().min(1) }),
+      responses: {
+        200: z.object({ deleted: z.boolean() }),
+        400: errorSchemas.validation,
+        401: errorSchemas.unauthorized,
+        500: errorSchemas.internal,
+      },
+    },
   },
 };
 

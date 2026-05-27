@@ -15,6 +15,8 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
   getAllContent(): Promise<Record<string, string>>;
   upsertContent(data: UpdateSiteContent): Promise<SiteContent>;
+  deleteContent(key: string): Promise<boolean>;
+  deleteAllContent(): Promise<number>;
 }
 
 export class HybridStorage implements IStorage {
@@ -63,6 +65,19 @@ export class HybridStorage implements IStorage {
       .values({ key: data.key, value: data.value, type: "text" })
       .returning();
     return created;
+  }
+
+  async deleteContent(key: string): Promise<boolean> {
+    const result = await db
+      .delete(siteContent)
+      .where(eq(siteContent.key, key))
+      .returning({ key: siteContent.key });
+    return result.length > 0;
+  }
+
+  async deleteAllContent(): Promise<number> {
+    const result = await db.delete(siteContent).returning({ key: siteContent.key });
+    return result.length;
   }
 }
 
