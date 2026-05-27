@@ -263,8 +263,7 @@ function V2Navbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="#products" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
-          <a href="#thesis" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-thesis">Thesis</a>
+          <a href="#products" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">AEO Products</a>
         </div>
       </div>
     </nav>
