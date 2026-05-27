@@ -61,6 +61,15 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 - `client/src/index.css` — Theme tokens (HSL color variables)
 - `client/src/components/theme-provider.tsx` — Three-mode theme provider (light/dark/sparkle)
 
+## Zero-Friction CMS
+Inline edit-in-place CMS, dev-only by design.
+- **How it works**: floating "Edit Content" button appears in the Replit preview. Toggle on → every leaf text element (headings, paragraphs, links, list items, etc.) becomes contentEditable with a dashed outline. Click, type, click away — saves to Postgres.
+- **Why it's hidden in production**: the provider is dual-gated on `import.meta.env.DEV` AND `VITE_CMS_ENABLED`. Any published build has `DEV=false`, so the button never appears live.
+- **Data**: `site_content` table (key/value). Auto-overlay keys look like `auto::/v4::main.0>section.1>h1.0` — they're tied to DOM position, so if a section gets restructured the saved override for that spot can orphan back to the default. For copy that needs to survive refactors, wrap it explicitly with `<Editable id="page.section.field" />` instead.
+- **Auth**: POST `/api/content` is gated by `CMS_EDIT_TOKEN` (server) compared against `X-CMS-Edit-Token` header. Browser sends `VITE_CMS_EDIT_TOKEN` (same value). Both env vars live in the `development` environment only, so they aren't shipped to production.
+- **Opt out a region**: add `data-cms-no-auto` to any element.
+- **Files**: `client/src/contexts/{edit-mode,content}-context.tsx`, `client/src/components/{editable,editable-card,editable-link,auto-edit-overlay}.tsx`, `server/{db,storage,routes}.ts`, `shared/{schema,routes}.ts`.
+
 ## User Preferences
 - Owner may remove GrowthRocket/SchemaRocket from the site later (keep it easy to toggle)
 - Prefers minimal copy — not wordy

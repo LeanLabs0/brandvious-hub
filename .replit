@@ -39,3 +39,10 @@ author = "agent"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[userenv]
+
+[userenv.development]
+CMS_EDIT_TOKEN = "Py7plbU-jULcyhNP5QVgyz4XezjfC1tR"
+VITE_CMS_EDIT_TOKEN = "Py7plbU-jULcyhNP5QVgyz4XezjfC1tR"
+VITE_CMS_ENABLED = "true"

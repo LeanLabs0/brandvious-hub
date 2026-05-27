@@ -545,3 +545,23 @@
     box-shadow: 0 0 40px rgba(100, 30, 140, 0.12), 0 0 80px rgba(60, 10, 90, 0.06);
   }
 }
+/**
+ * Append to your global stylesheet (e.g. `index.css`, `app.css`, `globals.css`).
+ * Re-themable by overriding --cms-accent at :root (HSL triplet, no `hsl()` wrapper).
+ */
+.cms-auto-editable {
+  outline: 2px dashed hsl(var(--cms-accent, 187 95% 43%) / 0.45);
+  outline-offset: 2px;
+  border-radius: 2px;
+  cursor: text;
+  transition: outline-color 120ms ease, background-color 120ms ease;
+}
+.cms-auto-editable:hover {
+  outline-color: hsl(var(--cms-accent, 187 95% 43%));
+  background-color: hsl(var(--cms-accent, 187 95% 43%) / 0.08);
+}
+.cms-auto-editable:focus,
+.cms-auto-editable:focus-visible {
+  outline: 2px solid hsl(var(--cms-accent, 187 95% 43%));
+  background-color: hsl(var(--cms-accent, 187 95% 43%) / 0.06);
+}
