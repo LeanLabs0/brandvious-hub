@@ -758,6 +758,7 @@ function V2Footer() {
                 );
               })}
             </div>
+            {/* Partners column — temporarily disabled
             <div className="space-y-3">
               <p className="text-white/30 uppercase tracking-wider text-xs">Partners</p>
               {leanLabs.partners.map((p, i) => (
@@ -770,6 +771,7 @@ function V2Footer() {
                 </span>
               ))}
             </div>
+            */}
             <div className="space-y-3">
               <p className="text-white/30 uppercase tracking-wider text-xs">Connect</p>
               <a href="mailto:hello@brandvious.com" className="block text-white/50 hover:text-white transition-colors" data-testid="v2-footer-link-email">Contact</a>
@@ -818,7 +820,7 @@ export default function HomeV4() {
       <V2Hero />
       <StatsRow />
       <ProductsSection />
-      <LeanLabsSection />
+      {/* <LeanLabsSection /> — temporarily disabled */}
       <V2Footer />
     </div>
   );
