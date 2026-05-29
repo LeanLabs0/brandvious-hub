@@ -336,7 +336,7 @@ function V2Hero() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.08] text-white/70 text-sm font-medium hover:border-white/[0.16] hover:text-white transition-all duration-300"
             data-testid="v2-button-aeo"
           >
-            See how AEO works <ArrowRight className="w-4 h-4" />
+            See How AEO Works <ArrowRight className="w-4 h-4" />
           </a>
         </div>
       </div>
