@@ -11,6 +11,30 @@ to a Postgres `site_content` table and are overlaid onto the live DOM — in dev
 on the published site. An **Apply to code** panel lets the editor hand pending
 edits back to the agent to bake permanently into source.
 
+## State — read this FIRST, before anything else
+
+This skill exists in one of two states. Figure out which one you're in, then act.
+
+<!-- cms-state: NOT_INSTALLED -->
+
+- **NOT_INSTALLED** (the marker above says `NOT_INSTALLED`): the skill is loaded in
+  the repl but the CMS is not yet wired into this project — only `templates/` exist.
+  → Run the **Install procedure** below.
+- **INSTALLED** (the marker above says `INSTALLED`): the CMS is already part of this
+  project. → Do NOT install anything. Skip straight to "Using an installed CMS",
+  "The Apply to code workflow", and the other usage sections. Ignore the install
+  steps entirely (the final install step deletes them, so if they're gone you're
+  installed).
+
+Belt-and-suspenders check (use if the marker looks wrong, e.g. the skill was copied
+between projects): the CMS is installed iff `client/src/contexts/content-context.tsx`
+exists in the project AND a `site_content` table exists. Trust that over the marker
+and fix the marker to match.
+
+**The very last install step flips the marker to `INSTALLED` and removes the install
+procedure** so a future agent reads this as a use-it-only skill and never tries to
+re-install on top of working code.
+
 ## Mental model (read first — this is the whole design)
 
 - **Edits live in the database, not in code.** Clicking text + typing writes a
@@ -62,7 +86,10 @@ reference/
   apply-to-code-prompt.md           # how to handle the "Apply to code" paste
 ```
 
-## Install procedure (fullstack-js: React + Vite + Wouter + Express + Drizzle)
+## Install procedure (run ONLY if state is NOT_INSTALLED)
+
+> If the state marker says `INSTALLED` (or these steps are missing), the CMS is
+> already wired in — skip this whole section and go to "Using an installed CMS".
 
 Prereqs: a provisioned Postgres DB (`DATABASE_URL` set), and packages `pg` +
 `drizzle-orm` + `drizzle-zod` (install with the package tool, never edit
@@ -103,6 +130,32 @@ package.json by hand).
 12. **Verify** — load the app in dev: the floating **Edit Content** button should
     appear. `GET /api/content` returns `{}`; `POST /api/content` without the token
     returns 401.
+13. **Mark installed + strip the install flow (do this last, after verify passes).**
+    Edit this `SKILL.md` so a future agent treats it as use-it-only and never
+    re-installs over working code:
+    - Change the marker comment near the top from `<!-- cms-state: NOT_INSTALLED -->`
+      to `<!-- cms-state: INSTALLED -->`.
+    - Delete this entire "Install procedure" section (this whole `## Install
+      procedure …` heading through step 13). Leave "State", "Mental model",
+      "Two editing modes", "Using an installed CMS", "The Apply to code workflow",
+      "Security", and "Gotchas" intact.
+    The `templates/` and `reference/` folders stay — they're harmless and useful if
+    the user later wants to port the CMS to yet another project.
+
+## Using an installed CMS
+
+When the CMS is already wired in, you don't reinstall — you just operate it:
+- **Edit copy on request:** find the string in the relevant page/component and edit
+  the source directly (that's the durable path; DB overrides are for the live editor).
+- **Handle "Apply to code" pastes:** see the next section — bake pending DB edits
+  into source, then delete those rows.
+- **Add new editable copy that must survive refactors:** wrap it in
+  `<Editable id="stable.key" …/>` (or `EditableLink`/`EditableCard`) rather than
+  relying on the DOM-position auto-overlay.
+- **Opt a region out of auto-editing:** add `data-cms-no-auto` to the element.
+- **Inspect pending edits:** `SELECT key, value FROM site_content ORDER BY updated_at;`
+  via `executeSql`. Clear one with the DELETE endpoint or SQL.
+- **Re-theme the edit outline:** override `--cms-accent` (HSL triplet, no `hsl()`).
 
 ## The "Apply to code" workflow
 
