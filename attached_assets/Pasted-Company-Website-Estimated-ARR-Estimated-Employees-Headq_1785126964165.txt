@@ -1,0 +1,33 @@
+Company,Website,Estimated ARR,Estimated Employees,Headquarters,Primary Category,Confidence
+Dock,https://www.dock.us,$3M-$8M,11-50,Unknown,AI revenue enablement / digital sales rooms,High
+Accord,https://inaccord.com,$10M-$15M,51-200,"San Francisco, CA, USA",Revenue excellence / buyer collaboration,High
+Attention,https://www.attention.com,$10M-$15M,51-200,"New York, NY, USA",AI platform for revenue teams,High
+Unify,https://www.unifygtm.com,$5M-$10M,51-200,"San Francisco, CA, USA",AI outbound / GTM execution,High
+Aligned,https://alignedup.com,$5M-$10M,51-200,"Remote First",AI deal workspace / buyer collaboration,High
+Trumpet,https://www.sendtrumpet.com,$3M-$8M,11-50,"London, UK",Digital sales rooms,High
+Common Room,https://www.commonroom.io,$10M-$20M,51-200,"Seattle, WA, USA",Sales signals / buying signal intelligence,High
+GetAccept,https://www.getaccept.com,$10M-$20M,51-200,"Palo Alto, CA, USA",AI digital sales room / proposals,High
+Flowla,https://www.flowla.com,$2M-$6M,11-50,Unknown,AI-powered digital sales rooms,High
+Valuecase,https://www.valuecase.com,$2M-$6M,11-50,Unknown,Deal rooms / buyer enablement,High
+Nooks,https://www.nooks.ai,$8M-$20M,51-200,Unknown,AI sales engagement / dialing,High
+Clay,https://www.clay.com,$10M-$25M,51-200,Unknown,GTM orchestration / sales data enrichment,High
+Instantly,https://instantly.ai,$10M-$25M,51-200,Unknown,Sales engagement / outbound automation,High
+Artisan,https://www.artisan.co,$8M-$20M,51-200,Unknown,AI BDR / outbound automation,High
+11x,https://www.11x.ai,$10M-$25M,51-200,Unknown,AI sales automation / digital workers,High
+Factors.ai,https://www.factors.ai,$3M-$8M,51-200,"Stamford, CT, USA",Buyer intent / account intelligence,Medium
+B2B Rocket,https://www.b2brocket.ai,$5M-$12M,51-200,"Lewes, DE, USA",AI outreach automation,Medium
+Salesmotion,https://salesmotion.io,$1M-$3M,2-10,"London, UK",Buying-signal sales agents,Medium
+RB2B,https://www.rb2b.com,$1M-$3M,2-10,Unknown,Website visitor identification,Medium
+Apollo.io,https://www.apollo.io,$30M-$60M,501-1000,"San Francisco, CA, USA",Sales intelligence / engagement,Low
+Cognism,https://www.cognism.com,$20M-$40M,201-500,Unknown,Sales intelligence / prospecting,Low
+DealHub,https://dealhub.io,$20M-$40M,201-500,"Austin, TX, USA",Quote-to-revenue / deal rooms,Low
+Fathom,https://fathom.video,$10M-$25M,51-200,Unknown,AI meeting assistant for sales,Low
+Allego,https://www.allego.com,$20M-$40M,201-500,Unknown,Revenue enablement / digital sales rooms,Low
+RELAYTO,https://relayto.com,$8M-$20M,51-200,Unknown,Interactive content / digital sales rooms,Low
+Outreach,https://www.outreach.io,$30M-$60M,501-1000,"Seattle, WA, USA",Sales engagement,Low
+Highspot,https://www.highspot.com,$30M-$60M,501-1000,Unknown,Sales enablement,Low
+Mindtickle,https://www.mindtickle.com,$30M-$60M,501-1000,Unknown,Sales enablement / readiness,Low
+Seismic,https://seismic.com,$30M-$60M,1000+,"San Diego, CA, USA",Sales enablement / buyer engagement,Low
+Leadfeeder (Dealfront),https://www.dealfront.com,$20M-$40M,201-500,Unknown,Website visitor intelligence,Low
+Distribute,Unknown,$2M-$6M,11-50,Unknown,Deal rooms / buyer collaboration,Low
+Brainshark,https://www.brainshark.com,$20M-$40M,201-500,Unknown,Sales enablement / buyer engagement,Low
