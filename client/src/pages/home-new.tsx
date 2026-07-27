@@ -56,9 +56,9 @@ const networks = [
     accent: "blue" as const,
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
-      { name: "ReviewInsight.com", url: "" },
-      { name: "SurveyRocket.ai", url: "" },
-      { name: "ReputationRocket.ai", url: "" },
+      { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
+      { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
+      { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
     ],
   },
   {
@@ -78,10 +78,10 @@ const networks = [
     description: "Research AI can cite and trust.",
     accent: "amber" as const,
     examples: [
-      { name: "GTM Journal", url: "" },
-      { name: "GTM Review", url: "" },
-      { name: "GTM Index", url: "" },
-      { name: "GTM Awards", url: "" },
+      { name: "GTM Journal", url: "https://gtmjournal.org" },
+      { name: "GTM Review", url: "https://gtmreview.org" },
+      { name: "GTM Index", url: "https://gtmindex.org" },
+      { name: "GTM Awards", url: "https://gtmawards.org" },
     ],
   },
 ];
@@ -91,10 +91,10 @@ const footerColumns = [
     title: "Products",
     links: [
       { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "ReviewInsight", url: "" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com" },
       { name: "SchemaRocket", url: "https://schemarocket.ai" },
-      { name: "SurveyRocket", url: "" },
-      { name: "ReputationRocket", url: "" },
+      { name: "SurveyRocket", url: "https://surveyrocket.ai" },
+      { name: "ReputationRocket", url: "https://reputationrocket.ai" },
     ],
   },
   {
@@ -102,10 +102,10 @@ const footerColumns = [
     links: [
       { name: "Entities.org", url: "https://entities.org" },
       { name: "WhatisBest", url: "https://whatisbest.com" },
-      { name: "GTM Journal", url: "" },
-      { name: "GTM Review", url: "" },
-      { name: "GTM Index", url: "" },
-      { name: "GTM Awards", url: "" },
+      { name: "GTM Journal", url: "https://gtmjournal.org" },
+      { name: "GTM Review", url: "https://gtmreview.org" },
+      { name: "GTM Index", url: "https://gtmindex.org" },
+      { name: "GTM Awards", url: "https://gtmawards.org" },
     ],
   },
   {
