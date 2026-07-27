@@ -50,24 +50,27 @@ const howItWorks = {
 
 const networks = [
   {
-    name: "Discovery Network",
+    name: "Knowledge Network",
+    description: "Structured knowledge graph of trusted entities.",
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
       { name: "WhatisBest.com", url: "https://whatisbest.com" },
-      { name: "ReviewInsight.com", url: "" },
     ],
   },
   {
     name: "Authority Tools",
+    description: "Infrastructure for authority signals.",
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
+      { name: "ReviewInsight.com", url: "" },
       { name: "SurveyRocket.ai", url: "" },
       { name: "ReputationRocket.ai", url: "" },
     ],
   },
   {
     name: "Publishing Network",
+    description: "Editorial research for AI understanding.",
     examples: [
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
@@ -458,7 +461,8 @@ function HowItWorksSection() {
                 className="absolute inset-x-0 top-0 h-px"
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
               />
-              <h3 className="text-xl font-semibold text-white mb-6">{n.name}</h3>
+              <h3 className="text-xl font-semibold text-white mb-2">{n.name}</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
               <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Examples</p>
               <div className="space-y-2">
                 {n.examples.map((ex) => (
