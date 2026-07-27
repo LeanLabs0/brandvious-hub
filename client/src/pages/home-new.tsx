@@ -478,41 +478,29 @@ function PartnerCTASection() {
   const party = theme === "sparkle";
 
   return (
-    <section className="relative py-28 px-6 border-t border-white/[0.06]" data-testid="v2-section-partner-cta">
-      <div className="max-w-4xl mx-auto relative z-10">
+    <section className="relative py-20 px-6 border-t border-white/[0.06]" data-testid="v2-section-partner-cta">
+      <div className="max-w-6xl mx-auto relative z-10">
         <div
-          className={`relative rounded-3xl overflow-hidden px-8 py-16 md:px-16 md:py-20 text-center ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
+          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
             party
-              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_60px_rgba(100,40,200,0.07),inset_0_1px_0_rgba(255,255,255,0.05)]"
+              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
               : ""
           }`}
         >
           <div
             className="absolute inset-x-0 top-0 h-px"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.35), transparent)" }}
+            style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
           />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(700px circle at 50% -10%, rgba(110,60,240,0.10), transparent 60%)",
-            }}
-          />
-          <div className="relative z-10">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight">
-              <span className="text-white">Want to grow your AI authority?</span>
-              <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{
-                  backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(160,120,255,0.5))",
-                }}
-              >
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">Want to grow your AI authority?</p>
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">
                 Find a Certified Brandvious Partner.
-              </span>
-            </h2>
+              </h2>
+            </div>
             <a
               href="/partners"
-              className="mt-10 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.14] bg-white/[0.05] hover:bg-white/[0.10] hover:border-white/[0.25] hover:shadow-[0_0_30px_rgba(120,60,220,0.15)]"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] shrink-0 self-start md:self-auto"
               data-testid="v2-button-see-partners"
             >
               See Partners <ArrowRight className="w-4 h-4" />
