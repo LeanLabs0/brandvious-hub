@@ -74,8 +74,15 @@ const networks = [
   },
   {
     name: "Publishing Network",
-    label: "Publications",
-    description: "Research AI can cite and trust.",
+    label: "GTM Publications",
+    description: (
+      <>
+        <a href="/gtm" className="font-bold text-white/75 hover:text-white transition-colors">
+          GTM research
+        </a>{" "}
+        AI can cite and trust.
+      </>
+    ),
     accent: "amber" as const,
     examples: [
       { name: "GTM Journal", url: "https://gtmjournal.org" },
@@ -100,12 +107,13 @@ const footerColumns = [
   {
     title: "Publishing",
     links: [
-      { name: "ReviewInsight", url: "https://reviewinsight.com" },
-      { name: "WhatisBest", url: "https://whatisbest.com" },
+      { name: "GTM Strategy", url: "/gtm" },
       { name: "GTM Journal", url: "https://gtmjournal.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
       { name: "GTM Awards", url: "https://gtmawards.org" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com" },
+      { name: "WhatisBest", url: "https://whatisbest.com" },
     ],
   },
   {

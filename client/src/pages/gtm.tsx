@@ -217,11 +217,14 @@ function CoverageSection() {
           {coverage.map((cat, i) => (
             <div
               key={cat.name}
-              className={`grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3 md:gap-10 py-8 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
+              className={`grid grid-cols-1 md:grid-cols-[300px_1fr] gap-3 md:gap-12 py-10 items-baseline ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
               data-testid={`gtm-coverage-${i}`}
             >
-              <h3 className={`text-base font-semibold ${accentText[cat.accent]}`}>{cat.name}</h3>
-              <p className="text-base text-white/60 leading-relaxed">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                {cat.name}
+                <span className={`block mt-2 h-[2px] w-10 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
+              </h3>
+              <p className="text-sm text-white/45 leading-relaxed">
                 {cat.companies.join(" • ")}
               </p>
             </div>
