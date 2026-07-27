@@ -1,0 +1,41 @@
+Company,Website,Estimated ARR,Estimated Employees,Headquarters,Primary Category,Confidence
+Scratchpad,https://scratchpad.com,$10M-$20M,51-200,"Covina, CA, USA",Sales workspace / pipeline inspection,High
+Syncari,https://syncari.com,$8M-$15M,51-200,"Newark, CA, USA",RevOps data orchestration,High
+FunnelStory,https://www.funnelstory.ai,$2M-$4M,11-50,"Los Altos, CA, USA",Revenue intelligence / retention analytics,High
+Openprise,https://www.openprisetech.com,$10M-$20M,51-200,"San Mateo, CA, USA",GTM orchestration & data automation,High
+Forecastio,https://forecastio.ai,$2M-$5M,11-50,"New York, NY, USA",AI sales forecasting,High
+Weflow,https://www.weflow.ai,$3M-$8M,11-50,"Berlin, Germany",Revenue AI orchestration,High
+MaxIQ,https://www.getmaxiq.com,$2M-$6M,11-50,"San Francisco, CA, USA",Revenue intelligence / forecasting,High
+Revcast,https://www.revcast.com,$2M-$5M,11-50,"Raleigh, NC, USA",Revenue planning & forecasting,High
+RevenueHero,https://www.revenuehero.io,$2M-$6M,11-50,"Claymont, DE, USA",Lead routing & inbound scheduling,High
+LeanData,https://www.leandata.com,$15M-$30M,51-200,"Santa Clara, CA, USA",Lead-to-account matching / routing,High
+Traction Complete,https://tractioncomplete.com,$8M-$20M,51-200,"Vancouver, BC, Canada",Salesforce data management & routing,High
+LeadAngel,https://www.leadangel.com,$8M-$15M,51-200,"Sunnyvale, CA, USA",Lead routing / account matching,High
+Kubaru,https://kubaru.io,$2M-$6M,11-50,"Hillsboro, OR, USA",Salesforce lead routing,High
+Gradient Works,https://www.gradient.works,$2M-$6M,11-50,"Austin, TX, USA",Territory planning / account scoring,High
+RevOps.io,https://www.revops.io,$3M-$8M,11-50,"San Francisco, CA, USA",CPQ / approvals / deal desk,High
+Qobra,https://www.qobra.co,$8M-$20M,51-200,"New York, NY, USA",Sales compensation management,High
+QuotaPath,https://www.quotapath.com,$8M-$20M,51-200,"Philadelphia, PA, USA",Sales compensation / commissions,High
+Full Circle Insights,https://www.fullcircleinsights.com,$5M-$12M,11-50,Unknown,Marketing attribution / funnel analytics for RevOps,High
+Insycle,https://www.insycle.com,$3M-$8M,11-50,"New York, NY, USA",CRM data hygiene / deduplication,Medium
+Plauti,https://www.plauti.com,$4M-$10M,11-50,"Arnhem, Netherlands",Salesforce data quality / assignment,Medium
+Revenue Grid,https://www.revenuegrid.com,$10M-$25M,51-200,"Atlanta, GA, USA",Revenue intelligence / guided selling,Medium
+Terret,https://www.terret.ai,$10M-$25M,11-50,"Santa Clara, CA, USA",Revenue intelligence / forecasting / conversation intelligence,Medium
+Oliv AI,https://www.oliv.ai,$2M-$6M,11-50,"San Francisco, CA, USA",AI revenue intelligence,Medium
+Substrata,https://www.substrata.me,$10M-$20M,51-200,Unknown,AI deal intelligence / revenue analytics,Medium
+AskElephant,https://www.askelephant.ai,$2M-$5M,11-50,"Lehi, UT, USA",CRM automation / RevOps workflow automation,Medium
+Dock,https://www.dock.us,$3M-$8M,11-50,Unknown,Digital sales rooms / buyer collaboration,Medium
+Unify,https://www.unifygtm.com,$8M-$20M,51-200,"San Francisco, CA, USA",GTM orchestration / intent-driven execution,Medium
+Attention,https://www.attention.com,$8M-$20M,51-200,"New York, NY, USA",AI sales execution / revenue workflow automation,Medium
+Default,https://www.withdefault.com,$2M-$6M,11-50,"New York, NY, USA",Revenue workflow automation,Medium
+Chili Piper,https://www.chilipiper.com,$20M-$30M,51-200,"New York, NY, USA",Inbound conversion / routing,Medium
+Visdum,https://www.visdum.com,$5M-$15M,51-200,"Wilmington, DE, USA",Sales compensation for SaaS,Medium
+Variabl,https://variabl.com,$2M-$5M,11-50,Unknown,Sales commission management,Medium
+Performio,https://www.performio.co,$15M-$30M,51-200,"West Hollywood, CA, USA",Incentive compensation management,Medium
+DealHub,https://dealhub.io,$20M-$40M,201-500,"Austin, TX, USA",CPQ / quote-to-revenue,Low
+Revenue.io,https://www.revenue.io,$15M-$30M,51-200,"Los Angeles, CA, USA",Revenue orchestration / conversation intelligence,Low
+Fullcast,https://www.fullcast.com,$30M-$60M,201-500,"Salt Lake City, UT, USA",Revenue planning / territory management,Low
+People.ai,https://www.people.ai,$30M-$60M,201-500,"San Francisco, CA, USA",Revenue intelligence,Low
+Aviso AI,https://www.aviso.com,$30M-$60M,201-500,"Redwood City, CA, USA",Sales forecasting / revenue intelligence,Low
+CaptivateIQ,https://www.captivateiq.com,$30M-$60M,201-500,"San Francisco, CA, USA",Sales performance / compensation management,Low
+Everstage,https://www.everstage.com,$20M-$40M,201-500,"New York, NY, USA",Sales compensation management,Low
