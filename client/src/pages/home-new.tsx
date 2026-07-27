@@ -15,8 +15,8 @@ import { useTheme } from "@/components/theme-provider";
 // ---------------------------------------------------------------------------
 
 const heroHeadline = {
-  white: "Brandvious builds the information layer",
-  gradient: "that helps AI systems understand, verify, and recommend B2B companies.",
+  white: "Infrastructure for",
+  gradient: "AI Authority.",
 };
 
 const giveAI = [
@@ -111,7 +111,10 @@ const footerColumns = [
   },
   {
     title: "Partners",
-    links: [{ name: "Contact", url: "mailto:hello@brandvious.com" }],
+    links: [
+      { name: "Partner Network", url: "/partners" },
+      { name: "Contact", url: "mailto:hello@brandvious.com" },
+    ],
   },
 ];
 
@@ -284,19 +287,45 @@ function NewHero() {
         }`}
       >
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.08] tracking-tight max-w-5xl"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight max-w-5xl"
           data-testid="v2-text-headline"
         >
           <span className="text-white">{heroHeadline.white} </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
-              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
+              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
             }}
           >
             {heroHeadline.gradient}
           </span>
         </h1>
+
+        {/* Sub-statement rendered as a signal chain: Brandvious → trusted information → AI → evaluate & recommend */}
+        <div
+          className="mt-10 max-w-3xl"
+          data-testid="v2-text-subheadline"
+        >
+          <p className="text-lg sm:text-xl md:text-2xl text-white/60 leading-relaxed font-light">
+            Brandvious creates the{" "}
+            <span className="relative inline-block font-medium text-white">
+              trusted information
+              <span
+                className="absolute -bottom-0.5 left-0 right-0 h-px"
+                style={{
+                  background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.7), transparent)",
+                }}
+              />
+            </span>{" "}
+            AI uses to{" "}
+            <span className="whitespace-nowrap">
+              <span className="font-medium text-white">evaluate</span>
+              <ArrowRight className="w-4 h-4 inline mx-2 align-middle text-purple-300/60" />
+              <span className="font-medium text-white">recommend</span>
+            </span>{" "}
+            B2B brands.
+          </p>
+        </div>
 
         <div className="mt-10 flex flex-wrap gap-4">
           <a
