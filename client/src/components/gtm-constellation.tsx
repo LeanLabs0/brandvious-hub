@@ -16,13 +16,16 @@ const accentHex: Record<LandscapeAccent, string> = {
   rose: "#fb7185",
 };
 
+// Entities.org sits at the center of the graph — every company resolves to a
+// verified entity. The other properties orbit it.
+const ENTITIES_IDX = 0;
 const hubs = [
+  "Entities.org",
   "GTM Journal",
   "GTM Review",
   "GTM Index",
   "GTM Awards",
   "AnswerStack",
-  "Entities.org",
   "WhatIsBest",
 ];
 
@@ -71,8 +74,8 @@ function buildNodes(): CompanyNode[] {
         y: C + Math.sin(angle) * radius,
         r: 2 + h1 * 1.8,
         hubIdx: [
-          Math.floor(h1 * hubs.length),
-          Math.floor(h2 * hubs.length),
+          ENTITIES_IDX,
+          1 + Math.floor(h1 * (hubs.length - 1)),
         ],
         twinkleDelay: h2 * 6,
       });
@@ -82,7 +85,8 @@ function buildNodes(): CompanyNode[] {
 }
 
 function hubPos(i: number): { x: number; y: number } {
-  const angle = (i / hubs.length) * Math.PI * 2 - Math.PI / 2;
+  if (i === ENTITIES_IDX) return { x: C, y: C };
+  const angle = ((i - 1) / (hubs.length - 1)) * Math.PI * 2 - Math.PI / 2;
   return { x: C + Math.cos(angle) * HUB_R, y: C + Math.sin(angle) * HUB_R };
 }
 
@@ -158,8 +162,8 @@ export function GtmConstellation({
           const p = hubPos(i);
           return (
             <g key={h} opacity={hoveredNode && !hoveredNode.hubIdx.includes(i) ? 0.3 : 1} className="transition-opacity duration-300">
-              <circle cx={p.x} cy={p.y} r={9} fill="rgba(255,255,255,0.08)" />
-              <circle cx={p.x} cy={p.y} r={4.5} fill="#fff" opacity={0.9} />
+              <circle cx={p.x} cy={p.y} r={i === ENTITIES_IDX ? 14 : 9} fill="rgba(255,255,255,0.08)" />
+              <circle cx={p.x} cy={p.y} r={i === ENTITIES_IDX ? 6.5 : 4.5} fill="#fff" opacity={0.9} />
               {showHubLabels && (
                 <text
                   x={p.x}
