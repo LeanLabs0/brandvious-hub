@@ -199,9 +199,9 @@ function GtmHero() {
           </span>
         </h1>
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed" data-testid="gtm-text-intro">
-          Brandvious specializes in modern go-to-market software, documenting the{" "}
+          Brandvious specializes in the{" "}
           <span className="text-white font-medium">companies, products, and categories</span>{" "}
-          shaping B2B growth.
+          defining modern go-to-market.
         </p>
       </div>
     </section>
