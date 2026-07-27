@@ -51,10 +51,8 @@ const howItWorks = {
 const networks = [
   {
     name: "Brandvious Knowledge Network",
-    kicker: "Knowledge Network",
-    statementWhite: "Structured knowledge designed to help AI systems",
-    statementGradient: "understand products, companies, and buying decisions.",
-    panelLabel: "Knowledge properties",
+    description:
+      "Structured knowledge designed to help AI systems understand products, companies, and buying decisions.",
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
@@ -64,10 +62,8 @@ const networks = [
   },
   {
     name: "Brandvious Authority at Scale",
-    kicker: "Authority at Scale",
-    statementWhite: "Our tools help companies strengthen the signals AI uses to evaluate",
-    statementGradient: "trust, expertise, and authority.",
-    panelLabel: "Authority tools",
+    description:
+      "Our tools help companies strengthen the signals AI uses to evaluate trust, expertise, and authority.",
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
       { name: "SurveyRocket.ai", url: "" },
@@ -76,10 +72,8 @@ const networks = [
   },
   {
     name: "Brandvious Publishing Network",
-    kicker: "Publishing Network",
-    statementWhite: "Industry publications that produce original",
-    statementGradient: "interviews, reviews, comparisons, rankings, awards, and benchmark research.",
-    panelLabel: "Publications",
+    description:
+      "Industry publications that produce original interviews, reviews, comparisons, rankings, awards, and benchmark research.",
     examples: [
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
@@ -452,69 +446,27 @@ function HowItWorksSection() {
           </h2>
         </div>
 
-        <div className="space-y-28 md:space-y-36">
-          {networks.map((n, i) => {
-            const reversed = i % 2 === 1;
-            return (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {networks.map((n, i) => (
+            <div
+              key={n.name}
+              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
+              data-testid={`v2-network-card-${i}`}
+            >
               <div
-                key={n.name}
-                className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${
-                  reversed ? "lg:[direction:rtl]" : ""
-                }`}
-                data-testid={`v2-network-section-${i}`}
-              >
-                {/* Narrative side */}
-                <div className="lg:[direction:ltr]">
-                  <p className="text-xs font-mono text-white/35 mb-5">
-                    0{i + 1} <span className="text-white/20">/ 03</span>
-                    <span className="ml-3 uppercase tracking-[0.2em] text-white/40">{n.kicker}</span>
-                  </p>
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-6">
-                    <span className="text-white">{n.statementWhite} </span>
-                    <span
-                      className="bg-clip-text text-transparent"
-                      style={{
-                        backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(160,120,255,0.5))",
-                      }}
-                    >
-                      {n.statementGradient}
-                    </span>
-                  </h3>
-                  <p className="text-sm text-white/45">{n.name}</p>
-                </div>
-
-                {/* Property panel side */}
-                <div className="lg:[direction:ltr]">
-                  <div
-                    className={`relative rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-500 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
-                      party
-                        ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
-                        : ""
-                    }`}
-                  >
-                    <div
-                      className="absolute inset-x-0 top-0 h-px"
-                      style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)" }}
-                    />
-                    <div
-                      className="absolute inset-0 pointer-events-none"
-                      style={{
-                        background: "radial-gradient(500px circle at 50% 0%, rgba(100,50,220,0.05), transparent 60%)",
-                      }}
-                    />
-                    <p className="relative z-10 text-xs uppercase tracking-[0.2em] text-white/30 mb-5">
-                      {n.panelLabel}
-                    </p>
-                    <div className="relative z-10 space-y-2.5">
-                      {n.examples.map((ex) => (
-                        <ExampleLink key={ex.name} example={ex} />
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                className="absolute inset-x-0 top-0 h-px"
+                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
+              />
+              <h3 className="text-xl font-semibold text-white mb-3">{n.name}</h3>
+              <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Examples</p>
+              <div className="space-y-2">
+                {n.examples.map((ex) => (
+                  <ExampleLink key={ex.name} example={ex} />
+                ))}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
