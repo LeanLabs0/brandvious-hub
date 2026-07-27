@@ -102,6 +102,7 @@ const footerColumns = [
       { name: "SchemaRocket", url: "https://schemarocket.ai" },
       { name: "SurveyRocket", url: "https://surveyrocket.ai" },
       { name: "ReputationRocket", url: "https://reputationrocket.ai" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com" },
     ],
   },
   {
@@ -112,7 +113,6 @@ const footerColumns = [
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
       { name: "GTM Awards", url: "https://gtmawards.org" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com" },
       { name: "WhatisBest", url: "https://whatisbest.com" },
     ],
   },
