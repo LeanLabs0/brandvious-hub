@@ -50,17 +50,6 @@ const howItWorks = {
 
 const networks = [
   {
-    name: "Knowledge Network",
-    label: "Knowledge Graph",
-    description: "Trusted entities AI can understand.",
-    accent: "purple" as const,
-    examples: [
-      { name: "AnswerStack.io", url: "https://answerstack.io" },
-      { name: "Entities.org", url: "https://entities.org" },
-      { name: "WhatisBest.com", url: "https://whatisbest.com" },
-    ],
-  },
-  {
     name: "Authority Tools",
     label: "Infrastructure",
     description: "Infrastructure that builds authority.",
@@ -70,6 +59,17 @@ const networks = [
       { name: "ReviewInsight.com", url: "" },
       { name: "SurveyRocket.ai", url: "" },
       { name: "ReputationRocket.ai", url: "" },
+    ],
+  },
+  {
+    name: "Knowledge Network",
+    label: "Knowledge Graph",
+    description: "Trusted entities AI can understand.",
+    accent: "purple" as const,
+    examples: [
+      { name: "AnswerStack.io", url: "https://answerstack.io" },
+      { name: "Entities.org", url: "https://entities.org" },
+      { name: "WhatisBest.com", url: "https://whatisbest.com" },
     ],
   },
   {
@@ -402,27 +402,6 @@ function QuoteSection({ text, testid }: { text: string; testid: string }) {
   );
 }
 
-function ExampleLink({ example }: { example: { name: string; url: string } }) {
-  if (!example.url) {
-    return (
-      <span className="flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 text-sm text-white/60">
-        {example.name}
-      </span>
-    );
-  }
-  return (
-    <a
-      href={example.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex items-center justify-between gap-2 rounded-lg border border-white/[0.06] bg-white/[0.02] px-4 py-2.5 text-sm text-white/60 hover:text-white hover:border-white/[0.14] hover:bg-white/[0.05] transition-all duration-300"
-    >
-      {example.name}
-      <ExternalLink className="w-3.5 h-3.5 text-white/25 group-hover:text-white/60 transition-colors" />
-    </a>
-  );
-}
-
 function HowItWorksSection() {
   const { theme } = useTheme();
   const party = theme === "sparkle";
@@ -489,55 +468,29 @@ function HowItWorksSection() {
                   <h3 className="text-2xl font-semibold text-white mb-3">{n.name}</h3>
                   <p className="text-sm text-white/50 mb-10">{n.description}</p>
 
-                  {/* Each division renders its properties in its own way */}
-                  {n.accent === "purple" && (
-                    <div className="space-y-2.5">
-                      {n.examples.map((ex) => (
-                        <ExampleLink key={ex.name} example={ex} />
-                      ))}
-                    </div>
-                  )}
-
-                  {n.accent === "blue" && (
-                    <div className="flex flex-wrap gap-2.5">
-                      {n.examples.map((ex) =>
-                        ex.url ? (
-                          <a
-                            key={ex.name}
-                            href={ex.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/[0.15] bg-sky-400/[0.05] px-4 py-2 text-sm text-white/65 hover:text-white hover:border-sky-300/[0.35] hover:bg-sky-400/[0.10] transition-all duration-300"
-                          >
-                            {ex.name}
-                            <ExternalLink className="w-3 h-3 text-white/25" />
-                          </a>
-                        ) : (
-                          <span
-                            key={ex.name}
-                            className="inline-flex items-center rounded-full border border-sky-300/[0.12] bg-sky-400/[0.04] px-4 py-2 text-sm text-white/60"
-                          >
-                            {ex.name}
-                          </span>
-                        ),
-                      )}
-                    </div>
-                  )}
-
-                  {n.accent === "amber" && (
-                    <div>
-                      {n.examples.map((ex, j) => (
-                        <div
+                  <div>
+                    {n.examples.map((ex, j) => {
+                      const rowClass = `flex items-center justify-between gap-2 py-3.5 text-base transition-colors duration-300 ${
+                        j > 0 ? "border-t border-white/[0.06]" : ""
+                      }`;
+                      return ex.url ? (
+                        <a
                           key={ex.name}
-                          className={`py-3.5 text-base text-white/70 ${
-                            j > 0 ? "border-t border-white/[0.06]" : ""
-                          }`}
+                          href={ex.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`group ${rowClass} text-white/70 hover:text-white`}
                         >
                           {ex.name}
+                          <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors" />
+                        </a>
+                      ) : (
+                        <div key={ex.name} className={`${rowClass} text-white/70`}>
+                          {ex.name}
                         </div>
-                      ))}
-                    </div>
-                  )}
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             );
