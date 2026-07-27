@@ -10,26 +10,31 @@ const coverage = [
   {
     name: "AI Marketing",
     accent: "purple" as const,
+    total: 47,
     companies: ["Jasper", "Writer", "Copy.ai", "Typeface", "Mutiny", "Clay", "Common Room", "Metadata", "HeyGen", "Descript"],
   },
   {
     name: "Sales Technology",
     accent: "blue" as const,
+    total: 52,
     companies: ["Gong", "Outreach", "Salesloft", "Apollo", "ZoomInfo", "Cognism", "Lavender", "Chili Piper", "Clari", "RB2B"],
   },
   {
     name: "Revenue Operations",
     accent: "emerald" as const,
+    total: 38,
     companies: ["HubSpot", "Salesforce", "Dreamdata", "HockeyStack", "Fullcast", "BoostUp", "InsightSquared", "Pavilion"],
   },
   {
     name: "Product Marketing",
     accent: "amber" as const,
+    total: 41,
     companies: ["Klue", "Crayon", "Highspot", "Seismic", "Walnut", "Storylane", "Navattic", "Consensus", "Arcade"],
   },
   {
     name: "Pipeline Generation",
     accent: "rose" as const,
+    total: 44,
     companies: ["6sense", "Demandbase", "Apollo", "ZoomInfo", "Common Room", "UserGems", "Warmly", "Factors.ai", "Albacross"],
   },
 ];
@@ -42,21 +47,6 @@ const ecosystem = [
   { name: "AnswerStack", url: "https://answerstack.io", purpose: "Structured answers" },
   { name: "Entities.org", url: "https://entities.org", purpose: "Verified company and product entities" },
   { name: "WhatIsBest", url: "https://whatisbest.com", purpose: "Editorial recommendations" },
-];
-
-const editorialOutputs = [
-  "Research",
-  "Interviews",
-  "Company Profiles",
-  "Product Profiles",
-  "Reviews",
-  "Comparisons",
-  "Buyer's Guides",
-  "Rankings",
-  "Benchmarks",
-  "Awards",
-  "Knowledge Articles",
-  "Structured Entities",
 ];
 
 // ---------------------------------------------------------------------------
@@ -220,13 +210,28 @@ function CoverageSection() {
               className={`grid grid-cols-1 md:grid-cols-[300px_1fr] gap-3 md:gap-12 py-10 items-baseline ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
               data-testid={`gtm-coverage-${i}`}
             >
-              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
-                {cat.name}
-                <span className={`block mt-2 h-[2px] w-10 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
-              </h3>
-              <p className="text-sm text-white/45 leading-relaxed">
-                {cat.companies.join(" • ")}
-              </p>
+              <div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                  {cat.name}
+                  <span className={`block mt-2 h-[2px] w-10 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
+                </h3>
+                <p className="mt-4 text-sm text-white/40">
+                  <span className="text-white/75 font-semibold tabular-nums">{cat.total}</span> companies covered
+                </p>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-4">Recently Featured</p>
+                <div className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
+                  {cat.companies.map((c) => (
+                    <span key={c} className="text-base text-white/70">
+                      {c}
+                    </span>
+                  ))}
+                  <span className={`text-sm ${accentText[cat.accent]}`}>
+                    + {cat.total - cat.companies.length} more
+                  </span>
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -273,7 +278,7 @@ function EcosystemSection() {
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-14">The GTM Ecosystem</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[140px_1fr] gap-2 lg:gap-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-amber-300/70 pt-7">Publications</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-amber-300/70 pt-7">GTM Publications</p>
           <div>
             {publications.map((p, i) => (
               <EcosystemRow key={p.name} p={p} i={i} first={i === 0} />
@@ -282,34 +287,15 @@ function EcosystemSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[140px_1fr] gap-2 lg:gap-16 mt-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 pt-7">Knowledge</p>
+          <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 pt-7">Knowledge Graph</p>
           <div>
             {knowledge.map((p, i) => (
               <EcosystemRow key={p.name} p={p} i={i + 4} first={i === 0} />
             ))}
           </div>
         </div>
-      </div>
-    </section>
-  );
-}
 
-function EditorialOutputsSection() {
-  return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-outputs">
-      <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">Editorial Outputs</p>
-        <p className="text-lg text-white/70 max-w-2xl leading-relaxed mb-12">
-          Every Brandvious GTM property contributes to a shared information layer through:
-        </p>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-10 gap-y-4 max-w-4xl">
-          {editorialOutputs.map((o) => (
-            <p key={o} className="text-base text-white/60 border-l border-white/[0.12] pl-4">
-              {o}
-            </p>
-          ))}
-        </div>
-        <p className="mt-16 text-lg text-white/70 max-w-2xl leading-relaxed border-l pl-5" style={{ borderColor: "rgba(160,120,255,0.4)" }}>
+        <p className="mt-20 text-lg text-white/70 max-w-2xl leading-relaxed border-l pl-5" style={{ borderColor: "rgba(160,120,255,0.4)" }}>
           These properties create consensus so AI systems can efficiently{" "}
           <span className="text-white font-medium">understand, evaluate, and recommend</span>.
         </p>
@@ -330,7 +316,6 @@ export default function Gtm() {
       <GtmHero />
       <CoverageSection />
       <EcosystemSection />
-      <EditorialOutputsSection />
       <NewFooter />
     </div>
   );
