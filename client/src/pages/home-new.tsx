@@ -51,8 +51,10 @@ const howItWorks = {
 const networks = [
   {
     name: "Brandvious Knowledge Network",
-    description:
-      "Structured knowledge designed to help AI systems understand products, companies, and buying decisions.",
+    kicker: "Knowledge Network",
+    statementWhite: "Structured knowledge designed to help AI systems",
+    statementGradient: "understand products, companies, and buying decisions.",
+    panelLabel: "Knowledge properties",
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
@@ -62,8 +64,10 @@ const networks = [
   },
   {
     name: "Brandvious Authority at Scale",
-    description:
-      "Our tools help companies strengthen the signals AI uses to evaluate trust, expertise, and authority.",
+    kicker: "Authority at Scale",
+    statementWhite: "Our tools help companies strengthen the signals AI uses to evaluate",
+    statementGradient: "trust, expertise, and authority.",
+    panelLabel: "Authority tools",
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
       { name: "SurveyRocket.ai", url: "" },
@@ -72,8 +76,10 @@ const networks = [
   },
   {
     name: "Brandvious Publishing Network",
-    description:
-      "Industry publications that produce original interviews, reviews, comparisons, rankings, awards, and benchmark research.",
+    kicker: "Publishing Network",
+    statementWhite: "Industry publications that produce original",
+    statementGradient: "interviews, reviews, comparisons, rankings, awards, and benchmark research.",
+    panelLabel: "Publications",
     examples: [
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
@@ -450,27 +456,120 @@ function HowItWorksSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {networks.map((n, i) => (
-            <div
-              key={n.name}
-              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-              data-testid={`v2-network-card-${i}`}
-            >
+        <div className="space-y-28 md:space-y-36">
+          {networks.map((n, i) => {
+            const reversed = i % 2 === 1;
+            return (
               <div
-                className="absolute inset-x-0 top-0 h-px"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
-              />
-              <h3 className="text-xl font-semibold text-white mb-3">{n.name}</h3>
-              <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Examples</p>
-              <div className="space-y-2">
-                {n.examples.map((ex) => (
-                  <ExampleLink key={ex.name} example={ex} />
-                ))}
+                key={n.name}
+                className={`grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center ${
+                  reversed ? "lg:[direction:rtl]" : ""
+                }`}
+                data-testid={`v2-network-section-${i}`}
+              >
+                {/* Narrative side */}
+                <div className="lg:[direction:ltr]">
+                  <p className="text-xs font-mono text-white/35 mb-5">
+                    0{i + 1} <span className="text-white/20">/ 03</span>
+                    <span className="ml-3 uppercase tracking-[0.2em] text-white/40">{n.kicker}</span>
+                  </p>
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight mb-6">
+                    <span className="text-white">{n.statementWhite} </span>
+                    <span
+                      className="bg-clip-text text-transparent"
+                      style={{
+                        backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(160,120,255,0.5))",
+                      }}
+                    >
+                      {n.statementGradient}
+                    </span>
+                  </h3>
+                  <p className="text-sm text-white/45">{n.name}</p>
+                </div>
+
+                {/* Property panel side */}
+                <div className="lg:[direction:ltr]">
+                  <div
+                    className={`relative rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-500 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
+                      party
+                        ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                        : ""
+                    }`}
+                  >
+                    <div
+                      className="absolute inset-x-0 top-0 h-px"
+                      style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)" }}
+                    />
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: "radial-gradient(500px circle at 50% 0%, rgba(100,50,220,0.05), transparent 60%)",
+                      }}
+                    />
+                    <p className="relative z-10 text-xs uppercase tracking-[0.2em] text-white/30 mb-5">
+                      {n.panelLabel}
+                    </p>
+                    <div className="relative z-10 space-y-2.5">
+                      {n.examples.map((ex) => (
+                        <ExampleLink key={ex.name} example={ex} />
+                      ))}
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PartnerCTASection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
+  return (
+    <section className="relative py-28 px-6 border-t border-white/[0.06]" data-testid="v2-section-partner-cta">
+      <div className="max-w-4xl mx-auto relative z-10">
+        <div
+          className={`relative rounded-3xl overflow-hidden px-8 py-16 md:px-16 md:py-20 text-center ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
+            party
+              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_60px_rgba(100,40,200,0.07),inset_0_1px_0_rgba(255,255,255,0.05)]"
+              : ""
+          }`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.35), transparent)" }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(700px circle at 50% -10%, rgba(110,60,240,0.10), transparent 60%)",
+            }}
+          />
+          <div className="relative z-10">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+              <span className="text-white">Want to grow your AI authority?</span>
+              <br />
+              <span
+                className="bg-clip-text text-transparent"
+                style={{
+                  backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(160,120,255,0.5))",
+                }}
+              >
+                Find a Certified Brandvious Partner.
+              </span>
+            </h2>
+            <a
+              href="/partners"
+              className="mt-10 inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.14] bg-white/[0.05] hover:bg-white/[0.10] hover:border-white/[0.25] hover:shadow-[0_0_30px_rgba(120,60,220,0.15)]"
+              data-testid="v2-button-see-partners"
+            >
+              See Partners <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -592,6 +691,7 @@ export default function HomeNew() {
       <QuoteSection text={focusQuote} testid="v2-section-quote" />
       <HowItWorksSection />
       <QuoteSection text={bottomAnchor} testid="v2-section-anchor" />
+      <PartnerCTASection />
       <NewFooter />
     </div>
   );
