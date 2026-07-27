@@ -1,0 +1,306 @@
+import { useMemo } from "react";
+import { useTheme } from "@/components/theme-provider";
+import { NewFooter } from "@/pages/home-new";
+
+// ---------------------------------------------------------------------------
+// Content
+// ---------------------------------------------------------------------------
+
+const coverage = [
+  {
+    name: "AI Marketing",
+    accent: "purple" as const,
+    companies: ["Jasper", "Writer", "Copy.ai", "Typeface", "Mutiny", "Clay", "Common Room", "Metadata", "HeyGen", "Descript"],
+  },
+  {
+    name: "Sales Technology",
+    accent: "blue" as const,
+    companies: ["Gong", "Outreach", "Salesloft", "Apollo", "ZoomInfo", "Cognism", "Lavender", "Chili Piper", "Clari", "RB2B"],
+  },
+  {
+    name: "Revenue Operations",
+    accent: "emerald" as const,
+    companies: ["HubSpot", "Salesforce", "Dreamdata", "HockeyStack", "Fullcast", "BoostUp", "InsightSquared", "Pavilion"],
+  },
+  {
+    name: "Product Marketing",
+    accent: "amber" as const,
+    companies: ["Klue", "Crayon", "Highspot", "Seismic", "Walnut", "Storylane", "Navattic", "Consensus", "Arcade"],
+  },
+  {
+    name: "Pipeline Generation",
+    accent: "rose" as const,
+    companies: ["6sense", "Demandbase", "Apollo", "ZoomInfo", "Common Room", "UserGems", "Warmly", "Factors.ai", "Albacross"],
+  },
+];
+
+const ecosystem = [
+  { name: "GTM Journal", url: "https://gtmjournal.org", purpose: "Reporting, interviews, and analysis" },
+  { name: "GTM Review", url: "https://gtmreview.org", purpose: "Reviews, comparisons, and buyer guides" },
+  { name: "GTM Index", url: "https://gtmindex.org", purpose: "Rankings, benchmarks, and market research" },
+  { name: "GTM Awards", url: "https://gtmawards.org", purpose: "Recognition of leading companies and products" },
+  { name: "AnswerStack", url: "https://answerstack.io", purpose: "Structured answers" },
+  { name: "Entities.org", url: "https://entities.org", purpose: "Verified company and product entities" },
+  { name: "WhatIsBest", url: "https://whatisbest.com", purpose: "Editorial recommendations" },
+];
+
+const editorialOutputs = [
+  "Research",
+  "Interviews",
+  "Company Profiles",
+  "Product Profiles",
+  "Reviews",
+  "Comparisons",
+  "Buyer's Guides",
+  "Rankings",
+  "Benchmarks",
+  "Awards",
+  "Knowledge Articles",
+  "Structured Entities",
+];
+
+// ---------------------------------------------------------------------------
+// Atmosphere (shared visual language with /new)
+// ---------------------------------------------------------------------------
+
+function NoiseOverlay() {
+  return (
+    <div
+      className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03]"
+      style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        backgroundRepeat: "repeat",
+        backgroundSize: "128px 128px",
+      }}
+    />
+  );
+}
+
+function LightBeam({ party }: { party: boolean }) {
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 w-[2px]"
+        style={{
+          height: party ? "80vh" : "60vh",
+          background: party
+            ? "linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(140,80,255,0.5), rgba(80,40,200,0.2), transparent)"
+            : "linear-gradient(to bottom, rgba(255,255,255,0.5), rgba(120,80,255,0.3), transparent)",
+        }}
+      />
+      <div
+        className="absolute left-1/2 -translate-x-1/2 top-0 blur-[80px]"
+        style={{
+          width: party ? "300px" : "200px",
+          height: party ? "80vh" : "60vh",
+          background: party
+            ? "linear-gradient(to bottom, rgba(140,80,255,0.25), rgba(100,50,220,0.15), rgba(60,20,160,0.05), transparent)"
+            : "linear-gradient(to bottom, rgba(120,80,255,0.15), rgba(80,120,255,0.08), transparent)",
+        }}
+      />
+    </div>
+  );
+}
+
+function FloatingParticles({ party }: { party: boolean }) {
+  const count = party ? 50 : 30;
+  const particles = useMemo(
+    () =>
+      Array.from({ length: count }).map(() => ({
+        size: Math.random() * 2 + (party ? 1.5 : 1),
+        left: Math.random() * 100,
+        bottom: Math.random() * (party ? 60 : 40),
+        duration: Math.random() * 12 + (party ? 8 : 10),
+        delay: Math.random() * 10,
+      })),
+    [party, count],
+  );
+
+  return (
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {particles.map((p, i) => (
+        <div
+          key={i}
+          className={`absolute rounded-full animate-float-particle ${
+            party ? "bg-purple-300/[0.12]" : "bg-white/[0.08]"
+          }`}
+          style={{
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            left: `${p.left}%`,
+            bottom: `${p.bottom}%`,
+            ["--duration" as string]: `${p.duration}s`,
+            ["--delay" as string]: `${p.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+const glassCard = "backdrop-blur-sm bg-white/[0.03]";
+const glassCardBorder = "border border-white/[0.07]";
+
+const accentText: Record<string, string> = {
+  purple: "text-purple-300/80",
+  blue: "text-sky-300/80",
+  emerald: "text-emerald-300/80",
+  amber: "text-amber-300/80",
+  rose: "text-rose-300/80",
+};
+
+// ---------------------------------------------------------------------------
+// Sections
+// ---------------------------------------------------------------------------
+
+function GtmNavbar() {
+  return (
+    <nav
+      className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
+      style={{
+        backdropFilter: "blur(20px) saturate(180%)",
+        backgroundColor: "hsl(220 10% 4% / 0.75)",
+        borderBottom: "1px solid rgba(255,255,255,0.04)",
+      }}
+      data-testid="gtm-navbar"
+    >
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        <a href="/" className="text-base font-semibold tracking-tight text-white" data-testid="gtm-link-home">
+          Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
+        </a>
+        <div className="flex items-center gap-6">
+          <a href="/new" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="gtm-nav-how">How Brandvious Works</a>
+          <a href="/partners" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="gtm-nav-partners">Certified Partners</a>
+        </div>
+      </div>
+    </nav>
+  );
+}
+
+function GtmHero() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
+  return (
+    <section className="relative min-h-[60vh] flex flex-col items-start justify-center px-6 pt-32 pb-16 overflow-hidden" data-testid="gtm-section-hero">
+      <LightBeam party={party} />
+      <FloatingParticles party={party} />
+      <div className="max-w-6xl mx-auto w-full relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">GTM</p>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl" data-testid="gtm-heading">
+          Brandvious for{" "}
+          <span
+            className="bg-clip-text text-transparent"
+            style={{
+              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(160,120,255,0.75))",
+            }}
+          >
+            Go-to-Market.
+          </span>
+        </h1>
+        <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed" data-testid="gtm-text-intro">
+          Brandvious specializes in modern go-to-market software, documenting the{" "}
+          <span className="text-white font-medium">companies, products, and categories</span>{" "}
+          shaping B2B growth.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+function CoverageSection() {
+  return (
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-coverage">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-12">Coverage</p>
+        <div className="space-y-0">
+          {coverage.map((cat, i) => (
+            <div
+              key={cat.name}
+              className={`grid grid-cols-1 md:grid-cols-[220px_1fr] gap-3 md:gap-10 py-8 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
+              data-testid={`gtm-coverage-${i}`}
+            >
+              <h3 className={`text-base font-semibold ${accentText[cat.accent]}`}>{cat.name}</h3>
+              <p className="text-base text-white/60 leading-relaxed">
+                {cat.companies.join(" • ")}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EcosystemSection() {
+  return (
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-ecosystem">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-12">The GTM Ecosystem</p>
+        <div className={`rounded-2xl overflow-hidden ${glassCard} ${glassCardBorder}`}>
+          <div
+            className="absolute-x-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.4), transparent)" }}
+          />
+          {ecosystem.map((p, i) => (
+            <a
+              key={p.name}
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`group grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-1 sm:gap-8 px-6 sm:px-8 py-5 transition-colors duration-300 hover:bg-white/[0.04] ${
+                i > 0 ? "border-t border-white/[0.06]" : ""
+              }`}
+              data-testid={`gtm-ecosystem-${i}`}
+            >
+              <span className="text-white font-medium group-hover:text-white transition-colors">{p.name}</span>
+              <span className="text-white/50 group-hover:text-white/75 transition-colors">{p.purpose}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function EditorialOutputsSection() {
+  return (
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-outputs">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">Editorial Outputs</p>
+        <p className="text-lg text-white/70 max-w-2xl leading-relaxed mb-12">
+          Every Brandvious GTM property contributes to a shared information layer through:
+        </p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-10 gap-y-4 max-w-4xl">
+          {editorialOutputs.map((o) => (
+            <p key={o} className="text-base text-white/60 border-l border-white/[0.12] pl-4">
+              {o}
+            </p>
+          ))}
+        </div>
+        <p className="mt-16 text-lg text-white/70 max-w-2xl leading-relaxed border-l pl-5" style={{ borderColor: "rgba(160,120,255,0.4)" }}>
+          These properties create consensus so AI systems can efficiently{" "}
+          <span className="text-white font-medium">understand, evaluate, and recommend</span>.
+        </p>
+      </div>
+    </section>
+  );
+}
+
+// ---------------------------------------------------------------------------
+// Page
+// ---------------------------------------------------------------------------
+
+export default function Gtm() {
+  return (
+    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="gtm-page">
+      <NoiseOverlay />
+      <GtmNavbar />
+      <GtmHero />
+      <CoverageSection />
+      <EcosystemSection />
+      <EditorialOutputsSection />
+      <NewFooter />
+    </div>
+  );
+}
