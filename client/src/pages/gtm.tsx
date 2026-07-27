@@ -42,7 +42,7 @@ const coverage = [
 
 // Market landscape — computed from Brandvious category research datasets (low-end
 // of estimated ARR ranges; counts are companies tracked per dataset).
-const landscapeTotals = { companies: 227, arr: "$1.4B+", countries: 13 };
+const landscapeTotals = { companies: 227, arr: "$1.4B+" };
 
 const landscape = [
   {
@@ -50,7 +50,6 @@ const landscape = [
     accent: "purple" as const,
     companies: 80,
     arr: "$363M+",
-    countries: 3,
     featured: ["Mutiny", "Goldcast", "PathFactory", "Folloze", "Factors.ai", "Tofu", "Letterdrop", "Userled"],
   },
   {
@@ -58,7 +57,6 @@ const landscape = [
     accent: "blue" as const,
     companies: 32,
     arr: "$386M+",
-    countries: 3,
     featured: ["Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
   },
   {
@@ -66,7 +64,6 @@ const landscape = [
     accent: "emerald" as const,
     companies: 40,
     arr: "$379M+",
-    countries: 4,
     featured: ["Scratchpad", "Syncari", "Openprise", "Weflow", "FunnelStory", "Forecastio", "Revcast", "MaxIQ"],
   },
   {
@@ -74,7 +71,6 @@ const landscape = [
     accent: "amber" as const,
     companies: 25,
     arr: "$132M+",
-    countries: 4,
     featured: ["Navattic", "Storylane", "Walnut", "Arcade", "Demostack", "Saleo", "Supademo", "Guideflow"],
   },
   {
@@ -82,7 +78,6 @@ const landscape = [
     accent: "rose" as const,
     companies: 50,
     arr: "$164M+",
-    countries: 9,
     featured: ["Metadata", "Mutiny", "UserGems", "Unify", "HockeyStack", "N.Rich", "Champify", "Bombora"],
   },
 ];
@@ -424,15 +419,11 @@ function MarketLandscapeSection() {
         <div className="flex flex-wrap gap-x-16 gap-y-6 mb-6 pb-12 border-b border-white/[0.06]">
           <div>
             <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.companies}</p>
-            <p className="mt-2 text-sm text-white/45">companies tracked</p>
+            <p className="mt-2 text-sm text-white/45">companies included</p>
           </div>
           <div>
             <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.arr}</p>
-            <p className="mt-2 text-sm text-white/45">combined estimated ARR</p>
-          </div>
-          <div>
-            <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.countries}</p>
-            <p className="mt-2 text-sm text-white/45">countries</p>
+            <p className="mt-2 text-sm text-white/45">combined ARR</p>
           </div>
         </div>
 
@@ -450,15 +441,11 @@ function MarketLandscapeSection() {
               <dl className="mt-5 space-y-1.5 text-sm">
                 <div className="flex items-baseline gap-2">
                   <dd className="text-white/75 font-semibold tabular-nums">{cat.companies}</dd>
-                  <dt className="text-white/40">companies tracked</dt>
+                  <dt className="text-white/40">companies included</dt>
                 </div>
                 <div className="flex items-baseline gap-2">
                   <dd className="text-white/75 font-semibold tabular-nums">{cat.arr}</dd>
-                  <dt className="text-white/40">estimated ARR</dt>
-                </div>
-                <div className="flex items-baseline gap-2">
-                  <dd className="text-white/75 font-semibold tabular-nums">{cat.countries}</dd>
-                  <dt className="text-white/40">countries</dt>
+                  <dt className="text-white/40">ARR</dt>
                 </div>
               </dl>
             </div>
