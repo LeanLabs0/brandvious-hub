@@ -50,9 +50,7 @@ const howItWorks = {
 
 const networks = [
   {
-    name: "Brandvious Knowledge Network",
-    description:
-      "Structured knowledge designed to help AI systems understand products, companies, and buying decisions.",
+    name: "Discovery Network",
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
@@ -61,9 +59,7 @@ const networks = [
     ],
   },
   {
-    name: "Brandvious Authority at Scale",
-    description:
-      "Our tools help companies strengthen the signals AI uses to evaluate trust, expertise, and authority.",
+    name: "Authority Tools",
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
       { name: "SurveyRocket.ai", url: "" },
@@ -71,9 +67,7 @@ const networks = [
     ],
   },
   {
-    name: "Brandvious Publishing Network",
-    description:
-      "Industry publications that produce original interviews, reviews, comparisons, rankings, awards, and benchmark research.",
+    name: "Publishing Network",
     examples: [
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
@@ -464,8 +458,7 @@ function HowItWorksSection() {
                 className="absolute inset-x-0 top-0 h-px"
                 style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
               />
-              <h3 className="text-xl font-semibold text-white mb-3">{n.name}</h3>
-              <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
+              <h3 className="text-xl font-semibold text-white mb-6">{n.name}</h3>
               <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Examples</p>
               <div className="space-y-2">
                 {n.examples.map((ex) => (
