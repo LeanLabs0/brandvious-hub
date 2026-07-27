@@ -91,8 +91,6 @@ const footerColumns = [
     title: "Products",
     links: [
       { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "Entities.org", url: "https://entities.org" },
-      { name: "WhatisBest", url: "https://whatisbest.com" },
       { name: "ReviewInsight", url: "" },
       { name: "SchemaRocket", url: "https://schemarocket.ai" },
       { name: "SurveyRocket", url: "" },
@@ -102,6 +100,8 @@ const footerColumns = [
   {
     title: "Publishing",
     links: [
+      { name: "Entities.org", url: "https://entities.org" },
+      { name: "WhatisBest", url: "https://whatisbest.com" },
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
       { name: "GTM Index", url: "" },
@@ -111,8 +111,9 @@ const footerColumns = [
   {
     title: "Partners",
     links: [
-      { name: "Partner Network", url: "/partners" },
-      { name: "Contact", url: "mailto:hello@brandvious.com" },
+      { name: "Certified Partners", url: "/partners" },
+      { name: "HubSpot for Startups", url: "" },
+      { name: "AEO Accelerator", url: "" },
     ],
   },
 ];
@@ -489,18 +490,32 @@ function PartnerCTASection() {
         >
           <div
             className="absolute inset-x-0 top-0 h-px"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), rgba(120,180,255,0.35), transparent)" }}
+          />
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: "radial-gradient(600px circle at 0% 50%, rgba(110,60,240,0.08), transparent 55%), radial-gradient(500px circle at 100% 50%, rgba(60,120,255,0.06), transparent 55%)",
+            }}
           />
           <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-3">Want to grow your AI authority?</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-3">Want to grow your AI authority?</p>
               <h2 className="text-xl sm:text-2xl font-semibold text-white">
-                Find a Certified Brandvious Partner.
+                Find a{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
+                  }}
+                >
+                  Certified Brandvious Partner.
+                </span>
               </h2>
             </div>
             <a
               href="/partners"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)] shrink-0 self-start md:self-auto"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)] shrink-0 self-start md:self-auto"
               data-testid="v2-button-see-partners"
             >
               See Partners <ArrowRight className="w-4 h-4" />
