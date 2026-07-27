@@ -323,12 +323,8 @@ function NewHero() {
               />
             </span>{" "}
             AI uses to{" "}
-            <span className="whitespace-nowrap">
-              <span className="font-medium text-white">evaluate</span>
-              <ArrowRight className="w-4 h-4 inline mx-2 align-middle text-purple-300/60" />
-              <span className="font-medium text-white">recommend</span>
-            </span>{" "}
-            B2B brands.
+            <span className="font-medium text-white">understand, compare, and recommend</span>{" "}
+            B2B companies.
           </p>
         </div>
 
