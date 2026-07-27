@@ -424,7 +424,7 @@ function HowItWorksSection() {
   return (
     <section id="how-it-works" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-how">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="mb-16 max-w-3xl">
+        <div className="mb-16 max-w-4xl">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{howItWorks.title}</p>
           <h2 className="text-xl sm:text-2xl font-semibold leading-snug text-white/60">
             Brandvious properties create{" "}
@@ -435,7 +435,8 @@ function HowItWorksSection() {
               }}
             >
               trusted research, content, and entities
-            </span>{" "}
+            </span>
+            <br className="hidden md:block" />{" "}
             to help AI{" "}
             <span
               className="bg-clip-text text-transparent font-bold"
