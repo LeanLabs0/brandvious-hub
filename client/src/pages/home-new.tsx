@@ -42,7 +42,7 @@ const brandsEarn = [
 ];
 
 const focusQuote =
-  "AI systems recommend the companies they understand and trust.";
+  "Strong LLM visibility is the #1 GTM growth lever of the next decade.";
 
 const howItWorks = {
   title: "How Brandvious Works",
@@ -51,7 +51,9 @@ const howItWorks = {
 const networks = [
   {
     name: "Knowledge Network",
-    description: "Structured knowledge graph of trusted entities.",
+    label: "Knowledge Graph",
+    description: "Trusted entities AI can understand.",
+    accent: "purple" as const,
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
@@ -60,7 +62,9 @@ const networks = [
   },
   {
     name: "Authority Tools",
-    description: "Infrastructure for authority signals.",
+    label: "Infrastructure",
+    description: "Infrastructure that builds authority.",
+    accent: "blue" as const,
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
       { name: "ReviewInsight.com", url: "" },
@@ -70,7 +74,9 @@ const networks = [
   },
   {
     name: "Publishing Network",
-    description: "Editorial research for AI understanding.",
+    label: "Publications",
+    description: "Research AI can cite and trust.",
+    accent: "amber" as const,
     examples: [
       { name: "GTM Journal", url: "" },
       { name: "GTM Review", url: "" },
@@ -450,27 +456,92 @@ function HowItWorksSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {networks.map((n, i) => (
-            <div
-              key={n.name}
-              className={`relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-              data-testid={`v2-network-card-${i}`}
-            >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {networks.map((n, i) => {
+            const accent = {
+              purple: {
+                label: "text-purple-300/80",
+                hairline: "linear-gradient(90deg, transparent, rgba(160,120,255,0.4), transparent)",
+                glow: "radial-gradient(400px circle at 50% 0%, rgba(110,60,240,0.07), transparent 60%)",
+              },
+              blue: {
+                label: "text-sky-300/80",
+                hairline: "linear-gradient(90deg, transparent, rgba(100,170,255,0.4), transparent)",
+                glow: "radial-gradient(400px circle at 50% 0%, rgba(50,120,240,0.07), transparent 60%)",
+              },
+              amber: {
+                label: "text-amber-300/80",
+                hairline: "linear-gradient(90deg, transparent, rgba(255,200,120,0.35), transparent)",
+                glow: "radial-gradient(400px circle at 50% 0%, rgba(240,170,60,0.05), transparent 60%)",
+              },
+            }[n.accent];
+
+            return (
               <div
-                className="absolute inset-x-0 top-0 h-px"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
-              />
-              <h3 className="text-xl font-semibold text-white mb-2">{n.name}</h3>
-              <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Properties</p>
-              <div className="space-y-2">
-                {n.examples.map((ex) => (
-                  <ExampleLink key={ex.name} example={ex} />
-                ))}
+                key={n.name}
+                className={`relative rounded-2xl overflow-hidden p-10 transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
+                data-testid={`v2-network-card-${i}`}
+              >
+                <div className="absolute inset-x-0 top-0 h-px" style={{ background: accent.hairline }} />
+                <div className="absolute inset-0 pointer-events-none" style={{ background: accent.glow }} />
+                <div className="relative z-10">
+                  <p className={`text-xs uppercase tracking-[0.2em] mb-5 ${accent.label}`}>{n.label}</p>
+                  <h3 className="text-2xl font-semibold text-white mb-3">{n.name}</h3>
+                  <p className="text-sm text-white/50 mb-10">{n.description}</p>
+
+                  {/* Each division renders its properties in its own way */}
+                  {n.accent === "purple" && (
+                    <div className="space-y-2.5">
+                      {n.examples.map((ex) => (
+                        <ExampleLink key={ex.name} example={ex} />
+                      ))}
+                    </div>
+                  )}
+
+                  {n.accent === "blue" && (
+                    <div className="flex flex-wrap gap-2.5">
+                      {n.examples.map((ex) =>
+                        ex.url ? (
+                          <a
+                            key={ex.name}
+                            href={ex.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 rounded-full border border-sky-300/[0.15] bg-sky-400/[0.05] px-4 py-2 text-sm text-white/65 hover:text-white hover:border-sky-300/[0.35] hover:bg-sky-400/[0.10] transition-all duration-300"
+                          >
+                            {ex.name}
+                            <ExternalLink className="w-3 h-3 text-white/25" />
+                          </a>
+                        ) : (
+                          <span
+                            key={ex.name}
+                            className="inline-flex items-center rounded-full border border-sky-300/[0.12] bg-sky-400/[0.04] px-4 py-2 text-sm text-white/60"
+                          >
+                            {ex.name}
+                          </span>
+                        ),
+                      )}
+                    </div>
+                  )}
+
+                  {n.accent === "amber" && (
+                    <div>
+                      {n.examples.map((ex, j) => (
+                        <div
+                          key={ex.name}
+                          className={`py-3.5 text-base text-white/70 ${
+                            j > 0 ? "border-t border-white/[0.06]" : ""
+                          }`}
+                        >
+                          {ex.name}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>
