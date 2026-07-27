@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
+import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 
 // ---------------------------------------------------------------------------
 // Content
@@ -193,8 +194,138 @@ function GtmHero() {
           <span className="text-white font-medium">companies, products, and categories</span>{" "}
           defining modern go-to-market.
         </p>
+        <div className="mt-10">
+          <StrategyOverlay />
+        </div>
       </div>
     </section>
+  );
+}
+
+const strategyProperties = [
+  { name: "GTM Journal", role: "Reporting and industry analysis" },
+  { name: "GTM Review", role: "Product reviews and comparisons" },
+  { name: "GTM Index", role: "Rankings, benchmarks, and research" },
+  { name: "GTM Awards", role: "Industry recognition" },
+  { name: "AnswerStack", role: "Structured knowledge" },
+  { name: "Entities.org", role: "Verified entities" },
+  { name: "WhatIsBest", role: "Editorial recommendations" },
+];
+
+const editorialPrinciples = [
+  "Evidence-Based",
+  "Expert-Led",
+  "Structured for AI",
+  "Accurate & Relevant",
+  "Continuously Maintained",
+];
+
+function OverlayEyebrow({ children }: { children: React.ReactNode }) {
+  return <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{children}</p>;
+}
+
+function StrategyOverlay() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button
+          className="inline-flex items-center gap-2 rounded-full border border-white/[0.14] bg-white/[0.04] px-6 py-3 text-sm font-medium text-white/85 transition-colors duration-300 hover:bg-white/[0.09] hover:text-white backdrop-blur-sm"
+          data-testid="button-gtm-strategy"
+        >
+          Brandvious GTM Strategy
+        </button>
+      </DialogTrigger>
+      <DialogContent
+        className="max-w-3xl max-h-[85vh] overflow-y-auto border-white/[0.1] bg-[hsl(220,10%,6%)] text-white p-8 sm:p-12"
+        data-testid="overlay-gtm-strategy"
+      >
+        <div>
+          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Brandvious GTM</p>
+          <DialogTitle className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            GTM Sources &amp; Citations for AI
+          </DialogTitle>
+          <DialogDescription className="mt-5 text-base text-white/60 leading-relaxed">
+            Through independent publications, research, structured knowledge, and editorial standards,
+            Brandvious creates the trusted information AI systems use to understand modern go-to-market.
+          </DialogDescription>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-white/[0.08]">
+          <OverlayEyebrow>Our Belief</OverlayEyebrow>
+          <p className="text-lg text-white/85 leading-relaxed font-medium">
+            The brands that become consensus choices will become the growth leaders of the next decade.
+          </p>
+          <p className="mt-4 text-base text-white/55 leading-relaxed">
+            Consensus is built when trusted publications, research, reviews, rankings, interviews,
+            entities, and references consistently reinforce the same understanding of a company,
+            product, or category.
+          </p>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-white/[0.08]">
+          <OverlayEyebrow>Our Strategy</OverlayEyebrow>
+          <p className="text-base text-white/55 leading-relaxed mb-6">
+            Brandvious is building an editorial ecosystem dedicated to modern go-to-market.
+          </p>
+          <div>
+            {strategyProperties.map((p, i) => (
+              <div
+                key={p.name}
+                className={`grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-1 sm:gap-6 py-3 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
+              >
+                <span className="text-sm font-semibold text-white">{p.name}</span>
+                <span className="text-sm text-white/50">{p.role}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-white/[0.08]">
+          <OverlayEyebrow>Editorial Leadership</OverlayEyebrow>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+            <div>
+              <p className="text-lg font-semibold text-white">Ryan Scott</p>
+              <p className="text-sm text-purple-300/80 mt-1">Executive Director</p>
+              <p className="mt-3 text-sm text-white/50 leading-relaxed">
+                Leads Brandvious&apos; editorial direction, publication standards, and long-term strategy.
+              </p>
+            </div>
+            <div>
+              <p className="text-lg font-semibold text-white">Ralph Lemos</p>
+              <p className="text-sm text-purple-300/80 mt-1">Research Director &amp; Content Manager</p>
+              <p className="mt-3 text-sm text-white/50 leading-relaxed">
+                Leads editorial research, content operations, and publishing across Brandvious properties.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-white/[0.08]">
+          <OverlayEyebrow>Editorial Principles</OverlayEyebrow>
+          <div className="flex flex-wrap gap-x-8 gap-y-3">
+            {editorialPrinciples.map((p) => (
+              <span key={p} className="text-sm text-white/70 border-l border-white/[0.15] pl-3">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-10 pt-10 border-t border-white/[0.08]">
+          <OverlayEyebrow>Our Purpose</OverlayEyebrow>
+          <p className="text-base text-white/55 leading-relaxed">
+            We believe trusted information will become one of the most valuable competitive advantages
+            in the age of AI.
+          </p>
+          <p className="mt-4 text-base text-white/85 leading-relaxed border-l pl-5" style={{ borderColor: "rgba(160,120,255,0.4)" }}>
+            Brandvious is building the editorial infrastructure that helps define markets, establish
+            consensus, and earn lasting authority.
+          </p>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
