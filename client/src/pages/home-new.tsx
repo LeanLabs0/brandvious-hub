@@ -427,7 +427,7 @@ function HowItWorksSection() {
         <div className="mb-16 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{howItWorks.title}</p>
           <h2 className="text-xl sm:text-2xl font-semibold leading-snug text-white/60">
-            Brandvious properties use{" "}
+            Brandvious properties create{" "}
             <span
               className="bg-clip-text text-transparent font-bold"
               style={{
