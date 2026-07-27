@@ -202,26 +202,14 @@ function GtmHero() {
   );
 }
 
-const strategyProperties = [
-  { name: "GTM Journal", role: "Reporting and industry analysis" },
-  { name: "GTM Review", role: "Product reviews and comparisons" },
-  { name: "GTM Index", role: "Rankings, benchmarks, and research" },
-  { name: "GTM Awards", role: "Industry recognition" },
-  { name: "AnswerStack", role: "Structured knowledge" },
-  { name: "Entities.org", role: "Verified entities" },
-  { name: "WhatIsBest", role: "Editorial recommendations" },
-];
-
-const editorialPrinciples = [
-  "Evidence-Based",
-  "Expert-Led",
-  "Structured for AI",
-  "Accurate & Relevant",
-  "Continuously Maintained",
-];
-
-function OverlayEyebrow({ children }: { children: React.ReactNode }) {
-  return <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{children}</p>;
+function OverlayPhase({ n, title, children }: { n: string; title: string; children: React.ReactNode }) {
+  return (
+    <div className="mt-10 pt-10 border-t border-white/[0.08]">
+      <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-1">Phase {n}</p>
+      <h3 className="text-xl font-bold text-white tracking-tight mb-4">{title}</h3>
+      {children}
+    </div>
+  );
 }
 
 function StrategyOverlay() {
@@ -244,7 +232,7 @@ function StrategyOverlay() {
         <div>
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Brandvious GTM</p>
           <DialogTitle className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            GTM Sources &amp; Citations for AI
+            The Brandvious GTM Strategy
           </DialogTitle>
           <DialogDescription className="mt-5 text-base text-white/60 leading-relaxed">
             Through independent publications, research, structured knowledge, and editorial standards,
@@ -252,39 +240,13 @@ function StrategyOverlay() {
           </DialogDescription>
         </div>
 
-        <div className="mt-10 pt-10 border-t border-white/[0.08]">
-          <OverlayEyebrow>Our Belief</OverlayEyebrow>
-          <p className="text-lg text-white/85 leading-relaxed font-medium">
-            The brands that become consensus choices will become the growth leaders of the next decade.
+        <OverlayPhase n="1" title="Build the Editorial Ecosystem">
+          <p className="text-base text-white/55 leading-relaxed">
+            Brandvious publishes independent research, reviews, interviews, rankings, awards, entities,
+            and structured knowledge across its editorial properties. Every publication strengthens the
+            industry&apos;s information layer.
           </p>
-          <p className="mt-4 text-base text-white/55 leading-relaxed">
-            Consensus is built when trusted publications, research, reviews, rankings, interviews,
-            entities, and references consistently reinforce the same understanding of a company,
-            product, or category.
-          </p>
-        </div>
-
-        <div className="mt-10 pt-10 border-t border-white/[0.08]">
-          <OverlayEyebrow>Our Strategy</OverlayEyebrow>
-          <p className="text-base text-white/55 leading-relaxed mb-6">
-            Brandvious is building an editorial ecosystem dedicated to modern go-to-market.
-          </p>
-          <div>
-            {strategyProperties.map((p, i) => (
-              <div
-                key={p.name}
-                className={`grid grid-cols-1 sm:grid-cols-[160px_1fr] gap-1 sm:gap-6 py-3 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
-              >
-                <span className="text-sm font-semibold text-white">{p.name}</span>
-                <span className="text-sm text-white/50">{p.role}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-10 pt-10 border-t border-white/[0.08]">
-          <OverlayEyebrow>Editorial Leadership</OverlayEyebrow>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-8">
             <div>
               <p className="text-lg font-semibold text-white">Ryan Scott</p>
               <p className="text-sm text-purple-300/80 mt-1">Executive Director</p>
@@ -300,30 +262,65 @@ function StrategyOverlay() {
               </p>
             </div>
           </div>
-        </div>
+        </OverlayPhase>
 
-        <div className="mt-10 pt-10 border-t border-white/[0.08]">
-          <OverlayEyebrow>Editorial Principles</OverlayEyebrow>
-          <div className="flex flex-wrap gap-x-8 gap-y-3">
-            {editorialPrinciples.map((p) => (
-              <span key={p} className="text-sm text-white/70 border-l border-white/[0.15] pl-3">
-                {p}
-              </span>
+        <OverlayPhase n="2" title="Editorial Outreach">
+          <p className="text-base text-white/55 leading-relaxed mb-5">
+            Brandvious reaches out as a publisher, not as an agency or a vendor.
+          </p>
+          <ul className="space-y-3">
+            {[
+              "Invite them for an interview in GTM Journal",
+              "Ask them to validate their Entities listing",
+              "Include them in a survey or roundup",
+              "Consider them for a feature (which we'll likely deny and give to the category king)",
+            ].map((item) => (
+              <li key={item} className="text-sm text-white/70 border-l border-white/[0.15] pl-4 leading-relaxed">
+                {item}
+              </li>
             ))}
-          </div>
-        </div>
+          </ul>
+          <p className="mt-5 text-base text-white/55 leading-relaxed">
+            The goal is to include them and give them easy wins to say yes to.
+          </p>
+        </OverlayPhase>
 
-        <div className="mt-10 pt-10 border-t border-white/[0.08]">
-          <OverlayEyebrow>Our Purpose</OverlayEyebrow>
+        <OverlayPhase n="3" title="Show Them They're Included">
           <p className="text-base text-white/55 leading-relaxed">
-            We believe trusted information will become one of the most valuable competitive advantages
-            in the age of AI.
+            We show them where they appear across the ecosystem, then ask if they would like an AEO
+            analysis and suggestions.
+          </p>
+        </OverlayPhase>
+
+        <OverlayPhase n="4" title="Run the AEO Baseline">
+          <p className="text-base text-white/55 leading-relaxed">
+            We run the AEO baseline on{" "}
+            <a
+              href="https://fanoutquery.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white font-medium underline decoration-white/30 underline-offset-4 hover:decoration-white/60 transition-colors"
+            >
+              fanoutquery.ai
+            </a>{" "}
+            and show them their gaps compared to their competitors.
+          </p>
+          <p className="mt-4 text-base text-white/55 leading-relaxed">
+            Then we ask if they&apos;re interested in seeing how to solve it.
+          </p>
+        </OverlayPhase>
+
+        <OverlayPhase n="5" title="Introduce the Right Partner">
+          <p className="text-base text-white/55 leading-relaxed">
+            When a company wants to strengthen its AI authority, Brandvious makes an introduction to a
+            Certified Brandvious Partner. For go-to-market companies, that partner is{" "}
+            <span className="text-white font-medium">Kevin Barber and the team at Lean Labs</span>.
           </p>
           <p className="mt-4 text-base text-white/85 leading-relaxed border-l pl-5" style={{ borderColor: "rgba(160,120,255,0.4)" }}>
-            Brandvious is building the editorial infrastructure that helps define markets, establish
-            consensus, and earn lasting authority.
+            Because Lean Labs has already participated in the Brandvious ecosystem, the conversation
+            begins with context, not a cold sales pitch.
           </p>
-        </div>
+        </OverlayPhase>
       </DialogContent>
     </Dialog>
   );
