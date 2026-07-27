@@ -1,0 +1,26 @@
+Company,Website,Estimated ARR,Estimated Employees,Headquarters,Primary Category,Confidence
+Navattic,https://www.navattic.com,$5M-$10M,11-50,"New York, NY, USA",Interactive demo platform,High
+Storylane,https://www.storylane.io,$8M-$15M,11-50,"San Francisco, CA, USA",Interactive demo platform,High
+Demostack,https://www.demostack.com,$8M-$15M,51-200,"San Francisco, CA, USA",Demo experience platform,High
+Saleo,https://saleo.io,$3M-$8M,51-200,"Atlanta, GA, USA",Live demo experience platform,High
+Supademo,https://supademo.com,$2M-$6M,11-50,"New York, NY, USA",AI interactive demos,High
+Walnut,https://www.walnut.io,$15M-$30M,51-200,"New York, NY, USA",Interactive demos / demo personalization,Medium
+Arcade,https://www.arcade.software,$2M-$6M,11-50,"San Francisco, CA, USA",Interactive product storytelling,High
+Guideflow,https://guideflow.com,$2M-$6M,11-50,"Tallinn, Estonia",Interactive product demos,High
+Tourial,https://www.tourial.com,$2M-$6M,11-50,"San Diego, CA, USA",Interactive product tours,Medium
+Reprise,https://www.reprise.com,$10M-$20M,51-200,"Boston, MA, USA",Enterprise demo creation platform,Medium
+Consensus,https://goconsensus.com,$20M-$30M,201-500,"Atlanta, GA, USA",Demo automation / product experience,Low
+Demoboost,https://demoboost.com,$2M-$5M,11-50,Unknown,Interactive demo automation,Medium
+Userpilot,https://userpilot.com,$10M-$20M,51-200,"Austin, TX, USA",Product adoption platform,Medium
+LaunchNotes,https://www.launchnotes.com,$2M-$6M,11-50,"California, USA",Product communication / launch notes,Medium
+Featurebase,https://www.featurebase.app,$2M-$6M,11-50,"Tallinn, Estonia",Customer feedback + roadmap platform,Medium
+Canny,https://canny.io,$3M-$8M,11-50,"Wilmington, DE, USA",Customer feedback management,Medium
+Beamer,https://www.getbeamer.com,$4M-$10M,11-50,"Austin, TX, USA",Product marketing / changelog platform,Medium
+Userback,https://userback.io,$3M-$8M,11-50,"Brisbane, QLD, Australia",User feedback software,Medium
+ProdPad,https://www.prodpad.com,$8M-$15M,11-50,"London, UK",Customer-driven product management,Low
+ProductPlan,https://www.productplan.com,$15M-$30M,51-200,"Denver, CO, USA",Roadmapping / product intelligence,Low
+AnnounceKit,https://announcekit.app,$2M-$6M,11-50,Unknown,Release notes / changelog platform,Low
+FeatureOS,https://featureos.com,$1M-$4M,11-50,Unknown,Feedback boards / roadmap / release notes,Low
+Frill,https://frill.co,$1M-$3M,11-50,Unknown,Feedback + roadmap + announcements,Low
+Rapidr,https://rapidr.io,$1M-$4M,11-50,Unknown,Product feedback management,Low
+Nolt,https://nolt.io,$1M-$3M,11-50,Unknown,Feedback board platform,Low

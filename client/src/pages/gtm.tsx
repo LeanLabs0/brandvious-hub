@@ -40,6 +40,53 @@ const coverage = [
   },
 ];
 
+// Market landscape — computed from Brandvious category research datasets (low-end
+// of estimated ARR ranges; counts are companies tracked per dataset).
+const landscapeTotals = { companies: 227, arr: "$1.4B+", countries: 13 };
+
+const landscape = [
+  {
+    name: "AI Marketing",
+    accent: "purple" as const,
+    companies: 80,
+    arr: "$363M+",
+    countries: 3,
+    featured: ["Mutiny", "Goldcast", "PathFactory", "Folloze", "Factors.ai", "Tofu", "Letterdrop", "Userled"],
+  },
+  {
+    name: "Sales Technology",
+    accent: "blue" as const,
+    companies: 32,
+    arr: "$386M+",
+    countries: 3,
+    featured: ["Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
+  },
+  {
+    name: "Revenue Operations",
+    accent: "emerald" as const,
+    companies: 40,
+    arr: "$379M+",
+    countries: 4,
+    featured: ["Scratchpad", "Syncari", "Openprise", "Weflow", "FunnelStory", "Forecastio", "Revcast", "MaxIQ"],
+  },
+  {
+    name: "Product Marketing",
+    accent: "amber" as const,
+    companies: 25,
+    arr: "$132M+",
+    countries: 4,
+    featured: ["Navattic", "Storylane", "Walnut", "Arcade", "Demostack", "Saleo", "Supademo", "Guideflow"],
+  },
+  {
+    name: "Pipeline Generation",
+    accent: "rose" as const,
+    companies: 50,
+    arr: "$164M+",
+    countries: 9,
+    featured: ["Metadata", "Mutiny", "UserGems", "Unify", "HockeyStack", "N.Rich", "Champify", "Bombora"],
+  },
+];
+
 const ecosystem = [
   { name: "GTM Journal", url: "https://gtmjournal.org", purpose: "Reporting, interviews, and analysis" },
   { name: "GTM Review", url: "https://gtmreview.org", purpose: "Reviews, comparisons, and buyer guides" },
@@ -368,6 +415,73 @@ function CoverageSection() {
   );
 }
 
+function MarketLandscapeSection() {
+  return (
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">Market Landscape</p>
+
+        <div className="flex flex-wrap gap-x-16 gap-y-6 mb-6 pb-12 border-b border-white/[0.06]">
+          <div>
+            <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.companies}</p>
+            <p className="mt-2 text-sm text-white/45">companies tracked</p>
+          </div>
+          <div>
+            <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.arr}</p>
+            <p className="mt-2 text-sm text-white/45">combined estimated ARR</p>
+          </div>
+          <div>
+            <p className="text-4xl sm:text-5xl font-bold text-white tabular-nums tracking-tight">{landscapeTotals.countries}</p>
+            <p className="mt-2 text-sm text-white/45">countries</p>
+          </div>
+        </div>
+
+        {landscape.map((cat, i) => (
+          <div
+            key={cat.name}
+            className={`grid grid-cols-1 md:grid-cols-[300px_1fr] gap-4 md:gap-12 py-10 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
+            data-testid={`gtm-landscape-${i}`}
+          >
+            <div>
+              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                {cat.name}
+                <span className={`block mt-2 h-[2px] w-10 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
+              </h3>
+              <dl className="mt-5 space-y-1.5 text-sm">
+                <div className="flex items-baseline gap-2">
+                  <dd className="text-white/75 font-semibold tabular-nums">{cat.companies}</dd>
+                  <dt className="text-white/40">companies tracked</dt>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <dd className="text-white/75 font-semibold tabular-nums">{cat.arr}</dd>
+                  <dt className="text-white/40">estimated ARR</dt>
+                </div>
+                <div className="flex items-baseline gap-2">
+                  <dd className="text-white/75 font-semibold tabular-nums">{cat.countries}</dd>
+                  <dt className="text-white/40">countries</dt>
+                </div>
+              </dl>
+            </div>
+            <div>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-4">Recently Featured</p>
+              <div className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
+                {cat.featured.map((c) => (
+                  <span key={c} className="text-base text-white/70">
+                    {c}
+                  </span>
+                ))}
+                <span className={`text-sm ${accentText[cat.accent]}`}>
+                  + {cat.companies - cat.featured.length} more
+                </span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function EcosystemRow({ p, i, first }: { p: (typeof ecosystem)[0]; i: number; first?: boolean }) {
   return (
     <a
@@ -443,6 +557,7 @@ export default function Gtm() {
       <GtmNavbar />
       <GtmHero />
       <CoverageSection />
+      <MarketLandscapeSection />
       <EcosystemSection />
       <NewFooter />
     </div>
