@@ -463,7 +463,7 @@ function HowItWorksSection() {
               />
               <h3 className="text-xl font-semibold text-white mb-2">{n.name}</h3>
               <p className="text-sm text-white/55 leading-relaxed mb-6">{n.description}</p>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Examples</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Properties</p>
               <div className="space-y-2">
                 {n.examples.map((ex) => (
                   <ExampleLink key={ex.name} example={ex} />
