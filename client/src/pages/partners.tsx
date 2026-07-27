@@ -18,10 +18,6 @@ const hero = {
   eyebrow: "Partner Network",
   headlineWhite: "Certified",
   headlineGradient: "Brandvious Partners.",
-  intro:
-    "Brandvious partners with a select group of agencies that help B2B companies build AI authority.",
-  body: "Our partners help companies prepare research, develop editorial assets, implement AEO recommendations, and strengthen the signals AI systems use to understand and recommend brands.",
-  note: "Every company may apply directly or work with a Certified Brandvious Partner. All submissions follow the same editorial standards.",
 };
 
 type PartnerTier = "flagship" | "growth" | "certified";
@@ -265,10 +261,9 @@ function PartnersHero() {
         </h1>
 
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed" data-testid="partners-text-intro">
-          {hero.intro}
-        </p>
-        <p className="mt-4 text-base text-white/55 max-w-2xl leading-relaxed">
-          {hero.body}
+          Brandvious certifies a select group of partners to implement{" "}
+          <span className="text-white font-medium">AI authority strategies</span>{" "}
+          for B2B companies.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -288,8 +283,14 @@ function PartnersHero() {
           </a>
         </div>
 
-        <p className="mt-10 text-sm text-white/45 max-w-2xl leading-relaxed border-l border-white/[0.12] pl-4">
-          {hero.note}
+        <p
+          className="mt-10 text-sm max-w-2xl leading-relaxed border-l pl-4"
+          style={{ borderColor: "rgba(160,120,255,0.4)" }}
+        >
+          <span className="text-white/60">
+            Every Certified Brandvious Partner meets our standards for{" "}
+            <span className="text-white/85">expertise, quality, and execution</span>.
+          </span>
         </p>
       </div>
     </section>
@@ -338,20 +339,7 @@ function FeaturedPartnersSection() {
   return (
     <section id="featured-partners" className="relative py-24 px-6 border-t border-white/[0.06] scroll-mt-16" data-testid="partners-section-featured">
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="mb-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Featured Partners</p>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white leading-tight max-w-2xl">
-            A select network,{" "}
-            <span
-              className="bg-clip-text text-transparent"
-              style={{
-                backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.35))",
-              }}
-            >
-              chosen for craft.
-            </span>
-          </h2>
-        </div>
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">Featured Partners</p>
 
         <div className="space-y-4">
           {flagship.map((p) => (
