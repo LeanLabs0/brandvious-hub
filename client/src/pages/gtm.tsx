@@ -3,6 +3,7 @@ import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { GtmConstellation } from "@/components/gtm-constellation";
+import { Maximize2 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
 // Content
@@ -413,6 +414,7 @@ function CoverageSection() {
 
 function MarketLandscapeSection() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [expanded, setExpanded] = useState(false);
 
   return (
     <section id="market-landscape" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
@@ -430,7 +432,7 @@ function MarketLandscapeSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-start">
           <div>
             {landscape.map((cat, i) => (
               <div
@@ -470,10 +472,46 @@ function MarketLandscapeSection() {
           </div>
 
           <div className="hidden lg:block sticky top-24">
-            <GtmConstellation hoveredCategory={hoveredCategory} />
+            <div className="relative group/graph">
+              <GtmConstellation hoveredCategory={hoveredCategory} />
+              <button
+                onClick={() => setExpanded(true)}
+                className="absolute top-2 right-2 inline-flex items-center gap-2 rounded-full border border-white/[0.14] bg-white/[0.04] px-4 py-2 text-xs font-medium text-white/70 transition-colors duration-300 hover:bg-white/[0.09] hover:text-white backdrop-blur-sm"
+                data-testid="button-expand-constellation"
+                aria-label="Expand knowledge graph to full screen"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+                Expand
+              </button>
+            </div>
           </div>
         </div>
       </div>
+
+      <Dialog open={expanded} onOpenChange={setExpanded}>
+        <DialogContent
+          className="w-screen h-screen max-w-none max-h-none rounded-none border-0 bg-[hsl(220,10%,4%)] p-0 flex flex-col"
+          data-testid="overlay-constellation"
+        >
+          <div className="flex items-start justify-between px-6 sm:px-10 pt-8">
+            <div>
+              <DialogTitle className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                The GTM Knowledge Graph
+              </DialogTitle>
+              <DialogDescription className="mt-1 text-sm text-white/50">
+                {landscapeTotals.companies} companies connected to 7 Brandvious properties
+              </DialogDescription>
+            </div>
+          </div>
+          <div className="flex-1 min-h-0 flex items-center justify-center px-6 pb-8">
+            <div className="w-full h-full flex items-center justify-center">
+              <div style={{ width: "min(85vh, 90vw)" }}>
+                <GtmConstellation hoveredCategory={null} />
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
