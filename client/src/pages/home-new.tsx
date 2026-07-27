@@ -437,12 +437,13 @@ function HowItWorksSection() {
               trusted research, content, and entities
             </span>{" "}
             to help AI{" "}
-            <span className="whitespace-nowrap text-white font-bold">
-              understand
-              <ArrowRight className="w-4 h-4 inline mx-1.5 align-middle text-purple-300/60" />
-              trust
-              <ArrowRight className="w-4 h-4 inline mx-1.5 align-middle text-purple-300/60" />
-              recommend
+            <span
+              className="bg-clip-text text-transparent font-bold"
+              style={{
+                backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(180,140,255,0.85), rgba(255,255,255,0.95))",
+              }}
+            >
+              understand, trust, and recommend
             </span>{" "}
             B2B companies.
           </h2>
