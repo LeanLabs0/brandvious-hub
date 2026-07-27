@@ -1,0 +1,81 @@
+Company,Website,Estimated ARR,Estimated Employees,Headquarters,Primary Category,Confidence
+Tofu,https://www.tofuhq.com,$3M-$8M,20-50,Unknown,AI ABM & campaign personalization,High
+Userled,https://www.userled.io,$2M-$5M,11-50,Unknown,AI ABM activation,High
+Letterdrop,https://letterdrop.com,$2M-$6M,11-50,"San Francisco, CA, USA",AI content + social selling,High
+Factors.ai,https://www.factors.ai,$3M-$8M,20-50,Unknown,AI ABM + attribution + intent,High
+Mutiny,https://www.mutinyhq.com,$8M-$20M,51-200,Unknown,AI website personalization for B2B,High
+Folloze,https://www.folloze.com,$3M-$5M,50-100,Unknown,Personalized content journeys / ABM,High
+PathFactory,https://www.pathfactory.com,$8M-$20M,50-150,Unknown,Content experience platform,High
+Goldcast,https://www.goldcast.io,$8M-$15M,51-200,Unknown,AI video/webinar marketing,High
+Dreamdata,https://dreamdata.io,$10M-$20M,51-200,"Copenhagen, Denmark",B2B attribution,High
+HockeyStack,https://hockeystack.com,$5M-$12M,20-80,Unknown,AI attribution & pipeline analytics,High
+UserEvidence,https://userevidence.com,$3M-$8M,11-50,"Jackson Hole, WY, USA",Customer proof / evidence platform,High
+Storylane,https://www.storylane.io,$5M-$10M,11-50,Unknown,Demo automation for B2B GTM,High
+Navattic,https://www.navattic.com,$3M-$8M,11-50,Unknown,Interactive demos,High
+Supademo,https://supademo.com,$2M-$6M,11-50,Unknown,Interactive demos / product walkthroughs,High
+Consensus,https://goconsensus.com,$15M-$30M,51-200,Unknown,Demo automation,High
+Profound,https://www.tryprofound.com,$2M-$6M,11-50,Unknown,AI search visibility / answer engine optimization,High
+Slate,https://slatehq.com,$2M-$6M,11-50,Unknown,AI SEO / content engineering,High
+Autobound,https://www.autobound.ai,$2M-$6M,11-50,Unknown,AI outbound personalization,High
+Regie.ai,https://www.regie.ai,$8M-$15M,51-200,Unknown,AI sales + marketing content sequences,High
+Warmly,https://www.warmly.ai,$2M-$8M,11-50,Unknown,B2B intent + website engagement,High
+Hushly,https://www.hushly.com,$3M-$8M,11-50,Unknown,Content personalization / conversion,High
+Sequel,https://www.sequel.io,$2M-$6M,11-50,Unknown,Webinars on owned website,High
+Zuddl,https://www.zuddl.com,$8M-$20M,51-200,Unknown,B2B event & webinar platform,High
+Demio,https://demio.com,$8M-$15M,51-200,Unknown,Webinar platform for demand gen,High
+Airmeet,https://www.airmeet.com,$8M-$20M,51-200,Unknown,Virtual events / webinars,High
+Livestorm,https://livestorm.co,$10M-$20M,51-200,Unknown,Webinars & virtual events,High
+BigMarker,https://www.bigmarker.com,$8M-$20M,51-200,Unknown,Webinar platform,High
+Vendelux,https://www.vendelux.com,$8M-$20M,51-200,Unknown,Events intelligence for B2B marketers,High
+Fibbler,https://www.fibbler.co,$2M-$5M,11-50,Unknown,LinkedIn/Google revenue attribution,High
+CaliberMind,https://www.calibermind.com,$5M-$10M,11-50,Unknown,GTM intelligence + attribution,High
+InfiniGrow,https://www.infinigrow.com,$3M-$8M,11-50,Unknown,Marketing planning + attribution,Medium
+Cometly,https://www.cometly.com,$3M-$8M,11-50,Unknown,Performance attribution,Medium
+SegmentStream,https://segmentstream.com,$2M-$6M,11-50,Unknown,Attribution & budget optimization,Medium
+Attribution,https://www.attributionapp.com,$4M-$10M,11-50,Unknown,Multi-touch attribution,Medium
+Heeet,https://www.heeet.io,$2M-$5M,11-50,Unknown,Salesforce-centric revenue attribution,Medium
+Ruler Analytics,https://www.ruleranalytics.com,$4M-$10M,11-50,Unknown,Marketing attribution,Medium
+SlapFive,https://www.slapfive.com,$2M-$6M,11-50,"Boston, MA, USA",Customer advocacy / social proof,Medium
+Laudable,https://www.laudable.com,$2M-$6M,11-50,Unknown,Automated testimonial capture,Medium
+Deeto,https://www.deeto.com,$2M-$6M,11-50,Unknown,Customer evidence / advocacy,Medium
+Guideflow,https://www.guideflow.com,$2M-$6M,11-50,Unknown,Interactive demos,Medium
+Walnut,https://www.walnut.io,$10M-$25M,51-200,"New York, NY, USA",Demo automation,Medium
+Reprise,https://www.reprise.com,$8M-$20M,51-200,Unknown,Demo environments / sales engineering,Medium
+Demostack,https://www.demostack.com,$8M-$18M,51-200,Unknown,Demo platform,Medium
+Karumi,https://www.karumi.ai,$1M-$4M,11-50,Unknown,AI demo automation,Medium
+Saleo,https://www.saleo.io,$3M-$8M,11-50,Unknown,Live demo experience software,Medium
+TestBox,https://testbox.com,$3M-$8M,11-50,Unknown,Product-led evaluation / demo sandbox,Medium
+Demoboost,https://www.demoboost.com,$2M-$5M,11-50,Unknown,Demo platform,Medium
+Trendemon,https://www.trendemon.com,$4M-$10M,11-50,Unknown,Website personalization / journey orchestration,Medium
+Webeo,https://www.webeo.com,$3M-$8M,11-50,Unknown,B2B website personalization,Medium
+Personyze,https://www.personyze.com,$2M-$6M,11-50,Unknown,Website personalization,Medium
+Hyperise,https://hyperise.com,$2M-$6M,11-50,Unknown,Personalized images / landing page personalization,Medium
+UserGems,https://www.usergems.com,$8M-$20M,51-200,Unknown,Signal-based ABM / intent data,Medium
+Lead Onion,https://leadonion.com,$2M-$6M,11-50,Unknown,Buyer intent data,Medium
+IntentData.io,https://intentdata.io,$1M-$4M,11-50,Unknown,Contact-level intent data,Medium
+HG Insights,https://hginsights.com,$10M-$25M,51-200,Unknown,Account intelligence / intent,Medium
+SMARTe,https://www.smarte.pro,$8M-$15M,51-200,Unknown,Intent data + contacts,Medium
+SalesIntel,https://salesintel.io,$10M-$20M,51-200,Unknown,B2B data + intent signals,Medium
+Zintlr,https://zintlr.com,$3M-$8M,11-50,Unknown,B2B prospecting + personalization,Medium
+Highperformr AI,https://www.highperformr.ai,$1M-$4M,11-50,Unknown,Buyer intent / social intelligence,Medium
+Klarivo,https://www.klarivo.ai,$1M-$4M,11-50,Unknown,AI visibility monitoring,Medium
+SEO.AI,https://seo.ai,$2M-$6M,11-50,"Kongens Lyngby, Denmark",AI SEO platform,Medium
+Scalenut,https://www.scalenut.com,$3M-$8M,11-50,Unknown,AI SEO + content,Medium
+SE Ranking,https://seranking.com,$15M-$30M,51-200,Unknown,SEO platform with AI features,Medium
+Alli AI,https://alliai.com,$3M-$8M,11-50,Unknown,Technical SEO automation,Medium
+MarketMuse,https://www.marketmuse.com,$5M-$10M,11-50,Unknown,AI content strategy / SEO,Medium
+Frase,https://www.frase.io,$3M-$8M,11-50,Unknown,AI content optimization,Medium
+Peec AI,https://www.peec.ai,$1M-$4M,11-50,Unknown,AI visibility tooling,Low
+AthenaHQ,https://www.athenahq.ai,$1M-$4M,11-50,Unknown,AI visibility / brand monitoring,Low
+Gracker.ai,https://www.gracker.ai,$1M-$3M,11-50,Unknown,AI visibility for B2B SaaS,Low
+GrowthLoop,https://www.growthloop.com,$8M-$20M,51-200,"New York City, NY, USA",Agentic marketing automation,Low
+Conversion,https://www.tryconversion.com,$1M-$4M,11-50,Unknown,Agentic marketing automation for B2B,Low
+AudiencePlus,https://www.audienceplus.com,$3M-$8M,11-50,Unknown,Content experience / audience platform,Low
+Recotap,https://www.recotap.com,$2M-$6M,11-50,"Bangalore, India",LinkedIn-first ABM platform,Low
+Repurpose.io,https://repurpose.io,$2M-$6M,11-50,Unknown,Content repurposing,Low
+Leadfeeder,https://www.leadfeeder.com,$10M-$25M,51-200,Unknown,Website visitor identification,Low
+Intentsify,https://www.intentsify.com,$15M-$30M,201-500,Unknown,B2B buyer intent platform,Low
+DemandSense,https://www.demandsense.com,$2M-$6M,11-50,Unknown,LinkedIn audience intelligence,Low
+ReferenceEdge,https://www.referenceedge.com,$3M-$8M,11-50,Unknown,Reference management / customer proof,Low
+RO Innovation,https://www.roinnovation.com,$8M-$15M,51-200,Unknown,Enterprise reference management,Low
+Peerbound,Unknown,$1M-$3M,11-50,Unknown,AI-native customer proof discovery,Low
