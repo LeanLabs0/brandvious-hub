@@ -187,10 +187,10 @@ function GtmHero() {
       <FloatingParticles party={party} />
       <div className="max-w-6xl mx-auto w-full relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">GTM</p>
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight max-w-3xl" data-testid="gtm-heading">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-5xl" data-testid="gtm-heading">
           Brandvious for{" "}
           <span
-            className="bg-clip-text text-transparent"
+            className="bg-clip-text text-transparent whitespace-nowrap"
             style={{
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(160,120,255,0.75))",
             }}
