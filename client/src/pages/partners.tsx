@@ -9,6 +9,12 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
+import { NewFooter } from "@/pages/home-new";
+import leanLabsLogo from "@/assets/partner-logos/lean-labs.svg";
+import getGrowthLogo from "@/assets/partner-logos/get-growth.svg";
+import digitalMomentumLogo from "@/assets/partner-logos/digital-momentum.svg";
+import smartBugLogo from "@/assets/partner-logos/smartbug.svg";
+import impulseCreativeLogo from "@/assets/partner-logos/impulse-creative.svg";
 
 // ---------------------------------------------------------------------------
 // Content
@@ -24,7 +30,7 @@ type PartnerTier = "flagship" | "growth" | "certified";
 
 const tierStyles: Record<PartnerTier, { label: string; color: string; ring: string }> = {
   flagship: {
-    label: "Flagship Implementation Partner",
+    label: "Founding AEO Partner",
     color: "text-amber-300",
     ring: "border-amber-300/25 bg-amber-300/[0.06]",
   },
@@ -40,40 +46,45 @@ const tierStyles: Record<PartnerTier, { label: string; color: string; ring: stri
   },
 };
 
-const partners: { name: string; tier: PartnerTier; description: string }[] = [
+const partners: { name: string; tier: PartnerTier; description: string; logo: string }[] = [
   {
     name: "Lean Labs",
     tier: "flagship",
-    description: "AI search optimization, websites, HubSpot, and authority strategy.",
+    description: "AI Authority • HubSpot • Websites",
+    logo: leanLabsLogo,
   },
   {
     name: "Get Growth",
     tier: "growth",
-    description: "Growth strategy, demand generation, and GTM execution.",
+    description: "Growth Strategy • Demand Gen • GTM",
+    logo: getGrowthLogo,
   },
   {
     name: "Digital Momentum",
     tier: "certified",
-    description: "B2B marketing and HubSpot.",
+    description: "B2B Marketing • HubSpot",
+    logo: digitalMomentumLogo,
   },
   {
     name: "SmartBug Media",
     tier: "certified",
-    description: "Marketing, CRM, and revenue operations.",
+    description: "Marketing • CRM • RevOps",
+    logo: smartBugLogo,
   },
   {
     name: "Impulse Creative",
     tier: "certified",
-    description: "Brand, HubSpot, and digital growth.",
+    description: "Brand • HubSpot • GTM",
+    logo: impulseCreativeLogo,
   },
 ];
 
 const partnerBenefits = [
-  "Editorial publishing access",
-  "Interview and research opportunities",
-  "Authority-building resources",
-  "Co-marketing opportunities",
-  "Client referral opportunities",
+  "Brandvious certification",
+  "Editorial collaboration",
+  "Research participation",
+  "Authority resources",
+  "Client referrals",
 ];
 
 // ---------------------------------------------------------------------------
@@ -218,7 +229,7 @@ function PartnersNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="#become-a-partner" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="partners-nav-apply">Become a Partner</a>
+          <a href="/new" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="partners-nav-how">How Brandvious Works</a>
         </div>
       </div>
     </nav>
@@ -321,6 +332,13 @@ function PartnerCard({ partner, index, featured }: { partner: typeof partners[0]
           <Award className="w-3 h-3" />
           {tier.label}
         </span>
+        <img
+          src={partner.logo}
+          alt={`${partner.name} logo`}
+          className={`w-auto object-contain object-left mb-4 opacity-90 ${featured ? "h-9" : "h-7"}`}
+          style={{ filter: "brightness(0) invert(1)" }}
+          data-testid={`partners-logo-${index}`}
+        />
         <h3 className={`font-semibold text-white mb-2 ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>
           {partner.name}
         </h3>
@@ -395,11 +413,11 @@ function BecomePartnerSection() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                 data-testid="partners-button-apply-cta"
               >
-                Apply to join the network <ArrowRight className="w-4 h-4" />
+                Apply for certification <ArrowRight className="w-4 h-4" />
               </a>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-5">Certified Partners receive</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-5">Certification Includes</p>
               <ul className="space-y-3.5">
                 {partnerBenefits.map((b) => (
                   <li key={b} className="flex items-center gap-3 text-white/70">
@@ -413,72 +431,6 @@ function BecomePartnerSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-function PartnersFooter() {
-  const { theme, toggleTheme } = useTheme();
-  const party = theme === "sparkle";
-  const themeIcon =
-    theme === "dark" ? <Sun className="w-4 h-4" /> :
-    theme === "light" ? <Sparkles className="w-4 h-4" /> :
-    <Moon className="w-4 h-4" />;
-
-  return (
-    <footer className="relative py-16 px-6 border-t border-white/[0.04]" data-testid="partners-footer">
-      {party && (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div
-            className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-[1px]"
-            style={{
-              boxShadow: "0 0 80px 40px rgba(140,80,255,0.15), 0 0 160px 80px rgba(100,40,200,0.08)",
-            }}
-          />
-        </div>
-      )}
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-start justify-between gap-8">
-          <div>
-            <a
-              href="/"
-              className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
-              data-testid="partners-footer-link-home"
-            >
-              Brandvious<span className="font-light text-white/60">, Inc.</span>
-            </a>
-            <div className="space-y-1 mt-2">
-              <p className="text-xs text-white/30">
-                16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
-              </p>
-              <a href="tel:+19138716500" className="text-xs text-white/30 hover:text-white/50 transition-colors block">
-                1-913-871-6500
-              </a>
-            </div>
-          </div>
-          <div className="text-sm space-y-3">
-            <p className="text-white/30 uppercase tracking-wider text-xs">Partners</p>
-            <a href="#featured-partners" className="block text-white/50 hover:text-white transition-colors">Featured Partners</a>
-            <a href="#become-a-partner" className="block text-white/50 hover:text-white transition-colors">Become a Partner</a>
-          </div>
-        </div>
-
-        <div className="mt-12 pt-8 border-t border-white/[0.04] flex items-center gap-3">
-          <Button
-            size="icon"
-            variant="ghost"
-            onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className="h-8 w-8 text-white/40 hover:text-white/80"
-            data-testid="partners-button-theme-toggle"
-          >
-            {themeIcon}
-          </Button>
-          <p className="text-xs text-white/30">
-            &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
-          </p>
-        </div>
-      </div>
-    </footer>
   );
 }
 
@@ -497,7 +449,7 @@ export default function Partners() {
       <PartnersHero />
       <FeaturedPartnersSection />
       <BecomePartnerSection />
-      <PartnersFooter />
+      <NewFooter />
     </div>
   );
 }

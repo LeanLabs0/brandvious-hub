@@ -56,7 +56,6 @@ const networks = [
     accent: "blue" as const,
     examples: [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
-      { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
       { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
       { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
     ],
@@ -70,6 +69,7 @@ const networks = [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
       { name: "WhatisBest.com", url: "https://whatisbest.com" },
+      { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
     ],
   },
   {
@@ -91,7 +91,7 @@ const footerColumns = [
     title: "Products",
     links: [
       { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com" },
+      { name: "Entities.org", url: "https://entities.org" },
       { name: "SchemaRocket", url: "https://schemarocket.ai" },
       { name: "SurveyRocket", url: "https://surveyrocket.ai" },
       { name: "ReputationRocket", url: "https://reputationrocket.ai" },
@@ -100,7 +100,7 @@ const footerColumns = [
   {
     title: "Publishing",
     links: [
-      { name: "Entities.org", url: "https://entities.org" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com" },
       { name: "WhatisBest", url: "https://whatisbest.com" },
       { name: "GTM Journal", url: "https://gtmjournal.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
@@ -260,7 +260,7 @@ function NewNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="#how-it-works" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-how">How Brandvious Works</a>
+          <a href="/partners" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Certified Partners</a>
         </div>
       </div>
     </nav>
@@ -407,7 +407,7 @@ function HowItWorksSection() {
   const party = theme === "sparkle";
 
   return (
-    <section id="how-it-works" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-how">
+    <section id="how-it-works" className="relative py-24 px-6 border-t border-white/[0.06] scroll-mt-16" data-testid="v2-section-how">
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16 max-w-4xl">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{howItWorks.title}</p>
@@ -554,7 +554,7 @@ function PartnerCTASection() {
   );
 }
 
-function NewFooter() {
+export function NewFooter() {
   const { theme, toggleTheme } = useTheme();
   const party = theme === "sparkle";
   const themeIcon =
@@ -638,6 +638,7 @@ function NewFooter() {
             size="icon"
             variant="ghost"
             onClick={toggleTheme}
+            aria-label="Toggle theme"
             className="h-8 w-8 text-white/40 hover:text-white/80"
             data-testid="v2-button-theme-toggle"
           >
