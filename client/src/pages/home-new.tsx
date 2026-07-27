@@ -46,7 +46,6 @@ const focusQuote =
 
 const howItWorks = {
   title: "How Brandvious Works",
-  body: "Brandvious operates a network of specialized publications, research platforms, knowledge bases, and authority tools designed to organize, verify, and continuously publish trustworthy information to create authority signals for both AI systems and buyers.",
 };
 
 const networks = [
@@ -427,8 +426,25 @@ function HowItWorksSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="mb-16 max-w-3xl">
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">{howItWorks.title}</p>
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight">
-            {howItWorks.body}
+          <h2 className="text-xl sm:text-2xl font-semibold leading-snug text-white/60">
+            Brandvious properties use{" "}
+            <span
+              className="bg-clip-text text-transparent font-bold"
+              style={{
+                backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(180,140,255,0.85), rgba(255,255,255,0.95))",
+              }}
+            >
+              trusted research, content, and entities
+            </span>{" "}
+            to help AI{" "}
+            <span className="whitespace-nowrap text-white font-bold">
+              understand
+              <span className="mx-1.5 text-purple-300/50 font-normal">·</span>
+              trust
+              <span className="mx-1.5 text-purple-300/50 font-normal">·</span>
+              recommend
+            </span>{" "}
+            B2B companies.
           </h2>
         </div>
 
