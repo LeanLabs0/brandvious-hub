@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
+import { GtmConstellation } from "@/components/gtm-constellation";
 
 // ---------------------------------------------------------------------------
 // Content
@@ -411,8 +412,10 @@ function CoverageSection() {
 }
 
 function MarketLandscapeSection() {
+  const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
+    <section id="market-landscape" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">Market Landscape</p>
 
@@ -427,43 +430,49 @@ function MarketLandscapeSection() {
           </div>
         </div>
 
-        {landscape.map((cat, i) => (
-          <div
-            key={cat.name}
-            className={`grid grid-cols-1 md:grid-cols-[300px_1fr] gap-4 md:gap-12 py-10 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
-            data-testid={`gtm-landscape-${i}`}
-          >
-            <div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
-                {cat.name}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_440px] gap-12 lg:gap-16 items-start">
+          <div>
+            {landscape.map((cat, i) => (
+              <div
+                key={cat.name}
+                className={`py-10 transition-opacity duration-300 ${i > 0 ? "border-t border-white/[0.06]" : ""} ${
+                  hoveredCategory && hoveredCategory !== cat.name ? "opacity-40" : ""
+                }`}
+                onMouseEnter={() => setHoveredCategory(cat.name)}
+                onMouseLeave={() => setHoveredCategory(null)}
+                data-testid={`gtm-landscape-${i}`}
+              >
+                <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+                  <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    {cat.name}
+                  </h3>
+                  <p className="text-sm text-white/40">
+                    <span className="text-white/75 font-semibold tabular-nums">{cat.companies}</span> companies ·{" "}
+                    <span className="text-white/75 font-semibold tabular-nums">{cat.arr}</span> ARR
+                  </p>
+                </div>
                 <span className={`block mt-2 h-[2px] w-10 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
-              </h3>
-              <dl className="mt-5 space-y-1.5 text-sm">
-                <div className="flex items-baseline gap-2">
-                  <dd className="text-white/75 font-semibold tabular-nums">{cat.companies}</dd>
-                  <dt className="text-white/40">companies included</dt>
+                <div className="mt-5">
+                  <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-3">Recently Featured</p>
+                  <div className="flex flex-wrap items-baseline gap-x-6 gap-y-2">
+                    {cat.featured.map((c) => (
+                      <span key={c} className="text-base text-white/70">
+                        {c}
+                      </span>
+                    ))}
+                    <span className={`text-sm ${accentText[cat.accent]}`}>
+                      + {cat.companies - cat.featured.length} more
+                    </span>
+                  </div>
                 </div>
-                <div className="flex items-baseline gap-2">
-                  <dd className="text-white/75 font-semibold tabular-nums">{cat.arr}</dd>
-                  <dt className="text-white/40">ARR</dt>
-                </div>
-              </dl>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-white/30 mb-4">Recently Featured</p>
-              <div className="flex flex-wrap items-baseline gap-x-7 gap-y-3">
-                {cat.featured.map((c) => (
-                  <span key={c} className="text-base text-white/70">
-                    {c}
-                  </span>
-                ))}
-                <span className={`text-sm ${accentText[cat.accent]}`}>
-                  + {cat.companies - cat.featured.length} more
-                </span>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
+
+          <div className="hidden lg:block sticky top-24">
+            <GtmConstellation hoveredCategory={hoveredCategory} />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -538,6 +547,12 @@ function EcosystemSection() {
 // ---------------------------------------------------------------------------
 
 export default function Gtm() {
+  useEffect(() => {
+    if (window.location.hash) {
+      document.querySelector(window.location.hash)?.scrollIntoView();
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="gtm-page">
       <NoiseOverlay />

@@ -234,6 +234,15 @@
     inset: -1px;
   }
 
+  @keyframes constellation-twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.45; }
+  }
+
+  .animate-constellation-twinkle {
+    animation: constellation-twinkle 5s ease-in-out infinite;
+  }
+
   @keyframes float-particle {
     0%, 100% {
       transform: translateY(0) translateX(0);
