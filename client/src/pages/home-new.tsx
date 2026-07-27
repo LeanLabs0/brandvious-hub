@@ -42,7 +42,7 @@ const brandsEarn = [
 ];
 
 const focusQuote =
-  "Strong LLM visibility is the #1 GTM growth lever of the next decade.";
+  "AI systems recommend the companies they understand and trust.";
 
 const howItWorks = {
   title: "How Brandvious Works",
@@ -82,9 +82,6 @@ const networks = [
     ],
   },
 ];
-
-const bottomAnchor =
-  "Brandvious drives authority signals for AI systems while helping great companies become more discoverable, trusted, and recommended.";
 
 const footerColumns = [
   {
@@ -331,6 +328,15 @@ function NewHero() {
           >
             How Brandvious Works <ArrowRight className="w-4 h-4" />
           </a>
+          <a
+            href="https://howaeoworks.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.08] text-white/70 text-sm font-medium hover:border-white/[0.16] hover:text-white transition-all duration-300"
+            data-testid="v2-button-aeo"
+          >
+            How AEO Works <ArrowRight className="w-4 h-4" />
+          </a>
         </div>
       </div>
     </section>
@@ -434,7 +440,7 @@ function HowItWorksSection() {
               trusted research, content, and entities
             </span>
             <br className="hidden md:block" />{" "}
-            to help AI{" "}
+            that help AI{" "}
             <span
               className="bg-clip-text text-transparent font-bold"
               style={{
@@ -638,10 +644,9 @@ export default function HomeNew() {
       <NoiseOverlay />
       <NewNavbar />
       <NewHero />
+      <HowItWorksSection />
       <ExchangeSection />
       <QuoteSection text={focusQuote} testid="v2-section-quote" />
-      <HowItWorksSection />
-      <QuoteSection text={bottomAnchor} testid="v2-section-anchor" />
       <PartnerCTASection />
       <NewFooter />
     </div>
