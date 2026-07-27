@@ -1,0 +1,51 @@
+Company,Website,Estimated ARR,Estimated Employees,Headquarters,Primary Category,Confidence
+Metadata,https://metadata.io,$12M-$20M,51-200,"San Jose, CA, USA","B2B paid pipeline generation / ABM ads",High
+Mutiny,https://www.mutinyhq.com,$20M-$30M,51-200,"San Francisco, CA, USA","AI GTM / website personalization for pipeline",High
+UserGems,https://www.usergems.com,$7M-$12M,51-200,"San Francisco, CA, USA","Buyer signals / champion tracking / pipeline generation",High
+Unify,https://www.unifygtm.com,$8M-$15M,51-200,"San Francisco, CA, USA","Signal-based pipeline generation",High
+Factors.ai,https://www.factors.ai,$5M-$10M,51-200,"Stamford, CT, USA","Intent capture / ABM / attribution",High
+N.Rich,https://nrich.io,$8M-$15M,51-200,"Helsinki, Finland","Execution-first ABM platform",High
+HockeyStack,https://www.hockeystack.com,$8M-$15M,51-200,"San Francisco, CA, USA","Revenue data intelligence / pipeline analytics",High
+Champify,https://www.champify.io,$2M-$6M,Unknown,"New York, NY, USA","Relationship-based pipeline generation",High
+Lead Onion,https://leadonion.ai,$2M-$5M,11-50,"Portstewart, Northern Ireland, UK","Multi-source intent platform",High
+Common Room,https://www.commonroom.io,$15M-$30M,51-200,"Seattle, WA, USA","Signal-based GTM / buying signals",Medium
+Salesmotion,https://salesmotion.io,$1M-$3M,2-10,"London, UK","Buying-signal AI agents for pipeline generation",Medium
+RB2B,https://www.rb2b.com,$1M-$4M,2-10,Unknown,"Person-level website visitor identification",Medium
+Leadinfo,https://www.leadinfo.com/en/,Unknown,51-200,"Capelle aan den IJssel, Netherlands","Website visitor identification",Medium
+Albacross,https://www.albacross.com/,Unknown,51-200,"Stockholm, Sweden","Visitor identification / revenue acceleration",Medium
+Intentsify,https://intentsify.io/,Unknown,201-500,"Westwood, MA, USA","Intent data & activation platform",Medium
+SalesIntel,https://salesintel.io/,Unknown,201-500,"Tysons, VA, USA","B2B buying signals / pipeline generation platform",Medium
+Lead411,https://www.lead411.com/,Unknown,11-50,"Boulder, CO, USA","B2B leads + growth intent",Medium
+LeadIQ,https://leadiq.com/,Unknown,51-200,"San Francisco, CA, USA","Prospecting + buying signals",Medium
+UpLead,https://www.uplead.com/,Unknown,51-200,"Covina, CA, USA","B2B contact + intent data",Medium
+Snitcher,https://snitcher.com/,Unknown,11-50,"Hilversum, Netherlands","Website visitor identification",Medium
+Salespanel,https://salespanel.io/,Unknown,2-10,"Pune, Maharashtra, India","Visitor tracking / lead scoring",Medium
+SMARTe,https://www.smarte.pro/,Unknown,51-200,"Sunnyvale, CA, USA","B2B data + intent",Medium
+IntentData.io,https://www.intentdata.io/,Unknown,Unknown,Unknown,"Intent data provider",Medium
+Bombora,https://bombora.com/,Unknown,201-500,"New York, NY, USA","Intent data / Company Surge",Medium
+Cognism,https://www.cognism.com/,Unknown,201-500,"London, UK","Sales intelligence + intent",Medium
+Lead Forensics,https://www.leadforensics.com/,Unknown,201-500,"London, UK","Website visitor identification",Medium
+Influ2,https://www.influ2.com/,Unknown,51-200,"New York, NY, USA","Contact-level ABM / pipeline activation",Medium
+Madison Logic,https://www.madisonlogic.com/,Unknown,201-500,"New York, NY, USA","Account-based marketing platform",Medium
+Leadfeeder,https://www.leadfeeder.com/,Unknown,51-200,"Karlsruhe, Germany","Website visitor identification",Medium
+HG Insights,https://hginsights.com/,Unknown,51-200,"Santa Barbara, CA, USA","Revenue growth intelligence",Low
+TrustRadius,https://solutions.trustradius.com/,Unknown,51-200,"Austin, TX, USA","Buyer intelligence / review intent",Low
+Warmly,https://www.warmly.ai/,Unknown,11-50,Unknown,"Autonomous revenue agents / visitor ID",Low
+DemandScience,https://demandscience.com/,Unknown,"1,001-5,000","Greater Boston, MA, USA","Buyer intelligence + demand generation",Low
+RollWorks,https://www.adroll.com/solutions/account-based-marketing,$25M-$40M,"501-1,000","San Francisco, CA, USA","ABM advertising / pipeline acceleration",Low
+Terminus,https://terminus.com/home/,Unknown,201-500,"Atlanta, GA, USA","ABM platform",Low
+Demandbase,https://www.demandbase.com/,Unknown,"501-1,000","San Francisco, CA, USA","ABM / pipeline AI platform",Low
+6sense,https://6sense.com/,Unknown,"1,001-5,000","San Francisco, CA, USA","GTM intelligence / pipeline AI",Low
+Clay,https://www.clay.com,$20M-$40M,201-500,"New York, NY, USA","GTM orchestration / enrichment workflows",Low
+Apollo.io,https://www.apollo.io,$30M-$60M,"501-1,000","San Francisco, CA, USA","Sales intelligence + outbound pipeline generation",Low
+Lusha,https://www.lusha.com/,Unknown,201-500,"Boston, MA, USA","B2B data + buying intent",Low
+Kaspr,https://www.kaspr.io/,Unknown,11-50,"Paris, France","LinkedIn prospecting / contact data",Low
+Seamless.AI,https://seamless.ai/,Unknown,"1,001-5,000","New York, NY, USA","Sales intelligence / prospecting",Low
+Clearbit,https://clearbit.com/,Unknown,51-200,"San Francisco, CA, USA","Data enrichment + intent",Low
+G2,https://sell.g2.com/data,Unknown,"501-1,000","Chicago, IL, USA","Buyer intent data",Low
+Triblio,http://www.triblio.com,Unknown,51-200,"Reston, VA, USA","ABM software",Low
+LeadSift,https://leadsift.com,Unknown,11-50,"Halifax, NS, Canada","Intent data platform",Low
+Visitor Queue,https://visitorqueue.com,Unknown,11-50,"London, ON, Canada","Website visitor identification",Low
+MadKudu,https://www.madkudu.com/,Unknown,11-50,Unknown,"AI sales copilot / ABM scoring",Low
+Vector,https://www.vector.co/,Unknown,Unknown,Unknown,"Contact-level website visitor identification / retargeting",Low
+ZoomInfo,https://www.zoominfo.com/,Unknown,"1,001-5,000","Vancouver, WA, USA","GTM platform / buyer intent",Low
