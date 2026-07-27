@@ -6,6 +6,7 @@ import {
   Sparkles,
   Check,
   Award,
+  ExternalLink,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
@@ -46,36 +47,41 @@ const tierStyles: Record<PartnerTier, { label: string; color: string; ring: stri
   },
 };
 
-const partners: { name: string; tier: PartnerTier; description: string; logo: string }[] = [
+const partners: { name: string; tier: PartnerTier; description: string; logo: string; url: string }[] = [
   {
     name: "Lean Labs",
     tier: "flagship",
     description: "AI Authority • HubSpot • Websites",
     logo: leanLabsLogo,
-  },
-  {
-    name: "Get Growth",
-    tier: "growth",
-    description: "Growth Strategy • Demand Gen • GTM",
-    logo: getGrowthLogo,
+    url: "https://www.lean-labs.com",
   },
   {
     name: "Digital Momentum",
     tier: "certified",
     description: "B2B Marketing • HubSpot",
     logo: digitalMomentumLogo,
-  },
-  {
-    name: "SmartBug Media",
-    tier: "certified",
-    description: "Marketing • CRM • RevOps",
-    logo: smartBugLogo,
+    url: "https://www.digitalmomentum.com",
   },
   {
     name: "Impulse Creative",
     tier: "certified",
     description: "Brand • HubSpot • GTM",
     logo: impulseCreativeLogo,
+    url: "https://impulsecreative.com",
+  },
+  {
+    name: "Get Growth",
+    tier: "growth",
+    description: "Growth Strategy • Demand Gen • GTM",
+    logo: getGrowthLogo,
+    url: "https://www.getgrowth.com",
+  },
+  {
+    name: "SmartBug Media",
+    tier: "certified",
+    description: "Marketing • CRM • RevOps",
+    logo: smartBugLogo,
+    url: "https://www.smartbugmedia.com",
   },
 ];
 
@@ -314,8 +320,11 @@ function PartnerCard({ partner, index, featured }: { partner: typeof partners[0]
   const tier = tierStyles[partner.tier];
 
   return (
-    <div
-      className={`relative rounded-2xl overflow-hidden transition-all duration-500 transform hover:-translate-y-0.5 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover} ${
+    <a
+      href={partner.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group block relative rounded-2xl overflow-hidden transition-all duration-500 transform hover:-translate-y-0.5 cursor-pointer ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover} ${
         featured ? "p-10 md:p-12" : "p-8"
       }`}
       data-testid={`partners-card-${index}`}
@@ -325,28 +334,31 @@ function PartnerCard({ partner, index, featured }: { partner: typeof partners[0]
         style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
       />
       <div className="relative z-10">
-        <span
-          className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium mb-5 ${tier.ring} ${tier.color}`}
-          data-testid={`partners-tier-${index}`}
-        >
-          <Award className="w-3 h-3" />
-          {tier.label}
-        </span>
-        <img
-          src={partner.logo}
-          alt={`${partner.name} logo`}
-          className={`w-auto object-contain object-left mb-4 opacity-90 ${featured ? "h-9" : "h-7"}`}
-          style={{ filter: "brightness(0) invert(1)" }}
-          data-testid={`partners-logo-${index}`}
-        />
-        <h3 className={`font-semibold text-white mb-2 ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <img
+            src={partner.logo}
+            alt={`${partner.name} logo`}
+            className={`w-auto object-contain object-left opacity-90 ${featured ? "h-9" : "h-7"}`}
+            style={{ filter: "brightness(0) invert(1)" }}
+            data-testid={`partners-logo-${index}`}
+          />
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium shrink-0 ${tier.ring} ${tier.color}`}
+            data-testid={`partners-tier-${index}`}
+          >
+            <Award className="w-3 h-3" />
+            {tier.label}
+          </span>
+        </div>
+        <h3 className={`flex items-center gap-2 font-semibold text-white mb-2 ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>
           {partner.name}
+          <ExternalLink className={`text-white/25 group-hover:text-white/70 transition-colors ${featured ? "w-5 h-5" : "w-4 h-4"}`} />
         </h3>
         <p className={`text-white/55 leading-relaxed ${featured ? "text-base max-w-lg" : "text-sm"}`}>
           {partner.description}
         </p>
       </div>
-    </div>
+    </a>
   );
 }
 

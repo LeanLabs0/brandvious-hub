@@ -112,8 +112,8 @@ const footerColumns = [
     title: "Partners",
     links: [
       { name: "Certified Partners", url: "/partners" },
-      { name: "HubSpot for Startups", url: "" },
-      { name: "AEO Accelerator", url: "" },
+      { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
+      { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
     ],
   },
 ];
