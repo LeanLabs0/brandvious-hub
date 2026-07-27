@@ -163,12 +163,12 @@ export function GtmConstellation({
               {showHubLabels && (
                 <text
                   x={p.x}
-                  y={p.y + (p.y < C ? -16 : 24)}
+                  y={p.y + (p.y < C ? -12 : 16)}
                   textAnchor="middle"
                   fill="rgba(255,255,255,0.75)"
-                  fontSize="12"
+                  fontSize="8"
                   fontWeight="600"
-                  style={{ paintOrder: "stroke", stroke: "hsl(220,10%,4%)", strokeWidth: 4 }}
+                  style={{ paintOrder: "stroke", stroke: "hsl(220,10%,4%)", strokeWidth: 1.5 }}
                 >
                   {h}
                 </text>
@@ -197,7 +197,7 @@ export function GtmConstellation({
       )}
 
       <p className="mt-3 text-center text-xs text-white/30">
-        {nodes.length} companies · {hubs.length} Brandvious properties
+        {nodes.length} companies included or featured by Brandvious
       </p>
     </div>
   );
