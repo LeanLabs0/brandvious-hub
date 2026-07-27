@@ -235,31 +235,59 @@ function CoverageSection() {
   );
 }
 
+function EcosystemRow({ p, i, first }: { p: (typeof ecosystem)[0]; i: number; first?: boolean }) {
+  return (
+    <a
+      href={p.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`group flex items-baseline gap-6 sm:gap-10 py-6 transition-colors duration-300 ${
+        first ? "" : "border-t border-white/[0.06]"
+      }`}
+      data-testid={`gtm-ecosystem-${i}`}
+    >
+      <span className="text-xs tabular-nums text-white/25 group-hover:text-white/50 transition-colors w-6 shrink-0">
+        {String(i + 1).padStart(2, "0")}
+      </span>
+      <span className="text-2xl sm:text-3xl font-bold text-white/80 group-hover:text-white tracking-tight transition-colors whitespace-nowrap">
+        {p.name}
+      </span>
+      <span
+        className="hidden sm:block flex-1 border-b border-dotted border-white/[0.12] group-hover:border-white/[0.25] transition-colors translate-y-[-6px]"
+        aria-hidden="true"
+      />
+      <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors text-right sm:text-left shrink min-w-0">
+        {p.purpose}
+      </span>
+    </a>
+  );
+}
+
 function EcosystemSection() {
+  const publications = ecosystem.slice(0, 4);
+  const knowledge = ecosystem.slice(4);
+
   return (
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-ecosystem">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-12">The GTM Ecosystem</p>
-        <div className={`rounded-2xl overflow-hidden ${glassCard} ${glassCardBorder}`}>
-          <div
-            className="absolute-x-0 h-px"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.4), transparent)" }}
-          />
-          {ecosystem.map((p, i) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-1 sm:gap-8 px-6 sm:px-8 py-5 transition-colors duration-300 hover:bg-white/[0.04] ${
-                i > 0 ? "border-t border-white/[0.06]" : ""
-              }`}
-              data-testid={`gtm-ecosystem-${i}`}
-            >
-              <span className="text-white font-medium group-hover:text-white transition-colors">{p.name}</span>
-              <span className="text-white/50 group-hover:text-white/75 transition-colors">{p.purpose}</span>
-            </a>
-          ))}
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-14">The GTM Ecosystem</p>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[140px_1fr] gap-2 lg:gap-16">
+          <p className="text-xs uppercase tracking-[0.2em] text-amber-300/70 pt-7">Publications</p>
+          <div>
+            {publications.map((p, i) => (
+              <EcosystemRow key={p.name} p={p} i={i} first={i === 0} />
+            ))}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[140px_1fr] gap-2 lg:gap-16 mt-16">
+          <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 pt-7">Knowledge</p>
+          <div>
+            {knowledge.map((p, i) => (
+              <EcosystemRow key={p.name} p={p} i={i + 4} first={i === 0} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
