@@ -439,9 +439,9 @@ function HowItWorksSection() {
             to help AI{" "}
             <span className="whitespace-nowrap text-white font-bold">
               understand
-              <span className="mx-1.5 text-purple-300/50 font-normal">·</span>
+              <ArrowRight className="w-4 h-4 inline mx-1.5 align-middle text-purple-300/60" />
               trust
-              <span className="mx-1.5 text-purple-300/50 font-normal">·</span>
+              <ArrowRight className="w-4 h-4 inline mx-1.5 align-middle text-purple-300/60" />
               recommend
             </span>{" "}
             B2B companies.
