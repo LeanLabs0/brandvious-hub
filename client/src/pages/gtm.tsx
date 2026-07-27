@@ -506,7 +506,7 @@ function MarketLandscapeSection() {
           <div className="flex-1 min-h-0 flex items-center justify-center px-6 pb-8">
             <div className="w-full h-full flex items-center justify-center">
               <div style={{ width: "min(85vh, 90vw)" }}>
-                <GtmConstellation hoveredCategory={null} />
+                <GtmConstellation hoveredCategory={null} showHubLabels />
               </div>
             </div>
           </div>

@@ -86,7 +86,13 @@ function hubPos(i: number): { x: number; y: number } {
   return { x: C + Math.cos(angle) * HUB_R, y: C + Math.sin(angle) * HUB_R };
 }
 
-export function GtmConstellation({ hoveredCategory }: { hoveredCategory: string | null }) {
+export function GtmConstellation({
+  hoveredCategory,
+  showHubLabels = false,
+}: {
+  hoveredCategory: string | null;
+  showHubLabels?: boolean;
+}) {
   const [hoveredNode, setHoveredNode] = useState<CompanyNode | null>(null);
   const nodes = useMemo(buildNodes, []);
 
@@ -154,6 +160,19 @@ export function GtmConstellation({ hoveredCategory }: { hoveredCategory: string 
             <g key={h} opacity={hoveredNode && !hoveredNode.hubIdx.includes(i) ? 0.3 : 1} className="transition-opacity duration-300">
               <circle cx={p.x} cy={p.y} r={9} fill="rgba(255,255,255,0.08)" />
               <circle cx={p.x} cy={p.y} r={4.5} fill="#fff" opacity={0.9} />
+              {showHubLabels && (
+                <text
+                  x={p.x}
+                  y={p.y + (p.y < C ? -16 : 24)}
+                  textAnchor="middle"
+                  fill="rgba(255,255,255,0.75)"
+                  fontSize="12"
+                  fontWeight="600"
+                  style={{ paintOrder: "stroke", stroke: "hsl(220,10%,4%)", strokeWidth: 4 }}
+                >
+                  {h}
+                </text>
+              )}
             </g>
           );
         })}
