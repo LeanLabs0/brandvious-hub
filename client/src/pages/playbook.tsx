@@ -1,7 +1,6 @@
 import { useMemo, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
-import { ArrowDown } from "lucide-react";
 import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 // ---------------------------------------------------------------------------
@@ -9,13 +8,13 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 // ---------------------------------------------------------------------------
 
 
-const flywheel = [
-  { name: "r/B2Bstack", detail: "community signal · launches · stack debates" },
-  { name: "Editorial Coverage", detail: "interviews · reporting · profiles" },
-  { name: "Reviews & Comparisons", detail: "buyer research AI systems cite" },
-  { name: "Rankings & Recognition", detail: "indexes · benchmarks · awards" },
-  { name: "Knowledge Graph", detail: "verified entities · structured answers" },
-  { name: "Certified Brandvious Partner", detail: "the introduction that closes the loop", highlight: true },
+const flywheelNodes = [
+  { name: "r/B2Bstack", sub: "community signal \u00b7 launches \u00b7 stack debates" },
+  { name: "AnswerStack", sub: "Q&A coverage AI systems cite" },
+  { name: "ReviewInsight + WhatIsBest", sub: "reviews & comparisons" },
+  { name: "B2BIndex.org", sub: "rankings \u00b7 benchmarks \u00b7 recognition" },
+  { name: "Entities.org", sub: "knowledge graph \u00b7 verified entities" },
+  { name: "BestFit.org", sub: "buyer match and shortlists" },
 ];
 
 const contentLoop = [
@@ -581,57 +580,144 @@ function B2BLoopSection() {
   );
 }
 
-function FlywheelSection() {
-  const { ref, isVisible } = useScrollReveal();
-  const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
+function FlywheelWheel() {
+  const W = 850;
+  const H = 640;
+  const cx = W / 2;
+  const cy = H / 2;
+  const R = 218;
+  const accent = "#c4a0ff";
 
-  useEffect(() => {
-    if (!isVisible) return;
-    const timers = flywheel.map((_, i) =>
-      window.setTimeout(() => {
-        setVisibleSteps((prev) => (prev.includes(i) ? prev : [...prev, i]));
-      }, 400 + i * 200),
-    );
-    return () => timers.forEach((t) => window.clearTimeout(t));
-  }, [isVisible]);
+  const nodes = flywheelNodes.map((n, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / flywheelNodes.length;
+    return { ...n, angle, x: cx + R * Math.cos(angle), y: cy + R * Math.sin(angle) };
+  });
 
   return (
-    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
+    <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto" role="img" aria-label="The Brandvious flywheel: properties around the ring, the Certified Brandvious Partner spinning the wheel at the center">
+      {/* the wheel */}
+      <circle cx={cx} cy={cy} r={R} fill="none" stroke="rgba(255,255,255,0.10)" strokeWidth={1.2} strokeDasharray="2 6" />
+      <circle cx={cx} cy={cy} r={R} fill="none" stroke={accent} strokeOpacity={0.12} strokeWidth={14} />
+
+      {/* direction chevrons at midpoints between nodes */}
+      {nodes.map((n, i) => {
+        const mid = n.angle + Math.PI / flywheelNodes.length;
+        const px = cx + R * Math.cos(mid);
+        const py = cy + R * Math.sin(mid);
+        const deg = (mid * 180) / Math.PI + 90;
+        return (
+          <path
+            key={`chev-${i}`}
+            d="M -3.5 -4.5 L 4.5 0 L -3.5 4.5"
+            fill="none"
+            stroke={accent}
+            strokeOpacity={0.55}
+            strokeWidth={1.6}
+            strokeLinecap="round"
+            transform={`translate(${px} ${py}) rotate(${deg})`}
+          />
+        );
+      })}
+
+      {/* orbiting momentum dots */}
+      <g>
+        <animateTransform attributeName="transform" type="rotate" from={`0 ${cx} ${cy}`} to={`360 ${cx} ${cy}`} dur="26s" repeatCount="indefinite" />
+        {Array.from({ length: 9 }).map((_, i) => {
+          const a = (i * 2 * Math.PI) / 9;
+          return (
+            <circle
+              key={`dot-${i}`}
+              cx={cx + R * Math.cos(a)}
+              cy={cy + R * Math.sin(a)}
+              r={i % 3 === 0 ? 2.4 : 1.6}
+              fill={accent}
+              opacity={i % 3 === 0 ? 0.85 : 0.45}
+            />
+          );
+        })}
+      </g>
+
+      {/* spokes from partner to each property */}
+      {nodes.map((n, i) => (
+        <line
+          key={`spoke-${i}`}
+          x1={cx}
+          y1={cy}
+          x2={n.x}
+          y2={n.y}
+          stroke={accent}
+          strokeOpacity={0.14}
+          strokeWidth={1}
+          strokeDasharray="1.5 5"
+        />
+      ))}
+      {nodes.map((n, i) => (
+        <circle key={`push-${i}`} r={1.5} fill={accent} opacity={0.6}>
+          <animate attributeName="cx" values={`${cx};${n.x}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
+          <animate attributeName="cy" values={`${cy};${n.y}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
+        </circle>
+      ))}
+
+      {/* property nodes on the ring */}
+      {nodes.map((n, i) => {
+        const lr = R + 36;
+        const lx = cx + lr * Math.cos(n.angle);
+        const ly = cy + lr * Math.sin(n.angle);
+        const cos = Math.cos(n.angle);
+        const anchor = cos > 0.3 ? "start" : cos < -0.3 ? "end" : "middle";
+        const above = Math.sin(n.angle) < 0;
+        return (
+          <g key={n.name} data-testid={`playbook-flywheel-${i}`}>
+            <circle cx={n.x} cy={n.y} r={26} fill={accent} opacity={0.06} />
+            <circle cx={n.x} cy={n.y} r={16} fill="none" stroke={accent} strokeOpacity={0.25} strokeWidth={1} />
+            <rect x={n.x - 7} y={n.y - 7} width={14} height={14} rx={4.5} fill={accent} opacity={0.55} className="animate-constellation-twinkle" style={{ animationDelay: `${i * 0.5}s` }} />
+            <text x={lx} y={above ? ly - 6 : ly + 4} textAnchor={anchor} fill="rgba(255,255,255,0.92)" fontSize={16} fontWeight={700} fontFamily="inherit">
+              {n.name}
+            </text>
+            <text x={lx} y={above ? ly + 12 : ly + 22} textAnchor={anchor} fill="rgba(255,255,255,0.42)" fontSize={10.5} fontFamily="ui-monospace, monospace">
+              {n.sub}
+            </text>
+          </g>
+        );
+      })}
+
+      {/* the partner spinning the wheel */}
+      <circle cx={cx} cy={cy} r={54} fill={accent} opacity={0.07} />
+      <rect x={cx - 118} y={cy - 30} width={236} height={60} rx={14} fill="rgba(196,160,255,0.08)" stroke={accent} strokeOpacity={0.4} strokeWidth={1.2} />
+      <text x={cx} y={cy - 4} textAnchor="middle" fill="#e6dcff" fontSize={15.5} fontWeight={700} fontFamily="inherit">
+        Certified Brandvious Partner
+      </text>
+      <text x={cx} y={cy + 16} textAnchor="middle" fill="rgba(230,220,255,0.55)" fontSize={10.5} fontFamily="ui-monospace, monospace">
+        spins the wheel
+      </text>
+      <text x={cx} y={cy + 78} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize={11} fontFamily="ui-monospace, monospace">
+        THE INTRODUCTION CLOSES THE LOOP
+      </text>
+    </svg>
+  );
+}
+
+function FlywheelSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section ref={ref} id="flywheel" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Flywheel</p>
-        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl mb-14 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Community to consensus to introduction.
         </h2>
-        <div className="max-w-md">
-          {flywheel.map((step, i) => (
-            <div key={step.name}>
-              {i > 0 && (
-                <div className="flex justify-center py-2">
-                  <ArrowDown 
-                    className={`w-4 h-4 text-white/25 transition-all duration-500 ${
-                      visibleSteps.includes(i - 1) ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
-                    }`} 
-                    aria-hidden="true" 
-                  />
-                </div>
-              )}
-              <div
-                className={`rounded-xl px-6 py-4 text-center backdrop-blur-sm transition-all duration-700 ${
-                  step.highlight
-                    ? "border border-purple-300/30 bg-purple-400/[0.07]"
-                    : "border border-white/[0.08] bg-white/[0.03]"
-                } ${
-                  visibleSteps.includes(i) ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4"
-                }`}
-                data-testid={`playbook-flywheel-${i}`}
-              >
-                <p className={`text-base font-semibold ${step.highlight ? "text-purple-200" : "text-white"}`}>
-                  {step.name}
-                </p>
-                <p className="mt-1 text-xs text-white/40">{step.detail}</p>
-              </div>
-            </div>
-          ))}
+        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          The wheel is driven by properties Brandvious has already built. The partner plugs a
+          client in, each property adds AEO coverage for the deal, and the introduction closes
+          the loop.
+        </p>
+        <div
+          className={`mt-8 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
+          style={{ transitionDelay: "300ms" }}
+          data-testid="playbook-flywheel-graph"
+        >
+          <FlywheelWheel />
         </div>
       </div>
     </section>
