@@ -160,31 +160,31 @@ function PlaybookHero() {
 
 const waves = [
   {
-    label: "Wave 1",
+    label: "Wave 1 \u00b7 2010\u20132020",
     name: "Inbound Agency",
     stats: [
-      { value: "$70B", label: "agency market today" },
-      { value: "$120B", label: "projected by 2035" },
+      { value: "-32%", label: "CTR for the #1 Google result since AI Overviews" },
+      { value: "-80%", label: "HubSpot blog traffic from its peak" },
     ],
-    note: "saturated \u00b7 single-digit growth",
+    note: "manual content is being replaced by AI content",
   },
   {
-    label: "Wave 2",
+    label: "Wave 2 \u00b7 2016\u20132025",
     name: "RevOps Agency",
     stats: [
-      { value: "$5B", label: "market today" },
-      { value: "17%", label: "growth to $16B by 2033" },
+      { value: "$5B", label: "market built in under a decade" },
+      { value: "17%", label: "yearly growth, now being absorbed by AI agents" },
     ],
-    note: "crowded \u00b7 public playbook",
+    note: "the playbook is public and AI runs it",
   },
   {
-    label: "Wave 3",
+    label: "Wave 3 \u00b7 2026 and on",
     name: "AEO Agentcy",
     stats: [
-      { value: "$7B", label: "market forming now" },
-      { value: "48%", label: "of Google searches trigger AI answers" },
+      { value: "60%", label: "of Google searches now end without a click" },
+      { value: "$7B", label: "AEO market forming in real time" },
     ],
-    note: "offsite layer unowned \u00b7 Brandvious owns it",
+    note: "an offsite game brands can't build themselves",
     highlight: true,
   },
 ];
