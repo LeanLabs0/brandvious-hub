@@ -45,3 +45,7 @@ waitForPort = 5000
 CMS_EDIT_TOKEN = "Py7plbU-jULcyhNP5QVgyz4XezjfC1tR"
 VITE_CMS_EDIT_TOKEN = "Py7plbU-jULcyhNP5QVgyz4XezjfC1tR"
 VITE_CMS_ENABLED = "true"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 180000
