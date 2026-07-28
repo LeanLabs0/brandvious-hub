@@ -9,14 +9,6 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 // ---------------------------------------------------------------------------
 
 
-const gtmProperties = [
-  { name: "GTM Journal", role: "Founder interviews, industry news, original reporting" },
-  { name: "GTM Review", role: "Reviews, comparisons, best-of lists, buyer's guides" },
-  { name: "GTM Index", role: "Rankings, benchmarks, the annual State of GTM" },
-  { name: "GTM 100", role: "The 100 most influential companies shaping go-to-market" },
-  { name: "GTM Loop", role: "Methodology, frameworks, and commentary for revenue leaders" },
-];
-
 const flywheel = [
   { name: "r/B2Bstack", detail: "community signal · launches · stack debates" },
   { name: "Editorial Coverage", detail: "interviews · reporting · profiles" },
@@ -227,7 +219,7 @@ function WaveSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Opportunity</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          It's not about how hard you row. It's about what boat you're in.
+          AEO is the marketing wave of the next decade.
         </h2>
         <div className={`mt-12 rounded-2xl overflow-hidden border border-white/[0.08] transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
           <img
@@ -237,6 +229,10 @@ function WaveSection() {
             data-testid="playbook-img-waves"
           />
         </div>
+        <p className={`mt-6 text-sm text-white/45 leading-relaxed transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} data-testid="playbook-text-buffett">
+          "It's not about how hard you row. It's about what boat you're in."{" "}
+          <span className="text-white/60">Warren Buffett</span>
+        </p>
         <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
           {waves.map((w, i) => (
             <div 
@@ -305,34 +301,58 @@ function WhyOffsiteSection() {
 const consensusNodes = [
   { name: "Entities.org", sub: "Technical Registry", url: "https://entities.org" },
   { name: "AnswerStack", sub: "Q&A Authority", url: "https://answerstack.io" },
+  { name: "LinkedIn", sub: "Business Identity", url: null },
   { name: "WhatIsBest", sub: "Market Position", url: "https://whatisbest.com" },
   { name: "ReviewInsight", sub: "Review Intelligence", url: "https://reviewinsight.com" },
+  { name: "G2", sub: "Review Authority", url: null },
   { name: "B2BIndex.org", sub: "Ranking Authority", url: "https://b2bindex.org" },
+  { name: "Crunchbase", sub: "Funding Proof", url: null },
   { name: "BestFit.org", sub: "Buyer Match", url: "https://bestfit.org" },
   { name: "r/B2Bstack", sub: "Sentiment Signal", url: null },
 ];
 
 const CONSENSUS_ACCENT = "#8ea2ff";
 
-function ConsensusGraph() {
+const gtmConsensusNodes = [
+  { name: "GTM Journal", sub: "Original Reporting", url: null },
+  { name: "GTM Review", sub: "Review Authority", url: null },
+  { name: "LinkedIn", sub: "Business Identity", url: null },
+  { name: "GTM Index", sub: "Ranking Authority", url: null },
+  { name: "G2", sub: "Review Authority", url: null },
+  { name: "GTM 100", sub: "Flagship Recognition", url: null },
+  { name: "Crunchbase", sub: "Funding Proof", url: null },
+  { name: "GTM Loop", sub: "Methodology", url: null },
+];
+
+type ConsensusRingNode = { name: string; sub: string; url: string | null };
+
+function ConsensusGraph({
+  ring = consensusNodes,
+  accent = CONSENSUS_ACCENT,
+  centerLabel = "Your Brand",
+}: {
+  ring?: ConsensusRingNode[];
+  accent?: string;
+  centerLabel?: string;
+}) {
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const W = 754;
-  const H = 540;
+  const W = 850;
+  const H = 560;
   const cx = W / 2;
   const cy = H / 2;
 
   const nodes = useMemo(
     () =>
-      consensusNodes.map((n, i) => {
-        const angle = -Math.PI / 2 + (i * 2 * Math.PI) / consensusNodes.length;
+      ring.map((n, i) => {
+        const angle = -Math.PI / 2 + (i * 2 * Math.PI) / ring.length;
         return {
           ...n,
-          x: cx + Math.cos(angle) * 285,
-          y: cy + Math.sin(angle) * 195,
+          x: cx + Math.cos(angle) * 290,
+          y: cy + Math.sin(angle) * 210,
         };
       }),
-    [],
+    [ring, cx, cy],
   );
 
   const edges = useMemo(() => {
@@ -342,6 +362,8 @@ function ConsensusGraph() {
     return out;
   }, [nodes]);
 
+  const totalLinks = edges.length + nodes.length;
+
   return (
     <svg
       viewBox={`0 0 ${W} ${H}`}
@@ -350,10 +372,11 @@ function ConsensusGraph() {
       aria-label="Consensus network of Brandvious B2B properties, all cross-linked"
       data-testid="playbook-consensus-graph"
     >
-      {/* edges */}
+      {/* ring edges */}
       {edges.map(([a, b], i) => {
         const active = hovered !== null && (hovered === a || hovered === b);
         const dimmed = hovered !== null && !active;
+        const dur = 3.5 + ((i * 13) % 9) * 0.5;
         return (
           <g key={i}>
             <line
@@ -361,48 +384,98 @@ function ConsensusGraph() {
               y1={nodes[a].y}
               x2={nodes[b].x}
               y2={nodes[b].y}
-              stroke={CONSENSUS_ACCENT}
+              stroke={accent}
               strokeWidth={active ? 1.2 : 0.7}
               strokeDasharray="1.5 5"
-              opacity={active ? 0.85 : dimmed ? 0.08 : 0.3}
+              opacity={active ? 0.85 : dimmed ? 0.06 : 0.22}
               style={{ transition: "opacity 300ms" }}
             />
-            <circle
-              cx={nodes[a].x + (nodes[b].x - nodes[a].x) * (0.3 + ((i * 7) % 5) * 0.1)}
-              cy={nodes[a].y + (nodes[b].y - nodes[a].y) * (0.3 + ((i * 7) % 5) * 0.1)}
-              r={1.1}
-              fill={CONSENSUS_ACCENT}
-              opacity={dimmed ? 0.08 : 0.45}
-              style={{ transition: "opacity 300ms" }}
-            />
+            <circle r={1.4} fill={accent} opacity={dimmed ? 0.08 : active ? 0.9 : 0.55} style={{ transition: "opacity 300ms" }}>
+              <animate
+                attributeName="cx"
+                values={`${nodes[a].x};${nodes[b].x};${nodes[a].x}`}
+                dur={`${dur}s`}
+                begin={`${-((i * 0.37) % dur)}s`}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="cy"
+                values={`${nodes[a].y};${nodes[b].y};${nodes[a].y}`}
+                dur={`${dur}s`}
+                begin={`${-((i * 0.37) % dur)}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
           </g>
         );
       })}
 
-      {/* center label */}
-      <text
-        x={cx}
-        y={cy - 4}
-        textAnchor="middle"
-        fill={CONSENSUS_ACCENT}
-        fontSize="17"
-        fontWeight="700"
-        letterSpacing="6"
-        style={{ fontFamily: "ui-monospace, monospace" }}
-      >
-        CONSENSUS
-      </text>
-      <text
-        x={cx}
-        y={cy + 18}
-        textAnchor="middle"
-        fill="rgba(255,255,255,0.4)"
-        fontSize="11"
-        letterSpacing="1"
-        style={{ fontFamily: "ui-monospace, monospace" }}
-      >
-        {edges.length} cross-links active
-      </text>
+      {/* spokes to the brand in the middle */}
+      {nodes.map((n, i) => {
+        const active = hovered === i;
+        const dimmed = hovered !== null && !active;
+        const dur = 2.5 + ((i * 7) % 6) * 0.4;
+        return (
+          <g key={`spoke-${i}`}>
+            <line
+              x1={n.x}
+              y1={n.y}
+              x2={cx}
+              y2={cy}
+              stroke={accent}
+              strokeWidth={active ? 1.4 : 0.9}
+              strokeDasharray="1.5 5"
+              opacity={active ? 0.95 : dimmed ? 0.1 : 0.4}
+              style={{ transition: "opacity 300ms" }}
+            />
+            <circle r={1.6} fill={accent} opacity={dimmed ? 0.12 : active ? 1 : 0.7} style={{ transition: "opacity 300ms" }}>
+              <animate
+                attributeName="cx"
+                values={`${n.x};${cx};${n.x}`}
+                dur={`${dur}s`}
+                begin={`${-((i * 0.61) % dur)}s`}
+                repeatCount="indefinite"
+              />
+              <animate
+                attributeName="cy"
+                values={`${n.y};${cy};${n.y}`}
+                dur={`${dur}s`}
+                begin={`${-((i * 0.61) % dur)}s`}
+                repeatCount="indefinite"
+              />
+            </circle>
+          </g>
+        );
+      })}
+
+      {/* center: the brand */}
+      <g data-testid="playbook-consensus-center">
+        <circle cx={cx} cy={cy} r={44} fill={accent} opacity={0.06} />
+        <circle cx={cx} cy={cy} r={28} fill="none" stroke={accent} strokeOpacity={0.3} strokeWidth={1} />
+        <rect
+          x={cx - 12}
+          y={cy - 12}
+          width={24}
+          height={24}
+          rx={6}
+          fill={accent}
+          className="animate-constellation-twinkle"
+        />
+        <text x={cx} y={cy + 52} textAnchor="middle" fill="rgba(255,255,255,0.95)" fontSize="17" fontWeight="700">
+          {centerLabel}
+        </text>
+        <text
+          x={cx}
+          y={cy + 70}
+          textAnchor="middle"
+          fill={accent}
+          fontSize="10.5"
+          letterSpacing="2"
+          style={{ fontFamily: "ui-monospace, monospace" }}
+        >
+          CONSENSUS · {totalLinks} CROSS-LINKS ACTIVE
+        </text>
+      </g>
 
       {/* nodes */}
       {nodes.map((n, i) => {
@@ -420,15 +493,15 @@ function ConsensusGraph() {
             onMouseLeave={() => setHovered(null)}
             data-testid={`playbook-consensus-node-${i}`}
           >
-            <circle cx={n.x} cy={n.y} r={30} fill={CONSENSUS_ACCENT} opacity={0.05} />
-            <circle cx={n.x} cy={n.y} r={19} fill="none" stroke={CONSENSUS_ACCENT} strokeOpacity={0.22} strokeWidth={1} />
+            <circle cx={n.x} cy={n.y} r={30} fill={accent} opacity={0.05} />
+            <circle cx={n.x} cy={n.y} r={19} fill="none" stroke={accent} strokeOpacity={0.22} strokeWidth={1} />
             <rect
               x={n.x - 8}
               y={n.y - 8}
               width={16}
               height={16}
               rx={4}
-              fill={CONSENSUS_ACCENT}
+              fill={accent}
               className="animate-constellation-twinkle"
               style={{ animationDelay: `${i * 0.6}s` }}
             />
@@ -569,7 +642,7 @@ function GtmLoopSection() {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-gtm">
+    <section ref={ref} id="gtm-loop" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-gtm">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-amber-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>And Then</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
@@ -577,20 +650,15 @@ function GtmLoopSection() {
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Once the B2B layer is working, the same model goes deep on a single market: go-to-market
-          software.
+          software. Brandvious is constructing consensus loops specific for go-to-market brands
+          and tools.
         </p>
-        <div className="mt-12">
-          {gtmProperties.map((p, i) => (
-            <div
-              key={p.name}
-              className={`grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-1 sm:gap-8 py-4 transition-all duration-700 ${i > 0 ? "border-t border-white/[0.06]" : ""} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
-              style={{ transitionDelay: `${300 + i * 100}ms` }}
-              data-testid={`playbook-gtm-${i}`}
-            >
-              <span className="text-base font-semibold text-white">{p.name}</span>
-              <span className="text-sm text-white/50 leading-relaxed">{p.role}</span>
-            </div>
-          ))}
+        <div
+          className={`mt-12 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
+          style={{ transitionDelay: "300ms" }}
+          data-testid="playbook-gtm-graph"
+        >
+          <ConsensusGraph ring={gtmConsensusNodes} accent="#f0c470" centerLabel="Your GTM Brand" />
         </div>
         <a
           href="/gtm"
