@@ -1,7 +1,8 @@
-import { useMemo } from "react";
+import { useMemo, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { ArrowDown } from "lucide-react";
+import waveGraphic from "@assets/0_AEO_agentcy_1785205874408.png";
 
 // ---------------------------------------------------------------------------
 // /playbook — The AEO Agentcy Model. Unlinked page for partners and team.
@@ -148,30 +149,130 @@ function PlaybookHero() {
       <LightBeam party={party} />
       <FloatingParticles party={party} />
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">Playbook</p>
-        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-5xl" data-testid="playbook-heading">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>Playbook</p>
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-5xl animate-fade-in-up" style={{ animationDelay: "0.2s" }} data-testid="playbook-heading">
           The AEO{" "}
-          <span
-            className="bg-clip-text text-transparent whitespace-nowrap"
-            style={{
-              backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(160,120,255,0.75))",
-            }}
-          >
-            Agentcy
-          </span>{" "}
-          Model.
+          <span className="whitespace-nowrap">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(160,120,255,0.75))",
+              }}
+            >
+              Agentcy
+            </span>{" "}
+            Wave.
+          </span>
         </h1>
-        <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed" data-testid="playbook-text-intro">
-          Publish offsite for AEO effect. Build authority for clients on{" "}
-          <span className="text-white font-medium">platforms Brandvious owns</span>, on an
-          editorial schedule you control.
+        <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
+          Inbound built one generation of agencies. RevOps built the next. The third wave is
+          AEO: making clients the answer AI systems give, through{" "}
+          <span className="text-white font-medium">platforms Brandvious owns</span>, published
+          offsite without client delays and revisions.
         </p>
       </div>
     </section>
   );
 }
 
+const waves = [
+  {
+    label: "Wave 1",
+    name: "Inbound",
+    body: "Content and SEO on the client's site. It built the last generation of agencies, and it is saturated.",
+  },
+  {
+    label: "Wave 2",
+    name: "RevOps",
+    body: "Systems, data, and process across the funnel. It built the current generation, and it is crowded.",
+  },
+  {
+    label: "Wave 3",
+    name: "The AEO Agentcy",
+    body: "AI systems now answer the questions buyers used to search. Authority comes from what those systems can cite: editorial coverage, reviews, rankings, and verified entities. Brandvious owns that layer, and Certified Partners deliver it.",
+    highlight: true,
+  },
+];
+
+function useScrollReveal() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (typeof IntersectionObserver === "undefined") {
+      setIsVisible(true);
+      return;
+    }
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, isVisible };
+}
+
+function WaveSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-waves">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Opportunity</p>
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          It's not about how hard you row. It's about what boat you're in.
+        </h2>
+        <div className={`mt-12 rounded-2xl overflow-hidden border border-white/[0.08] transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
+          <img
+            src={waveGraphic}
+            alt="Three waves of agency growth: Wave 1 Inbound, Wave 2 RevOps, Wave 3 Agentcy"
+            className="w-full h-auto"
+            data-testid="playbook-img-waves"
+          />
+        </div>
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+          {waves.map((w, i) => (
+            <div 
+              key={w.name} 
+              data-testid={`playbook-wave-${w.label.replace(" ", "-").toLowerCase()}`}
+              className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${300 + i * 150}ms` }}
+            >
+              <p className={`text-xs uppercase tracking-[0.2em] mb-3 ${w.highlight ? "text-purple-300/80" : "text-white/40"}`}>
+                {w.label}
+              </p>
+              <h3 className="text-xl font-bold text-white tracking-tight">{w.name}</h3>
+              <span
+                className={`block mt-2 h-[2px] w-10 rounded-full ${w.highlight ? "bg-purple-300/80" : "bg-white/[0.25]"}`}
+                aria-hidden="true"
+              />
+              <p className="mt-4 text-base text-white/55 leading-relaxed">{w.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function WhyOffsiteSection() {
+  const { ref, isVisible } = useScrollReveal();
+
   const points = [
     {
       title: "No client bottlenecks",
@@ -188,12 +289,16 @@ function WhyOffsiteSection() {
   ];
 
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-why">
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-why">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-12">Why Offsite</p>
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Perks</p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {points.map((p) => (
-            <div key={p.title}>
+          {points.map((p, i) => (
+            <div 
+              key={p.title}
+              className={`transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${100 + i * 150}ms` }}
+            >
               <h3 className="text-xl font-bold text-white tracking-tight">{p.title}</h3>
               <span className="block mt-2 h-[2px] w-10 rounded-full bg-purple-300/80" aria-hidden="true" />
               <p className="mt-4 text-base text-white/55 leading-relaxed">{p.body}</p>
@@ -206,14 +311,17 @@ function WhyOffsiteSection() {
 }
 
 function B2BLoopSection() {
+  const { ref, isVisible } = useScrollReveal();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-b2b">
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-b2b">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6">The B2B Loop</p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl">
+        <p className={`text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The B2B Loop</p>
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           The primary properties.
         </h2>
-        <p className="mt-5 text-lg text-white/60 max-w-2xl leading-relaxed">
+        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           The core of the model is a B2B-wide editorial and knowledge layer. These properties work
           for any B2B category.
         </p>
@@ -225,19 +333,24 @@ function B2BLoopSection() {
               href={p.url}
               target="_blank"
               rel="noopener noreferrer"
-              className={`group flex items-baseline gap-6 sm:gap-10 py-6 transition-colors duration-300 ${
+              className={`group flex items-baseline gap-6 sm:gap-10 py-6 transition-all duration-500 ${
                 i > 0 ? "border-t border-white/[0.06]" : ""
+              } ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"} ${
+                hoveredIndex !== null && hoveredIndex !== i ? "opacity-40" : ""
               }`}
+              style={{ transitionDelay: `${300 + i * 100}ms` }}
               data-testid={`playbook-b2b-${i}`}
+              onMouseEnter={() => setHoveredIndex(i)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              <span className="text-xs tabular-nums text-white/25 group-hover:text-white/50 transition-colors w-6 shrink-0">
+              <span className="text-xs tabular-nums text-white/25 group-hover:text-purple-300/60 transition-all duration-300 w-6 shrink-0">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="text-2xl sm:text-3xl font-bold text-white/80 group-hover:text-white tracking-tight transition-colors whitespace-nowrap">
+              <span className="text-2xl sm:text-3xl font-bold text-white/80 group-hover:text-white tracking-tight transition-all duration-300 whitespace-nowrap group-hover:translate-x-1">
                 {p.name}
               </span>
               <span
-                className="hidden sm:block flex-1 border-b border-dotted border-white/[0.12] group-hover:border-white/[0.25] transition-colors translate-y-[-6px]"
+                className="hidden sm:block flex-1 border-b border-dotted border-white/[0.12] group-hover:border-purple-300/[0.3] transition-all duration-300 translate-y-[-6px]"
                 aria-hidden="true"
               />
               <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors text-right sm:text-left shrink min-w-0">
@@ -247,7 +360,7 @@ function B2BLoopSection() {
           ))}
         </div>
 
-        <div className="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "900ms" }}>
           <div>
             <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Community Signal</p>
             <p className="text-base text-white/55 leading-relaxed">
@@ -273,11 +386,24 @@ function B2BLoopSection() {
 }
 
 function FlywheelSection() {
+  const { ref, isVisible } = useScrollReveal();
+  const [visibleSteps, setVisibleSteps] = useState<number[]>([]);
+
+  useEffect(() => {
+    if (!isVisible) return;
+    const timers = flywheel.map((_, i) =>
+      window.setTimeout(() => {
+        setVisibleSteps((prev) => (prev.includes(i) ? prev : [...prev, i]));
+      }, 400 + i * 200),
+    );
+    return () => timers.forEach((t) => window.clearTimeout(t));
+  }, [isVisible]);
+
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">The Flywheel</p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl mb-14">
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Flywheel</p>
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl mb-14 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Community to consensus to introduction.
         </h2>
         <div className="max-w-md">
@@ -285,14 +411,21 @@ function FlywheelSection() {
             <div key={step.name}>
               {i > 0 && (
                 <div className="flex justify-center py-2">
-                  <ArrowDown className="w-4 h-4 text-white/25" aria-hidden="true" />
+                  <ArrowDown 
+                    className={`w-4 h-4 text-white/25 transition-all duration-500 ${
+                      visibleSteps.includes(i - 1) ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2"
+                    }`} 
+                    aria-hidden="true" 
+                  />
                 </div>
               )}
               <div
-                className={`rounded-xl px-6 py-4 text-center backdrop-blur-sm ${
+                className={`rounded-xl px-6 py-4 text-center backdrop-blur-sm transition-all duration-700 ${
                   step.highlight
                     ? "border border-purple-300/30 bg-purple-400/[0.07]"
                     : "border border-white/[0.08] bg-white/[0.03]"
+                } ${
+                  visibleSteps.includes(i) ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-4"
                 }`}
                 data-testid={`playbook-flywheel-${i}`}
               >
@@ -310,14 +443,16 @@ function FlywheelSection() {
 }
 
 function GtmLoopSection() {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-gtm">
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-gtm">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-amber-300/70 mb-6">And Then</p>
-        <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl">
+        <p className={`text-xs uppercase tracking-[0.2em] text-amber-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>And Then</p>
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           A loop built specifically for GTM.
         </h2>
-        <p className="mt-5 text-lg text-white/60 max-w-2xl leading-relaxed">
+        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           Once the B2B layer is working, the same model goes deep on a single market: go-to-market
           software.
         </p>
@@ -325,7 +460,8 @@ function GtmLoopSection() {
           {gtmProperties.map((p, i) => (
             <div
               key={p.name}
-              className={`grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-1 sm:gap-8 py-4 ${i > 0 ? "border-t border-white/[0.06]" : ""}`}
+              className={`grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-1 sm:gap-8 py-4 transition-all duration-700 ${i > 0 ? "border-t border-white/[0.06]" : ""} ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-6"}`}
+              style={{ transitionDelay: `${300 + i * 100}ms` }}
               data-testid={`playbook-gtm-${i}`}
             >
               <span className="text-base font-semibold text-white">{p.name}</span>
@@ -335,7 +471,8 @@ function GtmLoopSection() {
         </div>
         <a
           href="/gtm"
-          className="mt-10 inline-flex items-center gap-2 rounded-full border border-white/[0.14] bg-white/[0.04] px-6 py-3 text-sm font-medium text-white/85 transition-colors duration-300 hover:bg-white/[0.09] hover:text-white backdrop-blur-sm"
+          className={`mt-10 inline-flex items-center gap-2 rounded-full border border-white/[0.14] bg-white/[0.04] px-6 py-3 text-sm font-medium text-white/85 transition-all duration-700 hover:bg-white/[0.09] hover:text-white backdrop-blur-sm hover:scale-105 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "800ms" }}
           data-testid="playbook-link-gtm"
         >
           See Brandvious for GTM
@@ -346,11 +483,13 @@ function GtmLoopSection() {
 }
 
 function PartnerModelSection() {
+  const { ref, isVisible } = useScrollReveal();
+
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-partner">
+    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-partner">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6">The Partner Model</p>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight max-w-3xl">
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Partner Model</p>
+        <h2 className={`text-3xl sm:text-4xl font-bold tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <span
             className="bg-clip-text text-transparent"
             style={{ backgroundImage: "linear-gradient(90deg, rgba(196,160,255,0.95), rgba(120,160,255,0.9))" }}
@@ -358,14 +497,15 @@ function PartnerModelSection() {
             Build on platforms that drive AEO authority.
           </span>
         </h2>
-        <p className="mt-5 text-lg text-white/60 max-w-2xl leading-relaxed">
+        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           As a Certified Brandvious Partner, you deliver AI authority for clients through the
           ecosystem — a highly profitable, scalable business without the delays and revisions of
           on-site client content.
         </p>
         <a
           href="/partners"
-          className="mt-10 inline-flex items-center gap-2 rounded-full border border-purple-300/25 bg-purple-400/[0.08] px-6 py-3 text-sm font-medium text-white/90 transition-colors duration-300 hover:bg-purple-400/[0.15] hover:text-white backdrop-blur-sm"
+          className={`mt-10 inline-flex items-center gap-2 rounded-full border border-purple-300/25 bg-purple-400/[0.08] px-6 py-3 text-sm font-medium text-white/90 transition-all duration-700 hover:bg-purple-400/[0.15] hover:text-white backdrop-blur-sm hover:scale-105 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "300ms" }}
           data-testid="playbook-link-partners"
         >
           See Certified Partners
@@ -381,10 +521,11 @@ export default function Playbook() {
       <NoiseOverlay />
       <PlaybookNavbar />
       <PlaybookHero />
-      <WhyOffsiteSection />
+      <WaveSection />
       <B2BLoopSection />
       <FlywheelSection />
       <GtmLoopSection />
+      <WhyOffsiteSection />
       <PartnerModelSection />
       <NewFooter />
     </div>
