@@ -375,7 +375,7 @@ function ConsensusGraph({
       {edges.map(([a, b], i) => {
         const active = hovered !== null && (hovered === a || hovered === b);
         const dimmed = hovered !== null && !active;
-        const dur = 3.5 + ((i * 13) % 9) * 0.5;
+        const dur = 10.5 + ((i * 13) % 9) * 1.5;
         return (
           <g key={i}>
             <line
@@ -413,7 +413,7 @@ function ConsensusGraph({
       {nodes.map((n, i) => {
         const active = hovered === i;
         const dimmed = hovered !== null && !active;
-        const dur = 2.5 + ((i * 7) % 6) * 0.4;
+        const dur = 7.5 + ((i * 7) % 6) * 1.2;
         return (
           <g key={`spoke-${i}`}>
             <line
