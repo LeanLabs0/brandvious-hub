@@ -149,9 +149,9 @@ function PlaybookHero() {
         </h1>
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
           Inbound built one generation of agencies. RevOps built the next. The third wave is
-          AEO: making clients the answer AI systems give, through{" "}
-          <span className="text-white font-medium">platforms Brandvious owns</span>, published
-          offsite without client delays and revisions.
+          AEO: the agentcy with a value prop no one can duplicate,{" "}
+          <span className="text-white font-medium">offsite authority</span> in a fraction of
+          the time a company could build it alone.
         </p>
       </div>
     </section>
