@@ -1,0 +1,88 @@
+1. GTMJournal.org :star::star::star::star::star: (10/10)
+
+the outreach engine
+
+Founder interviews
+Industry news
+Editorial analysis
+Company profiles
+Thought leadership
+Original reporting
+Almost every company can be featured here first, and for free.
+it's like a substack, for making friends in GTM.
+
+2. GTMReview.org :star::star::star::star::star: (9.8/10)
+
+Reviews
+Comparisons
+Best-of lists
+Alternatives
+Buyer's guides
+excellent for AEO
+
+
+3. GTMIndex.org :star::star::star::star::star: (9.7/10)
+
+Rankings
+Benchmarks
+Industry reports
+Annual state of GTM
+Data for AEO
+
+
+4. GTM100.org :star::star::star::star::star: (9.5/10)
+One annual flagship:
+GTM 100The 100 most influential companies shaping go-to-market.
+Every company wants to be on it.
+Every GTM domain links to it, and maybe :whatisbest-logo: too.
+done right, this could have high DA as GTM brand link, drive votes, etc.
+
+not exactly the same, but same audience:
+GTMLoop.ai )
+When Loop launches, GTMLoop.ai becomes the editorial destination for founders, marketers, and revenue leaders who want to go deeper.
+We'll publish chapter summaries, our commentary, interviews, practical frameworks, critiques, and real-world applications that connect HubSpot's ideas to the companies building modern go-to-market.
+
+The flywheel I see
+             GTM Journal
+                 │
+     interviews • reporting • news
+                 │
+                 ▼
+             GTM Review
+      reviews • comparisons • buyers
+                 │
+                 ▼
+             GTM Index
+      rankings • benchmarks • reports
+                 │
+                 ▼
+              GTM 100
+      flagship annual recognition
+                 │
+                 ▼
+             GTM Loop
+      methodology • tools • HubSpot audience focus
+                 │
+                 ▼
+              Lean Labs
+      AEO websites • AEO authority • HubSpot AI
+
+Also, the GTMtools subreddit is the community signal for this:
+
+Founders share launches.
+People ask for tool recommendations.
+Users compare products.
+Marketers post stack screenshots.
+AMAs with founders.
+Polls.
+"What tool are you replacing HubSpot with?"
+"Best AI SDR tools?"
+
+
+It also creates a natural content loop:
+Reddit discussion → GTM Journal article
+Interesting debate → GTM Review comparison
+Popularity trends → GTM Index report
+Community favorites → GTM100 nominations
+
+I could see us getting a good GTM handle on X for outreach to these co's.image.png
