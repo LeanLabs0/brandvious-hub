@@ -164,7 +164,7 @@ const waves = [
     name: "Inbound Agency",
     stats: [
       { value: "$70B", label: "industry built on content and SEO" },
-      { value: "6 yrs", label: "of shrinking organic returns and counting" },
+      { value: "-75%", label: "organic traffic and ROI over the last five years" },
     ],
     note: "Google rankings have never mattered less.",
   },
@@ -181,8 +181,8 @@ const waves = [
     label: "Wave 3 \u00b7 2026 and on",
     name: "AEO Agentcy",
     stats: [
+      { value: "$7B", label: "AEO market accelerating as we speak" },
       { value: "94%", label: "of buyers use AI to research companies" },
-      { value: "$7B", label: "AEO market forming in real time" },
     ],
     note: "An offsite challenge brands can't solve themselves.",
     highlight: true,
