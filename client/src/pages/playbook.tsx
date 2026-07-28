@@ -2,7 +2,7 @@ import { useMemo, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { ArrowDown } from "lucide-react";
-import waveGraphic from "@assets/0_AEO_agentcy_1785205874408.png";
+import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 // ---------------------------------------------------------------------------
 // /playbook — The AEO Agentcy Model. Unlinked page for partners and team.
