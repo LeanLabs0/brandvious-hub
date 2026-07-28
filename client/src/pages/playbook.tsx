@@ -172,7 +172,7 @@ const waves = [
   {
     label: "Wave 3",
     name: "The AEO Agentcy",
-    body: "AI systems now answer the questions buyers used to search. Authority comes from what they cite: coverage, reviews, rankings, verified entities. Brandvious owns that layer. Certified Partners deliver it.",
+    body: "AI systems now answer the questions buyers used to search. Authority comes from what those systems can cite: editorial coverage, reviews, rankings, and verified entities. Brandvious owns that layer, and Certified Partners deliver it.",
     highlight: true,
   },
 ];
@@ -271,7 +271,7 @@ function WhyOffsiteSection() {
     },
     {
       title: "Profitable and scalable",
-      body: "Partners deliver AEO authority through the ecosystem, so results scale without scaling headcount.",
+      body: "Certified partners deliver AEO authority through the ecosystem, so results scale without scaling headcount or scope creep.",
     },
   ];
 
@@ -702,8 +702,9 @@ function FlywheelSection() {
           Community to consensus to introduction.
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Properties Brandvious has already built drive the wheel. The partner plugs a client
-          in, and each property adds AEO coverage for the deal.
+          The wheel is driven by properties Brandvious has already built. The partner plugs a
+          client in, each property adds AEO coverage for the deal, and the introduction closes
+          the loop.
         </p>
         <div
           className={`mt-8 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
@@ -728,8 +729,9 @@ function GtmLoopSection() {
           A loop built specifically for GTM.
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Once the B2B layer is working, the same model goes deep on a single market. Brandvious
-          is constructing consensus loops specific to go-to-market brands and tools.
+          Once the B2B layer is working, the same model goes deep on a single market: go-to-market
+          software. Brandvious is constructing consensus loops specific for go-to-market brands
+          and tools.
         </p>
         <div
           className={`mt-12 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
@@ -768,8 +770,8 @@ function PartnerModelSection() {
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           As a Certified Brandvious Partner, you deliver AI authority for clients through the
-          ecosystem: a profitable, scalable business without the delays and revisions of on-site
-          client content.
+          ecosystem: a highly profitable, scalable business without the delays and revisions of
+          on-site client content.
         </p>
         <a
           href="/partners"
