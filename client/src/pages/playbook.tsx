@@ -161,18 +161,18 @@ function PlaybookHero() {
 const waves = [
   {
     label: "Wave 1",
-    name: "Inbound",
-    body: "Content and SEO on the client's site. It built the last generation of agencies, and it is saturated.",
+    name: "Inbound Agency",
+    body: "A roughly $70B agency services market today, projected to pass $120B by 2035. The biggest wave, and the most saturated: thousands of agencies competing for single-digit growth.",
   },
   {
     label: "Wave 2",
-    name: "RevOps",
-    body: "Systems, data, and process across the funnel. It built the current generation, and it is crowded.",
+    name: "RevOps Agency",
+    body: "About a $5B market growing near 17% a year, headed toward $16B by 2033. Real growth, but the playbook is public and the space is already crowded.",
   },
   {
     label: "Wave 3",
-    name: "The AEO Agentcy",
-    body: "AI systems now answer the questions buyers used to search. Authority comes from what those systems can cite: editorial coverage, reviews, rankings, and verified entities. Brandvious owns that layer, and Certified Partners deliver it.",
+    name: "AEO Agentcy",
+    body: "An estimated $7B market forming in real time, with AI answers now triggered on nearly half of Google searches. The wave is early, and almost no one owns the offsite authority layer. Brandvious does.",
     highlight: true,
   },
 ];
