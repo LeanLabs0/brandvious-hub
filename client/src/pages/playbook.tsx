@@ -166,7 +166,7 @@ const waves = [
       { value: "-32%", label: "CTR for the #1 Google result since AI Overviews" },
       { value: "-80%", label: "HubSpot blog traffic from its peak" },
     ],
-    note: "manual content is being replaced by AI content",
+    note: "Google rankings have never mattered less.",
   },
   {
     label: "Wave 2 \u00b7 2016\u20132025",
@@ -175,16 +175,16 @@ const waves = [
       { value: "$5B", label: "market built in under a decade" },
       { value: "17%", label: "yearly growth, now being absorbed by AI agents" },
     ],
-    note: "the playbook is public and AI runs it",
+    note: "AI tools make RevOps easier than ever.",
   },
   {
     label: "Wave 3 \u00b7 2026 and on",
     name: "AEO Agentcy",
     stats: [
-      { value: "60%", label: "of Google searches now end without a click" },
+      { value: "94%", label: "of buyers use AI to research companies" },
       { value: "$7B", label: "AEO market forming in real time" },
     ],
-    note: "an offsite game brands can't build themselves",
+    note: "An offsite challenge brands can't solve themselves.",
     highlight: true,
   },
 ];
@@ -245,7 +245,7 @@ function WaveSection() {
           "It's not about how hard you row. It's about what boat you're in."{" "}
           <span className="text-white/60">Warren Buffett</span>
         </p>
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div id="wave-cards" className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
           {waves.map((w, i) => (
             <div 
               key={w.name} 
@@ -269,7 +269,7 @@ function WaveSection() {
                   </div>
                 ))}
               </div>
-              <p className={`mt-5 text-xs uppercase tracking-[0.15em] ${w.highlight ? "text-purple-300/70" : "text-white/35"}`}>{w.note}</p>
+              <p className={`mt-5 text-sm ${w.highlight ? "text-purple-200/80" : "text-white/50"}`}>{w.note}</p>
             </div>
           ))}
         </div>
