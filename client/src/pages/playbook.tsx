@@ -162,17 +162,29 @@ const waves = [
   {
     label: "Wave 1",
     name: "Inbound Agency",
-    body: "A roughly $70B agency services market today, projected to pass $120B by 2035. The biggest wave, and the most saturated: thousands of agencies competing for single-digit growth.",
+    stats: [
+      { value: "$70B", label: "agency market today" },
+      { value: "$120B", label: "projected by 2035" },
+    ],
+    note: "saturated \u00b7 single-digit growth",
   },
   {
     label: "Wave 2",
     name: "RevOps Agency",
-    body: "About a $5B market growing near 17% a year, headed toward $16B by 2033. Real growth, but the playbook is public and the space is already crowded.",
+    stats: [
+      { value: "$5B", label: "market today" },
+      { value: "17%", label: "growth to $16B by 2033" },
+    ],
+    note: "crowded \u00b7 public playbook",
   },
   {
     label: "Wave 3",
     name: "AEO Agentcy",
-    body: "An estimated $7B market forming in real time, with AI answers now triggered on nearly half of Google searches. The wave is early, and almost no one owns the offsite authority layer. Brandvious does.",
+    stats: [
+      { value: "$7B", label: "market forming now" },
+      { value: "48%", label: "of Google searches trigger AI answers" },
+    ],
+    note: "offsite layer unowned \u00b7 Brandvious owns it",
     highlight: true,
   },
 ];
@@ -249,10 +261,22 @@ function WaveSection() {
                 className={`block mt-2 h-[2px] w-10 rounded-full ${w.highlight ? "bg-purple-300/80" : "bg-white/[0.25]"}`}
                 aria-hidden="true"
               />
-              <p className="mt-4 text-base text-white/55 leading-relaxed">{w.body}</p>
+              <div className="mt-5 space-y-4">
+                {w.stats.map((st) => (
+                  <div key={st.value}>
+                    <p className={`text-3xl font-bold tracking-tight ${w.highlight ? "text-purple-200" : "text-white"}`}>{st.value}</p>
+                    <p className="mt-0.5 text-sm text-white/50">{st.label}</p>
+                  </div>
+                ))}
+              </div>
+              <p className={`mt-5 text-xs uppercase tracking-[0.15em] ${w.highlight ? "text-purple-300/70" : "text-white/35"}`}>{w.note}</p>
             </div>
           ))}
         </div>
+        <p className={`mt-12 text-sm text-white/45 max-w-2xl leading-relaxed transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "750ms" }} data-testid="playbook-text-waveshift">
+          Beyond a scalable vehicle of offsite publishing, the model moves the agency from a
+          labor-based business to a logic-based business: incredibly scalable with a small team.
+        </p>
       </div>
     </section>
   );
