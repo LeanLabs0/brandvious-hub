@@ -26,6 +26,7 @@ import HomeV4 from "@/pages/home-v4";
 import HomeNew from "@/pages/home-new";
 import Partners from "@/pages/partners";
 import Gtm from "@/pages/gtm";
+import Playbook from "@/pages/playbook";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/new" component={HomeNew} />
       <Route path="/partners" component={Partners} />
       <Route path="/gtm" component={Gtm} />
+      <Route path="/playbook" component={Playbook} />
       <Route path="/v1" component={Home} />
       <Route path="/entities" component={EntitiesHome} />
       <Route path="/entitiespreview" component={EntitiesPreview} />
