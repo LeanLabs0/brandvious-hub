@@ -8,14 +8,6 @@ import waveGraphic from "@assets/0_AEO_agentcy_1785205874408.png";
 // /playbook — The AEO Agentcy Model. Unlinked page for partners and team.
 // ---------------------------------------------------------------------------
 
-const b2bProperties = [
-  { name: "Entities.org", url: "https://entities.org", role: "Verified company and product entities", accent: "purple" },
-  { name: "AnswerStack", url: "https://answerstack.io", role: "Structured answers AI systems can cite", accent: "purple" },
-  { name: "WhatIsBest", url: "https://whatisbest.com", role: "Editorial recommendations", accent: "purple" },
-  { name: "ReviewInsight", url: "https://reviewinsight.com", role: "Reviews, comparisons, and buyer research", accent: "blue" },
-  { name: "B2BIndex.org", url: "https://b2bindex.org", role: "Rankings and benchmarks across B2B", accent: "blue" },
-  { name: "BestFit.org", url: "https://bestfit.org", role: "Best-fit guidance for real buying decisions", accent: "blue" },
-];
 
 const gtmProperties = [
   { name: "GTM Journal", role: "Founder interviews, industry news, original reporting" },
@@ -310,12 +302,169 @@ function WhyOffsiteSection() {
   );
 }
 
-function B2BLoopSection() {
-  const { ref, isVisible } = useScrollReveal();
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+const consensusNodes = [
+  { name: "Entities.org", sub: "Technical Registry", url: "https://entities.org" },
+  { name: "AnswerStack", sub: "Q&A Authority", url: "https://answerstack.io" },
+  { name: "WhatIsBest", sub: "Market Position", url: "https://whatisbest.com" },
+  { name: "ReviewInsight", sub: "Review Intelligence", url: "https://reviewinsight.com" },
+  { name: "B2BIndex.org", sub: "Ranking Authority", url: "https://b2bindex.org" },
+  { name: "BestFit.org", sub: "Buyer Match", url: "https://bestfit.org" },
+  { name: "r/B2Bstack", sub: "Sentiment Signal", url: null },
+];
+
+const CONSENSUS_ACCENT = "#8ea2ff";
+
+function ConsensusGraph() {
+  const [hovered, setHovered] = useState<number | null>(null);
+
+  const W = 754;
+  const H = 540;
+  const cx = W / 2;
+  const cy = H / 2;
+
+  const nodes = useMemo(
+    () =>
+      consensusNodes.map((n, i) => {
+        const angle = -Math.PI / 2 + (i * 2 * Math.PI) / consensusNodes.length;
+        return {
+          ...n,
+          x: cx + Math.cos(angle) * 285,
+          y: cy + Math.sin(angle) * 195,
+        };
+      }),
+    [],
+  );
+
+  const edges = useMemo(() => {
+    const out: Array<[number, number]> = [];
+    for (let a = 0; a < nodes.length; a++)
+      for (let b = a + 1; b < nodes.length; b++) out.push([a, b]);
+    return out;
+  }, [nodes]);
 
   return (
-    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-b2b">
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      className="w-full h-auto"
+      role="img"
+      aria-label="Consensus network of Brandvious B2B properties, all cross-linked"
+      data-testid="playbook-consensus-graph"
+    >
+      {/* edges */}
+      {edges.map(([a, b], i) => {
+        const active = hovered !== null && (hovered === a || hovered === b);
+        const dimmed = hovered !== null && !active;
+        return (
+          <g key={i}>
+            <line
+              x1={nodes[a].x}
+              y1={nodes[a].y}
+              x2={nodes[b].x}
+              y2={nodes[b].y}
+              stroke={CONSENSUS_ACCENT}
+              strokeWidth={active ? 1.2 : 0.7}
+              strokeDasharray="1.5 5"
+              opacity={active ? 0.85 : dimmed ? 0.08 : 0.3}
+              style={{ transition: "opacity 300ms" }}
+            />
+            <circle
+              cx={nodes[a].x + (nodes[b].x - nodes[a].x) * (0.3 + ((i * 7) % 5) * 0.1)}
+              cy={nodes[a].y + (nodes[b].y - nodes[a].y) * (0.3 + ((i * 7) % 5) * 0.1)}
+              r={1.1}
+              fill={CONSENSUS_ACCENT}
+              opacity={dimmed ? 0.08 : 0.45}
+              style={{ transition: "opacity 300ms" }}
+            />
+          </g>
+        );
+      })}
+
+      {/* center label */}
+      <text
+        x={cx}
+        y={cy - 4}
+        textAnchor="middle"
+        fill={CONSENSUS_ACCENT}
+        fontSize="17"
+        fontWeight="700"
+        letterSpacing="6"
+        style={{ fontFamily: "ui-monospace, monospace" }}
+      >
+        CONSENSUS
+      </text>
+      <text
+        x={cx}
+        y={cy + 18}
+        textAnchor="middle"
+        fill="rgba(255,255,255,0.4)"
+        fontSize="11"
+        letterSpacing="1"
+        style={{ fontFamily: "ui-monospace, monospace" }}
+      >
+        {edges.length} cross-links active
+      </text>
+
+      {/* nodes */}
+      {nodes.map((n, i) => {
+        const dimmed = hovered !== null && hovered !== i;
+        const labelAbove = n.y <= cy;
+        const anchor = n.x < cx - 60 ? "end" : n.x > cx + 60 ? "start" : "middle";
+        const lx = anchor === "middle" ? n.x : anchor === "end" ? n.x + 14 : n.x - 14;
+        const nameY = labelAbove ? n.y - 40 : n.y + 46;
+        const subY = labelAbove ? n.y - 26 : n.y + 60;
+        const node = (
+          <g
+            opacity={dimmed ? 0.3 : 1}
+            style={{ transition: "opacity 300ms", cursor: n.url ? "pointer" : "default" }}
+            onMouseEnter={() => setHovered(i)}
+            onMouseLeave={() => setHovered(null)}
+            data-testid={`playbook-consensus-node-${i}`}
+          >
+            <circle cx={n.x} cy={n.y} r={30} fill={CONSENSUS_ACCENT} opacity={0.05} />
+            <circle cx={n.x} cy={n.y} r={19} fill="none" stroke={CONSENSUS_ACCENT} strokeOpacity={0.22} strokeWidth={1} />
+            <rect
+              x={n.x - 8}
+              y={n.y - 8}
+              width={16}
+              height={16}
+              rx={4}
+              fill={CONSENSUS_ACCENT}
+              className="animate-constellation-twinkle"
+              style={{ animationDelay: `${i * 0.6}s` }}
+            />
+            <text x={lx} y={nameY} textAnchor={anchor} fill="rgba(255,255,255,0.92)" fontSize="15" fontWeight="700">
+              {n.name}
+            </text>
+            <text
+              x={lx}
+              y={subY}
+              textAnchor={anchor}
+              fill="rgba(255,255,255,0.38)"
+              fontSize="10.5"
+              letterSpacing="1"
+              style={{ fontFamily: "ui-monospace, monospace" }}
+            >
+              {n.sub}
+            </text>
+          </g>
+        );
+        return n.url ? (
+          <a key={n.name} href={n.url} target="_blank" rel="noopener noreferrer">
+            {node}
+          </a>
+        ) : (
+          <g key={n.name}>{node}</g>
+        );
+      })}
+    </svg>
+  );
+}
+
+function B2BLoopSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section ref={ref} id="b2b-loop" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-b2b">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The B2B Loop</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
@@ -326,38 +475,12 @@ function B2BLoopSection() {
           for any B2B category.
         </p>
 
-        <div className="mt-14">
-          {b2bProperties.map((p, i) => (
-            <a
-              key={p.name}
-              href={p.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group flex items-baseline gap-6 sm:gap-10 py-6 transition-all duration-500 ${
-                i > 0 ? "border-t border-white/[0.06]" : ""
-              } ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"} ${
-                hoveredIndex !== null && hoveredIndex !== i ? "opacity-40" : ""
-              }`}
-              style={{ transitionDelay: `${300 + i * 100}ms` }}
-              data-testid={`playbook-b2b-${i}`}
-              onMouseEnter={() => setHoveredIndex(i)}
-              onMouseLeave={() => setHoveredIndex(null)}
-            >
-              <span className="text-xs tabular-nums text-white/25 group-hover:text-purple-300/60 transition-all duration-300 w-6 shrink-0">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="text-2xl sm:text-3xl font-bold text-white/80 group-hover:text-white tracking-tight transition-all duration-300 whitespace-nowrap group-hover:translate-x-1">
-                {p.name}
-              </span>
-              <span
-                className="hidden sm:block flex-1 border-b border-dotted border-white/[0.12] group-hover:border-purple-300/[0.3] transition-all duration-300 translate-y-[-6px]"
-                aria-hidden="true"
-              />
-              <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors text-right sm:text-left shrink min-w-0">
-                {p.role}
-              </span>
-            </a>
-          ))}
+        <div
+          className={`mt-14 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
+          style={{ transitionDelay: "300ms" }}
+          data-testid="playbook-b2b-graph"
+        >
+          <ConsensusGraph />
         </div>
 
         <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "900ms" }}>
@@ -516,6 +639,13 @@ function PartnerModelSection() {
 }
 
 export default function Playbook() {
+  useEffect(() => {
+    if (window.location.hash) {
+      const el = document.querySelector(window.location.hash);
+      if (el) setTimeout(() => el.scrollIntoView({ behavior: "instant" as ScrollBehavior }), 100);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="playbook-page">
       <NoiseOverlay />
