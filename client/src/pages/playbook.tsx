@@ -684,14 +684,8 @@ function FlywheelWheel() {
       {/* the partner spinning the wheel */}
       <circle cx={cx} cy={cy} r={54} fill={accent} opacity={0.07} />
       <rect x={cx - 118} y={cy - 30} width={236} height={60} rx={14} fill="rgba(196,160,255,0.08)" stroke={accent} strokeOpacity={0.4} strokeWidth={1.2} />
-      <text x={cx} y={cy - 4} textAnchor="middle" fill="#e6dcff" fontSize={15.5} fontWeight={700} fontFamily="inherit">
-        Certified Brandvious Partner
-      </text>
-      <text x={cx} y={cy + 16} textAnchor="middle" fill="rgba(230,220,255,0.55)" fontSize={10.5} fontFamily="ui-monospace, monospace">
-        spins the wheel
-      </text>
-      <text x={cx} y={cy + 78} textAnchor="middle" fill="rgba(255,255,255,0.4)" fontSize={11} fontFamily="ui-monospace, monospace">
-        THE INTRODUCTION CLOSES THE LOOP
+      <text x={cx} y={cy + 5} textAnchor="middle" fill="#e6dcff" fontSize={15.5} fontWeight={700} fontFamily="inherit">
+        Certified Partner Publishing
       </text>
     </svg>
   );
