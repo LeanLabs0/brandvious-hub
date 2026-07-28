@@ -163,8 +163,8 @@ const waves = [
     label: "Wave 1 \u00b7 2010\u20132020",
     name: "Inbound Agency",
     stats: [
-      { value: "-32%", label: "CTR for the #1 Google result since AI Overviews" },
-      { value: "-80%", label: "HubSpot blog traffic from its peak" },
+      { value: "$70B", label: "industry built on content and SEO" },
+      { value: "6 yrs", label: "of shrinking organic returns and counting" },
     ],
     note: "Google rankings have never mattered less.",
   },
