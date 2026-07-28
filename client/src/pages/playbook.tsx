@@ -722,14 +722,13 @@ function FlywheelSection() {
   return (
     <section ref={ref} id="flywheel" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Flywheel</p>
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Consensus Flywheel</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Community to consensus to introduction.
+          Properties Brandvious has already built.
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          The wheel is driven by properties Brandvious has already built. The partner plugs a
-          client in, each property adds AEO coverage for the deal, and the introduction closes
-          the loop.
+          The Brandvious model plugs brands into a validated publishing network for AEO
+          authority, in a fraction of the time of manual outreach.
         </p>
         <div
           className={`mt-8 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
