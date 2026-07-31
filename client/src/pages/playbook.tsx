@@ -324,13 +324,13 @@ function WhyOffsiteSection() {
 const consensusNodes = [
   { name: "Entities.org", sub: "Technical Registry", url: "https://entities.org" },
   { name: "AnswerStack", sub: "Q&A Authority", url: "https://answerstack.io" },
-  { name: "LinkedIn", sub: "Business Identity", url: null },
+  { name: "LinkedIn", sub: "Business Identity", url: null, owner: "client" as const },
   { name: "WhatIsBest", sub: "Market Position", url: "https://whatisbest.com" },
   { name: "ReviewInsight", sub: "Review Intelligence", url: "https://reviewinsight.com" },
-  { name: "G2", sub: "Review Authority", url: null },
+  { name: "G2", sub: "Review Authority", url: null, owner: "client" as const },
   { name: "B2BIndex.org", sub: "Ranking Authority", url: "https://b2bindex.org" },
-  { name: "Crunchbase", sub: "Funding Proof", url: null },
   { name: "BestFit.org", sub: "Buyer Match", url: "https://bestfit.org" },
+  { name: "Crunchbase", sub: "Funding Proof", url: null, owner: "client" as const },
   { name: "r/B2Bstack", sub: "Sentiment Signal", url: null },
 ];
 
@@ -347,7 +347,9 @@ const gtmConsensusNodes = [
   { name: "r/GTMtools", sub: "Community Signal", url: null },
 ];
 
-type ConsensusRingNode = { name: string; sub: string; url: string | null };
+type ConsensusRingNode = { name: string; sub: string; url: string | null; owner?: "client" };
+
+const CLIENT_ACCENT = "#f08a8a";
 
 function ConsensusGraph({
   ring = consensusNodes,
@@ -438,6 +440,7 @@ function ConsensusGraph({
         const active = hovered === i;
         const dimmed = hovered !== null && !active;
         const dur = 7.5 + ((i * 7) % 6) * 1.2;
+        const nodeAccent = n.owner === "client" ? CLIENT_ACCENT : accent;
         return (
           <g key={`spoke-${i}`}>
             <line
@@ -445,13 +448,13 @@ function ConsensusGraph({
               y1={n.y}
               x2={cx}
               y2={cy}
-              stroke={accent}
+              stroke={nodeAccent}
               strokeWidth={active ? 1.4 : 0.9}
               strokeDasharray="1.5 5"
               opacity={active ? 0.95 : dimmed ? 0.1 : 0.4}
               style={{ transition: "opacity 300ms" }}
             />
-            <circle r={1.6} fill={accent} opacity={dimmed ? 0.12 : active ? 1 : 0.7} style={{ transition: "opacity 300ms" }}>
+            <circle r={1.6} fill={nodeAccent} opacity={dimmed ? 0.12 : active ? 1 : 0.7} style={{ transition: "opacity 300ms" }}>
               <animate
                 attributeName="cx"
                 values={`${n.x};${cx};${n.x}`}
@@ -503,6 +506,7 @@ function ConsensusGraph({
       {/* nodes */}
       {nodes.map((n, i) => {
         const dimmed = hovered !== null && hovered !== i;
+        const nodeAccent = n.owner === "client" ? CLIENT_ACCENT : accent;
         const labelAbove = n.y <= cy;
         const anchor = n.x < cx - 60 ? "end" : n.x > cx + 60 ? "start" : "middle";
         const lx = anchor === "middle" ? n.x : anchor === "end" ? n.x + 14 : n.x - 14;
@@ -516,15 +520,15 @@ function ConsensusGraph({
             onMouseLeave={() => setHovered(null)}
             data-testid={`playbook-consensus-node-${i}`}
           >
-            <circle cx={n.x} cy={n.y} r={30} fill={accent} opacity={0.05} />
-            <circle cx={n.x} cy={n.y} r={19} fill="none" stroke={accent} strokeOpacity={0.22} strokeWidth={1} />
+            <circle cx={n.x} cy={n.y} r={30} fill={nodeAccent} opacity={0.05} />
+            <circle cx={n.x} cy={n.y} r={19} fill="none" stroke={nodeAccent} strokeOpacity={0.22} strokeWidth={1} />
             <rect
               x={n.x - 8}
               y={n.y - 8}
               width={16}
               height={16}
               rx={4}
-              fill={accent}
+              fill={nodeAccent}
               className="animate-constellation-twinkle"
               style={{ animationDelay: `${i * 0.6}s` }}
             />
@@ -552,6 +556,20 @@ function ConsensusGraph({
           <g key={n.name}>{node}</g>
         );
       })}
+
+      {/* legend, only when the ring mixes ownership */}
+      {ring.some((n) => n.owner === "client") && (
+        <g style={{ fontFamily: "ui-monospace, monospace" }} data-testid="playbook-consensus-legend">
+          <rect x={24} y={H - 46} width={9} height={9} rx={2.5} fill={accent} />
+          <text x={40} y={H - 38} fill="rgba(255,255,255,0.55)" fontSize="10.5" letterSpacing="1">
+            BRANDVIOUS PROPERTIES
+          </text>
+          <rect x={24} y={H - 26} width={9} height={9} rx={2.5} fill={CLIENT_ACCENT} />
+          <text x={40} y={H - 18} fill="rgba(255,255,255,0.55)" fontSize="10.5" letterSpacing="1">
+            MANAGED BY THE CLIENT
+          </text>
+        </g>
+      )}
     </svg>
   );
 }
