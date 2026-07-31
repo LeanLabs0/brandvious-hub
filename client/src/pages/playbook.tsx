@@ -229,7 +229,7 @@ function WaveSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Opportunity</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-none transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <span className="whitespace-nowrap">AEO is the marketing wave</span>{" "}
+          <span className="whitespace-nowrap">AI &amp; AEO is the marketing wave</span>{" "}
           <span className="whitespace-nowrap">of the next decade.</span>
         </h2>
         <div className={`mt-12 rounded-2xl overflow-hidden border border-white/[0.08] transition-all duration-1000 delay-200 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"}`}>
