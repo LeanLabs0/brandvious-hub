@@ -566,7 +566,7 @@ function ConsensusGraph({
           </text>
           <rect x={24} y={H - 26} width={9} height={9} rx={2.5} fill={CLIENT_ACCENT} />
           <text x={40} y={H - 18} fill="rgba(255,255,255,0.55)" fontSize="10.5" letterSpacing="1">
-            MANAGED BY THE CLIENT
+            MANAGED BY YOUR AGENCY
           </text>
         </g>
       )}
