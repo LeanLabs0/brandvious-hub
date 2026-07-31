@@ -339,12 +339,12 @@ const CONSENSUS_ACCENT = "#8ea2ff";
 const gtmConsensusNodes = [
   { name: "GTM Journal", sub: "Original Reporting", url: null },
   { name: "GTM Review", sub: "Review Authority", url: null },
-  { name: "LinkedIn", sub: "Business Identity", url: null },
+  { name: "WhatIsBest.com", sub: "Market Position", url: "https://whatisbest.com" },
   { name: "GTM Index", sub: "Ranking Authority", url: null },
-  { name: "G2", sub: "Review Authority", url: null },
+  { name: "ReviewInsight.com", sub: "Review Intelligence", url: "https://reviewinsight.com" },
   { name: "GTM 100", sub: "Flagship Recognition", url: null },
-  { name: "Crunchbase", sub: "Funding Proof", url: null },
-  { name: "GTM Loop", sub: "Methodology", url: null },
+  { name: "Entities.org", sub: "Technical Registry", url: "https://entities.org" },
+  { name: "r/GTMtools", sub: "Community Signal", url: null },
 ];
 
 type ConsensusRingNode = { name: string; sub: string; url: string | null };
@@ -360,7 +360,7 @@ function ConsensusGraph({
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
-  const W = 850;
+  const W = 900;
   const H = 560;
   const cx = W / 2;
   const cy = H / 2;
