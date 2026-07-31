@@ -290,8 +290,8 @@ function WhyOffsiteSection() {
       body: "On-site content means approvals, delays, and revisions.",
     },
     {
-      title: "Compounding authority",
-      body: "Every interview, review, ranking, and entity adds another trusted reference AI systems can cite. The work compounds.",
+      title: "High retention MRR",
+      body: "Partners create the coverage, then maintain it. Ongoing maintenance turns every client into long-term MRR.",
     },
     {
       title: "Profitable and scalable",
