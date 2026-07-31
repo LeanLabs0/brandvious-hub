@@ -286,8 +286,8 @@ function WhyOffsiteSection() {
 
   const points = [
     {
-      title: "No client bottlenecks",
-      body: "On-site content means approvals, delays, and revisions. Offsite editorial ships on our schedule, not the client's.",
+      title: "No more client revisions",
+      body: "On-site content means approvals, delays, and revisions.",
     },
     {
       title: "Compounding authority",
