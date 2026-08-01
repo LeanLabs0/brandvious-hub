@@ -683,7 +683,7 @@ function PartnerPricingSection() {
             {
               eyebrow: "B2B Publications",
               accent: "#f0c470",
-              title: "Publishing Network",
+              title: "B2B Consensus",
               blurb: "B2B research AI can cite and trust.",
               items: [
                 { name: "B2BIndex.org", url: "https://b2bindex.org" },
