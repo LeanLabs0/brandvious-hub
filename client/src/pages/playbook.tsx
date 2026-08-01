@@ -599,7 +599,6 @@ function PartnerPricingSection() {
             Brandvious Certified Partner Program
           </h2>
           <div className="md:text-right">
-            <p className="text-sm text-white/45">Annual access</p>
             <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
               $2,500<span className="text-lg font-normal text-white/45"> / year</span>
             </p>
