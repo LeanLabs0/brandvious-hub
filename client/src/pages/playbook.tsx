@@ -672,7 +672,7 @@ function PartnerPricingSection() {
             {
               eyebrow: "Knowledge Graph",
               accent: "#c4a0ff",
-              title: "Authority Domains",
+              title: "Authority Domain Profiles",
               blurb: "Proven domains for citations & authority.",
               items: [
                 { name: "AnswerStack.io", url: "https://answerstack.io" },
