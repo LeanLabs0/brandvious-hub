@@ -522,6 +522,101 @@ function FlywheelSection() {
   );
 }
 
+const partnerInclusions = [
+  "Certified Partner badge",
+  "Listed in Partner Directory",
+  "Access to Authority Graph publishing",
+  "Partner onboarding",
+  "Playbooks & publishing standards",
+  "Early access to new domains",
+  "Partner support",
+];
+
+function PartnerPricingSection() {
+  const { ref, isVisible } = useScrollReveal();
+
+  return (
+    <section ref={ref} id="pricing" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-pricing">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className={`text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>Partner Network</p>
+
+        <div className={`flex flex-col md:flex-row md:items-end md:justify-between gap-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+            One membership.
+            <br />
+            Two ways to publish.
+          </h2>
+          <div className="md:text-right">
+            <p className="text-sm text-white/45">Annual access</p>
+            <p className="text-4xl sm:text-5xl font-bold text-white tracking-tight">
+              $2,500<span className="text-lg font-normal text-white/45"> / year</span>
+            </p>
+          </div>
+        </div>
+
+        <div className={`mt-10 h-px bg-white/[0.08] transition-all duration-1000 origin-left ${isVisible ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"}`} style={{ transitionDelay: "300ms" }} />
+
+        {/* what membership is, in three quiet chips */}
+        <div className={`mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "400ms" }}>
+          {[
+            { k: "Access", v: "Authority Graph" },
+            { k: "Status", v: "Certified Partner" },
+            { k: "Reach", v: "Multi-domain" },
+          ].map((c) => (
+            <div key={c.k} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-6 py-5 backdrop-blur-sm">
+              <p className="text-xs uppercase tracking-[0.15em] text-white/40">{c.k}</p>
+              <p className="mt-1 text-lg font-semibold text-white/90">{c.v}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* two ways to publish */}
+        <div className={`mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "550ms" }}>
+          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-sm" data-testid="pricing-card-self-serve">
+            <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
+            <p className="mt-8 text-5xl font-bold text-white tracking-tight">$25</p>
+            <p className="mt-2 text-sm text-white/50">per approved article</p>
+            <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.14] text-xs text-white/50">01</span>
+              <span>Write</span>
+              <span className="text-white/30">&rarr;</span>
+              <span>Submit</span>
+              <span className="text-white/30">&rarr;</span>
+              <span>Publish</span>
+            </div>
+          </div>
+
+          <div className="rounded-3xl border border-purple-300/30 bg-purple-400/[0.06] p-8 backdrop-blur-sm" data-testid="pricing-card-concierge">
+            <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Concierge</span>
+            <p className="mt-8 text-5xl font-bold text-white tracking-tight">$250</p>
+            <p className="mt-2 text-sm text-white/50">per article &middot; 10-pack</p>
+            <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-purple-300/30 text-xs text-purple-200/70">02</span>
+              <span>Source</span>
+              <span className="text-white/30">&rarr;</span>
+              <span>Optimize</span>
+              <span className="text-white/30">&rarr;</span>
+              <span>Publish</span>
+            </div>
+          </div>
+        </div>
+
+        {/* everything included, one quiet line each */}
+        <div className={`mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "700ms" }} data-testid="pricing-inclusions">
+          {partnerInclusions.map((item) => (
+            <div key={item} className="flex items-start gap-2.5 text-sm text-white/60">
+              <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0" fill="none">
+                <path d="M3 8.5 6.5 12 13 4.5" stroke="#c4a0ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span>{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function PartnerModelSection() {
   const { ref, isVisible } = useScrollReveal();
 
@@ -572,6 +667,7 @@ export default function Playbook() {
       <B2BLoopSection />
       <FlywheelSection />
       <WhyOffsiteSection />
+      <PartnerPricingSection />
       <PartnerModelSection />
       <NewFooter />
     </div>
