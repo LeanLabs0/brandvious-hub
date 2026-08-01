@@ -529,7 +529,7 @@ const partnerInclusions = [
   "Playbooks & publishing standards",
   "Partner support/mastermind",
   "Plug into Authority Domains",
-  "10x to 100x faster than building your own",
+  "25x faster than building your own",
 ];
 
 function FlowStepIcon({ d, accent }: { d: string; accent: string }) {
