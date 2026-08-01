@@ -36,7 +36,7 @@ function Router() {
       <Route path="/new" component={HomeNew} />
       <Route path="/partners" component={Partners} />
       <Route path="/gtm" component={Gtm} />
-      <Route path="/playbook" component={Playbook} />
+      <Route path="/partner-playbook" component={Playbook} />
       <Route path="/v1" component={Home} />
       <Route path="/entities" component={EntitiesHome} />
       <Route path="/entitiespreview" component={EntitiesPreview} />

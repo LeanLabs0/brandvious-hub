@@ -421,7 +421,7 @@ function BecomePartnerSection() {
                 authority with Brandvious.
               </p>
               <a
-                href="/playbook"
+                href="/partner-playbook"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                 data-testid="partners-button-apply-cta"
               >

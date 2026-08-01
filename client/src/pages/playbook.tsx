@@ -135,9 +135,9 @@ function PlaybookHero() {
       <LightBeam party={party} />
       <FloatingParticles party={party} />
       <div className="max-w-6xl mx-auto w-full relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>Playbook</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-6 animate-fade-in-up" style={{ animationDelay: "0.1s" }}>Partner playbook</p>
         <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white leading-[1.05] tracking-tight max-w-5xl animate-fade-in-up" style={{ animationDelay: "0.2s" }} data-testid="playbook-heading">
-          The AEO{" "}
+          Join the AEO{" "}
           <span className="whitespace-nowrap">
             <span
               className="bg-clip-text text-transparent"
@@ -145,9 +145,9 @@ function PlaybookHero() {
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.9), rgba(160,120,255,0.75))",
               }}
             >
-              Agentcy
+              agentcy
             </span>{" "}
-            Wave.
+            wave.
           </span>
         </h1>
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
