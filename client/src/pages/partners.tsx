@@ -406,26 +406,26 @@ function BecomePartnerSection() {
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Join the Network</p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white leading-tight mb-6">
-                Become a{" "}
+                Are you an AEO agency?{" "}
                 <span
                   className="bg-clip-text text-transparent"
                   style={{
                     backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.35))",
                   }}
                 >
-                  Certified Partner.
+                  Become a Certified Partner.
                 </span>
               </h2>
               <p className="text-sm text-white/55 leading-relaxed mb-8">
-                Partners are selected based on expertise, quality, and alignment with
-                Brandvious editorial standards.
+                Accelerate the process of building your clients into an AEO &amp; AI
+                authority with Brandvious.
               </p>
               <a
                 href="mailto:hello@brandvious.com?subject=Certified%20Brandvious%20Partner%20Application"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
                 data-testid="partners-button-apply-cta"
               >
-                Apply for certification <ArrowRight className="w-4 h-4" />
+                Learn more <ArrowRight className="w-4 h-4" />
               </a>
             </div>
             <div>
