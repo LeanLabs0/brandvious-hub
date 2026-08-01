@@ -97,23 +97,26 @@ const footerColumns = [
   {
     title: "Products",
     links: [
-      { name: "AnswerStack", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
       { name: "SchemaRocket", url: "https://schemarocket.ai" },
       { name: "SurveyRocket", url: "https://surveyrocket.ai" },
       { name: "ReputationRocket", url: "https://reputationrocket.ai" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com" },
     ],
   },
   {
     title: "Publishing",
+    wide: true,
     links: [
+      { name: "AnswerStack", url: "https://answerstack.io" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com" },
+      { name: "B2BIndex", url: "https://b2bindex.org" },
+      { name: "BestFit", url: "https://bestfit.org" },
+      { name: "WhatisBest", url: "https://whatisbest.com" },
       { name: "GTM Strategy", url: "/gtm" },
       { name: "GTM Journal", url: "https://gtmjournal.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
       { name: "GTM Awards", url: "https://gtmawards.org" },
-      { name: "WhatisBest", url: "https://whatisbest.com" },
     ],
   },
   {
@@ -612,10 +615,11 @@ export function NewFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-16 gap-y-4 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-12 gap-y-4 text-sm">
             {footerColumns.map((col) => (
-              <div key={col.title} className="space-y-3">
-                <p className="text-white/30 uppercase tracking-wider text-xs">{col.title}</p>
+              <div key={col.title} className={col.wide ? "col-span-2" : ""}>
+                <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
+                <div className={col.wide ? "grid grid-cols-2 gap-x-12 gap-y-3" : "space-y-3"}>
                 {col.links.map((link) => {
                   if (!link.url) {
                     return (
@@ -636,6 +640,7 @@ export function NewFooter() {
                     </a>
                   );
                 })}
+                </div>
               </div>
             ))}
           </div>
