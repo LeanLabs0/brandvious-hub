@@ -15,8 +15,8 @@ import { useTheme } from "@/components/theme-provider";
 // ---------------------------------------------------------------------------
 
 const heroHeadline = {
-  white: "Infrastructure for",
-  gradient: "AI Authority.",
+  white: "Brandvious makes AI",
+  gradient: "work for businesses.",
 };
 
 const giveAI = [
