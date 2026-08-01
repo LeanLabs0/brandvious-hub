@@ -525,11 +525,11 @@ function FlywheelSection() {
 const partnerInclusions = [
   "Certified Partner badge",
   "Listed in Partner Directory",
-  "Access to Authority Graph publishing",
   "Partner onboarding",
   "Playbooks & publishing standards",
-  "Early access to new domains",
-  "Partner support",
+  "Partner support/mastermind",
+  "Plug into Authority Domains",
+  "10x to 100x faster than building your own",
 ];
 
 function FlowStepIcon({ d, accent }: { d: string; accent: string }) {
