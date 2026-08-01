@@ -243,6 +243,17 @@
     animation: constellation-twinkle 5s ease-in-out infinite;
   }
 
+  @keyframes flow-dot {
+    0% { left: 0%; opacity: 0; }
+    12% { opacity: 1; }
+    88% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+
+  .animate-flow-dot {
+    animation: flow-dot 2.6s ease-in-out infinite;
+  }
+
   @keyframes float-particle {
     0%, 100% {
       transform: translateY(0) translateX(0);

@@ -532,6 +532,59 @@ const partnerInclusions = [
   "Partner support",
 ];
 
+function FlowStepIcon({ d, accent }: { d: string; accent: string }) {
+  return (
+    <span
+      className="flex h-10 w-10 items-center justify-center rounded-full border"
+      style={{ borderColor: `${accent}40`, backgroundColor: `${accent}0d` }}
+    >
+      <svg viewBox="0 0 24 24" className="h-4.5 w-4.5" width={18} height={18} fill="none" stroke={accent} strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+        <path d={d} />
+      </svg>
+    </span>
+  );
+}
+
+function ProcessFlow({
+  num,
+  steps,
+  accent,
+}: {
+  num: string;
+  steps: Array<{ label: string; icon: string }>;
+  accent: string;
+}) {
+  return (
+    <div className="mt-8">
+      <div className="flex items-start">
+        {steps.map((s, i) => (
+          <div key={s.label} className={`flex items-start ${i < steps.length - 1 ? "flex-1" : ""}`}>
+            <div className="flex flex-col items-center gap-2">
+              <FlowStepIcon d={s.icon} accent={accent} />
+              <span className="text-xs text-white/60 whitespace-nowrap">{s.label}</span>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="relative mx-3 mt-5 h-px flex-1 min-w-6">
+                <div
+                  className="absolute inset-0"
+                  style={{ backgroundImage: `repeating-linear-gradient(90deg, ${accent}4d 0 3px, transparent 3px 9px)` }}
+                />
+                <span
+                  className="animate-flow-dot absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 -translate-x-1/2 rounded-full"
+                  style={{ backgroundColor: accent, animationDelay: `${i * 1.3}s` }}
+                />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 text-[10px] uppercase tracking-[0.2em] text-white/30" style={{ fontFamily: "ui-monospace, monospace" }}>
+        {num}
+      </p>
+    </div>
+  );
+}
+
 function PartnerPricingSection() {
   const { ref, isVisible } = useScrollReveal();
 
@@ -576,28 +629,30 @@ function PartnerPricingSection() {
             <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$25</p>
             <p className="mt-2 text-sm text-white/50">per approved article</p>
-            <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-white/[0.14] text-xs text-white/50">01</span>
-              <span>Write</span>
-              <span className="text-white/30">&rarr;</span>
-              <span>Submit</span>
-              <span className="text-white/30">&rarr;</span>
-              <span>Publish</span>
-            </div>
+            <ProcessFlow
+              num="01 · Self-serve"
+              accent="#ffffff"
+              steps={[
+                { label: "Write", icon: "M12 20h9 M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" },
+                { label: "Submit", icon: "M22 2 11 13 M22 2l-7 20-4-9-9-4Z" },
+                { label: "Publish", icon: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18" },
+              ]}
+            />
           </div>
 
           <div className="rounded-3xl border border-purple-300/30 bg-purple-400/[0.06] p-8 backdrop-blur-sm" data-testid="pricing-card-concierge">
             <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Concierge</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$250</p>
-            <p className="mt-2 text-sm text-white/50">per article &middot; 10-pack</p>
-            <div className="mt-8 flex items-center gap-3 text-sm text-white/70">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-purple-300/30 text-xs text-purple-200/70">02</span>
-              <span>Source</span>
-              <span className="text-white/30">&rarr;</span>
-              <span>Optimize</span>
-              <span className="text-white/30">&rarr;</span>
-              <span>Publish</span>
-            </div>
+            <p className="mt-2 text-sm text-white/50">per article</p>
+            <ProcessFlow
+              num="02 · Concierge"
+              accent="#c4a0ff"
+              steps={[
+                { label: "AI Interview", icon: "M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z M19 11a7 7 0 0 1-14 0 M12 18v3" },
+                { label: "Outline", icon: "M8 6h13 M8 12h13 M8 18h13 M3.5 6h.01 M3.5 12h.01 M3.5 18h.01" },
+                { label: "Published Article", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 14l2 2 4-4" },
+              ]}
+            />
           </div>
         </div>
 
