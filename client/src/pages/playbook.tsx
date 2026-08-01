@@ -296,7 +296,7 @@ function WhyOffsiteSection() {
     },
     {
       title: "Authority Multiplier Model",
-      body: "As certified partners publish high quality content and domain authority increases, results happen faster for every brand involved.",
+      body: "As certified partners publish, domain authority grows and results come faster for every brand involved.",
     },
   ];
 
