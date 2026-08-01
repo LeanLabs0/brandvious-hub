@@ -58,6 +58,7 @@ const networks = [
       { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
       { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
       { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
+      { name: "DesignRocket.ai", url: "https://designrocket.ai" },
     ],
   },
   {
