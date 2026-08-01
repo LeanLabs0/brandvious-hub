@@ -312,46 +312,6 @@ function NewHero() {
           </span>
         </h1>
 
-        {/* Sub-statement rendered as a signal chain: Brandvious → trusted information → AI → evaluate & recommend */}
-        <div
-          className="mt-10 max-w-3xl"
-          data-testid="v2-text-subheadline"
-        >
-          <p className="text-lg sm:text-xl md:text-2xl text-white/60 leading-relaxed font-light">
-            Brandvious creates the{" "}
-            <span className="relative inline-block font-medium text-white">
-              trusted information
-              <span
-                className="absolute -bottom-0.5 left-0 right-0 h-px"
-                style={{
-                  background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.7), transparent)",
-                }}
-              />
-            </span>{" "}
-            AI uses to{" "}
-            <span className="font-medium text-white">understand, compare, and recommend</span>{" "}
-            B2B companies.
-          </p>
-        </div>
-
-        <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="#how-it-works"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
-            data-testid="v2-button-how"
-          >
-            How Brandvious Works <ArrowRight className="w-4 h-4" />
-          </a>
-          <a
-            href="https://howaeoworks.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-white/[0.08] text-white/70 text-sm font-medium hover:border-white/[0.16] hover:text-white transition-all duration-300"
-            data-testid="v2-button-aeo"
-          >
-            How AEO Works <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
       </div>
     </section>
   );
