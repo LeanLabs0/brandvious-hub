@@ -11,11 +11,13 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 const flywheelNodes = [
   { name: "r/B2Bstack", sub: "community signal \u00b7 launches \u00b7 stack debates" },
-  { name: "AnswerStack", sub: "Q&A coverage AI systems cite" },
-  { name: "ReviewInsight + WhatIsBest", sub: "reviews & comparisons" },
-  { name: "B2BIndex.org", sub: "rankings \u00b7 benchmarks \u00b7 recognition" },
-  { name: "Entities.org", sub: "knowledge graph \u00b7 verified entities" },
+  { name: "AnswerStack.io", sub: "Q&A coverage AI systems cite" },
+  { name: "G2, Trustpilot, etc", sub: "third-party reviews & ratings" },
+  { name: "ReviewInsight.com", sub: "reviews & comparisons" },
+  { name: "B2BIndex.com", sub: "rankings \u00b7 benchmarks \u00b7 recognition" },
+  { name: "WhatIsBest.com", sub: "market position" },
   { name: "BestFit.org", sub: "buyer match and shortlists" },
+  { name: "Entities.org", sub: "knowledge graph \u00b7 verified entities" },
 ];
 
 const contentLoop = [
@@ -384,7 +386,7 @@ function B2BLoopSection() {
 }
 
 function FlywheelWheel() {
-  const W = 850;
+  const W = 920;
   const H = 640;
   const cx = W / 2;
   const cy = H / 2;
