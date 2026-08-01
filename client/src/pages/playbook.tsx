@@ -295,8 +295,8 @@ function WhyOffsiteSection() {
       body: "Off-site campaigns are predictable and profitable recurring revenue.",
     },
     {
-      title: "Profitable and scalable",
-      body: "Certified partners deliver AEO authority through the ecosystem, so results scale without scaling headcount or scope creep.",
+      title: "Authority Multiplier Model",
+      body: "As certified partners publish high quality content and domain authority increases, results happen faster for every brand involved.",
     },
   ];
 
