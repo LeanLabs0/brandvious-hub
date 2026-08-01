@@ -677,7 +677,6 @@ function PartnerPricingSection() {
               items: [
                 { name: "AnswerStack.io", url: "https://answerstack.io" },
                 { name: "Entities.org", url: "https://entities.org" },
-                { name: "WhatisBest.com", url: "https://whatisbest.com" },
                 { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
               ],
             },
@@ -689,7 +688,7 @@ function PartnerPricingSection() {
               items: [
                 { name: "B2BIndex.org", url: "https://b2bindex.org" },
                 { name: "BestFit.org", url: "https://bestfit.org" },
-                { name: "r/B2Bstack", url: null },
+                { name: "WhatisBest.com", url: "https://whatisbest.com" },
               ],
             },
           ].map((card) => (
