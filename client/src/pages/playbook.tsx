@@ -662,7 +662,7 @@ function PartnerPricingSection() {
               eyebrow: "Infrastructure",
               accent: "#8ea2ff",
               title: "Authority Tools",
-              blurb: "Infrastructure that builds authority.",
+              blurb: "75% off for partners.",
               items: [
                 { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
                 { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
@@ -672,8 +672,8 @@ function PartnerPricingSection() {
             {
               eyebrow: "Knowledge Graph",
               accent: "#c4a0ff",
-              title: "Knowledge Network",
-              blurb: "Trusted entities AI can understand.",
+              title: "Authority Domains",
+              blurb: "Proven domains for citations & authority.",
               items: [
                 { name: "AnswerStack.io", url: "https://answerstack.io" },
                 { name: "Entities.org", url: "https://entities.org" },
