@@ -596,9 +596,7 @@ function PartnerPricingSection() {
 
         <div className={`flex flex-col md:flex-row md:items-end md:justify-between gap-8 transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
-            One membership.
-            <br />
-            Two ways to publish.
+            Brandvious Certified Partner Program
           </h2>
           <div className="md:text-right">
             <p className="text-sm text-white/45">Annual access</p>
