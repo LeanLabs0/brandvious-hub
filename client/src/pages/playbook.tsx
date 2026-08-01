@@ -684,7 +684,7 @@ function PartnerPricingSection() {
               eyebrow: "B2B Publications",
               accent: "#f0c470",
               title: "B2B Consensus",
-              blurb: "B2B research AI can cite and trust.",
+              blurb: "Authority Domains LLMs cite and recommend.",
               items: [
                 { name: "B2BIndex.org", url: "https://b2bindex.org" },
                 { name: "BestFit.org", url: "https://bestfit.org" },
