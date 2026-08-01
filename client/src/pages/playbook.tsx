@@ -530,6 +530,7 @@ const partnerInclusions = [
   "Partner support/mastermind",
   "Plug into Authority Domains",
   "25x faster than building your own",
+  "AI analytics for clients",
 ];
 
 function FlowStepIcon({ d, accent }: { d: string; accent: string }) {
