@@ -23,8 +23,8 @@ import impulseCreativeLogo from "@/assets/partner-logos/impulse-creative.svg";
 
 const hero = {
   eyebrow: "Partner Network",
-  headlineWhite: "Certified",
-  headlineGradient: "Brandvious Partners.",
+  headlineWhite: "Brandvious publishes exclusively",
+  headlineGradient: "through certified partners.",
 };
 
 type PartnerTier = "flagship" | "growth" | "certified";
@@ -278,9 +278,9 @@ function PartnersHero() {
         </h1>
 
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed" data-testid="partners-text-intro">
-          Brandvious certifies a select group of partners to implement{" "}
-          <span className="text-white font-medium">AI authority strategies</span>{" "}
-          for B2B companies.
+          Our partner model ensures only{" "}
+          <span className="text-white font-medium">original, authoritative, trustworthy content</span>{" "}
+          is published on our domains.
         </p>
 
         <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -289,7 +289,7 @@ function PartnersHero() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.04] hover:bg-white/[0.08] hover:border-white/[0.20] hover:shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
             data-testid="partners-button-featured"
           >
-            Meet the Partners <ArrowRight className="w-4 h-4" />
+            Find a Partner <ArrowRight className="w-4 h-4" />
           </a>
           <a
             href="#become-a-partner"
