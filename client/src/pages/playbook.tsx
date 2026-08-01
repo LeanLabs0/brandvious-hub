@@ -607,22 +607,8 @@ function PartnerPricingSection() {
 
         <div className={`mt-10 h-px bg-white/[0.08] transition-all duration-1000 origin-left ${isVisible ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0"}`} style={{ transitionDelay: "300ms" }} />
 
-        {/* what membership is, in three quiet chips */}
-        <div className={`mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "400ms" }}>
-          {[
-            { k: "Access", v: "Authority Graph" },
-            { k: "Status", v: "Certified Partner" },
-            { k: "Reach", v: "Multi-domain" },
-          ].map((c) => (
-            <div key={c.k} className="rounded-2xl border border-white/[0.08] bg-white/[0.03] px-6 py-5 backdrop-blur-sm">
-              <p className="text-xs uppercase tracking-[0.15em] text-white/40">{c.k}</p>
-              <p className="mt-1 text-lg font-semibold text-white/90">{c.v}</p>
-            </div>
-          ))}
-        </div>
-
         {/* two ways to publish */}
-        <div className={`mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "550ms" }}>
+        <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "400ms" }}>
           <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-sm" data-testid="pricing-card-self-serve">
             <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$25</p>
@@ -662,6 +648,77 @@ function PartnerPricingSection() {
                 <path d="M3 8.5 6.5 12 13 4.5" stroke="#c4a0ff" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               <span>{item}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* the network you plug into */}
+        <div className={`mt-12 grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "800ms" }} data-testid="pricing-network-cards">
+          {[
+            {
+              eyebrow: "Infrastructure",
+              accent: "#8ea2ff",
+              title: "Authority Tools",
+              blurb: "Infrastructure that builds authority.",
+              items: [
+                { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
+                { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
+                { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
+              ],
+            },
+            {
+              eyebrow: "Knowledge Graph",
+              accent: "#c4a0ff",
+              title: "Knowledge Network",
+              blurb: "Trusted entities AI can understand.",
+              items: [
+                { name: "AnswerStack.io", url: "https://answerstack.io" },
+                { name: "Entities.org", url: "https://entities.org" },
+                { name: "WhatisBest.com", url: "https://whatisbest.com" },
+                { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
+              ],
+            },
+            {
+              eyebrow: "B2B Publications",
+              accent: "#f0c470",
+              title: "Publishing Network",
+              blurb: "B2B research AI can cite and trust.",
+              items: [
+                { name: "B2BIndex.org", url: "https://b2bindex.org" },
+                { name: "BestFit.org", url: "https://bestfit.org" },
+                { name: "r/B2Bstack", url: null },
+              ],
+            },
+          ].map((card) => (
+            <div key={card.title} className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-7 backdrop-blur-sm">
+              <p className="text-[11px] uppercase tracking-[0.2em]" style={{ color: `${card.accent}b3` }}>
+                {card.eyebrow}
+              </p>
+              <h3 className="mt-3 text-2xl font-bold text-white tracking-tight">{card.title}</h3>
+              <p className="mt-1.5 text-sm text-white/50">{card.blurb}</p>
+              <ul className="mt-6">
+                {card.items.map((item) => {
+                  const row = (
+                    <span className="flex items-center justify-between border-t border-white/[0.06] py-3.5 text-sm text-white/75">
+                      <span>{item.name}</span>
+                      <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M7 17 17 7 M9 7h8v8" />
+                      </svg>
+                    </span>
+                  );
+                  return (
+                    <li key={item.name}>
+                      {item.url ? (
+                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-white">
+                          {row}
+                        </a>
+                      ) : (
+                        row
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
           ))}
         </div>
