@@ -722,39 +722,36 @@ function PartnerPricingSection() {
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
 
-function PartnerModelSection() {
-  const { ref, isVisible } = useScrollReveal();
-
-  return (
-    <section ref={ref} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-partner">
-      <div className="max-w-6xl mx-auto relative z-10">
-        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Partner Model</p>
-        <h2 className={`text-3xl sm:text-4xl font-bold tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          <span
-            className="bg-clip-text text-transparent"
-            style={{ backgroundImage: "linear-gradient(90deg, rgba(196,160,255,0.95), rgba(120,160,255,0.9))" }}
-          >
-            Build on platforms that drive AEO authority.
-          </span>
-        </h2>
-        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          As a Certified Brandvious Partner, you deliver AI authority for clients through the
-          ecosystem: a highly profitable, scalable business without the delays and revisions of
-          on-site client content.
-        </p>
-        <a
-          href="/partners"
-          className={`mt-10 inline-flex items-center gap-2 rounded-full border border-purple-300/25 bg-purple-400/[0.08] px-6 py-3 text-sm font-medium text-white/90 transition-all duration-700 hover:bg-purple-400/[0.15] hover:text-white backdrop-blur-sm hover:scale-105 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-          style={{ transitionDelay: "300ms" }}
-          data-testid="playbook-link-partners"
+        {/* closing banner */}
+        <div
+          className={`mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6 rounded-3xl border border-purple-300/25 bg-purple-400/[0.07] px-8 py-8 md:px-10 backdrop-blur-sm transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "900ms" }}
+          data-testid="pricing-banner"
         >
-          See Certified Partners
-        </a>
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-purple-200/60">The Partner Model</p>
+            <p className="mt-2 text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              Explore the Certified Partner Program.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+            <a
+              href="/partners"
+              className="inline-flex items-center justify-center rounded-full border border-purple-300/25 bg-purple-400/[0.12] px-6 py-3 text-sm font-medium text-white/90 transition-all hover:bg-purple-400/[0.2] hover:text-white hover:scale-105"
+              data-testid="pricing-link-partners"
+            >
+              See Certified Partners
+            </a>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center rounded-full border border-white/[0.14] bg-white/[0.04] px-6 py-3 text-sm font-medium text-white/85 transition-all hover:bg-white/[0.09] hover:text-white hover:scale-105"
+              data-testid="pricing-link-book-call"
+            >
+              Book a Call
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -778,7 +775,6 @@ export default function Playbook() {
       <FlywheelSection />
       <WhyOffsiteSection />
       <PartnerPricingSection />
-      <PartnerModelSection />
       <NewFooter />
     </div>
   );
