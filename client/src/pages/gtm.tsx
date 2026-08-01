@@ -3,6 +3,7 @@ import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { GtmConstellation } from "@/components/gtm-constellation";
+import { GtmLoopSection } from "@/components/consensus-graph";
 import { Maximize2 } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -599,6 +600,7 @@ export default function Gtm() {
       <CoverageSection />
       <MarketLandscapeSection />
       <EcosystemSection />
+      <GtmLoopSection />
       <NewFooter />
     </div>
   );
