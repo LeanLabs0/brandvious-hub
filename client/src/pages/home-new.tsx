@@ -288,7 +288,7 @@ function NewHero() {
   }, []);
 
   return (
-    <section className="relative min-h-[85vh] flex flex-col items-start justify-center px-6 pt-32 pb-16 overflow-hidden" data-testid="v2-section-hero">
+    <section className="relative flex flex-col items-start justify-center px-6 pt-40 pb-28 overflow-hidden" data-testid="v2-section-hero">
       <LightBeam party={party} />
       <FloatingParticles party={party} />
 
