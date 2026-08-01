@@ -88,7 +88,7 @@ const networks = [
       { name: "GTM Journal", url: "https://gtmjournal.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM Awards", url: "https://gtmawards.org" },
+      { name: "GTM 100", url: "https://gtm100.org" },
     ],
   },
 ];
@@ -116,7 +116,7 @@ const footerColumns = [
       { name: "GTM Journal", url: "https://gtmjournal.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM Awards", url: "https://gtmawards.org" },
+      { name: "GTM 100", url: "https://gtm100.org" },
     ],
   },
   {

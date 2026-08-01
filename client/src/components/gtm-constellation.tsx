@@ -24,7 +24,7 @@ const hubs = [
   "GTM Journal",
   "GTM Review",
   "GTM Index",
-  "GTM Awards",
+  "GTM 100",
   "AnswerStack",
   "WhatIsBest",
 ];

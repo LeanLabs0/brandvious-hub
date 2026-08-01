@@ -89,7 +89,7 @@ const ecosystem = [
   { name: "GTM Journal", url: "https://gtmjournal.org", purpose: "Reporting, interviews, and analysis" },
   { name: "GTM Review", url: "https://gtmreview.org", purpose: "Reviews, comparisons, and buyer guides" },
   { name: "GTM Index", url: "https://gtmindex.org", purpose: "Rankings, benchmarks, and market research" },
-  { name: "GTM Awards", url: "https://gtmawards.org", purpose: "Recognition of leading companies and products" },
+  { name: "GTM 100", url: "https://gtm100.org", purpose: "Recognition of leading companies and products" },
   { name: "AnswerStack", url: "https://answerstack.io", purpose: "Structured answers" },
   { name: "Entities.org", url: "https://entities.org", purpose: "Verified company and product entities" },
   { name: "WhatIsBest", url: "https://whatisbest.com", purpose: "Editorial recommendations" },
