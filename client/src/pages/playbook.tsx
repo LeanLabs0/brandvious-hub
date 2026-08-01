@@ -635,7 +635,7 @@ function PartnerPricingSection() {
               steps={[
                 { label: "Write", icon: "M12 20h9 M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" },
                 { label: "Submit", icon: "M22 2 11 13 M22 2l-7 20-4-9-9-4Z" },
-                { label: "Publish", icon: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18" },
+                { label: "Published", icon: "M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z M3 12h18 M12 3a14 14 0 0 1 0 18 M12 3a14 14 0 0 0 0 18" },
               ]}
             />
           </div>
@@ -650,7 +650,7 @@ function PartnerPricingSection() {
               steps={[
                 { label: "AI Interview", icon: "M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z M19 11a7 7 0 0 1-14 0 M12 18v3" },
                 { label: "Outline", icon: "M8 6h13 M8 12h13 M8 18h13 M3.5 6h.01 M3.5 12h.01 M3.5 18h.01" },
-                { label: "Published Article", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 14l2 2 4-4" },
+                { label: "Published", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 14l2 2 4-4" },
               ]}
             />
           </div>
