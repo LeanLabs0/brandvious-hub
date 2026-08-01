@@ -153,7 +153,6 @@ function PlaybookHero() {
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
           The Brandvious <span className="text-white font-medium">AEO "agentcy" system</span> is
           a value proposition that other agencies can't match and brands can't build themselves.
-          It's unique, proven, just getting started.
         </p>
       </div>
     </section>
