@@ -578,7 +578,7 @@ function ProcessFlow({
           </div>
         ))}
       </div>
-      <p className="mt-4 text-[11px] uppercase tracking-[0.2em] text-white/30" style={{ fontFamily: "ui-monospace, monospace" }}>
+      <p className="mt-4 text-xs uppercase tracking-[0.2em] text-white/30" style={{ fontFamily: "ui-monospace, monospace" }}>
         {num}
       </p>
     </div>
