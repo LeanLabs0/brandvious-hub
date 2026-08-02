@@ -766,7 +766,7 @@ const partnerFaqs = [
   },
   {
     q: "What's the approval process for articles, pages, and mentions?",
-    a: ["Every submission is reviewed by the Brandvious editorial team against published standards: original insight, accurate claims, proper sourcing, and genuine usefulness to a buyer researching the category. Most reviews complete within 2 business days.", "If something falls short, you get specific feedback and revise. A rejection never consumes a credit. Brand mentions and profile updates go through the same review."],
+    a: ["Every submission is reviewed by the Brandvious editorial team against published standards: original insight, accurate claims, proper sourcing, and genuine usefulness to a buyer researching the category. Most reviews are complete within 7 business days.", "We often queue the publish dates so that your articles do not all publish at the exact same time.", "If something falls short, you get specific feedback and revise. A rejection never consumes a credit. Brand mentions and profile updates go through the same review."],
   },
   {
     q: "What results can my clients expect?",
