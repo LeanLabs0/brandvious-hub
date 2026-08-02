@@ -774,7 +774,7 @@ const partnerFaqs = [
   },
   {
     q: "What happens to published content if I leave the program?",
-    a: ["It stays live. Approved articles are permanent contributions to the network, and your clients keep every citation they've earned.", "The annual membership covers your ability to publish new work, not the survival of past work."],
+    a: ["Approved articles are contributions to the network that stay live but do need to be maintained.", "After 18 months an article may be refreshed or retired if needed."],
   },
   {
     q: "What should I charge my clients?",
