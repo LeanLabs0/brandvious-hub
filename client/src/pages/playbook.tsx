@@ -786,7 +786,7 @@ const partnerFaqs = [
   },
   {
     q: "Sounds too good to be true. Is it?",
-    a: ["It sounds that way because most agencies are used to building authority alone, one client and one domain at a time. This model works because nobody is alone in it.", "A network of 50 to 100 certified partners means every partner is feeding the same domains with original research, reviews, and verified entities. Every approved article makes the network more authoritative, and that authority flows back to every brand published on it.", "Your clients get citation power no single agency could build for them. You get results that compound from work you didn't have to do yourself. And the standards gate keeps the quality high enough that AI systems keep trusting the sources.", "The honest catch: it takes real work. Articles have to pass review, and authority builds over months, not overnight. That's also why it works."],
+    a: ["No. It's shared economics. 50 to 100 partners feed the same domains, so every partner gets authority no single agency could afford to build alone.", "The catch is real: articles must pass review, and authority builds over months. That gate is what keeps the network worth citing."],
   },
   {
     q: "Do my clients' competitors get access too?",
