@@ -770,7 +770,7 @@ const partnerFaqs = [
   },
   {
     q: "What results can my clients expect?",
-    a: ["AI visibility compounds. Most brands see their first movements within the first 60 to 90 days: new citations, corrected AI answers, appearing in comparison responses. Authority builds steadily as coverage deepens across the network.", "We give every partner AI analytics so you can show clients exactly where they're cited and how answers about them are changing, rather than asking anyone to take it on faith."],
+    a: ["We have seen many exact match fan out queries get ranked in Google or cited in AIO or LLMs within days.", "Most brands see their first movements within the first 60 to 90 days: new citations, corrected AI answers, appearing in comparison responses. Authority builds steadily as coverage deepens across the network.", "We give every partner AI analytics so you can show clients exactly where they're cited and how answers about them are changing, rather than asking anyone to take it on faith."],
   },
   {
     q: "What happens to published content if I leave the program?",
