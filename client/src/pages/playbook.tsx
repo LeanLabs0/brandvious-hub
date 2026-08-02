@@ -759,6 +759,66 @@ function PartnerPricingSection() {
   );
 }
 
+const partnerFaqs = [
+  {
+    q: "Is this just a PBN (private blog network)?",
+    a: "No. A PBN is a web of anonymous sites that exist only to link to whoever pays, and search engines penalize them once detected. Brandvious is the opposite: a transparently owned network of publications with editorial standards, original research, and named entities. Every article passes a human approval gate, and content that doesn't meet the standard doesn't get published. AI systems reward provenance and consistency, which is exactly what anonymous networks lack.",
+  },
+  {
+    q: "What's the approval process for articles, pages, and mentions?",
+    a: "Every submission is reviewed by the Brandvious editorial team against published standards: original insight, accurate claims, proper sourcing, and genuine usefulness to a buyer researching the category. Most reviews complete within 2 business days. If something falls short, you get specific feedback and revise. A rejection never consumes a credit. Brand mentions and profile updates go through the same review.",
+  },
+  {
+    q: "What results can my clients expect?",
+    a: "AI visibility compounds. Most brands see their first movements within the first 60 to 90 days: new citations, corrected AI answers, appearing in comparison responses. Authority builds steadily as coverage deepens across the network. We give every partner AI analytics so you can show clients exactly where they're cited and how answers about them are changing, rather than asking anyone to take it on faith.",
+  },
+  {
+    q: "What happens to published content if I leave the program?",
+    a: "It stays live. Approved articles are permanent contributions to the network, and your clients keep every citation they've earned. The annual membership covers your ability to publish new work, not the survival of past work.",
+  },
+  {
+    q: "What should I charge my clients?",
+    a: "That's yours to decide. Brandvious never touches your client relationship or your pricing. Most partners package publishing into a monthly AEO retainer alongside their strategy and reporting. We suggest $1,000 to $1,500 per month.",
+  },
+  {
+    q: "Why can't brands work with Brandvious directly?",
+    a: "Quality control is the entire model. Certified partners are trained on the standards that keep these domains trustworthy, and that trust is what makes AI systems cite them. A network anyone could publish to directly would decay into exactly the kind of site AI learns to ignore.",
+  },
+  {
+    q: "Do my clients' competitors get access too?",
+    a: "The network covers categories, not exclusive slots. That's what makes it credible as research. But your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none.",
+  },
+];
+
+function PlaybookFaqSection() {
+  const { ref, isVisible } = useScrollReveal();
+  return (
+    <section id="faq" ref={ref} className="relative py-24 px-6 border-t border-white/[0.04]" data-testid="playbook-section-faq">
+      <div className="max-w-4xl mx-auto">
+        <p className={`text-xs uppercase tracking-[0.2em] text-purple-200/60 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          Questions
+        </p>
+        <h2 className={`mt-4 text-3xl sm:text-4xl font-bold text-white tracking-tight transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "100ms" }}>
+          Fair questions, straight answers.
+        </h2>
+        <div className="mt-12">
+          {partnerFaqs.map((faq, i) => (
+            <div
+              key={faq.q}
+              className={`py-7 border-b border-white/[0.06] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              style={{ transitionDelay: `${200 + i * 80}ms` }}
+              data-testid={`faq-item-${i}`}
+            >
+              <h3 className="text-base sm:text-lg font-semibold text-white">{faq.q}</h3>
+              <p className="mt-3 text-sm sm:text-base text-white/55 leading-relaxed max-w-3xl">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Playbook() {
   useEffect(() => {
     if (window.location.hash) {
@@ -777,6 +837,7 @@ export default function Playbook() {
       <FlywheelSection />
       <WhyOffsiteSection />
       <PartnerPricingSection />
+      <PlaybookFaqSection />
       <NewFooter />
     </div>
   );
