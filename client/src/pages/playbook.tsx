@@ -610,7 +610,7 @@ function PartnerPricingSection() {
         <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "400ms" }}>
           <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-sm" data-testid="pricing-card-self-serve">
             <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
-            <p className="mt-8 text-5xl font-bold text-white tracking-tight">$25</p>
+            <p className="mt-8 text-5xl font-bold text-white tracking-tight">$50</p>
             <p className="mt-2 text-sm text-white/50">per approved article</p>
             <ProcessFlow
               num="01 · Self-serve"
