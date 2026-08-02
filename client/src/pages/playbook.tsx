@@ -786,7 +786,7 @@ const partnerFaqs = [
   },
   {
     q: "Do my clients' competitors get access too?",
-    a: "The network covers categories, not exclusive slots. That's what makes it credible as research. But your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none.",
+    a: "Yes. The network is not exclusive, and direct competitors can both be mentioned or featured. That's what makes it credible as research. Your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none.",
   },
 ];
 
