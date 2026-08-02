@@ -789,6 +789,10 @@ const partnerFaqs = [
     a: ["The truth is, Brandvious can become a titan of the space with 50 to 100 partners all working with reputable B2B brands publishing high-authority content.", "So while Brandvious does help build AI authority for your brand, you as a partner help build Brandvious. It's a mutual benefit loop."],
   },
   {
+    q: "Will Brandvious add more domains over time?",
+    a: ["If a clear AEO opportunity arises, yes, we will. However, it's not about how many domains are on our network. It's about the quality of those domains and their authority with LLMs.", "Domain count is not what matters. It's authority citations."],
+  },
+  {
     q: "Do my clients' competitors get access too?",
     a: ["Yes. The network is not exclusive, and direct competitors can both be mentioned or featured. That's what makes it credible as research.", "Your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none."],
   },
