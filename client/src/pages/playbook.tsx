@@ -762,57 +762,84 @@ function PartnerPricingSection() {
 const partnerFaqs = [
   {
     q: "Is this just a PBN (private blog network)?",
-    a: "No. A PBN is a web of anonymous sites that exist only to link to whoever pays, and search engines penalize them once detected. Brandvious is the opposite: a transparently owned network of publications with editorial standards, original research, and named entities. Every article passes a human approval gate, and content that doesn't meet the standard doesn't get published. AI systems reward provenance and consistency, which is exactly what anonymous networks lack.",
+    a: ["No. A PBN is a web of anonymous sites that exist only to link to whoever pays, and search engines penalize them once detected.", "Brandvious is the opposite: a transparently owned network of publications with editorial standards, original research, and named entities. Every article passes a human approval gate, and content that doesn't meet the standard doesn't get published.", "AI systems reward provenance and consistency, which is exactly what anonymous networks lack."],
   },
   {
     q: "What's the approval process for articles, pages, and mentions?",
-    a: "Every submission is reviewed by the Brandvious editorial team against published standards: original insight, accurate claims, proper sourcing, and genuine usefulness to a buyer researching the category. Most reviews complete within 2 business days. If something falls short, you get specific feedback and revise. A rejection never consumes a credit. Brand mentions and profile updates go through the same review.",
+    a: ["Every submission is reviewed by the Brandvious editorial team against published standards: original insight, accurate claims, proper sourcing, and genuine usefulness to a buyer researching the category. Most reviews complete within 2 business days.", "If something falls short, you get specific feedback and revise. A rejection never consumes a credit. Brand mentions and profile updates go through the same review."],
   },
   {
     q: "What results can my clients expect?",
-    a: "AI visibility compounds. Most brands see their first movements within the first 60 to 90 days: new citations, corrected AI answers, appearing in comparison responses. Authority builds steadily as coverage deepens across the network. We give every partner AI analytics so you can show clients exactly where they're cited and how answers about them are changing, rather than asking anyone to take it on faith.",
+    a: ["AI visibility compounds. Most brands see their first movements within the first 60 to 90 days: new citations, corrected AI answers, appearing in comparison responses. Authority builds steadily as coverage deepens across the network.", "We give every partner AI analytics so you can show clients exactly where they're cited and how answers about them are changing, rather than asking anyone to take it on faith."],
   },
   {
     q: "What happens to published content if I leave the program?",
-    a: "It stays live. Approved articles are permanent contributions to the network, and your clients keep every citation they've earned. The annual membership covers your ability to publish new work, not the survival of past work.",
+    a: ["It stays live. Approved articles are permanent contributions to the network, and your clients keep every citation they've earned.", "The annual membership covers your ability to publish new work, not the survival of past work."],
   },
   {
     q: "What should I charge my clients?",
-    a: "That's yours to decide. Brandvious never touches your client relationship or your pricing. Most partners package publishing into a monthly AEO retainer alongside their strategy and reporting. We suggest $1,000 to $1,500 per month.",
+    a: ["That's yours to decide. Brandvious never touches your client relationship or your pricing.", "Most partners package publishing into a monthly AEO retainer alongside their strategy and reporting. We suggest $1,000 to $1,500 per month."],
   },
   {
     q: "Why can't brands work with Brandvious directly?",
-    a: "Quality control is the entire model. Certified partners are trained on the standards that keep these domains trustworthy, and that trust is what makes AI systems cite them. A network anyone could publish to directly would decay into exactly the kind of site AI learns to ignore.",
+    a: ["Quality control is the entire model. Certified partners are trained on the standards that keep these domains trustworthy, and that trust is what makes AI systems cite them.", "A network anyone could publish to directly would decay into exactly the kind of site AI learns to ignore."],
   },
   {
     q: "Do my clients' competitors get access too?",
-    a: "Yes. The network is not exclusive, and direct competitors can both be mentioned or featured. That's what makes it credible as research. Your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none.",
+    a: ["Yes. The network is not exclusive, and direct competitors can both be mentioned or featured. That's what makes it credible as research.", "Your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none."],
   },
 ];
 
 function PlaybookFaqSection() {
   const { ref, isVisible } = useScrollReveal();
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
   return (
     <section id="faq" ref={ref} className="relative py-24 px-6 border-t border-white/[0.04]" data-testid="playbook-section-faq">
       <div className="max-w-4xl mx-auto">
-        <p className={`text-xs uppercase tracking-[0.2em] text-purple-200/60 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Questions
-        </p>
-        <h2 className={`mt-4 text-3xl sm:text-4xl font-bold text-white tracking-tight transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "100ms" }}>
-          Fair questions, straight answers.
+        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+          FAQ
         </h2>
-        <div className="mt-12">
-          {partnerFaqs.map((faq, i) => (
-            <div
-              key={faq.q}
-              className={`py-7 border-b border-white/[0.06] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
-              style={{ transitionDelay: `${200 + i * 80}ms` }}
-              data-testid={`faq-item-${i}`}
-            >
-              <h3 className="text-base sm:text-lg font-semibold text-white">{faq.q}</h3>
-              <p className="mt-3 text-sm sm:text-base text-white/55 leading-relaxed max-w-3xl">{faq.a}</p>
-            </div>
-          ))}
+        <div className="mt-10">
+          {partnerFaqs.map((faq, i) => {
+            const open = openIndex === i;
+            return (
+              <div
+                key={faq.q}
+                className={`border-b border-white/[0.06] transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+                style={{ transitionDelay: `${150 + i * 60}ms` }}
+                data-testid={`faq-item-${i}`}
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(open ? null : i)}
+                  aria-expanded={open}
+                  className="w-full flex items-center justify-between gap-6 py-6 text-left group"
+                  data-testid={`faq-trigger-${i}`}
+                >
+                  <span className="text-base sm:text-lg font-semibold text-white group-hover:text-white/80 transition-colors">{faq.q}</span>
+                  <svg
+                    viewBox="0 0 24 24"
+                    className={`w-4 h-4 shrink-0 text-white/40 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                <div
+                  className="grid transition-all duration-300 ease-out"
+                  style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+                >
+                  <div className="overflow-hidden">
+                    <div className="pb-6 space-y-3 max-w-xl">{faq.a.map((para) => (<p key={para} className="text-sm sm:text-base text-white/55 leading-relaxed">{para}</p>))}</div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
