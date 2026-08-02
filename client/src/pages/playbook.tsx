@@ -762,7 +762,7 @@ function PartnerPricingSection() {
 const partnerFaqs = [
   {
     q: "Is this just a PBN (private blog network)?",
-    a: ["No. A PBN is a web of anonymous sites that exist only to link to whoever pays, and search engines penalize them once detected.", "Brandvious is the opposite: a transparently owned network of publications with editorial standards, original research, and named entities. Every article passes a human approval gate, and content that doesn't meet the standard doesn't get published.", "AI systems reward provenance and consistency, which is exactly what anonymous networks lack."],
+    a: ["Brandvious is a portfolio publisher: one company operating multiple publications, each with its own editorial focus, standards, and audience. That model is the norm among the most trusted names in research and media.", "Capterra, GetApp, and Software Advice are all owned by Gartner. Investopedia, Verywell Health, and The Spruce are all owned by Dotdash Meredith. Nobody calls them PBNs, because shared ownership was never the problem. Hidden ownership and zero standards are.", "A PBN is a web of anonymous sites that exist only to link to whoever pays, with no editorial gate and nothing original. Brandvious publishes original research, verifies entities, and rejects content that doesn't meet the standard.", "AI systems reward exactly that: provenance, consistency, and quality."],
   },
   {
     q: "What's the approval process for articles, pages, and mentions?",
