@@ -786,7 +786,7 @@ const partnerFaqs = [
   },
   {
     q: "Sounds too good to be true. Is it?",
-    a: ["No. It's shared economics. 50 to 100 partners feed the same domains, so every partner gets authority no single agency could afford to build alone.", "The catch is real: articles must pass review, and authority builds over months. That gate is what keeps the network worth citing."],
+    a: ["The truth is, Brandvious can become a titan of the space with 50 to 100 partners all working with reputable B2B brands publishing high-authority content.", "So while Brandvious does help build AI authority for your brand, you as a partner help build Brandvious. It's a mutual benefit loop."],
   },
   {
     q: "Do my clients' competitors get access too?",
