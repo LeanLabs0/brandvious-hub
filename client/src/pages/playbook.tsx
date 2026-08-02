@@ -631,7 +631,7 @@ function PartnerPricingSection() {
               num="02 · Concierge"
               accent="#c4a0ff"
               steps={[
-                { label: "AI Interview", icon: "M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z M19 11a7 7 0 0 1-14 0 M12 18v3" },
+                { label: "SME inputs", icon: "M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z M19 11a7 7 0 0 1-14 0 M12 18v3" },
                 { label: "Outline", icon: "M8 6h13 M8 12h13 M8 18h13 M3.5 6h.01 M3.5 12h.01 M3.5 18h.01" },
                 { label: "Published", icon: "M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z M14 2v6h6 M9 14l2 2 4-4" },
               ]}
