@@ -785,6 +785,10 @@ const partnerFaqs = [
     a: ["Quality control is the entire model. Certified partners are trained on the standards that keep these domains trustworthy, and that trust is what makes AI systems cite them.", "A network anyone could publish to directly would decay into exactly the kind of site AI learns to ignore."],
   },
   {
+    q: "Sounds too good to be true. Is it?",
+    a: ["It sounds that way because most agencies are used to building authority alone, one client and one domain at a time. This model works because nobody is alone in it.", "A network of 50 to 100 certified partners means every partner is feeding the same domains with original research, reviews, and verified entities. Every approved article makes the network more authoritative, and that authority flows back to every brand published on it.", "Your clients get citation power no single agency could build for them. You get results that compound from work you didn't have to do yourself. And the standards gate keeps the quality high enough that AI systems keep trusting the sources.", "The honest catch: it takes real work. Articles have to pass review, and authority builds over months, not overnight. That's also why it works."],
+  },
+  {
     q: "Do my clients' competitors get access too?",
     a: ["Yes. The network is not exclusive, and direct competitors can both be mentioned or featured. That's what makes it credible as research.", "Your advantage is being the agency in the room: brands with active, well-managed coverage consistently outperform brands with none."],
   },
