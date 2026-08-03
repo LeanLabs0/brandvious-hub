@@ -633,7 +633,7 @@ export function NewFooter() {
                       key={link.name}
                       href={link.url}
                       {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                      className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
                       data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                     >
                       {link.name}
