@@ -100,26 +100,30 @@ const footerColumns = [
   {
     title: "Products",
     links: [
-      { name: "Entities.org", url: "https://entities.org" },
-      { name: "SchemaRocket", url: "https://schemarocket.ai" },
-      { name: "SurveyRocket", url: "https://surveyrocket.ai" },
-      { name: "ReputationRocket", url: "https://reputationrocket.ai" },
+      { name: "Entities.org", url: "https://entities.org", badge: "Launched Q1 '26" },
+      { name: "SchemaRocket", url: "https://schemarocket.ai", badge: "Launched Q1 '26" },
+      { name: "ReputationRocket", url: "https://reputationrocket.ai", badge: "Launched Q2 '26" },
+      { name: "SurveyRocket", url: "https://surveyrocket.ai", badge: "Launched Q3 '26" },
     ],
   },
   {
     title: "Publishing",
     wide: true,
-    links: [
-      { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
-      { name: "B2BIndex", url: "https://b2bindex.org", badge: "Launched Sept '26" },
-      { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
-      { name: "WhatisBest", url: "https://whatisbest.com" },
-      { name: "GTM Strategy", url: "/gtm" },
-      { name: "GTM Journal", url: "https://gtmjournal.org" },
-      { name: "GTM Review", url: "https://gtmreview.org" },
-      { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM 100", url: "https://gtm100.org" },
+    cols: [
+      [
+        { name: "AnswerStack", url: "https://answerstack.io" },
+        { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
+        { name: "B2BIndex", url: "https://b2bindex.org", badge: "Launched Sept '26" },
+        { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
+        { name: "WhatisBest", url: "https://whatisbest.com" },
+      ],
+      [
+        { name: "GTM Strategy", url: "/gtm", badge: "Coming Soon" },
+        { name: "GTM Journal", url: "https://gtmjournal.org", badge: "Coming Soon" },
+        { name: "GTM Review", url: "https://gtmreview.org", badge: "Coming Soon" },
+        { name: "GTM Index", url: "https://gtmindex.org", badge: "Coming Soon" },
+        { name: "GTM 100", url: "https://gtm100.org", badge: "Coming Soon" },
+      ],
     ],
   },
   {
@@ -592,8 +596,30 @@ export function NewFooter() {
             {footerColumns.map((col) => (
               <div key={col.title} className={col.wide ? "col-span-2" : ""}>
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
-                <div className={col.wide ? "grid grid-cols-2 gap-x-12 gap-y-3" : "space-y-3"}>
-                {col.links.map((link) => {
+                {"cols" in col ? (
+                  <div className="grid grid-cols-2 gap-x-12 gap-y-3">
+                    {(col as { cols: { name: string; url: string; badge?: string }[][] }).cols.map((colLinks, ci) => (
+                      <div key={ci} className="space-y-3">
+                        {colLinks.map((link) => (
+                          <a
+                            key={link.name}
+                            href={link.url}
+                            {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                            className="inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                            data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+                          >
+                            {link.name}
+                            {link.badge && (
+                              <span className={`text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border ${link.badge === "Coming Soon" ? "text-white/30 border-white/10" : "text-amber-300/50 border-amber-300/15"}`}>{link.badge}</span>
+                            )}
+                          </a>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                <div className="space-y-3">
+                {"links" in col && (col as { links: { name: string; url?: string; badge?: string }[] }).links.map((link) => {
                   if (!link.url) {
                     return (
                       <span key={link.name} className="block text-white/50">
@@ -610,13 +636,14 @@ export function NewFooter() {
                       data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                     >
                       {link.name}
-                      {"badge" in link && link.badge && (
+                      {link.badge && (
                         <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
                       )}
                     </a>
                   );
                 })}
                 </div>
+                )}
               </div>
             ))}
           </div>
