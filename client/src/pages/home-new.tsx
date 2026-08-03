@@ -100,10 +100,10 @@ const footerColumns = [
   {
     title: "Products",
     links: [
-      { name: "Entities.org", url: "https://entities.org", badge: "Launched Q1 '26" },
-      { name: "SchemaRocket", url: "https://schemarocket.ai", badge: "Launched Q1 '26" },
-      { name: "ReputationRocket", url: "https://reputationrocket.ai", badge: "Launched Q2 '26" },
-      { name: "SurveyRocket", url: "https://surveyrocket.ai", badge: "Launched Q3 '26" },
+      { name: "Entities.org", url: "https://entities.org" },
+      { name: "SchemaRocket", url: "https://schemarocket.ai" },
+      { name: "ReputationRocket", url: "https://reputationrocket.ai" },
+      { name: "SurveyRocket", url: "https://surveyrocket.ai" },
     ],
   },
   {
