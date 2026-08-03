@@ -124,7 +124,9 @@ const tal = [
       "RevOps.io", "Qobra", "QuotaPath", "Full Circle Insights", "Insycle", "Plauti",
       "Revenue Grid", "Terret", "Oliv AI", "Substrata", "AskElephant", "Default",
       "Chili Piper", "Visdum", "Variabl", "Performio", "DealHub", "Revenue.io", "Fullcast",
-      "People.ai", "Aviso AI", "CaptivateIQ", "Everstage",
+      "People.ai", "Aviso AI", "CaptivateIQ", "Everstage", "Factors.ai", "CaliberMind",
+      "Windsor.ai", "Surface", "Attention", "Winn.ai", "Nue.io", "Warmly", "Ruler Analytics",
+      "RevSure", "Momentum.io", "Centify", "Cloudingo",
     ],
   },
   {
