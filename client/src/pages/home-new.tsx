@@ -107,7 +107,15 @@ const footerColumns = [
     ],
   },
   {
-    title: "Publishing",
+    title: "Partners",
+    links: [
+      { name: "Certified Partners", url: "/partners" },
+      { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
+      { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
+    ],
+  },
+  {
+    title: "Properties",
     wide: true,
     cols: [
       [
@@ -124,14 +132,6 @@ const footerColumns = [
         { name: "GTM Index", url: "https://gtmindex.org", badge: "Coming Soon" },
         { name: "GTM 100", url: "https://gtm100.org", badge: "Coming Soon" },
       ],
-    ],
-  },
-  {
-    title: "Partners",
-    links: [
-      { name: "Certified Partners", url: "/partners" },
-      { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
-      { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
     ],
   },
 ];
