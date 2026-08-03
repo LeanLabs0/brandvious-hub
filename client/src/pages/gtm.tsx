@@ -45,7 +45,7 @@ const coverage = [
 
 // Market landscape — computed from Brandvious category research datasets (low-end
 // of estimated ARR ranges; counts are companies tracked per dataset).
-const landscapeTotals = { companies: 409, arr: "$1.4B+" };
+const landscapeTotals = { companies: 463, arr: "$1.4B+" };
 
 const landscape = [
   {
@@ -58,7 +58,7 @@ const landscape = [
   {
     name: "Sales Technology",
     accent: "blue" as const,
-    companies: 116,
+    companies: 170,
     arr: "$386M+",
     featured: ["Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
   },
@@ -125,6 +125,15 @@ const tal = [
       "Breakout", "Knock", "NC Squared", "Traction Complete", "LeadDistro", "Openprise",
       "LeadAngel", "Kubaru", "Gradient Works", "Spotio", "Badger Maps", "Map My Customers",
       "Quoter", "Zomentum", "Expedite Commerce", "Tabs", "Sequence", "Hyperline",
+      "Infraforge", "Maildoso", "Mailscale", "ReachInbox", "EmailChaser", "Pipl.ai",
+      "Snitcher", "Visilead", "CANDDi", "LeadRebel", "WhosVisiting", "HowdyGo",
+      "Demoboost", "Tourial", "PuppyDog", "Naoma", "Rayko", "Deckoholic", "Guideflow",
+      "Ortoo", "Plauti", "Sweep", "PowerRouter", "SalesWings", "Full Circle Insights",
+      "Boberdoo", "Bluedot", "Tactiq", "Shadow", "Supernormal", "tl;dv", "Circleback",
+      "Timeos", "Spinach", "Repsly", "LeadBeam", "Sales-i", "Outfield", "QuoteWerks",
+      "Blueprint CPQ", "Bit2Win", "ServicePath", "Zenskar", "OneBill", "LogiSense",
+      "Outdoo", "Hyperbound", "Second Nature", "Yoodli", "PitchMonster", "Quantified",
+      "Zime", "Winn.ai", "Momentum.io",
     ],
   },
   {
