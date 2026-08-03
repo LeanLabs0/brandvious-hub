@@ -112,10 +112,10 @@ const footerColumns = [
     cols: [
       [
         { name: "AnswerStack", url: "https://answerstack.io" },
+        { name: "WhatisBest", url: "https://whatisbest.com" },
         { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
         { name: "B2BIndex", url: "https://b2bindex.org", badge: "Launched Sept '26" },
         { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
-        { name: "WhatisBest", url: "https://whatisbest.com" },
       ],
       [
         { name: "GTM Strategy", url: "/gtm", badge: "Coming Soon" },
@@ -579,8 +579,9 @@ export function NewFooter() {
               Brandvious<span className="font-light text-white/60">, Inc.</span>
             </a>
             <div className="space-y-1 mt-2">
-              <p className="text-xs text-white/30" data-testid="v2-text-address">
-                16703 Early Riser Ave, Suite 111, Land O' Lakes, FL 34638
+              <p className="text-xs text-white/30 leading-relaxed" data-testid="v2-text-address">
+                16703 Early Riser Ave, Suite 111<br />
+                Land O' Lakes, FL 34638
               </p>
               <a
                 href="tel:+19138716500"
