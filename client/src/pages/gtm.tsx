@@ -126,7 +126,12 @@ const tal = [
       "Chili Piper", "Visdum", "Variabl", "Performio", "DealHub", "Revenue.io", "Fullcast",
       "People.ai", "Aviso AI", "CaptivateIQ", "Everstage", "Factors.ai", "CaliberMind",
       "Windsor.ai", "Surface", "Attention", "Winn.ai", "Nue.io", "Warmly", "Ruler Analytics",
-      "RevSure", "Momentum.io", "Centify", "Cloudingo",
+      "RevSure", "Momentum.io", "Centify", "Cloudingo", "Fibbler", "SegmentStream",
+      "WhatConverts", "Funnel.io", "RB2B", "Dealfront", "Lead Forensics", "Leadinfo",
+      "Derrick", "Avoma", "Fireflies.ai", "Fathom", "Sybill", "Spiky", "FloWorks",
+      "RevRag", "tl;dv", "Paperless Parts", "Proposify", "QuoteWerks", "Salesbricks",
+      "Vendori", "Vloq", "Xait", "Logik.io", "Palette", "Elevate", "DuplicateCheck",
+      "Zaapit",
     ],
   },
   {
