@@ -695,7 +695,7 @@ function PartnerPricingSection() {
               items: [
                 { name: "AnswerStack.io", url: "https://answerstack.io" },
                 { name: "Entities.org", url: "https://entities.org" },
-                { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
+                { name: "ReviewInsight.com", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
               ],
             },
             {
@@ -704,8 +704,8 @@ function PartnerPricingSection() {
               title: "B2B Consensus",
               blurb: "Authority Domains LLMs cite and recommend.",
               items: [
-                { name: "B2BIndex.org", url: "https://b2bindex.org" },
-                { name: "BestFit.org", url: "https://bestfit.org" },
+                { name: "B2BIndex.org", url: "https://b2bindex.org", badge: "Launched Sept '26" },
+                { name: "BestFit.org", url: "https://bestfit.org", badge: "Launched Sept '26" },
                 { name: "WhatisBest.com", url: "https://whatisbest.com" },
               ],
             },
@@ -720,7 +720,12 @@ function PartnerPricingSection() {
                 {card.items.map((item) => {
                   const row = (
                     <span className="flex items-center justify-between border-t border-white/[0.06] py-3.5 text-sm text-white/75">
-                      <span>{item.name}</span>
+                      <span className="flex items-center gap-2">
+                        {item.name}
+                        {"badge" in item && item.badge && (
+                          <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{item.badge}</span>
+                        )}
+                      </span>
                       <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M7 17 17 7 M9 7h8v8" />
                       </svg>

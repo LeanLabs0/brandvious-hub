@@ -69,9 +69,9 @@ const networks = [
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
-      { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
-      { name: "B2BIndex.org", url: "https://b2bindex.org" },
-      { name: "BestFit.org", url: "https://bestfit.org" },
+      { name: "ReviewInsight.com", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
+      { name: "B2BIndex.org", url: "https://b2bindex.org", badge: "Launched Sept '26" },
+      { name: "BestFit.org", url: "https://bestfit.org", badge: "Launched Sept '26" },
       { name: "WhatisBest.com", url: "https://whatisbest.com" },
     ],
   },
@@ -111,9 +111,9 @@ const footerColumns = [
     wide: true,
     links: [
       { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com" },
-      { name: "B2BIndex", url: "https://b2bindex.org" },
-      { name: "BestFit", url: "https://bestfit.org" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
+      { name: "B2BIndex", url: "https://b2bindex.org", badge: "Launched Sept '26" },
+      { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
       { name: "WhatisBest", url: "https://whatisbest.com" },
       { name: "GTM Strategy", url: "/gtm" },
       { name: "GTM Journal", url: "https://gtmjournal.org" },
@@ -455,12 +455,22 @@ function HowItWorksSection() {
                           rel="noopener noreferrer"
                           className={`group ${rowClass} text-white/70 hover:text-white`}
                         >
-                          {ex.name}
-                          <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors" />
+                          <span className="flex items-center gap-2">
+                            {ex.name}
+                            {"badge" in ex && ex.badge && (
+                              <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{ex.badge}</span>
+                            )}
+                          </span>
+                          <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors shrink-0" />
                         </a>
                       ) : (
                         <div key={ex.name} className={`${rowClass} text-white/70`}>
-                          {ex.name}
+                          <span className="flex items-center gap-2">
+                            {ex.name}
+                            {"badge" in ex && ex.badge && (
+                              <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{ex.badge}</span>
+                            )}
+                          </span>
                         </div>
                       );
                     })}
@@ -596,10 +606,13 @@ export function NewFooter() {
                       key={link.name}
                       href={link.url}
                       {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="block text-white/50 hover:text-white transition-colors"
+                      className="inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
                       data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                     >
                       {link.name}
+                      {"badge" in link && link.badge && (
+                        <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
+                      )}
                     </a>
                   );
                 })}
