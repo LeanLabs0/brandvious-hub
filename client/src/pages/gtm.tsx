@@ -45,7 +45,7 @@ const coverage = [
 
 // Market landscape — computed from Brandvious category research datasets (low-end
 // of estimated ARR ranges; counts are companies tracked per dataset).
-const landscapeTotals = { companies: 358, arr: "$1.4B+" };
+const landscapeTotals = { companies: 409, arr: "$1.4B+" };
 
 const landscape = [
   {
@@ -58,7 +58,7 @@ const landscape = [
   {
     name: "Sales Technology",
     accent: "blue" as const,
-    companies: 65,
+    companies: 116,
     arr: "$386M+",
     featured: ["Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
   },
@@ -117,7 +117,14 @@ const tal = [
       "Albacross", "Koala", "Vector", "MadKudu", "Recapped", "Arrows", "Along", "Journey",
       "Demostack", "Saleshood", "Spekit", "Mediafly", "Mindtickle", "SalesRabbit", "LeanData",
       "Default", "RevenueHero", "Qualified", "Subskribe", "Nue.io", "Cacheflow",
-      "MonetizeNow", "DealPage",
+      "MonetizeNow", "DealPage", "Mailforge", "Warmforge", "Coldreach", "Knowlee",
+      "HappierLeads", "Leadinfo", "Visitor Queue", "LeadLander", "LeadBoxer", "LeadPipe",
+      "CallPage", "Rilla", "Otter.ai", "Jamie", "Read.ai", "MeetGeek", "Krisp", "Sembly",
+      "Fellow", "Storylane", "Navattic", "Walnut", "Consensus", "Arcade", "Supademo",
+      "Saleo", "Reprise", "Kendo", "Exec", "Zoomforth", "Showell", "Pitcher", "Guru",
+      "Breakout", "Knock", "NC Squared", "Traction Complete", "LeadDistro", "Openprise",
+      "LeadAngel", "Kubaru", "Gradient Works", "Spotio", "Badger Maps", "Map My Customers",
+      "Quoter", "Zomentum", "Expedite Commerce", "Tabs", "Sequence", "Hyperline",
     ],
   },
   {

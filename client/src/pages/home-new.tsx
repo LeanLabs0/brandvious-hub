@@ -62,15 +62,17 @@ const networks = [
     ],
   },
   {
-    name: "Knowledge Network",
-    label: "Knowledge Graph",
-    description: "Trusted entities AI can understand.",
+    name: "B2B Publications",
+    label: "B2B Publications",
+    description: "B2B authority domains AI cites and recommends.",
     accent: "purple" as const,
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
-      { name: "WhatisBest.com", url: "https://whatisbest.com" },
       { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
+      { name: "B2BIndex.org", url: "https://b2bindex.org" },
+      { name: "BestFit.org", url: "https://bestfit.org" },
+      { name: "WhatisBest.com", url: "https://whatisbest.com" },
     ],
   },
   {
