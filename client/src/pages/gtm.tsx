@@ -45,7 +45,7 @@ const coverage = [
 
 // Market landscape — computed from Brandvious category research datasets (low-end
 // of estimated ARR ranges; counts are companies tracked per dataset).
-const landscapeTotals = { companies: 325, arr: "$1.4B+" };
+const landscapeTotals = { companies: 358, arr: "$1.4B+" };
 
 const landscape = [
   {
@@ -58,7 +58,7 @@ const landscape = [
   {
     name: "Sales Technology",
     accent: "blue" as const,
-    companies: 32,
+    companies: 65,
     arr: "$386M+",
     featured: ["Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
   },
@@ -112,6 +112,12 @@ const tal = [
       "Accord", "Attention", "Aligned", "Trumpet", "Unify", "Flowla", "Valuecase", "Nooks",
       "Clay", "Instantly", "Artisan", "11x", "Factors.ai", "B2B Rocket", "Salesmotion",
       "DealHub", "Fathom", "Allego", "RELAYTO", "Distribute", "Brainshark", "Leadfeeder",
+      "Warmly", "AiSDR", "Regie.ai", "Amplemarket", "Salesforge", "Lemlist", "Saleshandy",
+      "Smartlead", "Reply.io", "Orum", "Avoma", "Fireflies.ai", "Grain", "Lead Forensics",
+      "Albacross", "Koala", "Vector", "MadKudu", "Recapped", "Arrows", "Along", "Journey",
+      "Demostack", "Saleshood", "Spekit", "Mediafly", "Mindtickle", "SalesRabbit", "LeanData",
+      "Default", "RevenueHero", "Qualified", "Subskribe", "Nue.io", "Cacheflow",
+      "MonetizeNow", "DealPage",
     ],
   },
   {
