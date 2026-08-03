@@ -151,7 +151,7 @@ function PlaybookHero() {
           </span>
         </h1>
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
-          The Brandvious value proposition that other agencies can't match and brands can't build themselves.
+          The Brandvious value proposition: other agencies can't match it and brands can't build it themselves.
         </p>
       </div>
     </section>
