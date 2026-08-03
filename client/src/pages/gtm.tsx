@@ -45,7 +45,7 @@ const coverage = [
 
 // Market landscape — computed from Brandvious category research datasets (low-end
 // of estimated ARR ranges; counts are companies tracked per dataset).
-const landscapeTotals = { companies: 304, arr: "$1.4B+" };
+const landscapeTotals = { companies: 325, arr: "$1.4B+" };
 
 const landscape = [
   {
@@ -65,7 +65,7 @@ const landscape = [
   {
     name: "Revenue Operations",
     accent: "emerald" as const,
-    companies: 117,
+    companies: 138,
     arr: "$379M+",
     featured: ["Scratchpad", "Syncari", "Openprise", "Weflow", "FunnelStory", "Forecastio", "Revcast", "MaxIQ"],
   },
@@ -136,7 +136,10 @@ const tal = [
       "HappierLeads", "Albacross", "Coffee.ai", "Visitor Queue", "Visitor InSites",
       "LeadsForge", "Otter.ai", "Grain", "Granola", "Alfred", "Wave", "Jamie", "Fellow",
       "Notta", "Sembly", "Qwilr", "Better Proposals", "Quoter", "Fulcrum", "SalesCookie",
-      "Commissionly", "DataGroomr", "Peeklogic",
+      "Commissionly", "DataGroomr", "Peeklogic", "Reporting Ninja", "Dataslayer",
+      "Power My Analytics", "Databox", "Adzviser", "Swydo", "LeadPost", "Salespanel",
+      "Cognism", "Lemlist", "Read.ai", "HappyScribe", "Reline", "VoiceDash", "DocHipo",
+      "Prospero", "GetAccept", "Nusii", "Cone", "Visual Bonus", "QCommission",
     ],
   },
   {
