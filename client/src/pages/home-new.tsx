@@ -570,7 +570,7 @@ export function NewFooter() {
       )}
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8">
-          <div>
+          <div className="min-w-[200px]">
             <a
               href="/"
               className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
@@ -606,7 +606,7 @@ export function NewFooter() {
                             key={link.name}
                             href={link.url}
                             {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className="inline-flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                            className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
                             data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                           >
                             {link.name}
