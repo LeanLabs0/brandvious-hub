@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
@@ -82,6 +82,36 @@ const landscape = [
     companies: 50,
     arr: "$164M+",
     featured: ["Metadata", "Mutiny", "UserGems", "Unify", "HockeyStack", "N.Rich", "Champify", "Bombora"],
+  },
+];
+
+// TAM overlay — every company named across the datasets, per section.
+// Deliberately excludes companies over $100M in revenue (no giants).
+const tam = [
+  {
+    name: "AI Marketing",
+    accent: "purple" as const,
+    companies: ["Copy.ai", "Typeface", "Mutiny", "Clay", "Common Room", "Metadata", "HeyGen", "Descript", "Goldcast", "PathFactory", "Folloze", "Factors.ai", "Tofu", "Letterdrop", "Userled"],
+  },
+  {
+    name: "Sales Technology",
+    accent: "blue" as const,
+    companies: ["Lavender", "Chili Piper", "RB2B", "Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
+  },
+  {
+    name: "Revenue Operations",
+    accent: "emerald" as const,
+    companies: ["Dreamdata", "HockeyStack", "Fullcast", "BoostUp", "InsightSquared", "Pavilion", "Scratchpad", "Syncari", "Openprise", "Weflow", "FunnelStory", "Forecastio", "Revcast", "MaxIQ"],
+  },
+  {
+    name: "Product Marketing",
+    accent: "amber" as const,
+    companies: ["Klue", "Crayon", "Walnut", "Storylane", "Navattic", "Consensus", "Arcade", "Demostack", "Saleo", "Supademo", "Guideflow"],
+  },
+  {
+    name: "Pipeline Generation",
+    accent: "rose" as const,
+    companies: ["UserGems", "Warmly", "Factors.ai", "Albacross", "Metadata", "Mutiny", "Unify", "HockeyStack", "N.Rich", "Champify", "Bombora"],
   },
 ];
 
@@ -416,6 +446,8 @@ function CoverageSection() {
 function MarketLandscapeSection() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
+  const [tamOpen, setTamOpen] = useState(false);
+  const tamButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section id="market-landscape" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
@@ -470,6 +502,18 @@ function MarketLandscapeSection() {
                 </div>
               </div>
             ))}
+
+            <div className="pt-8 border-t border-white/[0.06]">
+              <button
+                ref={tamButtonRef}
+                onClick={() => setTamOpen(true)}
+                className="inline-flex items-center gap-2 text-sm font-medium text-[#f0c470] transition-colors duration-300 hover:text-white"
+                data-testid="button-tam"
+              >
+                TAM
+                <span aria-hidden="true">&rarr;</span>
+              </button>
+            </div>
           </div>
 
           <div className="hidden lg:block sticky top-24">
@@ -510,6 +554,42 @@ function MarketLandscapeSection() {
                 <GtmConstellation hoveredCategory={null} showHubLabels />
               </div>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={tamOpen} onOpenChange={setTamOpen}>
+        <DialogContent
+          className="max-w-4xl max-h-[85vh] overflow-y-auto border border-white/[0.08] bg-[hsl(220,10%,4%)] p-8 sm:p-10"
+          data-testid="overlay-tam"
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            tamButtonRef.current?.focus();
+          }}
+        >
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            TAM
+          </DialogTitle>
+          <DialogDescription className="text-sm text-white/50">
+            Companies included or featured by Brandvious, by section.
+          </DialogDescription>
+          <div className="mt-4 space-y-8">
+            {tam.map((cat) => (
+              <div key={cat.name} data-testid={`tam-section-${cat.name.toLowerCase().replace(/\s+/g, "-")}`}>
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h4 className="text-base font-bold text-white">{cat.name}</h4>
+                  <span className="text-xs text-white/40 tabular-nums">{cat.companies.length} listed</span>
+                </div>
+                <span className={`block mt-2 h-[2px] w-8 rounded-full ${accentText[cat.accent]}`} style={{ background: "currentColor" }} aria-hidden="true" />
+                <div className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+                  {cat.companies.map((c) => (
+                    <span key={c} className="text-sm text-white/70">
+                      {c}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </DialogContent>
       </Dialog>
