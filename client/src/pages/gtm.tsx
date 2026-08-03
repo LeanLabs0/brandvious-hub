@@ -85,33 +85,71 @@ const landscape = [
   },
 ];
 
-// TAM overlay — every company named across the datasets, per section.
-// Deliberately excludes companies over $100M in revenue (no giants).
-const tam = [
+// TAL (Target Account List) overlay — full company lists per section from source datasets.
+// Excludes companies over $100M in revenue (Salesforce, HubSpot, ZoomInfo, Gong, Outreach,
+// Salesloft, Apollo.io, 6sense, Demandbase, Clari, Jasper, Writer, Seismic, Highspot,
+// Mindtickle, Seamless.AI, DemandScience, G2 are all excluded).
+const tal = [
   {
     name: "AI Marketing",
     accent: "purple" as const,
-    companies: ["Copy.ai", "Typeface", "Mutiny", "Clay", "Common Room", "Metadata", "HeyGen", "Descript", "Goldcast", "PathFactory", "Folloze", "Factors.ai", "Tofu", "Letterdrop", "Userled"],
+    companies: [
+      "Copy.ai", "Typeface", "HeyGen", "Descript", "Mutiny", "Clay", "Common Room", "Metadata",
+      "Goldcast", "PathFactory", "Folloze", "Factors.ai", "Tofu", "Letterdrop", "Userled",
+      "Profound", "Slate", "Autobound", "Regie.ai", "Warmly", "Hushly", "Zuddl", "Demio",
+      "Airmeet", "Livestorm", "BigMarker", "Vendelux", "Fibbler", "CaliberMind", "InfiniGrow",
+      "Cometly", "SegmentStream", "Attribution", "Heeet", "Ruler Analytics", "GrowthLoop",
+      "Conversion", "AudiencePlus", "Recotap", "Repurpose.io", "SEO.AI", "Scalenut",
+      "SE Ranking", "Alli AI", "MarketMuse", "Frase", "Peec AI", "AthenaHQ", "Gracker.ai",
+      "DemandSense",
+    ],
   },
   {
     name: "Sales Technology",
     accent: "blue" as const,
-    companies: ["Lavender", "Chili Piper", "RB2B", "Common Room", "GetAccept", "Dock", "Accord", "Attention", "Aligned", "Trumpet", "Unify"],
+    companies: [
+      "Lavender", "Chili Piper", "RB2B", "Cognism", "Common Room", "GetAccept", "Dock",
+      "Accord", "Attention", "Aligned", "Trumpet", "Unify", "Flowla", "Valuecase", "Nooks",
+      "Clay", "Instantly", "Artisan", "11x", "Factors.ai", "B2B Rocket", "Salesmotion",
+      "DealHub", "Fathom", "Allego", "RELAYTO", "Distribute", "Brainshark", "Leadfeeder",
+    ],
   },
   {
     name: "Revenue Operations",
     accent: "emerald" as const,
-    companies: ["Dreamdata", "HockeyStack", "Fullcast", "BoostUp", "InsightSquared", "Pavilion", "Scratchpad", "Syncari", "Openprise", "Weflow", "FunnelStory", "Forecastio", "Revcast", "MaxIQ"],
+    companies: [
+      "Dreamdata", "HockeyStack", "BoostUp", "InsightSquared", "Pavilion", "Scratchpad",
+      "Syncari", "FunnelStory", "Openprise", "Forecastio", "Weflow", "MaxIQ", "Revcast",
+      "RevenueHero", "LeanData", "Traction Complete", "LeadAngel", "Kubaru", "Gradient Works",
+      "RevOps.io", "Qobra", "QuotaPath", "Full Circle Insights", "Insycle", "Plauti",
+      "Revenue Grid", "Terret", "Oliv AI", "Substrata", "AskElephant", "Default",
+      "Chili Piper", "Visdum", "Variabl", "Performio", "DealHub", "Revenue.io", "Fullcast",
+      "People.ai", "Aviso AI", "CaptivateIQ", "Everstage",
+    ],
   },
   {
     name: "Product Marketing",
     accent: "amber" as const,
-    companies: ["Klue", "Crayon", "Walnut", "Storylane", "Navattic", "Consensus", "Arcade", "Demostack", "Saleo", "Supademo", "Guideflow"],
+    companies: [
+      "Klue", "Crayon", "Walnut", "Storylane", "Navattic", "Consensus", "Arcade", "Demostack",
+      "Saleo", "Supademo", "Guideflow", "Tourial", "Reprise", "Demoboost", "Karumi",
+      "TestBox", "UserEvidence", "SlapFive", "Laudable", "Deeto", "Userpilot", "LaunchNotes",
+      "Featurebase", "Canny", "Beamer", "Userback", "ProdPad", "ProductPlan", "AnnounceKit",
+      "FeatureOS", "Frill", "Rapidr", "Nolt", "ReferenceEdge", "Peerbound",
+    ],
   },
   {
     name: "Pipeline Generation",
     accent: "rose" as const,
-    companies: ["UserGems", "Warmly", "Factors.ai", "Albacross", "Metadata", "Mutiny", "Unify", "HockeyStack", "N.Rich", "Champify", "Bombora"],
+    companies: [
+      "Metadata", "Mutiny", "UserGems", "Unify", "Factors.ai", "N.Rich", "HockeyStack",
+      "Champify", "Lead Onion", "Common Room", "Salesmotion", "RB2B", "Leadinfo", "Albacross",
+      "Intentsify", "SalesIntel", "Lead411", "LeadIQ", "UpLead", "Snitcher", "Salespanel",
+      "SMARTe", "IntentData.io", "Bombora", "Cognism", "Lead Forensics", "Influ2",
+      "Madison Logic", "Leadfeeder", "HG Insights", "TrustRadius", "Warmly", "RollWorks",
+      "Terminus", "Clay", "Lusha", "Kaspr", "Clearbit", "Triblio", "LeadSift",
+      "Visitor Queue", "MadKudu", "Vector",
+    ],
   },
 ];
 
@@ -446,8 +484,8 @@ function CoverageSection() {
 function MarketLandscapeSection() {
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
-  const [tamOpen, setTamOpen] = useState(false);
-  const tamButtonRef = useRef<HTMLButtonElement>(null);
+  const [talOpen, setTalOpen] = useState(false);
+  const talButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <section id="market-landscape" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="gtm-section-landscape">
@@ -505,12 +543,12 @@ function MarketLandscapeSection() {
 
             <div className="pt-8 border-t border-white/[0.06]">
               <button
-                ref={tamButtonRef}
-                onClick={() => setTamOpen(true)}
+                ref={talButtonRef}
+                onClick={() => setTalOpen(true)}
                 className="inline-flex items-center gap-2 text-sm font-medium text-[#f0c470] transition-colors duration-300 hover:text-white"
-                data-testid="button-tam"
+                data-testid="button-tal"
               >
-                TAM
+                TAL
                 <span aria-hidden="true">&rarr;</span>
               </button>
             </div>
@@ -558,24 +596,24 @@ function MarketLandscapeSection() {
         </DialogContent>
       </Dialog>
 
-      <Dialog open={tamOpen} onOpenChange={setTamOpen}>
+      <Dialog open={talOpen} onOpenChange={setTalOpen}>
         <DialogContent
           className="max-w-4xl max-h-[85vh] overflow-y-auto border border-white/[0.08] bg-[hsl(220,10%,4%)] p-8 sm:p-10"
-          data-testid="overlay-tam"
+          data-testid="overlay-tal"
           onCloseAutoFocus={(e) => {
             e.preventDefault();
-            tamButtonRef.current?.focus();
+            talButtonRef.current?.focus();
           }}
         >
           <DialogTitle className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            TAM
+            TAL
           </DialogTitle>
           <DialogDescription className="text-sm text-white/50">
             Companies included or featured by Brandvious, by section.
           </DialogDescription>
           <div className="mt-4 space-y-8">
-            {tam.map((cat) => (
-              <div key={cat.name} data-testid={`tam-section-${cat.name.toLowerCase().replace(/\s+/g, "-")}`}>
+            {tal.map((cat) => (
+              <div key={cat.name} data-testid={`tal-section-${cat.name.toLowerCase().replace(/\s+/g, "-")}`}>
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                   <h4 className="text-base font-bold text-white">{cat.name}</h4>
                   <span className="text-xs text-white/40 tabular-nums">{cat.companies.length} listed</span>
