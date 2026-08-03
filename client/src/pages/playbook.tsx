@@ -780,7 +780,7 @@ function PartnerPricingSection() {
 const partnerFaqs = [
   {
     q: "Is this just a PBN (private blog network)?",
-    a: ["Brandvious is a portfolio publisher: one company operating multiple publications, each with its own editorial focus, standards, and audience. That model is the norm among the most trusted names in research and media.", "Capterra, GetApp, and Software Advice are all owned by Gartner. Investopedia, Verywell Health, The Spruce, and PEOPLE are all owned by People Inc., formerly Dotdash Meredith. Nobody calls them PBNs, because shared ownership was never the problem. Hidden ownership and zero standards are.", "A PBN is a web of anonymous sites that exist only to link to whoever pays, with no editorial gate and nothing original. Brandvious publishes original research, verifies entities, and rejects content that doesn't meet the standard.", "AI systems reward exactly that: provenance, consistency, and quality."],
+    a: ["It's not a PBN. It's an authority network.", "Gartner has an authority network: Capterra, GetApp, and Software Advice.", "People, Inc. has an authority network: Investopedia, Verywell Health, The Spruce, and PEOPLE.", "Our authority network is AnswerStack.io, Entities.org, ReviewInsight.com, B2BIndex.org, BestFit.org, and WhatisBest.com.", "Our standards are original research, verified entities, and a strict editorial gate. We reject content that doesn't meet the bar. That's what makes AI systems cite us."],
   },
   {
     q: "What's the approval process for articles, pages, and mentions?",
