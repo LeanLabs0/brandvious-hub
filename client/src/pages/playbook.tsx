@@ -975,8 +975,8 @@ export default function Playbook() {
       <FlywheelSection
         id="flywheel-2"
         eyebrow="AEO Roadmap"
-        heading="The full AEO signal loop."
-        sub="Every signal source in the loop — from entity registration to review coverage to community presence."
+        heading="Your AEO Authority Build."
+        sub="Brandvious builds consensus AI trusts, which results in LLM recommending your company."
         testId="playbook-section-flywheel-2"
         nodes={flywheelNodes2}
         centerLabel="AEO Website"
