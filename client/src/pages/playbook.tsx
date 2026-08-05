@@ -516,7 +516,7 @@ function FlywheelWheel({
             <circle cx={n.x} cy={n.y} r={26} fill={nodeColor} opacity={0.06} />
             <circle cx={n.x} cy={n.y} r={16} fill="none" stroke={nodeColor} strokeOpacity={0.25} strokeWidth={1} />
             <rect x={n.x - 7} y={n.y - 7} width={14} height={14} rx={4.5} fill={nodeAccentFill} opacity={0.55} className="animate-constellation-twinkle" style={{ animationDelay: `${i * 0.5}s` }} />
-            <text x={lx} y={above ? ly - 6 : ly + 4} textAnchor={anchor} fill={n.tool ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.92)"} fontSize={16} fontWeight={n.tool ? 400 : 700} fontFamily="inherit">
+            <text x={lx} y={above ? ly - 6 : ly + 4} textAnchor={anchor} fill="rgba(255,255,255,0.55)" fontSize={16} fontWeight={400} fontFamily="inherit">
               {n.name}
             </text>
             {n.sub && (
