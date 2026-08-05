@@ -971,7 +971,6 @@ export default function Playbook() {
       <PlaybookHero />
       <WaveSection />
       <B2BLoopSection />
-      <FlywheelSection />
       <FlywheelSection
         id="flywheel-2"
         eyebrow="AEO Roadmap"
