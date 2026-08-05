@@ -10,18 +10,18 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 
 const flywheelNodes2 = [
-  { name: "AEO Roadmap" },
+  { name: "AEO Roadmap", tool: true },
   { name: "SurveyRocket.ai", tool: true },
-  { name: "Entities.org", tool: true },
+  { name: "Entities.org" },
   { name: "FanOutQuery.ai", tool: true },
   { name: "AnswerStack.io" },
   { name: "ReputationRocket.ai", tool: true },
-  { name: "G2, Trustpilot, etc", tool: true },
+  { name: "G2, Trustpilot, etc" },
   { name: "ReviewInsight.com" },
   { name: "B2BIndex.com" },
   { name: "BestFit.org" },
   { name: "WhatisBest.com" },
-  { name: "Reddit (r/B2Bstack)", tool: true },
+  { name: "Reddit (r/B2Bstack)" },
 ];
 
 const flywheelNodes = [
