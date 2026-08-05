@@ -9,6 +9,21 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 // ---------------------------------------------------------------------------
 
 
+const flywheelNodes2 = [
+  { name: "Entities.org" },
+  { name: "SurveyRocket.ai", tool: true },
+  { name: "AEO Website", tool: true },
+  { name: "FanOutQuery.ai", tool: true },
+  { name: "AnswerStack.io" },
+  { name: "ReputationRocket.ai", tool: true },
+  { name: "G2, Trustpilot, etc", tool: true },
+  { name: "ReviewInsight.com" },
+  { name: "B2BIndex.com" },
+  { name: "BestFit.org" },
+  { name: "WhatisBest.com" },
+  { name: "Reddit (r/B2Bstack)", tool: true },
+];
+
 const flywheelNodes = [
   { name: "r/B2Bstack", sub: "community signal \u00b7 launches \u00b7 stack debates" },
   { name: "AnswerStack.io", sub: "Q&A coverage AI systems cite" },
@@ -401,16 +416,23 @@ function B2BLoopSection() {
   );
 }
 
-function FlywheelWheel() {
+function FlywheelWheel({
+  nodes: nodesProp = flywheelNodes,
+  centerLabel = "Certified Partner Publishing",
+}: {
+  nodes?: { name: string; sub?: string; tool?: boolean }[];
+  centerLabel?: string;
+} = {}) {
   const W = 920;
   const H = 640;
   const cx = W / 2;
   const cy = H / 2;
   const R = 218;
   const accent = "#c4a0ff";
+  const toolColor = "rgba(255,255,255,0.55)";
 
-  const nodes = flywheelNodes.map((n, i) => {
-    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / flywheelNodes.length;
+  const nodes = nodesProp.map((n, i) => {
+    const angle = -Math.PI / 2 + (i * 2 * Math.PI) / nodesProp.length;
     return { ...n, angle, x: cx + R * Math.cos(angle), y: cy + R * Math.sin(angle) };
   });
 
@@ -422,7 +444,7 @@ function FlywheelWheel() {
 
       {/* direction chevrons at midpoints between nodes */}
       {nodes.map((n, i) => {
-        const mid = n.angle + Math.PI / flywheelNodes.length;
+        const mid = n.angle + Math.PI / nodesProp.length;
         const px = cx + R * Math.cos(mid);
         const py = cy + R * Math.sin(mid);
         const deg = (mid * 180) / Math.PI + 90;
@@ -487,17 +509,21 @@ function FlywheelWheel() {
         const cos = Math.cos(n.angle);
         const anchor = cos > 0.3 ? "start" : cos < -0.3 ? "end" : "middle";
         const above = Math.sin(n.angle) < 0;
+        const nodeColor = n.tool ? toolColor : accent;
+        const nodeAccentFill = n.tool ? "rgba(255,255,255,0.5)" : accent;
         return (
           <g key={n.name} data-testid={`playbook-flywheel-${i}`}>
-            <circle cx={n.x} cy={n.y} r={26} fill={accent} opacity={0.06} />
-            <circle cx={n.x} cy={n.y} r={16} fill="none" stroke={accent} strokeOpacity={0.25} strokeWidth={1} />
-            <rect x={n.x - 7} y={n.y - 7} width={14} height={14} rx={4.5} fill={accent} opacity={0.55} className="animate-constellation-twinkle" style={{ animationDelay: `${i * 0.5}s` }} />
-            <text x={lx} y={above ? ly - 6 : ly + 4} textAnchor={anchor} fill="rgba(255,255,255,0.92)" fontSize={16} fontWeight={700} fontFamily="inherit">
+            <circle cx={n.x} cy={n.y} r={26} fill={nodeColor} opacity={0.06} />
+            <circle cx={n.x} cy={n.y} r={16} fill="none" stroke={nodeColor} strokeOpacity={0.25} strokeWidth={1} />
+            <rect x={n.x - 7} y={n.y - 7} width={14} height={14} rx={4.5} fill={nodeAccentFill} opacity={0.55} className="animate-constellation-twinkle" style={{ animationDelay: `${i * 0.5}s` }} />
+            <text x={lx} y={above ? ly - 6 : ly + 4} textAnchor={anchor} fill={n.tool ? "rgba(255,255,255,0.55)" : "rgba(255,255,255,0.92)"} fontSize={16} fontWeight={n.tool ? 400 : 700} fontFamily="inherit">
               {n.name}
             </text>
-            <text x={lx} y={above ? ly + 12 : ly + 22} textAnchor={anchor} fill="rgba(255,255,255,0.42)" fontSize={10.5} fontFamily="ui-monospace, monospace">
-              {n.sub}
-            </text>
+            {n.sub && (
+              <text x={lx} y={above ? ly + 12 : ly + 22} textAnchor={anchor} fill="rgba(255,255,255,0.42)" fontSize={10.5} fontFamily="ui-monospace, monospace">
+                {n.sub}
+              </text>
+            )}
           </g>
         );
       })}
@@ -506,7 +532,7 @@ function FlywheelWheel() {
       <circle cx={cx} cy={cy} r={54} fill={accent} opacity={0.07} />
       <rect x={cx - 118} y={cy - 30} width={236} height={60} rx={14} fill="rgba(196,160,255,0.08)" stroke={accent} strokeOpacity={0.4} strokeWidth={1.2} />
       <text x={cx} y={cy + 4} textAnchor="middle" fill="#e6dcff" fontSize={13} fontWeight={400} fontFamily="inherit">
-        Certified Partner Publishing
+        {centerLabel}
       </text>
     </svg>
   );
@@ -518,12 +544,16 @@ function FlywheelSection({
   heading = "Properties Brandvious has already built.",
   sub = "The Brandvious model plugs brands into a validated publishing network for AEO authority, in a fraction of the time of manual outreach.",
   testId = "playbook-section-flywheel",
+  nodes,
+  centerLabel,
 }: {
   id?: string;
   eyebrow?: string;
   heading?: string;
   sub?: string;
   testId?: string;
+  nodes?: { name: string; sub?: string; tool?: boolean }[];
+  centerLabel?: string;
 } = {}) {
   const { ref, isVisible } = useScrollReveal();
 
@@ -542,7 +572,7 @@ function FlywheelSection({
           style={{ transitionDelay: "300ms" }}
           data-testid={`${testId}-graph`}
         >
-          <FlywheelWheel />
+          <FlywheelWheel nodes={nodes} centerLabel={centerLabel} />
         </div>
       </div>
     </section>
@@ -944,10 +974,12 @@ export default function Playbook() {
       <FlywheelSection />
       <FlywheelSection
         id="flywheel-2"
-        eyebrow="The Consensus Flywheel"
-        heading="Properties Brandvious has already built."
-        sub="The Brandvious model plugs brands into a validated publishing network for AEO authority, in a fraction of the time of manual outreach."
+        eyebrow="AEO Roadmap"
+        heading="The full AEO signal loop."
+        sub="Every signal source in the loop — from entity registration to review coverage to community presence."
         testId="playbook-section-flywheel-2"
+        nodes={flywheelNodes2}
+        centerLabel="AEO Roadmap"
       />
       <WhyOffsiteSection />
       <PartnerPricingSection />
