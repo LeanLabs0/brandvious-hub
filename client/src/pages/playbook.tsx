@@ -10,9 +10,9 @@ import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 
 const flywheelNodes2 = [
-  { name: "Entities.org" },
+  { name: "AEO Roadmap" },
   { name: "SurveyRocket.ai", tool: true },
-  { name: "AEO Website", tool: true },
+  { name: "Entities.org", tool: true },
   { name: "FanOutQuery.ai", tool: true },
   { name: "AnswerStack.io" },
   { name: "ReputationRocket.ai", tool: true },
@@ -530,7 +530,7 @@ function FlywheelWheel({
 
       {/* the partner spinning the wheel */}
       <circle cx={cx} cy={cy} r={54} fill={accent} opacity={0.07} />
-      <rect x={cx - 118} y={cy - 30} width={236} height={60} rx={14} fill="rgba(196,160,255,0.08)" stroke={accent} strokeOpacity={0.4} strokeWidth={1.2} />
+      <circle cx={cx} cy={cy} r={54} fill="none" stroke={accent} strokeOpacity={0.4} strokeWidth={1.2} />
       <text x={cx} y={cy + 4} textAnchor="middle" fill="#e6dcff" fontSize={13} fontWeight={400} fontFamily="inherit">
         {centerLabel}
       </text>
@@ -979,7 +979,7 @@ export default function Playbook() {
         sub="Every signal source in the loop — from entity registration to review coverage to community presence."
         testId="playbook-section-flywheel-2"
         nodes={flywheelNodes2}
-        centerLabel="AEO Roadmap"
+        centerLabel="AEO Website"
       />
       <WhyOffsiteSection />
       <PartnerPricingSection />
