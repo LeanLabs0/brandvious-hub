@@ -512,24 +512,35 @@ function FlywheelWheel() {
   );
 }
 
-function FlywheelSection() {
+function FlywheelSection({
+  id = "flywheel",
+  eyebrow = "The Consensus Flywheel",
+  heading = "Properties Brandvious has already built.",
+  sub = "The Brandvious model plugs brands into a validated publishing network for AEO authority, in a fraction of the time of manual outreach.",
+  testId = "playbook-section-flywheel",
+}: {
+  id?: string;
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  testId?: string;
+} = {}) {
   const { ref, isVisible } = useScrollReveal();
 
   return (
-    <section ref={ref} id="flywheel" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-flywheel">
+    <section ref={ref} id={id} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid={testId}>
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The Consensus Flywheel</p>
+        <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>{eyebrow}</p>
         <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          Properties Brandvious has already built.
+          {heading}
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          The Brandvious model plugs brands into a validated publishing network for AEO
-          authority, in a fraction of the time of manual outreach.
+          {sub}
         </p>
         <div
           className={`mt-8 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
           style={{ transitionDelay: "300ms" }}
-          data-testid="playbook-flywheel-graph"
+          data-testid={`${testId}-graph`}
         >
           <FlywheelWheel />
         </div>
@@ -931,6 +942,13 @@ export default function Playbook() {
       <WaveSection />
       <B2BLoopSection />
       <FlywheelSection />
+      <FlywheelSection
+        id="flywheel-2"
+        eyebrow="The Consensus Flywheel"
+        heading="Properties Brandvious has already built."
+        sub="The Brandvious model plugs brands into a validated publishing network for AEO authority, in a fraction of the time of manual outreach."
+        testId="playbook-section-flywheel-2"
+      />
       <WhyOffsiteSection />
       <PartnerPricingSection />
       <PlaybookFaqSection />
