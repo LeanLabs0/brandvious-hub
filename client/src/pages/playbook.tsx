@@ -676,6 +676,19 @@ function PartnerPricingSection() {
             testId: "pricing-tools-cards",
             cards: [
               {
+                eyebrow: "Lead Generation",
+                accent: "#7dd3c8",
+                title: "Agency Lead Gen",
+                blurb: "White label lead generation tools.",
+                items: [
+                  { name: "AEOBaseline.com", url: "https://aeobaseline.com" },
+                  { name: "AEOGenie.ai", url: "https://aeogenie.ai" },
+                  { name: "Web-Genie.ai", url: "https://web-genie.ai" },
+                  { name: "SchemaScore.ai", url: "https://schemascore.ai" },
+                  { name: "FanOutQuery.ai", url: "https://fanoutquery.ai" },
+                ],
+              },
+              {
                 eyebrow: "Agency Infrastructure",
                 accent: "#8ea2ff",
                 title: "Authority Tools",
@@ -686,19 +699,6 @@ function PartnerPricingSection() {
                   { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
                   { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
                   { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
-                ],
-              },
-              {
-                eyebrow: "Lead Generation",
-                accent: "#7dd3c8",
-                title: "Agent Legion",
-                blurb: "White label lead generation tools.",
-                items: [
-                  { name: "AEOBaseline.com", url: "https://aeobaseline.com" },
-                  { name: "AEOGenie.ai", url: "https://aeogenie.ai" },
-                  { name: "Web-Genie.ai", url: "https://web-genie.ai" },
-                  { name: "SchemaScore.ai", url: "https://schemascore.ai" },
-                  { name: "FanOutQuery.ai", url: "https://fanoutquery.ai" },
                 ],
               },
             ],
