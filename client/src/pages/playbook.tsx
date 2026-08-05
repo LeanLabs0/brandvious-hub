@@ -373,7 +373,7 @@ function B2BLoopSection() {
           style={{ transitionDelay: "300ms" }}
           data-testid="playbook-b2b-graph"
         >
-          <ConsensusGraph ring={consensusNodes} centerLabel="Your Website" centerSub="JSON-LD Schema" />
+          <ConsensusGraph ring={consensusNodes} centerLabel="AEO Website w/ Schema" centerSub="10 off-site sources | 55 point consensus" />
         </div>
 
         <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "900ms" }}>
