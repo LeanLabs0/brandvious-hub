@@ -496,8 +496,8 @@ function FlywheelWheel({
       ))}
       {nodes.map((n, i) => (
         <circle key={`push-${i}`} r={1.5} fill={accent} opacity={0.6}>
-          <animate attributeName="cx" values={`${cx};${n.x}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
-          <animate attributeName="cy" values={`${cy};${n.y}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
+          <animate attributeName="cx" values={`${n.x};${cx}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
+          <animate attributeName="cy" values={`${n.y};${cy}`} dur={`${3 + (i % 3)}s`} begin={`${-i * 0.7}s`} repeatCount="indefinite" />
         </circle>
       ))}
 
