@@ -343,10 +343,10 @@ function WhyOffsiteSection() {
 
 const consensusNodes: ConsensusRingNode[] = [
   { name: "Entities.org", sub: "Digital Identity for AI", url: "https://entities.org" },
-  { name: "AnswerStack", sub: "Q&A Authority", url: "https://answerstack.io" },
+  { name: "AnswerStack", sub: "Fan Out Query Answers", url: "https://answerstack.io" },
   { name: "LinkedIn", sub: "Business Identity", url: null, owner: "client" as const, radiusScale: 0.65 },
-  { name: "WhatIsBest", sub: "Market Position", url: "https://whatisbest.com" },
-  { name: "ReviewInsight", sub: "Review Intelligence", url: "https://reviewinsight.com" },
+  { name: "WhatIsBest", sub: "AI Rank Signals", url: "https://whatisbest.com" },
+  { name: "ReviewInsight", sub: "AI Trust Signals", url: "https://reviewinsight.com" },
   { name: "G2", sub: "Review Authority", url: null, owner: "client" as const, radiusScale: 0.65 },
   { name: "B2BIndex.org", sub: "Ranking Authority", url: "https://b2bindex.org" },
   { name: "BestFit.org", sub: "Buyer Match", url: "https://bestfit.org" },
