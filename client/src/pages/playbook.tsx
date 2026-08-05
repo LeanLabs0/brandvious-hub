@@ -365,8 +365,7 @@ function B2BLoopSection() {
           The primary properties.
         </h2>
         <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          The core of the model is a B2B-wide editorial and knowledge layer. These properties work
-          for any B2B category.
+          10+ high authority sources built to drive AEO consensus.
         </p>
 
         <div
