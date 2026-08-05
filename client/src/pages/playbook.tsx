@@ -669,84 +669,122 @@ function PartnerPricingSection() {
         </div>
 
         {/* the network you plug into */}
-        <h3 className={`mt-16 text-2xl sm:text-3xl font-bold text-white tracking-tight transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "750ms" }}>
-          Included Tools &amp; Domains
-        </h3>
-        <div className={`mt-8 grid grid-cols-1 md:grid-cols-3 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "800ms" }} data-testid="pricing-network-cards">
-          {[
-            {
-              eyebrow: "Infrastructure",
-              accent: "#8ea2ff",
-              title: "Authority Tools",
-              blurb: "60% off for partners.",
-              items: [
-                { name: "DesignRocket.ai", url: "https://designrocket.ai" },
-                { name: "SprocketRocket.ai", url: "https://sprocketrocket.ai" },
-                { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
-                { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
-                { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
-              ],
-            },
-            {
-              eyebrow: "Knowledge Graph",
-              accent: "#c4a0ff",
-              title: "Authority Domain Profiles",
-              blurb: "Offsite brand validation & answer citation.",
-              items: [
-                { name: "AnswerStack.io", url: "https://answerstack.io" },
-                { name: "Entities.org", url: "https://entities.org" },
-                { name: "ReviewInsight.com", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
-              ],
-            },
-            {
-              eyebrow: "B2B Publications",
-              accent: "#f0c470",
-              title: "B2B Consensus",
-              blurb: "Authority Domains LLMs cite and recommend.",
-              items: [
-                { name: "B2BIndex.org", url: "https://b2bindex.org", badge: "Launched Sept '26" },
-                { name: "BestFit.org", url: "https://bestfit.org", badge: "Launched Sept '26" },
-                { name: "WhatisBest.com", url: "https://whatisbest.com" },
-              ],
-            },
-          ].map((card) => (
-            <div key={card.title} className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-7 backdrop-blur-sm">
-              <p className="text-[11px] uppercase tracking-[0.2em]" style={{ color: `${card.accent}b3` }}>
-                {card.eyebrow}
-              </p>
-              <h3 className="mt-3 text-2xl font-bold text-white tracking-tight">{card.title}</h3>
-              <p className="mt-1.5 text-sm text-white/50">{card.blurb}</p>
-              <ul className="mt-6">
-                {card.items.map((item) => {
-                  const row = (
-                    <span className="flex items-center justify-between border-t border-white/[0.06] py-3.5 text-sm text-white/75">
-                      <span className="flex items-center gap-2">
-                        {item.name}
-                        {"badge" in item && item.badge && (
-                          <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{item.badge}</span>
-                        )}
-                      </span>
-                      <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M7 17 17 7 M9 7h8v8" />
-                      </svg>
-                    </span>
-                  );
-                  return (
-                    <li key={item.name}>
-                      {item.url ? (
-                        <a href={item.url} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-white">
-                          {row}
-                        </a>
-                      ) : (
-                        row
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
+        {[
+          {
+            label: "Included Tools",
+            delay: "750ms",
+            testId: "pricing-tools-cards",
+            cards: [
+              {
+                eyebrow: "Agency Infrastructure",
+                accent: "#8ea2ff",
+                title: "Authority Tools",
+                blurb: "60% off for partners.",
+                items: [
+                  { name: "DesignRocket.ai", url: "https://designrocket.ai" },
+                  { name: "SprocketRocket.ai", url: "https://sprocketrocket.ai" },
+                  { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
+                  { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
+                  { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
+                ],
+              },
+              {
+                eyebrow: "Lead Generation",
+                accent: "#7dd3c8",
+                title: "Agent Legion",
+                blurb: "White label lead generation tools.",
+                items: [
+                  { name: "AEOBaseline.com", url: "https://aeobaseline.com" },
+                  { name: "AEOGenie.ai", url: "https://aeogenie.ai" },
+                  { name: "Web-Genie.ai", url: "https://web-genie.ai" },
+                  { name: "SchemaScore.ai", url: "https://schemascore.ai" },
+                  { name: "FanOutQuery.ai", url: "https://fanoutquery.ai" },
+                ],
+              },
+            ],
+          },
+          {
+            label: "Publishing Domains",
+            delay: "800ms",
+            testId: "pricing-domains-cards",
+            cards: [
+              {
+                eyebrow: "Knowledge Graph",
+                accent: "#c4a0ff",
+                title: "Authority Domain Profiles",
+                blurb: "Offsite brand validation & answer citation.",
+                items: [
+                  { name: "AnswerStack.io", url: "https://answerstack.io" },
+                  { name: "Entities.org", url: "https://entities.org" },
+                  { name: "ReviewInsight.com", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
+                ],
+              },
+              {
+                eyebrow: "B2B Publications",
+                accent: "#f0c470",
+                title: "B2B Consensus",
+                blurb: "Authority Domains LLMs cite and recommend.",
+                items: [
+                  { name: "B2BIndex.org", url: "https://b2bindex.org", badge: "Launched Sept '26" },
+                  { name: "BestFit.org", url: "https://bestfit.org", badge: "Launched Sept '26" },
+                  { name: "WhatisBest.com", url: "https://whatisbest.com" },
+                ],
+              },
+            ],
+          },
+        ].map((section) => (
+          <div key={section.label}>
+            <h3
+              className={`mt-16 text-2xl sm:text-3xl font-bold text-white tracking-tight transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              style={{ transitionDelay: section.delay }}
+            >
+              {section.label}
+            </h3>
+            <div
+              className={`mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+              style={{ transitionDelay: section.delay }}
+              data-testid={section.testId}
+            >
+              {section.cards.map((card) => (
+                <div key={card.title} className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-7 backdrop-blur-sm">
+                  <p className="text-[11px] uppercase tracking-[0.2em]" style={{ color: `${card.accent}b3` }}>
+                    {card.eyebrow}
+                  </p>
+                  <h3 className="mt-3 text-2xl font-bold text-white tracking-tight">{card.title}</h3>
+                  <p className="mt-1.5 text-sm text-white/50">{card.blurb}</p>
+                  <ul className="mt-6">
+                    {card.items.map((item) => {
+                      const row = (
+                        <span className="flex items-center justify-between border-t border-white/[0.06] py-3.5 text-sm text-white/75">
+                          <span className="flex items-center gap-2">
+                            {item.name}
+                            {"badge" in item && item.badge && (
+                              <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{item.badge}</span>
+                            )}
+                          </span>
+                          <svg viewBox="0 0 24 24" width={13} height={13} fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17 17 7 M9 7h8v8" />
+                          </svg>
+                        </span>
+                      );
+                      return (
+                        <li key={item.name}>
+                          {item.url ? (
+                            <a href={item.url} target="_blank" rel="noopener noreferrer" className="block transition-colors hover:text-white">
+                              {row}
+                            </a>
+                          ) : (
+                            row
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
 
         {/* closing banner */}
         <div
