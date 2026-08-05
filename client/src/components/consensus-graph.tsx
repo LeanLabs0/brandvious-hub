@@ -199,7 +199,7 @@ export function ConsensusGraph({
           letterSpacing="2"
           style={{ fontFamily: "ui-monospace, monospace" }}
         >
-          {centerSub ?? `CONSENSUS · ${totalLinks} CROSS-LINKS ACTIVE`}
+          {centerSub ?? `10 off-site sources | ${totalLinks} point consensus`}
         </text>
       </g>
 
