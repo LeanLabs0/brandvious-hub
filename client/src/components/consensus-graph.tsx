@@ -176,15 +176,15 @@ export function ConsensusGraph({
 
       {/* center: the brand */}
       <g data-testid="playbook-consensus-center">
-        <circle cx={cx} cy={cy} r={44} fill={accent} opacity={0.06} />
-        <circle cx={cx} cy={cy} r={28} fill="none" stroke={accent} strokeOpacity={0.3} strokeWidth={1} />
+        <circle cx={cx} cy={cy} r={44} fill="white" opacity={0.06} />
+        <circle cx={cx} cy={cy} r={28} fill="none" stroke="white" strokeOpacity={0.3} strokeWidth={1} />
         <rect
           x={cx - 12}
           y={cy - 12}
           width={24}
           height={24}
           rx={6}
-          fill={accent}
+          fill="white"
           className="animate-constellation-twinkle"
         />
         <text x={cx} y={cy + 52} textAnchor="middle" fill="rgba(255,255,255,0.95)" fontSize="17" fontWeight="700">
