@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
-export type ConsensusRingNode = { name: string; sub: string; url: string | null; owner?: "client" };
+export type ConsensusRingNode = { name: string; sub: string; url: string | null; owner?: "client"; radiusScale?: number };
 
 const CLIENT_ACCENT = "#f08a8a";
 
@@ -52,10 +52,12 @@ export function ConsensusGraph({
   ring,
   accent = "#8ea2ff",
   centerLabel = "Your Brand",
+  centerSub,
 }: {
   ring: ConsensusRingNode[];
   accent?: string;
   centerLabel?: string;
+  centerSub?: string;
 }) {
   const [hovered, setHovered] = useState<number | null>(null);
 
@@ -68,10 +70,11 @@ export function ConsensusGraph({
     () =>
       ring.map((n, i) => {
         const angle = -Math.PI / 2 + (i * 2 * Math.PI) / ring.length;
+        const rs = n.radiusScale ?? 1;
         return {
           ...n,
-          x: cx + Math.cos(angle) * 290,
-          y: cy + Math.sin(angle) * 210,
+          x: cx + Math.cos(angle) * 290 * rs,
+          y: cy + Math.sin(angle) * 210 * rs,
         };
       }),
     [ring, cx, cy],
@@ -196,7 +199,7 @@ export function ConsensusGraph({
           letterSpacing="2"
           style={{ fontFamily: "ui-monospace, monospace" }}
         >
-          CONSENSUS · {totalLinks} CROSS-LINKS ACTIVE
+          {centerSub ?? `CONSENSUS · ${totalLinks} CROSS-LINKS ACTIVE`}
         </text>
       </g>
 

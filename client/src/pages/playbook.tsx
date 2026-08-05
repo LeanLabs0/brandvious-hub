@@ -342,15 +342,15 @@ function WhyOffsiteSection() {
 }
 
 const consensusNodes: ConsensusRingNode[] = [
-  { name: "Entities.org", sub: "Technical Registry", url: "https://entities.org" },
+  { name: "Entities.org", sub: "Digital Identity for AI", url: "https://entities.org" },
   { name: "AnswerStack", sub: "Q&A Authority", url: "https://answerstack.io" },
-  { name: "LinkedIn", sub: "Business Identity", url: null, owner: "client" as const },
+  { name: "LinkedIn", sub: "Business Identity", url: null, owner: "client" as const, radiusScale: 0.65 },
   { name: "WhatIsBest", sub: "Market Position", url: "https://whatisbest.com" },
   { name: "ReviewInsight", sub: "Review Intelligence", url: "https://reviewinsight.com" },
-  { name: "G2", sub: "Review Authority", url: null, owner: "client" as const },
+  { name: "G2", sub: "Review Authority", url: null, owner: "client" as const, radiusScale: 0.65 },
   { name: "B2BIndex.org", sub: "Ranking Authority", url: "https://b2bindex.org" },
   { name: "BestFit.org", sub: "Buyer Match", url: "https://bestfit.org" },
-  { name: "Crunchbase", sub: "Funding Proof", url: null, owner: "client" as const },
+  { name: "Crunchbase", sub: "Funding & Growth", url: null, owner: "client" as const, radiusScale: 0.65 },
   { name: "r/B2Bstack", sub: "Sentiment Signal", url: null },
 ];
 
@@ -374,7 +374,7 @@ function B2BLoopSection() {
           style={{ transitionDelay: "300ms" }}
           data-testid="playbook-b2b-graph"
         >
-          <ConsensusGraph ring={consensusNodes} />
+          <ConsensusGraph ring={consensusNodes} centerLabel="Your Website" centerSub="JSON-LD Schema" />
         </div>
 
         <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "900ms" }}>
