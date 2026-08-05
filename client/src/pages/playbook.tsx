@@ -678,12 +678,13 @@ function PartnerPricingSection() {
               eyebrow: "Infrastructure",
               accent: "#8ea2ff",
               title: "Authority Tools",
-              blurb: "75% off for partners.",
+              blurb: "60% off for partners.",
               items: [
+                { name: "DesignRocket.ai", url: "https://designrocket.ai" },
+                { name: "SprocketRocket.ai", url: "https://sprocketrocket.ai" },
                 { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
                 { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
                 { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
-                { name: "DesignRocket.ai", url: "https://designrocket.ai" },
               ],
             },
             {
