@@ -572,7 +572,7 @@ export function NewFooter() {
         </div>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-start justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-start gap-16">
           <div className="min-w-[200px]">
             <a
               href="/"
@@ -596,9 +596,9 @@ export function NewFooter() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-x-10 gap-y-8 text-sm">
+          <div className="flex flex-wrap gap-y-8 text-sm divide-x divide-white/[0.07]">
             {footerColumns.map((col) => (
-              <div key={col.title} className="shrink-0">
+              <div key={col.title} className="shrink-0 px-10 first:pl-0">
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
                 {"cols" in col ? (
                   <div className="flex gap-x-10">
