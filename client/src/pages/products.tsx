@@ -102,15 +102,6 @@ const publishingDomains: ProductItem[] = [
 
 export const growthRocketTools: ProductItem[] = [
   {
-    name: "CopyRocket",
-    domain: "copyrocket.app",
-    url: "https://copyrocket.app",
-    icon: Quote,
-    category: "Copy",
-    tag: "Words that convert.",
-    desc: "Conversion copy for pages, emails, and campaigns.",
-  },
-  {
     name: "DesignRocket",
     domain: "designrocket.ai",
     url: "https://designrocket.ai",
@@ -118,6 +109,15 @@ export const growthRocketTools: ProductItem[] = [
     category: "Design",
     tag: "On-brand, on demand.",
     desc: "On-brand design for web, ads, and collateral.",
+  },
+  {
+    name: "CopyRocket",
+    domain: "copyrocket.app",
+    url: "https://copyrocket.app",
+    icon: Quote,
+    category: "Copy",
+    tag: "Words that convert.",
+    desc: "Conversion copy for pages, emails, and campaigns.",
   },
   {
     name: "SprocketRocket",
