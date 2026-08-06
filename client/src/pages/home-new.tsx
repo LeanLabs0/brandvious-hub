@@ -91,7 +91,6 @@ const footerColumns = [
         { name: "ReputationRocket", url: "https://reputationrocket.ai" },
         { name: "AnswerRocket", url: "https://answerrocket.io" },
         { name: "RocketRank", url: "https://rocketrank.ai" },
-        { name: "GrowthRocket", url: "https://growthrocket.ai" },
       ],
     ],
   },

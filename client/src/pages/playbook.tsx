@@ -170,7 +170,9 @@ function PlaybookHero() {
           </span>
         </h1>
         <p className="mt-8 text-lg sm:text-xl text-white/70 max-w-2xl leading-relaxed animate-fade-in-up" style={{ animationDelay: "0.3s" }} data-testid="playbook-text-intro">
-          The Brandvious value proposition: other agencies can't match it and brands can't build it themselves.
+          No agency can match this value proposition,
+          <br />
+          and no brand can build this themselves.
         </p>
       </div>
     </section>
@@ -335,25 +337,6 @@ function WhyOffsiteSection() {
               <p className="mt-4 text-base text-white/55 leading-relaxed">{p.body}</p>
             </div>
           ))}
-        </div>
-
-        <div className={`mt-16 border-t border-white/[0.06] pt-14 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "600ms" }}>
-          <p className="text-base text-white/55 leading-relaxed max-w-2xl">
-            You'll also get branded versions of our best lead gen tools, including:
-          </p>
-          <div className="mt-6 flex flex-wrap gap-3">
-            {["AEOBaseline.com", "AEOGenie.ai", "Web-Genie.ai", "GrowthGrader.com"].map((tool) => (
-              <span
-                key={tool}
-                className="inline-flex items-center rounded-full border border-white/[0.1] bg-white/[0.04] px-4 py-2 text-sm font-mono text-white/70"
-              >
-                {tool}
-              </span>
-            ))}
-          </div>
-          <p className="mt-5 text-base text-white/55 leading-relaxed max-w-2xl">
-            These will have your brand, styles, and colors, on your domain, connected to your CRM.
-          </p>
         </div>
       </div>
     </section>
@@ -670,7 +653,7 @@ function PartnerPricingSection() {
 
         {/* two ways to publish */}
         <div className={`mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "400ms" }}>
-          <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-sm" data-testid="pricing-card-self-serve">
+          <div className="rounded-3xl border border-white/[0.08] bg-black/40 p-8 backdrop-blur-md" data-testid="pricing-card-self-serve">
             <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$50</p>
             <p className="mt-2 text-sm text-white/50">per approved article you submit*</p>
@@ -685,13 +668,13 @@ function PartnerPricingSection() {
             />
           </div>
 
-          <div className="rounded-3xl border border-purple-300/30 bg-purple-400/[0.06] p-8 backdrop-blur-sm" data-testid="pricing-card-concierge">
-            <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Done For You</span>
+          <div className="rounded-3xl border border-white/[0.08] bg-black/40 p-8 backdrop-blur-md" data-testid="pricing-card-concierge">
+            <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Done For You</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$250</p>
             <p className="mt-2 text-sm text-white/50">per article we write in full for you*</p>
             <ProcessFlow
               num="* Purchased in packs of 10 for $2,500"
-              accent="#c4a0ff"
+              accent="#ffffff"
               steps={[
                 { label: "SME inputs", icon: "M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3Z M19 11a7 7 0 0 1-14 0 M12 18v3" },
                 { label: "Outline", icon: "M8 6h13 M8 12h13 M8 18h13 M3.5 6h.01 M3.5 12h.01 M3.5 18h.01" },
@@ -791,7 +774,7 @@ function PartnerPricingSection() {
               data-testid={section.testId}
             >
               {section.cards.map((card) => (
-                <div key={card.title} className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-7 backdrop-blur-sm">
+                <div key={card.title} className="rounded-3xl border border-white/[0.08] bg-black/40 p-7 backdrop-blur-md">
                   <p className="text-[11px] uppercase tracking-[0.2em]" style={{ color: `${card.accent}b3` }}>
                     {card.eyebrow}
                   </p>
@@ -833,7 +816,7 @@ function PartnerPricingSection() {
 
         {/* closing banner */}
         <div
-          className={`mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6 rounded-3xl border border-purple-300/25 bg-purple-400/[0.07] px-8 py-8 md:px-10 backdrop-blur-sm transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          className={`mt-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6 rounded-3xl border border-purple-300/25 bg-black/60 px-8 py-8 md:px-10 backdrop-blur-md transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
           style={{ transitionDelay: "900ms" }}
           data-testid="pricing-banner"
         >

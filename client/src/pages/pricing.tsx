@@ -483,8 +483,16 @@ export default function Pricing() {
       {/* partner CTA — models the bottom of /new */}
       <section className="relative py-20 px-6 border-t border-white/[0.06]" data-testid="pricing-section-cta">
         <div className="max-w-6xl mx-auto relative z-10">
+          <p
+            className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-8 transition-all duration-1000 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: "300ms" }}
+          >
+            How to Start
+          </p>
           <div
-            className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] transition-all duration-1000 ${
+            className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-md bg-black/60 border border-white/[0.07] transition-all duration-1000 ${
               party
                 ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
                 : "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]"
