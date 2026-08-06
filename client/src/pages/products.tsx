@@ -48,7 +48,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://answerstack.io",
     icon: Layers,
     status: "Established",
-    desc: "Rich schema content verified by experts that LLMs see as a source of truth in citations.",
+    desc: "Expert-verified schema content LLMs treat as a source of truth in citations.",
   },
   {
     name: "Entities.org",
@@ -56,7 +56,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://entities.org",
     icon: Globe,
     status: "Established",
-    desc: "Verified company data listed in a registry, so AI knows who your company is and what you do.",
+    desc: "Verified company data in a registry, so AI knows who you are and what you do.",
   },
   {
     name: "WhatisBest",
@@ -64,7 +64,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://whatisbest.com",
     icon: Trophy,
     status: "Established",
-    desc: "Real comparisons, vetted by B2B experts, made to be recommended in AI answers.",
+    desc: "Expert comparison articles made to be recommended in AI answers.",
   },
   {
     name: "ReviewInsight",
@@ -72,7 +72,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://reviewinsight.com",
     icon: Star,
     status: "New",
-    desc: "Real reviews from the most trusted online platforms, carrying weight in buying decisions.",
+    desc: "Industry analysis from multiple review sites to help buyers and LLMs see who is trending in trust.",
   },
   {
     name: "B2BIndex",
@@ -80,7 +80,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://b2bindex.org",
     icon: BarChart3,
     status: "New",
-    desc: "Rankings, benchmarks, and category recognition that AI systems cite and recommend.",
+    desc: "Rankings and benchmarks AI systems cite when recommending vendors.",
   },
   {
     name: "BestFit",
@@ -88,7 +88,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://bestfit.org",
     icon: Target,
     status: "New",
-    desc: "Buyer-fit matching and shortlists that put the right vendors in front of the right buyers.",
+    desc: "Buyer-fit shortlists matching the right vendors to the right buyers.",
   },
 ];
 
@@ -327,54 +327,57 @@ export default function Products() {
         </div>
       </section>
 
-      {/* partner CTA */}
-      <section className="relative px-6 pb-28" data-testid="products-section-cta">
-        <div
-          className={`max-w-4xl mx-auto relative rounded-3xl overflow-hidden border border-white/[0.07] bg-white/[0.02] backdrop-blur-sm px-8 py-14 text-center transition-all duration-1000 ${
-            visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
-          style={{ transitionDelay: "350ms" }}
-        >
+      {/* partner CTA — models the bottom of /new */}
+      <section className="relative py-20 px-6 border-t border-white/[0.06]" data-testid="products-section-cta">
+        <div className="max-w-6xl mx-auto relative z-10">
           <div
-            className="absolute top-0 left-[15%] right-[15%] h-[1px]"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(170,130,255,0.45), transparent)" }}
-          />
-          <div
-            className="absolute -top-20 left-1/2 -translate-x-1/2 w-[420px] h-[200px] blur-[90px] pointer-events-none"
-            style={{ background: "radial-gradient(ellipse at center, rgba(110,60,240,0.12), transparent 70%)" }}
-          />
-          <h2 className="relative text-2xl sm:text-3xl font-bold text-white tracking-tight">
-            Put the stack to work.
-          </h2>
-          <p className="relative mt-3 text-sm text-white/45 max-w-md mx-auto">
-            Work with a Certified Partner, or bring the stack to your own agency.
-          </p>
-          <div className="relative mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <a
-              href="/partners"
-              className="group inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.03]"
+            className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] transition-all duration-1000 ${
+              party
+                ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
+                : "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]"
+            } ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+            style={{ transitionDelay: "350ms" }}
+          >
+            <div
+              className="absolute inset-x-0 top-0 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), rgba(120,180,255,0.35), transparent)" }}
+            />
+            <div
+              className="absolute inset-0 pointer-events-none"
               style={{
-                background: "linear-gradient(135deg, rgba(150,90,255,0.95), rgba(100,50,220,0.95))",
-                boxShadow: "0 8px 32px rgba(110,55,230,0.35), inset 0 1px 0 rgba(255,255,255,0.2)",
+                background: "radial-gradient(600px circle at 0% 50%, rgba(110,60,240,0.08), transparent 55%), radial-gradient(500px circle at 100% 50%, rgba(60,120,255,0.06), transparent 55%)",
               }}
-              data-testid="products-cta-find-partner"
-            >
-              Find a Partner
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-            <a
-              href="/partner-playbook"
-              className="group relative inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-sm font-medium text-white/75 hover:text-white transition-colors"
-              data-testid="products-cta-become-partner"
-            >
-              <span className="absolute inset-0 rounded-full bg-white/[0.03] border border-white/[0.12] group-hover:bg-purple-500/[0.07] group-hover:border-purple-300/25 backdrop-blur-sm transition-all duration-300" />
-              <span
-                className="absolute top-0 left-[18%] right-[18%] h-[1px]"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(170,130,255,0.45), transparent)" }}
-              />
-              <span className="relative">Become a Partner</span>
-              <ArrowRight className="relative w-4 h-4 text-white/40 group-hover:text-purple-300/90 group-hover:translate-x-0.5 transition-all" />
-            </a>
+            />
+            <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+              <h2 className="text-xl sm:text-2xl font-semibold text-white">
+                Put{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
+                  }}
+                >
+                  Brandvious products
+                </span>{" "}
+                to work.
+              </h2>
+              <div className="flex flex-col sm:flex-row items-start gap-3 shrink-0">
+                <a
+                  href="/partners"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)]"
+                  data-testid="products-cta-find-partner"
+                >
+                  Find a Partner <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
+                  href="/partner-playbook"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white/75 hover:text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.2]"
+                  data-testid="products-cta-become-partner"
+                >
+                  Become a Partner <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>

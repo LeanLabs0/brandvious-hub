@@ -73,7 +73,9 @@ Inline edit-in-place CMS, dev-only by design.
 ## User Preferences
 - Owner may remove GrowthRocket/SchemaRocket from the site later (keep it easy to toggle)
 - Prefers minimal copy — not wordy
-- Professional buttons, no color fills
+- Professional buttons, no color fills — translucent glass pills only (model: bottom CTA of `/new`)
+- No centered text — left-align headings, copy, and CTAs
+- CTA sections: headline + action buttons only, no sub-paragraph under the headline
 - Preview pages should be factual/explanatory, not sales-focused
 
 
