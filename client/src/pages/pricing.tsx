@@ -20,7 +20,7 @@ import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 type Price = { upfront: number; renewal: number };
 
 const prices: Record<string, Price> = {
-  DesignRocket: { upfront: 2500, renewal: 50 },
+  DesignRocket: { upfront: 2997, renewal: 50 },
   SprocketRocket: { upfront: 997, renewal: 97 },
   SchemaRocket: { upfront: 3000, renewal: 75 },
   SurveyRocket: { upfront: 2000, renewal: 50 },

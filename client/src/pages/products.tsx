@@ -125,7 +125,7 @@ export const growthRocketTools: ProductItem[] = [
     url: "https://sprocketrocket.ai",
     icon: Blocks,
     category: "Website",
-    tag: "Fast & modular.",
+    tag: "Core Stack + AI Modules.",
     desc: "HubSpot CMS themes and modules built for speed.",
   },
   {
