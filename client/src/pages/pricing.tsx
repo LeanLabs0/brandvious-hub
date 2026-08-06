@@ -8,80 +8,97 @@ import {
   FloatingParticles,
 } from "@/pages/home-new";
 import { growthRocketTools } from "@/pages/products";
-import { ArrowRight, Check, type LucideIcon } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 
 // ---------------------------------------------------------------------------
 // /pricing: GrowthRocket stack licensing. Every tool is one up-front fee with
 // year one of AI tokens, product updates & support included, then a flat
-// monthly renewal. All prices are placeholders — owner edits inline.
+// monthly renewal. All prices are placeholders — owner edits the `prices`
+// map; bundle savings and à-la-carte totals compute automatically.
 // ---------------------------------------------------------------------------
 
-type Price = { upfront: string; renewal: string };
+type Price = { upfront: number; renewal: number };
 
 const prices: Record<string, Price> = {
-  CopyRocket: { upfront: "$2,500", renewal: "$50" },
-  DesignRocket: { upfront: "$2,500", renewal: "$50" },
-  SprocketRocket: { upfront: "$3,500", renewal: "$95" },
-  SchemaRocket: { upfront: "$3,000", renewal: "$75" },
-  SurveyRocket: { upfront: "$2,000", renewal: "$50" },
-  ReputationRocket: { upfront: "$3,000", renewal: "$75" },
-  AnswerRocket: { upfront: "$2,500", renewal: "$60" },
-  RocketRank: { upfront: "$2,000", renewal: "$50" },
+  CopyRocket: { upfront: 2500, renewal: 50 },
+  DesignRocket: { upfront: 2500, renewal: 50 },
+  SprocketRocket: { upfront: 3500, renewal: 95 },
+  SchemaRocket: { upfront: 3000, renewal: 75 },
+  SurveyRocket: { upfront: 2000, renewal: 50 },
+  ReputationRocket: { upfront: 3000, renewal: 75 },
+  AnswerRocket: { upfront: 2500, renewal: 60 },
+  RocketRank: { upfront: 2000, renewal: 50 },
 };
 
-const bundle = {
-  upfront: "$15,000",
-  renewal: "$400",
-  saveUpfront: "$6,000",
-  saveRenewal: "$105",
-};
+const bundle = { upfront: 15000, renewal: 400 };
+
+const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
+
+const totalUpfront = Object.values(prices).reduce((s, p) => s + p.upfront, 0);
+const totalRenewal = Object.values(prices).reduce((s, p) => s + p.renewal, 0);
+const bundleSaveUpfront = totalUpfront - bundle.upfront;
+const bundleSaveRenewal = totalRenewal - bundle.renewal;
 
 const yearOneIncluded = "AI tokens, product updates & support";
 
-function ToolPriceCard({
+function PriceRow({
   name,
   category,
   tag,
   price,
+  selected,
+  onToggle,
   visible,
   delay,
+  last,
 }: {
   name: string;
   category?: string;
   tag?: string;
   price: Price;
+  selected: boolean;
+  onToggle: () => void;
   visible: boolean;
   delay: number;
+  last: boolean;
 }) {
   return (
-    <div
-      className={`transition-all duration-700 ${
-        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={selected}
+      className={`group w-full text-left flex items-center justify-between gap-6 py-5 transition-all duration-500 cursor-pointer ${
+        last ? "" : "border-b border-white/[0.06]"
+      } ${selected ? "bg-sky-400/[0.04]" : "hover:bg-white/[0.02]"} ${
+        visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
       data-testid={`pricing-card-${name.toLowerCase().replace(/[\s.]/g, "-")}`}
     >
-      <div className="relative rounded-2xl overflow-hidden p-6 h-full flex flex-col border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm transition-colors duration-500 hover:bg-white/[0.05] hover:border-white/[0.14] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
-        <div
-          className="absolute inset-x-0 top-0 h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.35), transparent)" }}
-        />
+      <div className="min-w-0">
         <p className="text-[10px] uppercase tracking-[0.2em] font-medium text-sky-300/60">{category}</p>
-        <h3 className="mt-3 text-lg font-semibold text-white tracking-tight">{name}</h3>
-        <p className="text-[12px] text-white/45 mt-1">{tag}</p>
-        <div className="mt-auto border-t border-white/[0.06] pt-5 mt-6">
-          <p className="text-2xl font-bold text-white tracking-tight">
-            {price.upfront}
-            <span className="ml-2 text-[11px] font-normal text-white/35">one-time</span>
-          </p>
-          <p className="mt-3 flex items-start gap-2 text-[12px] text-white/50 leading-relaxed">
-            <Check className="w-3.5 h-3.5 mt-px shrink-0 text-sky-300/60" />
-            <span>Year 1 included: {yearOneIncluded}</span>
-          </p>
-          <p className="mt-2 text-[12px] text-white/40">Then {price.renewal}/mo</p>
-        </div>
+        <p className="mt-1.5 text-[15px] tracking-tight">
+          <span className="font-semibold text-white">{name}</span>
+          <span className="text-white/40"> · {tag}</span>
+        </p>
       </div>
-    </div>
+      <div className="shrink-0 flex items-center gap-5">
+        <div className="text-right">
+          <p className="text-lg font-bold text-white tracking-tight">{fmt(price.upfront)}</p>
+          <p className="mt-0.5 text-[11px] text-white/40">then {fmt(price.renewal)}/mo</p>
+        </div>
+        <span
+          className={`w-5 h-5 rounded-md border flex items-center justify-center shrink-0 transition-all duration-300 ${
+            selected
+              ? "border-sky-300/50 bg-sky-400/15 text-sky-200"
+              : "border-white/[0.15] bg-white/[0.03] text-transparent group-hover:border-white/30"
+          }`}
+          data-testid={`pricing-checkbox-${name.toLowerCase().replace(/[\s.]/g, "-")}`}
+        >
+          <Check className="w-3 h-3" />
+        </span>
+      </div>
+    </button>
   );
 }
 
@@ -89,12 +106,25 @@ export default function Pricing() {
   const { theme } = useTheme();
   const party = theme === "sparkle";
   const [visible, setVisible] = useState(false);
+  const [selected, setSelected] = useState<Set<string>>(new Set());
   useEffect(() => {
     const t = setTimeout(() => setVisible(true), 100);
     return () => clearTimeout(t);
   }, []);
 
   const tools = growthRocketTools.map((t) => ({ ...t, price: prices[t.name] }));
+
+  const toggle = (name: string) =>
+    setSelected((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
+
+  const selUpfront = tools.reduce((s, t) => s + (selected.has(t.name) ? t.price.upfront : 0), 0);
+  const selRenewal = tools.reduce((s, t) => s + (selected.has(t.name) ? t.price.renewal : 0), 0);
+  const selCount = selected.size;
 
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="pricing-page">
@@ -169,27 +199,27 @@ export default function Pricing() {
                   </span>
                 </h2>
                 <p className="mt-3 text-sm text-white/45 leading-relaxed max-w-md">
-                  One license. Save {bundle.saveUpfront} up front and {bundle.saveRenewal}/mo on
-                  renewal vs. individual tools.
+                  One license. Save {fmt(bundleSaveUpfront)} up front and {fmt(bundleSaveRenewal)}/mo on
+                  renewal vs. à la carte.
                 </p>
               </div>
               <div className="shrink-0">
                 <p className="text-4xl font-bold text-white tracking-tight">
-                  {bundle.upfront}
+                  {fmt(bundle.upfront)}
                   <span className="ml-2 text-xs font-normal text-white/35">one-time</span>
                 </p>
                 <p className="mt-3 flex items-start gap-2 text-[13px] text-white/50">
                   <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
                   <span>Year 1 included: {yearOneIncluded}</span>
                 </p>
-                <p className="mt-2 text-[13px] text-white/40">Then {bundle.renewal}/mo</p>
+                <p className="mt-2 text-[13px] text-white/40">Then {fmt(bundle.renewal)}/mo</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* individual tools */}
+      {/* build your stack */}
       <section className="relative px-6 py-14" data-testid="pricing-section-tools">
         <div className="max-w-6xl mx-auto">
           <p
@@ -198,21 +228,54 @@ export default function Pricing() {
             }`}
             style={{ transitionDelay: "250ms" }}
           >
-            Individual Licenses
+            Build Your Stack
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div
+            className={`relative rounded-2xl overflow-hidden px-6 md:px-8 py-2 border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-1000 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: "300ms" }}
+          >
+            <div
+              className="absolute inset-x-0 top-0 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.35), transparent)" }}
+            />
             {tools.map((tool, i) => (
-              <ToolPriceCard
+              <PriceRow
                 key={tool.name}
                 name={tool.name}
                 category={tool.category}
                 tag={tool.tag}
                 price={tool.price}
+                selected={selected.has(tool.name)}
+                onToggle={() => toggle(tool.name)}
                 visible={visible}
-                delay={300 + i * 60}
+                delay={350 + i * 40}
+                last={i === tools.length - 1}
               />
             ))}
           </div>
+          <div
+            className={`mt-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-all duration-1000 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: "650ms" }}
+          >
+            <p className="text-[12px] text-white/40">
+              Every license includes year one of AI tokens, product updates & support.
+            </p>
+            {selCount > 0 && (
+              <p className="text-[13px] text-white/70" data-testid="pricing-selection-total">
+                <span className="text-white/40">Your stack: </span>
+                {selCount} tool{selCount > 1 ? "s" : ""} · {fmt(selUpfront)} one-time · then {fmt(selRenewal)}/mo
+              </p>
+            )}
+          </div>
+          {selCount > 0 && selUpfront >= bundle.upfront && (
+            <p className="mt-2 text-[12px] text-purple-300/60" data-testid="pricing-bundle-hint">
+              The Full Stack license costs less: all eight tools for {fmt(bundle.upfront)}.
+            </p>
+          )}
         </div>
       </section>
 

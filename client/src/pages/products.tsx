@@ -160,7 +160,7 @@ export const growthRocketTools: ProductItem[] = [
     domain: "answerrocket.io",
     url: "https://answerrocket.io",
     icon: MessageSquare,
-    category: "Messaging",
+    category: "AI FAQ",
     tag: "Built to be cited.",
     desc: "Answer-first content built for AI citation.",
   },
