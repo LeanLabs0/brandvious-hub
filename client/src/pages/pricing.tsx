@@ -20,7 +20,7 @@ import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 type Price = { upfront: number; renewal: number };
 
 const prices: Record<string, Price> = {
-  DesignRocket: { upfront: 3000, renewal: 100 },
+  DesignRocket: { upfront: 3000, renewal: 200 },
   CopyRocket: { upfront: 0, renewal: 40 },
   SprocketRocket: { upfront: 997, renewal: 97 },
   SchemaRocket: { upfront: 4000, renewal: 75 },
@@ -49,7 +49,7 @@ const totalRenewal = Object.values(prices).reduce((s, p) => s + p.renewal, 0);
 const bundleSaveUpfront = totalUpfront - bundle.upfront;
 const bundleSaveRenewal = totalRenewal - bundle.renewal;
 
-const yearOneIncluded = "AI tokens, product updates & support";
+const monthlyCovers = "AI tokens, product updates & support";
 
 function PriceRow({
   tool,
@@ -79,12 +79,15 @@ function PriceRow({
   const inner = (
     <>
       {active && (
-        <span
-          className="absolute inset-0 pointer-events-none animate-[fade-in_0.4s_ease-out]"
-          style={{
-            background: "radial-gradient(280px circle at 88% 50%, rgba(150,95,255,0.12), transparent 70%)",
-          }}
-        />
+        <>
+          {/* soft ambient glow — blurred so it never shows a hard edge */}
+          <span className="absolute right-16 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full bg-purple-500/[0.14] blur-2xl pointer-events-none animate-[fade-in_0.5s_ease-out]" />
+          {/* vertical beam at the row's edge, fading top and bottom like the hero */}
+          <span
+            className="absolute right-0 top-1/2 -translate-y-1/2 h-2/3 w-px pointer-events-none animate-[fade-in_0.5s_ease-out]"
+            style={{ background: "linear-gradient(180deg, transparent, rgba(180,130,255,0.55), transparent)" }}
+          />
+        </>
       )}
       <span
         className={`w-9 h-9 rounded-lg bg-white/[0.05] border flex items-center justify-center shrink-0 transition-colors duration-300 ${
@@ -108,8 +111,11 @@ function PriceRow({
           </>
         ) : (
           <>
-            <span className="block text-lg font-bold text-white tracking-tight">{fmt(price.upfront)}</span>
-            <span className="block mt-0.5 text-[11px] text-white/40">then {fmt(price.renewal)}/mo</span>
+            <span className="block text-lg font-bold text-white tracking-tight">
+              {fmt(price.upfront)}
+              <span className="ml-1.5 text-[10px] font-normal text-white/35">license</span>
+            </span>
+            <span className="block mt-0.5 text-[11px] text-white/40">+ {fmt(price.renewal)}/mo</span>
           </>
         )}
       </span>
@@ -219,8 +225,8 @@ export default function Pricing() {
             </span>
           </h1>
           <p className="mt-5 text-sm sm:text-base text-white/45 leading-relaxed max-w-xl">
-            One up-front fee per tool. Year one of AI tokens, product updates
-            & support included. Then a flat monthly renewal.
+            One license fee per tool, plus a flat monthly tokens & support
+            fee from day one.
           </p>
         </div>
       </section>
@@ -305,7 +311,9 @@ export default function Pricing() {
                       {fmt(selUpfront)}
                       <span className="ml-2 text-[11px] font-normal text-white/35">one-time</span>
                     </p>
-                    <p className="mt-1.5 text-[13px] text-white/45">then {fmt(selRenewal)}/mo</p>
+                    <p className="mt-1.5 text-[13px] text-white/45">
+                      clients pay {fmt(selRenewal)}/mo for AI tokens, support & updates
+                    </p>
                   </div>
                   {tools
                     .filter((t) => activeFor(t.name) && bonuses[t.name])
@@ -328,9 +336,6 @@ export default function Pricing() {
                   )}
                 </>
               )}
-              <p className="mt-6 border-t border-white/[0.06] pt-4 text-[11.5px] text-white/35 leading-relaxed">
-                Every license includes year one of AI tokens, product updates & support.
-              </p>
             </div>
           </div>
         </div>
@@ -373,9 +378,8 @@ export default function Pricing() {
                   </span>
                 </h2>
                 <p className="mt-3 text-sm text-white/45 leading-relaxed max-w-md">
-                  Every tool above, one license. Access for a full year with AI
-                  tokens, product updates & support included, then it renews at{" "}
-                  {fmt(bundle.renewal)}/mo.
+                  Every tool above, one license. Tokens & support billed
+                  monthly from day one.
                 </p>
                 <div className="mt-6 grid grid-cols-4 gap-2 max-w-md">
                   {tools.map((t) => (
@@ -399,14 +403,14 @@ export default function Pricing() {
                 </p>
                 <p className="mt-3 flex items-start gap-2 text-[13px] text-white/50">
                   <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
-                  <span>Year 1 included: {yearOneIncluded}</span>
+                  <span>Monthly fee covers {monthlyCovers}</span>
                 </p>
                 <p className="mt-2 text-[13px] text-white/40">
-                  Then {fmt(bundle.renewal)}/mo{" "}
+                  + {fmt(bundle.renewal)}/mo{" "}
                   <span className="text-white/30">(vs. {fmt(totalRenewal)}/mo)</span>
                 </p>
                 <p className="mt-4 text-[12px] font-medium text-purple-300/70">
-                  Save {fmt(bundleSaveUpfront)} up front, {fmt(bundleSaveRenewal)}/mo after.
+                  Save {fmt(bundleSaveUpfront)} up front and {fmt(bundleSaveRenewal)}/mo on the monthly fee.
                 </p>
               </div>
             </div>
