@@ -25,6 +25,7 @@ import HomeV3 from "@/pages/home-v3";
 import HomeV4 from "@/pages/home-v4";
 import HomeNew from "@/pages/home-new";
 import HomeV5 from "@/pages/home-v5";
+import HomeV6 from "@/pages/home-v6";
 import Partners from "@/pages/partners";
 import Gtm from "@/pages/gtm";
 import Playbook from "@/pages/playbook";
@@ -41,6 +42,7 @@ function Router() {
         <Redirect to="/" />
       </Route>
       <Route path="/v5" component={HomeV5} />
+      <Route path="/v6" component={HomeV6} />
       <Route path="/partners" component={Partners} />
       <Route path="/gtm" component={Gtm} />
       <Route path="/partner-playbook" component={Playbook} />
