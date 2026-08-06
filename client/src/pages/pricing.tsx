@@ -196,6 +196,12 @@ export default function Pricing() {
     return selected.has(t.name) && !(parent && selected.has(parent));
   };
 
+  // select-all covers tools with their own license — children ride with parents
+  const toggleable = tools.filter((t) => !includedWith[t.name]);
+  const allSelected = toggleable.every((t) => selected.has(t.name));
+  const toggleAll = () =>
+    setSelected(allSelected ? new Set() : new Set(toggleable.map((t) => t.name)));
+
   const activeTools = tools.filter((t) => activeFor(t.name));
   const selUpfront = tools.reduce((s, t) => s + (billable(t) ? t.price.upfront : 0), 0);
   const selRenewal = tools.reduce((s, t) => s + (billable(t) ? t.price.renewal : 0), 0);
@@ -240,14 +246,33 @@ export default function Pricing() {
       {/* build your stack — 2/3 selector + 1/3 live summary */}
       <section className="relative px-6 py-14" data-testid="pricing-section-tools">
         <div className="max-w-6xl mx-auto">
-          <p
-            className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-8 transition-all duration-1000 ${
+          <div
+            className={`flex items-center justify-between mb-8 transition-all duration-1000 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: "250ms" }}
           >
-            Build Your Stack
-          </p>
+            <p className="text-xs uppercase tracking-[0.2em] text-white/40">Build Your Stack</p>
+            <button
+              type="button"
+              onClick={toggleAll}
+              className="group flex items-center gap-2.5 cursor-pointer"
+              data-testid="pricing-select-all"
+            >
+              <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/60 transition-colors">
+                {allSelected ? "Clear" : "Select all"}
+              </span>
+              <span
+                className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-300 ${
+                  allSelected
+                    ? "border-purple-300/40 bg-purple-400/15 text-purple-100"
+                    : "border-white/[0.15] bg-white/[0.03] text-transparent group-hover:border-white/30"
+                }`}
+              >
+                <Check className="w-3 h-3" />
+              </span>
+            </button>
+          </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* selector */}
             <div
@@ -363,7 +388,7 @@ export default function Pricing() {
       <section id="full-stack" className="relative px-6 pb-14 scroll-mt-24" data-testid="pricing-section-bundle">
         <div className="max-w-6xl mx-auto">
           <div
-            className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] transition-all duration-1000 ${
+            className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-md bg-black/60 border border-white/[0.07] transition-all duration-1000 ${
               party
                 ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
                 : "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]"
