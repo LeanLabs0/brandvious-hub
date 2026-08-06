@@ -154,7 +154,7 @@ const footerColumns = [
 // Atmosphere (shared visual language with the current homepage)
 // ---------------------------------------------------------------------------
 
-function NoiseOverlay() {
+export function NoiseOverlay() {
   return (
     <div
       className="fixed inset-0 pointer-events-none z-[100] opacity-[0.03]"
@@ -168,7 +168,7 @@ function NoiseOverlay() {
   );
 }
 
-function LightBeam({ party }: { party: boolean }) {
+export function LightBeam({ party }: { party: boolean }) {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" data-testid="light-beam">
       <div
@@ -204,7 +204,7 @@ function LightBeam({ party }: { party: boolean }) {
   );
 }
 
-function FloatingParticles({ party }: { party: boolean }) {
+export function FloatingParticles({ party }: { party: boolean }) {
   const count = party ? 50 : 30;
   const particles = useMemo(
     () =>
@@ -276,7 +276,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 // Sections
 // ---------------------------------------------------------------------------
 
-function NewNavbar() {
+export function NewNavbar() {
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"

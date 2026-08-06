@@ -27,6 +27,7 @@ import HomeNew from "@/pages/home-new";
 import Partners from "@/pages/partners";
 import Gtm from "@/pages/gtm";
 import Playbook from "@/pages/playbook";
+import Redirects from "@/pages/redirects";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -37,6 +38,7 @@ function Router() {
       <Route path="/partners" component={Partners} />
       <Route path="/gtm" component={Gtm} />
       <Route path="/partner-playbook" component={Playbook} />
+      <Route path="/redirects" component={Redirects} />
       <Route path="/playbook">
         <Redirect to="/partner-playbook" />
       </Route>
