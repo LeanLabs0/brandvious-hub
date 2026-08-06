@@ -100,7 +100,7 @@ const publishingDomains: ProductItem[] = [
   },
 ];
 
-const growthRocketTools: ProductItem[] = [
+export const growthRocketTools: ProductItem[] = [
   {
     name: "CopyRocket",
     domain: "copyrocket.app",

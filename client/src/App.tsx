@@ -30,6 +30,7 @@ import Gtm from "@/pages/gtm";
 import Playbook from "@/pages/playbook";
 import Redirects from "@/pages/redirects";
 import Products from "@/pages/products";
+import Pricing from "@/pages/pricing";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -43,6 +44,7 @@ function Router() {
       <Route path="/partner-playbook" component={Playbook} />
       <Route path="/redirects" component={Redirects} />
       <Route path="/products" component={Products} />
+      <Route path="/pricing" component={Pricing} />
       <Route path="/playbook">
         <Redirect to="/partner-playbook" />
       </Route>

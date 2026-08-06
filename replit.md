@@ -29,6 +29,7 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 | `/new` | New homepage (dark premium stack) | `home-new.tsx` |
 | `/v5` | Clone of `/new` (re-export, kept in sync) | `home-v5.tsx` |
 | `/products` | Products: AEO authority domains + GrowthRocket stack (flip cards) | `products.tsx` |
+| `/pricing` | GrowthRocket licensing: bundle + per-tool (upfront / yr-1 included / renewal) | `pricing.tsx` |
 | `/partners` | Certified Partners directory | `partners.tsx` |
 | `/partner-playbook` | Partner playbook (`/playbook` redirects here) | `playbook.tsx` |
 | `/gtm` | GTM Loop | `gtm.tsx` |
