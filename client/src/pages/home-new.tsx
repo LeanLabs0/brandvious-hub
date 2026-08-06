@@ -129,24 +129,12 @@ const footerColumns = [
   },
   {
     title: "Properties",
-    wide: true,
-    span: 3,
-    cols: [
-      [
-        { name: "AnswerStack", url: "https://answerstack.io" },
-        { name: "WhatisBest", url: "https://whatisbest.com" },
-        { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "New" },
-        { name: "B2BIndex", url: "https://b2bindex.org", badge: "New" },
-        { name: "BestFit", url: "https://bestfit.org", badge: "New" },
-      ],
-      [
-        { name: "Coming Next", url: "", isHeader: true },
-        { name: "GTM Strategy", url: "/gtm" },
-        { name: "GTM Journal", url: "https://gtmjournal.org" },
-        { name: "GTM Review", url: "https://gtmreview.org" },
-        { name: "GTM Index", url: "https://gtmindex.org" },
-        { name: "GTM 100", url: "https://gtm100.org" },
-      ],
+    links: [
+      { name: "AnswerStack", url: "https://answerstack.io" },
+      { name: "WhatisBest", url: "https://whatisbest.com" },
+      { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "New" },
+      { name: "B2BIndex", url: "https://b2bindex.org", badge: "New" },
+      { name: "BestFit", url: "https://bestfit.org", badge: "New" },
     ],
   },
 ];
