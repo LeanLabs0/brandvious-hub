@@ -245,12 +245,12 @@ export default function Products() {
           }`}
         >
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.06] tracking-tight max-w-4xl"
+            className="text-4xl sm:text-5xl font-bold leading-[1.08] tracking-tight"
             data-testid="products-text-headline"
           >
-            <span className="text-white">Our solutions make brands </span>
+            <span className="block text-white">Brandvious products make brands</span>
             <span
-              className="bg-clip-text text-transparent"
+              className="block bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
               }}

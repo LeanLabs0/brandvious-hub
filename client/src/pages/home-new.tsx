@@ -271,6 +271,7 @@ export function NewNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
+          <a href="/products" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
           <a href="/partners" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Partners</a>
           <ConnectButton compact onClick={() => setConnectOpen(true)} testId="v2-nav-connect" />
         </div>
