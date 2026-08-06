@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { X, Send, Sparkles, ArrowRight } from "lucide-react";
 
 // ---------------------------------------------------------------------------
@@ -116,7 +117,7 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
     `Connect request from ${name || "Website visitor"}`
   )}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${note}`)}`;
 
-  return (
+  return createPortal(
     <div
       className="fixed inset-0 z-[90] flex items-center justify-center p-4"
       role="dialog"
@@ -135,13 +136,13 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
       >
         {/* brand light-beam descending from the top edge */}
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-28 pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[2px] h-14 pointer-events-none"
           style={{
             background: "linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(140,80,255,0.25), transparent)",
           }}
         />
         <div
-          className="absolute top-0 left-1/2 -translate-x-1/2 w-[280px] h-28 blur-[60px] pointer-events-none"
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[280px] h-20 blur-[60px] pointer-events-none"
           style={{
             background: "linear-gradient(to bottom, rgba(130,70,255,0.16), transparent)",
           }}
@@ -153,30 +154,34 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
         />
 
         {/* header */}
-        <div className="relative flex items-center gap-3.5 px-6 pt-6 pb-5 border-b border-white/[0.06]">
-          <div
-            className="relative w-11 h-11 rounded-full flex items-center justify-center shrink-0"
-            style={{
-              background: "linear-gradient(135deg, rgba(140,80,255,0.4), rgba(80,40,200,0.22))",
-              border: "1px solid rgba(170,130,255,0.35)",
-              boxShadow: "0 0 24px rgba(120,60,255,0.25), inset 0 1px 0 rgba(255,255,255,0.15)",
-            }}
-          >
-            <Sparkles className="w-[18px] h-[18px] text-purple-100" />
-            <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[hsl(225,14%,6%)]" />
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-[15px] font-semibold text-white tracking-tight">Connect with Brandvious</p>
-            <p className="text-[11.5px] text-white/40 mt-0.5">A guided conversation, not a form · replies within a day</p>
-          </div>
+        <div className="relative px-6 pt-8 pb-6 border-b border-white/[0.06]">
           <button
             onClick={onClose}
             aria-label="Close"
-            className="w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/[0.06] transition-colors"
+            className="absolute top-4 right-4 z-10 w-8 h-8 rounded-full flex items-center justify-center text-white/40 hover:text-white hover:bg-white/[0.06] transition-colors"
             data-testid="connect-close"
           >
             <X className="w-4 h-4" />
           </button>
+          <div className="flex flex-col items-center text-center">
+            <div
+              className="relative w-12 h-12 rounded-full flex items-center justify-center"
+              style={{
+                background: "linear-gradient(135deg, rgba(140,80,255,0.4), rgba(80,40,200,0.22))",
+                border: "1px solid rgba(170,130,255,0.35)",
+                boxShadow: "0 0 32px rgba(120,60,255,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+              }}
+            >
+              <Sparkles className="w-5 h-5 text-purple-100" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-emerald-400 border-2 border-[hsl(225,14%,6%)]" />
+            </div>
+            <p className="mt-4 text-lg font-semibold text-white tracking-tight">Connect with Brandvious</p>
+          </div>
+          {/* gradient hairline under the header */}
+          <div
+            className="absolute bottom-0 left-[20%] right-[20%] h-[1px]"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(170,130,255,0.35), transparent)" }}
+          />
         </div>
 
         {/* messages */}
@@ -301,7 +306,8 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }
 
