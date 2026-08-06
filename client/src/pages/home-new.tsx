@@ -583,7 +583,7 @@ export function NewFooter() {
         </div>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-start gap-16">
+        <div className="flex flex-col md:flex-row items-start gap-12">
           <div className="min-w-[200px]">
             <a
               href="/"
@@ -607,12 +607,12 @@ export function NewFooter() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-y-8 text-sm divide-x divide-white/[0.07]">
+          <div className="flex flex-nowrap gap-y-8 text-sm divide-x divide-white/[0.07]">
             {footerColumns.map((col) => (
-              <div key={col.title} className={`shrink-0 ${"noDivider" in col && col.noDivider ? "!border-l-0 px-10" : "px-10 first:pl-0"}`}>
+              <div key={col.title} className={`shrink-0 whitespace-nowrap ${"noDivider" in col && col.noDivider ? "!border-l-0 pl-8" : "px-8 first:pl-0"}`}>
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
                 {"cols" in col ? (
-                  <div className="flex gap-x-10">
+                  <div className="flex gap-x-8">
                     {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
                       <div key={ci} className="space-y-3">
                         {colLinks.map((link) =>
