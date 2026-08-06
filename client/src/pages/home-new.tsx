@@ -137,6 +137,16 @@ const footerColumns = [
       { name: "BestFit", url: "https://bestfit.org", badge: "New" },
     ],
   },
+  {
+    title: "Coming Next",
+    links: [
+      { name: "GTM Loop", url: "/gtm" },
+      { name: "GTM Journal", url: "https://gtmjournal.org" },
+      { name: "GTM Review", url: "https://gtmreview.org" },
+      { name: "GTM Index", url: "https://gtmindex.org" },
+      { name: "GTM 100", url: "https://gtm100.org" },
+    ],
+  },
 ];
 
 // ---------------------------------------------------------------------------
