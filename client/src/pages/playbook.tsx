@@ -673,7 +673,7 @@ function PartnerPricingSection() {
           <div className="rounded-3xl border border-white/[0.08] bg-white/[0.03] p-8 backdrop-blur-sm" data-testid="pricing-card-self-serve">
             <span className="inline-block rounded-full border border-white/[0.12] bg-white/[0.05] px-3 py-1 text-xs text-white/70">Self-serve</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$50</p>
-            <p className="mt-2 text-sm text-white/50">per approved article*</p>
+            <p className="mt-2 text-sm text-white/50">per approved article you submit*</p>
             <ProcessFlow
               num="* Purchased in packs of 10 for $500"
               accent="#ffffff"
@@ -688,7 +688,7 @@ function PartnerPricingSection() {
           <div className="rounded-3xl border border-purple-300/30 bg-purple-400/[0.06] p-8 backdrop-blur-sm" data-testid="pricing-card-concierge">
             <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Concierge</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$250</p>
-            <p className="mt-2 text-sm text-white/50">per article*</p>
+            <p className="mt-2 text-sm text-white/50">per article we write in full for you*</p>
             <ProcessFlow
               num="* Purchased in packs of 10 for $2,500"
               accent="#c4a0ff"
