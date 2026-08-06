@@ -119,10 +119,10 @@ const footerColumns = [
     noDivider: true,
     links: [
       { name: "GTM Loop", url: "/gtm" },
-      { name: "GTM Journal", url: "https://gtmjournal.org" },
+      { name: "GTM 100", url: "https://gtm100.org" },
       { name: "GTM Review", url: "https://gtmreview.org" },
       { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM 100", url: "https://gtm100.org" },
+      { name: "GTM Journal", url: "https://gtmjournal.org" },
     ],
   },
 ];

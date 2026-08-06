@@ -36,13 +36,6 @@ const flywheelNodes = [
   { name: "Entities.org", sub: "knowledge graph \u00b7 verified entities" },
 ];
 
-const contentLoop = [
-  ["Community discussion", "an editorial story"],
-  ["An interesting debate", "a review or comparison"],
-  ["Popularity trends", "an index report"],
-  ["Community favorites", "award nominations"],
-];
-
 function NoiseOverlay() {
   return (
     <div
@@ -271,17 +264,19 @@ function WaveSection() {
           ))}
         </div>
         <div className={`mt-20 text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "600ms" }} data-testid="playbook-text-buffett">
-          <p className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug tracking-tight max-w-4xl mx-auto">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-bold italic leading-snug tracking-tight max-w-4xl mx-auto">
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.45))",
               }}
             >
-              "It's not about how hard you row. It's about what boat you're in."
+              "It's not about how hard you row.
+              <br />
+              It's about what boat you're in."
             </span>
           </p>
-          <p className="mt-5 text-sm text-white/50">Warren Buffett</p>
+          <p className="mt-5 text-sm text-white/50">- Warren Buffett</p>
         </div>
       </div>
     </section>
@@ -347,13 +342,7 @@ function B2BLoopSection() {
   return (
     <section ref={ref} id="b2b-loop" className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="playbook-section-b2b">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className={`text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The B2B Loop</p>
-        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          The primary properties.
-        </h2>
-        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          10+ high authority sources built to drive AEO consensus.
-        </p>
+        <p className={`text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>The AEO Consensus Loop</p>
 
         <div
           className={`mt-14 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
@@ -363,26 +352,6 @@ function B2BLoopSection() {
           <ConsensusGraph ring={consensusNodes} centerLabel="AEO Website w/ Schema" centerSub="10 off-site sources | 55 point consensus" />
         </div>
 
-        <div className={`mt-16 grid grid-cols-1 lg:grid-cols-2 gap-12 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`} style={{ transitionDelay: "900ms" }}>
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Community Signal</p>
-            <p className="text-base text-white/55 leading-relaxed">
-              <span className="text-white font-medium">r/B2Bstack</span> is where the market talks:
-              founders share launches, buyers ask for recommendations, users compare products, and
-              marketers post their stacks.
-            </p>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The Content Loop</p>
-            <ul className="space-y-2.5">
-              {contentLoop.map(([from, to]) => (
-                <li key={from} className="text-sm text-white/55 border-l border-white/[0.15] pl-4 leading-relaxed">
-                  <span className="text-white/75">{from}</span> becomes {to}.
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
     </section>
   );
@@ -533,12 +502,16 @@ function FlywheelSection({
     <section ref={ref} id={id} className="relative py-24 px-6 border-t border-white/[0.06]" data-testid={testId}>
       <div className="max-w-6xl mx-auto relative z-10">
         <p className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-6 transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>{eyebrow}</p>
-        <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          {heading}
-        </h2>
-        <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-          {sub}
-        </p>
+        {heading && (
+          <h2 className={`text-3xl sm:text-4xl font-bold text-white tracking-tight max-w-3xl transition-all duration-700 delay-100 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            {heading}
+          </h2>
+        )}
+        {sub && (
+          <p className={`mt-5 text-lg text-white/60 max-w-2xl leading-relaxed transition-all duration-700 delay-200 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+            {sub}
+          </p>
+        )}
         <div
           className={`mt-8 transition-all duration-1000 ${isVisible ? "opacity-100 scale-100" : "opacity-0 scale-[0.97]"}`}
           style={{ transitionDelay: "300ms" }}
@@ -945,9 +918,9 @@ export default function Playbook() {
       <B2BLoopSection />
       <FlywheelSection
         id="flywheel-2"
-        eyebrow="AEO Roadmap"
-        heading="Your AEO Authority Build."
-        sub="Brandvious builds consensus AI trusts, which results in LLM recommending your company."
+        eyebrow="How AEO consensus is built:"
+        heading=""
+        sub=""
         testId="playbook-section-flywheel-2"
         nodes={flywheelNodes2}
         centerLabel="AEO Website"

@@ -91,7 +91,7 @@ export function ConsensusGraph({
 
   return (
     <svg
-      viewBox={`0 0 ${W} ${H}`}
+      viewBox={`0 0 ${W} ${H + 20}`}
       className="w-full h-auto"
       role="img"
       aria-label="Consensus network of Brandvious B2B properties, all cross-linked"
@@ -259,7 +259,7 @@ export function ConsensusGraph({
 
       {/* legend, only when the ring mixes ownership */}
       {ring.some((n) => n.owner === "client") && (
-        <g style={{ fontFamily: "ui-monospace, monospace" }} data-testid="playbook-consensus-legend">
+        <g transform="translate(0 20)" style={{ fontFamily: "ui-monospace, monospace" }} data-testid="playbook-consensus-legend">
           <rect x={24} y={H - 46} width={9} height={9} rx={2.5} fill={accent} />
           <text x={40} y={H - 38} fill="rgba(255,255,255,0.55)" fontSize="10.5" letterSpacing="1">
             BRANDVIOUS PROPERTIES
