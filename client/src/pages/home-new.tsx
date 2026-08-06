@@ -319,43 +319,6 @@ function NewHero() {
   );
 }
 
-function ExchangeSection() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-  const columns = [
-    { title: "We give AI", items: giveAI, testid: "give-ai" },
-    { title: "We help brands earn", items: brandsEarn, testid: "brands-earn" },
-  ];
-
-  return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-exchange">
-      <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {columns.map((col) => (
-          <div
-            key={col.title}
-            className={`relative rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-500 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-            data-testid={`v2-card-${col.testid}`}
-          >
-            <div
-              className="absolute inset-x-0 top-0 h-px"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
-            />
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-8">{col.title}</h2>
-            <ul className="space-y-3.5">
-              {col.items.map((item) => (
-                <li key={item} className="flex items-center gap-3 text-white/70">
-                  <Check className="w-4 h-4 text-white/35 shrink-0" />
-                  <span className="text-sm sm:text-base">{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function ExchangeSectionPremium() {
   const { theme } = useTheme();
   const party = theme === "sparkle";
@@ -385,7 +348,7 @@ function ExchangeSectionPremium() {
   return (
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-exchange-premium">
       <div className="max-w-6xl mx-auto relative z-10">
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">The Exchange</p>
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">The Value Prop</p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {columns.map((col) => (
             <div
@@ -742,7 +705,6 @@ export default function HomeNew() {
       <NewNavbar />
       <NewHero />
       <HowItWorksSection />
-      <ExchangeSection />
       <ExchangeSectionPremium />
       <QuoteSection text={focusQuote} testid="v2-section-quote" />
       <PartnerCTASection />
