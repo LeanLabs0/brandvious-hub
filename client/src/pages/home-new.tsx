@@ -356,6 +356,71 @@ function ExchangeSection() {
   );
 }
 
+function ExchangeSectionPremium() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+  const columns = [
+    {
+      title: "We give AI",
+      items: giveAI,
+      testid: "give-ai",
+      accent: {
+        hairline: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), transparent)",
+        glow: "radial-gradient(500px circle at 50% 0%, rgba(110,60,240,0.10), transparent 65%)",
+        chip: "text-purple-300/90",
+      },
+    },
+    {
+      title: "We help brands earn",
+      items: brandsEarn,
+      testid: "brands-earn",
+      accent: {
+        hairline: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), transparent)",
+        glow: "radial-gradient(500px circle at 50% 0%, rgba(50,120,240,0.10), transparent 65%)",
+        chip: "text-sky-300/90",
+      },
+    },
+  ];
+
+  return (
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-exchange-premium">
+      <div className="max-w-6xl mx-auto relative z-10">
+        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">The Exchange</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {columns.map((col) => (
+            <div
+              key={col.title}
+              className={`relative rounded-2xl overflow-hidden p-8 md:p-10 transition-all duration-500 transform hover:-translate-y-1 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
+              data-testid={`v2-card-premium-${col.testid}`}
+            >
+              <div className="absolute inset-x-0 top-0 h-px" style={{ background: col.accent.hairline }} />
+              <div className="absolute inset-0 pointer-events-none" style={{ background: col.accent.glow }} />
+              <div className="relative z-10">
+                <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-8">{col.title}</h2>
+                <ul>
+                  {col.items.map((item, j) => (
+                    <li
+                      key={item}
+                      className={`group flex items-center gap-3.5 py-3 text-white/70 hover:text-white transition-colors duration-300 ${
+                        j > 0 ? "border-t border-white/[0.05]" : ""
+                      }`}
+                    >
+                      <span className={`w-6 h-6 rounded-md bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 ${col.accent.chip}`}>
+                        <Check className="w-3 h-3" />
+                      </span>
+                      <span className="text-sm sm:text-base">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function QuoteSection({ text, testid }: { text: string; testid: string }) {
   return (
     <section className="relative py-28 px-6 border-t border-white/[0.06]" data-testid={testid}>
@@ -678,6 +743,7 @@ export default function HomeNew() {
       <NewHero />
       <HowItWorksSection />
       <ExchangeSection />
+      <ExchangeSectionPremium />
       <QuoteSection text={focusQuote} testid="v2-section-quote" />
       <PartnerCTASection />
       <NewFooter />
