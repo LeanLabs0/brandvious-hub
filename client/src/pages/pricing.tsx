@@ -402,7 +402,7 @@ export default function Pricing() {
                       className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-black/40 h-20 p-3 flex items-end transition-colors duration-500 hover:border-white/[0.12]"
                     >
                       <t.icon
-                        className="absolute -bottom-4 -right-4 w-[51px] h-[51px] text-white/[0.06] group-hover:text-white/[0.1] transition-colors duration-500 pointer-events-none"
+                        className="absolute -bottom-2 -right-2 w-[51px] h-[51px] text-white/[0.06] group-hover:text-white/[0.1] transition-colors duration-500 pointer-events-none"
                         style={{
                           maskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
                           WebkitMaskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
