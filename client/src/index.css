@@ -634,3 +634,22 @@
   outline: 2px solid hsl(var(--cms-accent, 187 95% 43%));
   background-color: hsl(var(--cms-accent, 187 95% 43%) / 0.06);
 }
+
+/* 3D flip cards (/products domain cards) */
+.flip-scene {
+  perspective: 1200px;
+}
+.flip-inner {
+  transform-style: preserve-3d;
+  transition: transform 0.65s cubic-bezier(0.35, 0.15, 0.15, 1);
+}
+.flip-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}

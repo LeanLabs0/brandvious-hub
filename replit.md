@@ -26,6 +26,13 @@ Single-page landing site for Brandvious Digital. Dark, muted aesthetic inspired 
 | `/v2` | Brandvious homepage (v2, cinematic dark) | `home-v2.tsx` |
 | `/v3` | Brandvious homepage (v3, prior default) | `home-v3.tsx` |
 | `/v4` | Alias for `/` (v4) | `home-v4.tsx` |
+| `/new` | New homepage (dark premium stack) | `home-new.tsx` |
+| `/v5` | Clone of `/new` (re-export, kept in sync) | `home-v5.tsx` |
+| `/products` | Products: AEO authority domains + GrowthRocket stack (flip cards) | `products.tsx` |
+| `/partners` | Certified Partners directory | `partners.tsx` |
+| `/partner-playbook` | Partner playbook (`/playbook` redirects here) | `playbook.tsx` |
+| `/gtm` | GTM Loop | `gtm.tsx` |
+| `/redirects` | "Mid-sprint" catch-all for launching domains | `redirects.tsx` |
 | `/schema` | SchemaRocket preview | `schema.tsx` |
 | `/entities` | Entities.org homepage (hero + registry + submit CTA) | `entities-home.tsx` |
 | `/entitiespreview` | Entities.org preview (registry only) | `entities.tsx` |
@@ -73,6 +80,7 @@ Inline edit-in-place CMS, dev-only by design.
 ## User Preferences
 - Owner may remove GrowthRocket/SchemaRocket from the site later (keep it easy to toggle)
 - Prefers minimal copy — not wordy
+- No em dashes in UI copy; card descriptions max two lines
 - Professional buttons, no color fills — translucent glass pills only (model: bottom CTA of `/new`)
 - No centered text — left-align headings, copy, and CTAs
 - CTA sections: headline + action buttons only, no sub-paragraph under the headline

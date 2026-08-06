@@ -38,6 +38,8 @@ type ProductItem = {
   url: string;
   icon: LucideIcon;
   desc: string;
+  tag?: string;
+  category?: string;
   status?: "Established" | "New";
 };
 
@@ -48,6 +50,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://answerstack.io",
     icon: Layers,
     status: "Established",
+    tag: "Source of truth in AI citations.",
     desc: "Expert-verified schema content LLMs treat as a source of truth in citations.",
   },
   {
@@ -56,6 +59,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://entities.org",
     icon: Globe,
     status: "Established",
+    tag: "Verified identity for AI.",
     desc: "Verified company data in a registry, so AI knows who you are and what you do.",
   },
   {
@@ -64,6 +68,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://whatisbest.com",
     icon: Trophy,
     status: "Established",
+    tag: "Expert comparisons.",
     desc: "Expert comparison articles made to be recommended in AI answers.",
   },
   {
@@ -72,7 +77,8 @@ const publishingDomains: ProductItem[] = [
     url: "https://reviewinsight.com",
     icon: Star,
     status: "New",
-    desc: "Industry analysis from multiple review sites to help buyers and LLMs see who is trending in trust.",
+    tag: "Who's trending in trust.",
+    desc: "Industry analysis from multiple review sites helps buyers and LLMs see who's trending in trust.",
   },
   {
     name: "B2BIndex",
@@ -80,6 +86,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://b2bindex.org",
     icon: BarChart3,
     status: "New",
+    tag: "Rankings & benchmarks.",
     desc: "Rankings and benchmarks AI systems cite when recommending vendors.",
   },
   {
@@ -88,6 +95,7 @@ const publishingDomains: ProductItem[] = [
     url: "https://bestfit.org",
     icon: Target,
     status: "New",
+    tag: "Buyer-fit shortlists.",
     desc: "Buyer-fit shortlists matching the right vendors to the right buyers.",
   },
 ];
@@ -98,20 +106,26 @@ const growthRocketTools: ProductItem[] = [
     domain: "copyrocket.app",
     url: "https://copyrocket.app",
     icon: PenLine,
-    desc: "Conversion-focused copy for pages, emails, and campaigns.",
+    category: "Copy",
+    tag: "Words that convert.",
+    desc: "Conversion copy for pages, emails, and campaigns.",
   },
   {
     name: "DesignRocket",
     domain: "designrocket.ai",
     url: "https://designrocket.ai",
     icon: Palette,
-    desc: "On-brand design generation for web, ads, and collateral.",
+    category: "Design",
+    tag: "On-brand, on demand.",
+    desc: "On-brand design for web, ads, and collateral.",
   },
   {
     name: "SprocketRocket",
     domain: "sprocketrocket.ai",
     url: "https://sprocketrocket.ai",
     icon: Cog,
+    category: "Website",
+    tag: "Fast & modular.",
     desc: "HubSpot CMS themes and modules built for speed.",
   },
   {
@@ -119,35 +133,45 @@ const growthRocketTools: ProductItem[] = [
     domain: "schemarocket.ai",
     url: "https://schemarocket.ai",
     icon: Braces,
-    desc: "Schema markup that helps LLMs read, understand, and validate a brand.",
+    category: "AEO",
+    tag: "Speak LLM fluently.",
+    desc: "Schema markup LLMs read, understand, and trust.",
   },
   {
     name: "SurveyRocket",
     domain: "surveyrocket.ai",
     url: "https://surveyrocket.ai",
     icon: ClipboardList,
-    desc: "Surveys and audience research that feed original data into content.",
+    category: "Research",
+    tag: "Original data on tap.",
+    desc: "Surveys that turn audience research into original data.",
   },
   {
     name: "ReputationRocket",
     domain: "reputationrocket.ai",
     url: "https://reputationrocket.ai",
     icon: ShieldCheck,
-    desc: "Review generation and reputation management across trusted platforms.",
+    category: "Reputation",
+    tag: "Trust, managed.",
+    desc: "Reviews and reputation across trusted platforms.",
   },
   {
     name: "AnswerRocket",
     domain: "answerrocket.io",
     url: "https://answerrocket.io",
     icon: MessageSquare,
-    desc: "Answer-first content engineered to be cited in AI responses.",
+    category: "Messaging",
+    tag: "Built to be cited.",
+    desc: "Answer-first content built for AI citation.",
   },
   {
     name: "RocketRank",
     domain: "rocketrank.ai",
     url: "https://rocketrank.ai",
     icon: TrendingUp,
-    desc: "Rank tracking for AI answers — see where LLMs cite and recommend you.",
+    category: "Analytics",
+    tag: "Proof of presence.",
+    desc: "See where LLMs cite and recommend you.",
   },
 ];
 
@@ -157,67 +181,142 @@ const statusColor: Record<string, string> = {
 };
 
 function DomainCard({ item, visible, delay }: { item: ProductItem; visible: boolean; delay: number }) {
+  const [flipped, setFlipped] = useState(false);
+  const slug = item.name.toLowerCase().replace(/[\s.]/g, "-");
+
   return (
-    <a
-      href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative rounded-2xl overflow-hidden p-7 border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm transition-all duration-700 hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/[0.14] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] ${
+    <div
+      className={`flip-scene transition-all duration-700 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
-      data-testid={`products-card-${item.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+      data-testid={`products-card-${slug}`}
     >
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.35), transparent)" }}
-      />
-      <div className="flex items-start justify-between">
-        <span className="w-10 h-10 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-white/50 group-hover:text-purple-300/80 transition-colors">
-          <item.icon className="w-[18px] h-[18px]" />
-        </span>
-        {item.status && (
-          <span className={`text-[11px] font-medium tracking-wide ${statusColor[item.status]}`}>{item.status}</span>
-        )}
+      <div className={`flip-inner relative min-h-[230px] ${flipped ? "flipped" : ""}`}>
+        {/* front — stripped: status, ghost icon, name + tag */}
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="flip-face group absolute inset-0 w-full text-left rounded-2xl overflow-hidden p-6 border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm transition-colors duration-500 hover:bg-white/[0.05] hover:border-white/[0.14] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] cursor-pointer"
+          data-testid={`products-flip-${slug}`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.35), transparent)" }}
+          />
+          <item.icon className="absolute -bottom-8 -right-8 w-44 h-44 text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-500 pointer-events-none" />
+          {item.status && (
+            <span className={`absolute top-6 left-6 text-[10px] uppercase tracking-[0.2em] font-medium ${statusColor[item.status]}`}>
+              {item.status}
+            </span>
+          )}
+          <span className="absolute bottom-6 left-6 right-6 block">
+            <span className="block text-xl font-semibold text-white tracking-tight">{item.name}</span>
+            <span className="block text-[11px] text-white/35 mt-1">{item.domain}</span>
+            <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
+          </span>
+        </button>
+        {/* back — description + actions */}
+        <div className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-purple-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col">
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), transparent)" }}
+          />
+          <p className="text-[11px] text-white/40">
+            <span className="text-white/70 font-medium">{item.name}</span> · {item.domain}
+          </p>
+          <p className="mt-3 text-[13px] text-white/60 leading-relaxed">{item.desc}</p>
+          <div className="mt-auto pt-4 flex items-center gap-4">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/link inline-flex items-center gap-1.5 text-[12px] font-medium text-white/80 hover:text-white transition-colors"
+            >
+              Visit site
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+            </a>
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="text-[12px] text-white/40 hover:text-white/80 transition-colors"
+            >
+              Back
+            </button>
+          </div>
+        </div>
       </div>
-      <h3 className="mt-6 text-lg font-semibold text-white tracking-tight">{item.name}</h3>
-      <p className="text-xs text-white/35 mt-0.5">{item.domain}</p>
-      <p className="mt-3 text-sm text-white/50 leading-relaxed">{item.desc}</p>
-      <span className="mt-5 inline-flex items-center gap-1.5 text-[12px] font-medium text-white/40 group-hover:text-white/85 transition-colors">
-        Visit site
-        <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      </span>
-    </a>
+    </div>
   );
 }
 
 function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolean; delay: number }) {
+  const [flipped, setFlipped] = useState(false);
+  const slug = item.name.toLowerCase().replace(/[\s.]/g, "-");
+
   return (
-    <a
-      href={item.url}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`group relative rounded-2xl overflow-hidden p-6 border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm transition-all duration-700 hover:-translate-y-1 hover:bg-white/[0.05] hover:border-white/[0.14] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] ${
+    <div
+      className={`flip-scene transition-all duration-700 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
-      data-testid={`products-card-${item.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+      data-testid={`products-card-${slug}`}
     >
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.35), transparent)" }}
-      />
-      <span className="w-9 h-9 rounded-lg bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-white/50 group-hover:text-sky-300/80 transition-colors">
-        <item.icon className="w-4 h-4" />
-      </span>
-      <h3 className="mt-5 text-base font-semibold text-white tracking-tight">{item.name}</h3>
-      <p className="text-[11px] text-white/35 mt-0.5">{item.domain}</p>
-      <p className="mt-2.5 text-[13px] text-white/50 leading-relaxed">{item.desc}</p>
-      <span className="mt-4 inline-flex items-center gap-1.5 text-[11.5px] font-medium text-white/40 group-hover:text-white/85 transition-colors">
-        Visit site
-        <ArrowUpRight className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-      </span>
-    </a>
+      <div className={`flip-inner relative min-h-[220px] ${flipped ? "flipped" : ""}`}>
+        {/* front — stripped: category, ghost icon, name + tag */}
+        <button
+          type="button"
+          onClick={() => setFlipped(true)}
+          className="flip-face group absolute inset-0 w-full text-left rounded-2xl overflow-hidden p-6 border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm transition-colors duration-500 hover:bg-white/[0.05] hover:border-white/[0.14] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] cursor-pointer"
+          data-testid={`products-flip-${slug}`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.35), transparent)" }}
+          />
+          <item.icon className="absolute -bottom-8 -right-8 w-40 h-40 text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-500 pointer-events-none" />
+          {item.category && (
+            <span className="absolute top-6 left-6 text-[10px] uppercase tracking-[0.2em] font-medium text-sky-300/60">
+              {item.category}
+            </span>
+          )}
+          <span className="absolute bottom-6 left-6 right-6 block">
+            <span className="block text-lg font-semibold text-white tracking-tight">{item.name}</span>
+            <span className="block text-[11px] text-white/35 mt-1">{item.domain}</span>
+            <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
+          </span>
+        </button>
+        {/* back — description + actions */}
+        <div className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-sky-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col">
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), transparent)" }}
+          />
+          <p className="text-[11px] text-white/40">
+            <span className="text-white/70 font-medium">{item.name}</span> · {item.domain}
+          </p>
+          <p className="mt-3 text-[13px] text-white/60 leading-relaxed">{item.desc}</p>
+          <div className="mt-auto pt-4 flex items-center gap-4">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group/link inline-flex items-center gap-1.5 text-[12px] font-medium text-white/80 hover:text-white transition-colors"
+            >
+              Visit site
+              <ArrowUpRight className="w-3.5 h-3.5 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+            </a>
+            <button
+              type="button"
+              onClick={() => setFlipped(false)}
+              className="text-[12px] text-white/40 hover:text-white/80 transition-colors"
+            >
+              Back
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

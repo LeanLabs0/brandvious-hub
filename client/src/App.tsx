@@ -24,6 +24,7 @@ import HomeV2 from "@/pages/home-v2";
 import HomeV3 from "@/pages/home-v3";
 import HomeV4 from "@/pages/home-v4";
 import HomeNew from "@/pages/home-new";
+import HomeV5 from "@/pages/home-v5";
 import Partners from "@/pages/partners";
 import Gtm from "@/pages/gtm";
 import Playbook from "@/pages/playbook";
@@ -36,6 +37,7 @@ function Router() {
     <Switch>
       <Route path="/" component={HomeV4} />
       <Route path="/new" component={HomeNew} />
+      <Route path="/v5" component={HomeV5} />
       <Route path="/partners" component={Partners} />
       <Route path="/gtm" component={Gtm} />
       <Route path="/partner-playbook" component={Playbook} />

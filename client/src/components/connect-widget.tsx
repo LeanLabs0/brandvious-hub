@@ -33,7 +33,7 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
   useEffect(() => {
     if (!open) return;
     reset();
-    botSay("Hey — you've reached Brandvious. What's your name?", 600);
+    botSay("Hey, you've reached Brandvious. What's your name?", 600);
     return () => {
       timers.current.forEach(clearTimeout);
       timers.current = [];
@@ -95,7 +95,7 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
       botSay(`Nice to meet you, ${first}. What's the best email to reach you?`);
     } else if (step === "email") {
       if (!EMAIL_RE.test(text)) {
-        botSay("That email doesn't look quite right — mind double-checking it?");
+        botSay("That email doesn't look quite right. Mind double-checking it?");
         return;
       }
       setEmail(text);
@@ -104,7 +104,7 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
     } else if (step === "message") {
       setNote(text);
       setStep("done");
-      botSay(`Thanks, ${name || "there"} — here's your summary. Send it over and we'll get back to you within one business day.`);
+      botSay(`Thanks, ${name || "there"}. Here's your summary. Send it over and we'll get back to you within one business day.`);
     } else {
       setNote((n) => (n ? `${n}\n${text}` : text));
       botSay("Noted. Anything else, or open the email draft below whenever you're ready.");
@@ -225,9 +225,9 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
           {step === "done" && !typing && (
             <div className="animate-[chat-msg_0.4s_ease-out] rounded-2xl border border-white/[0.08] bg-white/[0.03] p-5">
               <p className="text-[10px] uppercase tracking-widest text-white/30 mb-3">Summary</p>
-              <p className="text-[13px] text-white/75"><span className="text-white/40">Name — </span>{name}</p>
-              <p className="text-[13px] text-white/75 mt-1.5"><span className="text-white/40">Email — </span>{email}</p>
-              <p className="text-[13px] text-white/75 mt-1.5 whitespace-pre-line"><span className="text-white/40">Message — </span>{note}</p>
+              <p className="text-[13px] text-white/75"><span className="text-white/40">Name: </span>{name}</p>
+              <p className="text-[13px] text-white/75 mt-1.5"><span className="text-white/40">Email: </span>{email}</p>
+              <p className="text-[13px] text-white/75 mt-1.5 whitespace-pre-line"><span className="text-white/40">Message: </span>{note}</p>
               <div className="pt-4 flex items-center gap-3.5">
                 <a
                   href={mailHref}
@@ -244,7 +244,7 @@ export function ConnectWidget({ open, onClose }: { open: boolean; onClose: () =>
                 <button
                   onClick={() => {
                     reset();
-                    botSay("No problem — let's start fresh. What's your name?", 300);
+                    botSay("No problem, let's start fresh. What's your name?", 300);
                   }}
                   className="text-[12px] text-white/40 hover:text-white/70 transition-colors"
                   data-testid="connect-start-over"
