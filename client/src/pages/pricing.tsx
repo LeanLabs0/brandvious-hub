@@ -247,31 +247,33 @@ export default function Pricing() {
       <section className="relative px-6 py-14" data-testid="pricing-section-tools">
         <div className="max-w-6xl mx-auto">
           <div
-            className={`flex items-center justify-between mb-8 transition-all duration-1000 ${
+            className={`grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8 transition-all duration-1000 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
             style={{ transitionDelay: "250ms" }}
           >
-            <p className="text-xs uppercase tracking-[0.2em] text-white/40">Build Your Stack</p>
-            <button
-              type="button"
-              onClick={toggleAll}
-              className="group flex items-center gap-2.5 cursor-pointer"
-              data-testid="pricing-select-all"
-            >
-              <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/60 transition-colors">
-                {allSelected ? "Clear" : "Select all"}
-              </span>
-              <span
-                className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-300 ${
-                  allSelected
-                    ? "border-purple-300/40 bg-purple-400/15 text-purple-100"
-                    : "border-white/[0.15] bg-white/[0.03] text-transparent group-hover:border-white/30"
-                }`}
+            <div className="lg:col-span-2 flex items-center justify-between">
+              <p className="text-xs uppercase tracking-[0.2em] text-white/40">Build Your Stack</p>
+              <button
+                type="button"
+                onClick={toggleAll}
+                className="group flex items-center gap-2.5 cursor-pointer"
+                data-testid="pricing-select-all"
               >
-                <Check className="w-3 h-3" />
-              </span>
-            </button>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/60 transition-colors">
+                  {allSelected ? "Clear" : "Select all"}
+                </span>
+                <span
+                  className={`w-5 h-5 rounded-md border flex items-center justify-center transition-all duration-300 ${
+                    allSelected
+                      ? "border-purple-300/40 bg-purple-400/15 text-purple-100"
+                      : "border-white/[0.15] bg-white/[0.03] text-transparent group-hover:border-white/30"
+                  }`}
+                >
+                  <Check className="w-3 h-3" />
+                </span>
+              </button>
+            </div>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             {/* selector */}
