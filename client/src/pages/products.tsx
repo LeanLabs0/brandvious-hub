@@ -34,6 +34,7 @@ import {
 
 type ProductItem = {
   name: string;
+  sup?: string;
   domain: string;
   url: string;
   icon: LucideIcon;
@@ -121,6 +122,7 @@ export const growthRocketTools: ProductItem[] = [
   },
   {
     name: "SprocketRocket",
+    sup: "AI",
     domain: "sprocketrocket.ai",
     url: "https://sprocketrocket.ai",
     icon: Blocks,
@@ -217,7 +219,10 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
             </span>
           )}
           <span className="absolute bottom-6 left-6 right-6 block">
-            <span className="block text-xl font-semibold text-white tracking-tight">{item.name}</span>
+            <span className="block text-xl font-semibold text-white tracking-tight">
+              {item.name}
+              {item.sup && <sup className="ml-0.5 text-[10px] font-normal text-white/50">{item.sup}</sup>}
+            </span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
         </button>
@@ -231,7 +236,11 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
             style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), transparent)" }}
           />
           <p className="text-[11px] text-white/40">
-            <span className="text-white/70 font-medium">{item.name}</span> · {item.domain}
+            <span className="text-white/70 font-medium">
+              {item.name}
+              {item.sup && <sup className="ml-0.5 text-[8px] font-normal text-white/50">{item.sup}</sup>}
+            </span>{" "}
+            · {item.domain}
           </p>
           <p className="mt-3 text-[13px] text-white/60 leading-relaxed">{item.desc}</p>
           <div className="mt-auto pt-4 flex items-center gap-4">
@@ -299,7 +308,10 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
             </span>
           )}
           <span className="absolute bottom-6 left-6 right-6 block">
-            <span className="block text-lg font-semibold text-white tracking-tight">{item.name}</span>
+            <span className="block text-lg font-semibold text-white tracking-tight">
+              {item.name}
+              {item.sup && <sup className="ml-0.5 text-[9px] font-normal text-white/50">{item.sup}</sup>}
+            </span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
         </button>
@@ -313,7 +325,11 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
             style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), transparent)" }}
           />
           <p className="text-[11px] text-white/40">
-            <span className="text-white/70 font-medium">{item.name}</span> · {item.domain}
+            <span className="text-white/70 font-medium">
+              {item.name}
+              {item.sup && <sup className="ml-0.5 text-[8px] font-normal text-white/50">{item.sup}</sup>}
+            </span>{" "}
+            · {item.domain}
           </p>
           <p className="mt-3 text-[13px] text-white/60 leading-relaxed">{item.desc}</p>
           <div className="mt-auto pt-4 flex items-center gap-4">

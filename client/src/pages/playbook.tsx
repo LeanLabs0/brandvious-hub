@@ -737,7 +737,7 @@ function PartnerPricingSection() {
                 eyebrow: "Agency Infrastructure",
                 accent: "#8ea2ff",
                 title: "Authority Tools",
-                blurb: "60% off for partners.",
+                blurb: "100% commission for partners (up to 10 portals).",
                 items: [
                   { name: "DesignRocket.ai", url: "https://designrocket.ai" },
                   { name: "SprocketRocket.ai", url: "https://sprocketrocket.ai" },

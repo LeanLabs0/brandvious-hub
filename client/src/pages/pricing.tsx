@@ -20,17 +20,17 @@ import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 type Price = { upfront: number; renewal: number };
 
 const prices: Record<string, Price> = {
-  DesignRocket: { upfront: 3000, renewal: 200 },
+  DesignRocket: { upfront: 4000, renewal: 200 },
   CopyRocket: { upfront: 0, renewal: 40 },
-  SprocketRocket: { upfront: 997, renewal: 97 },
+  SprocketRocket: { upfront: 1000, renewal: 97 },
   SchemaRocket: { upfront: 4000, renewal: 75 },
-  SurveyRocket: { upfront: 1000, renewal: 25 },
-  ReputationRocket: { upfront: 3000, renewal: 50 },
+  SurveyRocket: { upfront: 2000, renewal: 25 },
+  ReputationRocket: { upfront: 2000, renewal: 50 },
   AnswerRocket: { upfront: 5000, renewal: 75 },
-  RocketRank: { upfront: 500, renewal: 75 },
+  RocketRank: { upfront: 0, renewal: 75 },
 };
 
-const bundle = { upfront: 15000, renewal: 400 };
+const bundle = { upfront: 12000, renewal: 500 };
 
 // tools with no standalone license — they ride along with another tool
 const includedWith: Record<string, string> = {
@@ -45,7 +45,10 @@ const bonuses: Record<string, string> = {
 const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
 
 const totalUpfront = Object.values(prices).reduce((s, p) => s + p.upfront, 0);
-const totalRenewal = Object.values(prices).reduce((s, p) => s + p.renewal, 0);
+// children like CopyRocket ride free with their parent — exclude them from the compare-at total
+const totalRenewal = Object.entries(prices)
+  .filter(([name]) => !includedWith[name])
+  .reduce((s, [, p]) => s + p.renewal, 0);
 const bundleSaveUpfront = totalUpfront - bundle.upfront;
 const bundleSaveRenewal = totalRenewal - bundle.renewal;
 
@@ -62,7 +65,7 @@ function PriceRow({
   delay,
   last,
 }: {
-  tool: { name: string; category?: string; tag?: string; icon: LucideIcon };
+  tool: { name: string; sup?: string; category?: string; tag?: string; icon: LucideIcon };
   price: Price;
   includedBy?: string;
   lockedIncluded: boolean;
@@ -99,7 +102,10 @@ function PriceRow({
       <span className="min-w-0 flex-1">
         <span className="block text-[10px] uppercase tracking-[0.2em] font-medium text-sky-300/60">{tool.category}</span>
         <span className="block mt-1 text-[15px] tracking-tight">
-          <span className="font-semibold text-white">{tool.name}</span>
+          <span className="font-semibold text-white">
+            {tool.name}
+            {tool.sup && <sup className="ml-0.5 text-[9px] font-normal text-white/50">{tool.sup}</sup>}
+          </span>
           <span className="text-white/40"> · {tool.tag}</span>
         </span>
       </span>
@@ -112,7 +118,7 @@ function PriceRow({
         ) : (
           <>
             <span className="block text-lg font-bold text-white tracking-tight">
-              {fmt(price.upfront)}
+              {price.upfront === 0 ? "Free" : fmt(price.upfront)}
               <span className="ml-1.5 text-[10px] font-normal text-white/35">license</span>
             </span>
             <span className="block mt-0.5 text-[11px] text-white/40">+ {fmt(price.renewal)}/mo</span>
@@ -302,7 +308,10 @@ export default function Pricing() {
                           className="inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5"
                         >
                           <t.icon className="w-3.5 h-3.5 text-white/50" />
-                          <span className="text-[11px] text-white/70">{t.name}</span>
+                          <span className="text-[11px] text-white/70">
+                            {t.name}
+                            {t.sup && <sup className="ml-0.5 text-[8px] text-white/40">{t.sup}</sup>}
+                          </span>
                         </span>
                       ))}
                   </div>
@@ -312,7 +321,7 @@ export default function Pricing() {
                       <span className="ml-2 text-[11px] font-normal text-white/35">one-time</span>
                     </p>
                     <p className="mt-1.5 text-[13px] text-white/45">
-                      clients pay {fmt(selRenewal)}/mo for AI tokens, support & updates
+                      + {fmt(selRenewal)}/mo for AI tokens, support & updates
                     </p>
                   </div>
                   {tools
@@ -324,9 +333,7 @@ export default function Pricing() {
                         data-testid={`pricing-bonus-${t.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                       >
                         <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
-                        <span>
-                          {t.name} includes a {bonuses[t.name]}.
-                        </span>
+                        <span>Includes a {bonuses[t.name]}.</span>
                       </p>
                     ))}
                   {selUpfront >= bundle.upfront && (
@@ -365,30 +372,38 @@ export default function Pricing() {
             />
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center gap-10">
               <div className="flex-1 min-w-0">
-                <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-3">The Full Stack</p>
-                <h2 className="text-xl sm:text-2xl font-semibold text-white">
-                  GrowthRocket.ai,{" "}
+                <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
+                  The full{" "}
                   <span
                     className="bg-clip-text text-transparent"
                     style={{
                       backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
                     }}
                   >
-                    all eight tools.
-                  </span>
+                    GrowthRocket.ai
+                  </span>{" "}
+                  stack.
                 </h2>
-                <p className="mt-3 text-sm text-white/45 leading-relaxed max-w-md">
-                  Every tool above, one license. Tokens & support billed
-                  monthly from day one.
-                </p>
-                <div className="mt-6 grid grid-cols-4 gap-2 max-w-md">
+                <div className="mt-6 grid grid-cols-4 gap-2 max-w-lg">
                   {tools.map((t) => (
                     <span
                       key={t.name}
-                      className="flex flex-col items-center gap-1.5 rounded-xl border border-white/[0.08] bg-white/[0.04] px-2 py-3"
+                      className="group relative overflow-hidden rounded-xl border border-white/[0.06] bg-black/40 h-20 p-3 flex items-end transition-colors duration-500 hover:border-white/[0.12]"
                     >
-                      <t.icon className="w-4 h-4 text-white/55" />
-                      <span className="text-[10px] text-white/55 tracking-tight">{t.name}</span>
+                      <t.icon
+                        className="absolute -bottom-4 -right-4 w-16 h-16 text-white/[0.06] group-hover:text-white/[0.1] transition-colors duration-500 pointer-events-none"
+                        style={{
+                          maskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+                          WebkitMaskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+                        }}
+                      />
+                      <span className="absolute left-3 top-3 w-4 h-4 rounded-[5px] border border-purple-300/40 bg-purple-400/15 text-purple-100 flex items-center justify-center">
+                        <Check className="w-2.5 h-2.5" />
+                      </span>
+                      <span className="relative text-[10px] text-white/60 tracking-tight">
+                        {t.name}
+                        {t.sup && <sup className="ml-0.5 text-[7px] text-white/40">{t.sup}</sup>}
+                      </span>
                     </span>
                   ))}
                 </div>
@@ -401,16 +416,17 @@ export default function Pricing() {
                   {fmt(bundle.upfront)}
                   <span className="ml-2 text-xs font-normal text-white/35">one-time</span>
                 </p>
-                <p className="mt-3 flex items-start gap-2 text-[13px] text-white/50">
-                  <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
-                  <span>Monthly fee covers {monthlyCovers}</span>
-                </p>
-                <p className="mt-2 text-[13px] text-white/40">
+                <p className="mt-3 text-[13px] text-white/40">
                   + {fmt(bundle.renewal)}/mo{" "}
                   <span className="text-white/30">(vs. {fmt(totalRenewal)}/mo)</span>
                 </p>
+                <p className="mt-2 flex items-start gap-2 text-[13px] text-white/50">
+                  <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
+                  <span>Monthly fee covers {monthlyCovers}</span>
+                </p>
                 <p className="mt-4 text-[12px] font-medium text-purple-300/70">
-                  Save {fmt(bundleSaveUpfront)} up front and {fmt(bundleSaveRenewal)}/mo on the monthly fee.
+                  Save {fmt(bundleSaveUpfront)} (-{Math.round((bundleSaveUpfront / totalUpfront) * 100)}%) up
+                  front and {fmt(bundleSaveRenewal)}/mo on the monthly fee.
                 </p>
               </div>
             </div>
