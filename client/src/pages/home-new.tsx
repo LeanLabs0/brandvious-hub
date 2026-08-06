@@ -564,6 +564,61 @@ export function NewFooter() {
     theme === "light" ? <Sparkles className="w-4 h-4" /> :
     <Moon className="w-4 h-4" />;
 
+  const renderFooterColumn = (col: (typeof footerColumns)[number], padClass: string) => (
+    <div key={col.title} className={`shrink-0 whitespace-nowrap ${padClass}`}>
+      <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
+      {"cols" in col ? (
+        <div className="flex gap-x-8">
+          {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
+            <div key={ci} className="space-y-3">
+              {colLinks.map((link) =>
+                link.isHeader ? (
+                  <p key={link.name} className="text-[10px] uppercase tracking-widest text-white/25 pt-1">
+                    {link.name}
+                  </p>
+                ) : (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                    className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                    data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+                  >
+                    {link.name}
+                    {link.badge && (
+                      <span className="text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border text-amber-300/50 border-amber-300/15">{link.badge}</span>
+                    )}
+                  </a>
+                )
+              )}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {"links" in col && (col as { links: { name: string; url?: string; badge?: string }[] }).links.map((link) =>
+            link.url ? (
+              <a
+                key={link.name}
+                href={link.url}
+                {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+              >
+                {link.name}
+                {link.badge && (
+                  <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
+                )}
+              </a>
+            ) : (
+              <span key={link.name} className="block text-white/50">{link.name}</span>
+            )
+          )}
+        </div>
+      )}
+    </div>
+  );
+
   return (
     <footer className="relative py-16 px-6 border-t border-white/[0.04]" data-testid="v2-footer">
       {party && (
@@ -583,85 +638,39 @@ export function NewFooter() {
         </div>
       )}
       <div className="max-w-6xl mx-auto relative z-10">
-        <div className="flex flex-col md:flex-row items-start gap-12">
-          <div className="min-w-[200px]">
-            <a
-              href="/"
-              className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
-              data-testid="v2-footer-link-home"
-            >
-              Brandvious<span className="font-light text-white/60">, Inc.</span>
-            </a>
-            <div className="space-y-1 mt-2">
-              <p className="text-xs text-white/30 leading-relaxed" data-testid="v2-text-address">
-                16703 Early Riser Ave, Suite 111<br />
-                Land O' Lakes, FL 34638
-              </p>
+        <div className="flex flex-col md:flex-row items-start text-sm">
+          {/* left half: brand + products */}
+          <div className="md:w-1/2 flex items-start justify-between gap-8 md:pr-8">
+            <div className="min-w-[200px]">
               <a
-                href="tel:+19138716500"
-                className="text-xs text-white/30 hover:text-white/50 transition-colors block"
-                data-testid="v2-link-phone"
+                href="/"
+                className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
+                data-testid="v2-footer-link-home"
               >
-                1-913-871-6500
+                Brandvious<span className="font-light text-white/60">, Inc.</span>
               </a>
+              <div className="space-y-1 mt-2">
+                <p className="text-xs text-white/30 leading-relaxed" data-testid="v2-text-address">
+                  16703 Early Riser Ave, Suite 111<br />
+                  Land O' Lakes, FL 34638
+                </p>
+                <a
+                  href="tel:+19138716500"
+                  className="text-xs text-white/30 hover:text-white/50 transition-colors block"
+                  data-testid="v2-link-phone"
+                >
+                  1-913-871-6500
+                </a>
+              </div>
             </div>
+            {renderFooterColumn(footerColumns[0], "px-0")}
           </div>
 
-          <div className="flex flex-nowrap gap-y-8 text-sm divide-x divide-white/[0.07]">
-            {footerColumns.map((col) => (
-              <div key={col.title} className={`shrink-0 whitespace-nowrap ${"noDivider" in col && col.noDivider ? "!border-l-0 pl-8" : "px-8 first:pl-0"}`}>
-                <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
-                {"cols" in col ? (
-                  <div className="flex gap-x-8">
-                    {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
-                      <div key={ci} className="space-y-3">
-                        {colLinks.map((link) =>
-                          link.isHeader ? (
-                            <p key={link.name} className="text-[10px] uppercase tracking-widest text-white/25 pt-1">
-                              {link.name}
-                            </p>
-                          ) : (
-                            <a
-                              key={link.name}
-                              href={link.url}
-                              {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                              className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
-                              data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-                            >
-                              {link.name}
-                              {link.badge && (
-                                <span className="text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border text-amber-300/50 border-amber-300/15">{link.badge}</span>
-                              )}
-                            </a>
-                          )
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {"links" in col && (col as { links: { name: string; url?: string; badge?: string }[] }).links.map((link) =>
-                      link.url ? (
-                        <a
-                          key={link.name}
-                          href={link.url}
-                          {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                          className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
-                          data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-                        >
-                          {link.name}
-                          {link.badge && (
-                            <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
-                          )}
-                        </a>
-                      ) : (
-                        <span key={link.name} className="block text-white/50">{link.name}</span>
-                      )
-                    )}
-                  </div>
-                )}
-              </div>
-            ))}
+          {/* right half — border-l lands exactly at container center, aligned with the page spine */}
+          <div className="md:w-1/2 flex flex-wrap items-start gap-y-8 divide-x divide-white/[0.07] md:border-l md:border-white/[0.07]">
+            {footerColumns.slice(1).map((col) =>
+              renderFooterColumn(col, "noDivider" in col && col.noDivider ? "!border-l-0 px-8" : "px-8")
+            )}
           </div>
         </div>
 
