@@ -128,17 +128,6 @@ const footerColumns = [
     ],
   },
   {
-    title: "Coming Next",
-    noDivider: true,
-    links: [
-      { name: "GTM Strategy", url: "/gtm" },
-      { name: "GTM Journal", url: "https://gtmjournal.org" },
-      { name: "GTM Review", url: "https://gtmreview.org" },
-      { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM 100", url: "https://gtm100.org" },
-    ],
-  },
-  {
     title: "Properties",
     links: [
       { name: "AnswerStack", url: "https://answerstack.io" },
