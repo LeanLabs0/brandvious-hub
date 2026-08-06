@@ -274,10 +274,6 @@ function WaveSection() {
             </div>
           ))}
         </div>
-        <p className={`mt-12 text-sm text-white/45 max-w-2xl leading-relaxed transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "750ms" }} data-testid="playbook-text-waveshift">
-          Beyond a scalable vehicle of offsite publishing, the model moves the agency from a
-          labor-based business to a logic-based business: incredibly scalable with a small team.
-        </p>
       </div>
     </section>
   );
