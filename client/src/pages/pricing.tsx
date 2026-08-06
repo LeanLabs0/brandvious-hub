@@ -454,7 +454,7 @@ export default function Pricing() {
                   ))}
                 </div>
               </div>
-              <div className="shrink-0 lg:pl-10 lg:border-l lg:border-white/[0.06]">
+              <div className="shrink-0 lg:pl-10">
                 <p className="text-[12px] text-white/35">
                   À la carte <span className="line-through">{fmt(totalUpfront)}</span>
                 </p>
