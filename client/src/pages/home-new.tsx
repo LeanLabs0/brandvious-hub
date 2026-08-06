@@ -51,48 +51,25 @@ const howItWorks = {
 
 const networks = [
   {
-    name: "Authority Tools",
-    label: "Infrastructure",
-    description: "Infrastructure that builds authority.",
-    accent: "blue" as const,
-    examples: [
-      { name: "SchemaRocket.ai", url: "https://schemarocket.ai" },
-      { name: "SurveyRocket.ai", url: "https://surveyrocket.ai" },
-      { name: "ReputationRocket.ai", url: "https://reputationrocket.ai" },
-      { name: "DesignRocket.ai", url: "https://designrocket.ai" },
-    ],
-  },
-  {
-    name: "B2B Publications",
-    label: "B2B Publications",
-    description: "B2B authority domains AI cites and recommends.",
+    name: "Authority Domain Profiles",
+    label: "Knowledge Graph",
+    description: "Offsite brand validation & answer citation.",
     accent: "purple" as const,
     examples: [
       { name: "AnswerStack.io", url: "https://answerstack.io" },
       { name: "Entities.org", url: "https://entities.org" },
-      { name: "ReviewInsight.com", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
-      { name: "B2BIndex.org", url: "https://b2bindex.org", badge: "Launched Sept '26" },
-      { name: "BestFit.org", url: "https://bestfit.org", badge: "Launched Sept '26" },
-      { name: "WhatisBest.com", url: "https://whatisbest.com" },
+      { name: "ReviewInsight.com", url: "https://reviewinsight.com" },
     ],
   },
   {
-    name: "Publishing Network",
-    label: "GTM Publications",
-    description: (
-      <>
-        <a href="/gtm" className="font-bold text-white/75 hover:text-white transition-colors">
-          GTM research
-        </a>{" "}
-        AI can cite and trust.
-      </>
-    ),
+    name: "B2B Consensus",
+    label: "B2B Publications",
+    description: "Authority domains LLMs cite and recommend.",
     accent: "amber" as const,
     examples: [
-      { name: "GTM Journal", url: "https://gtmjournal.org" },
-      { name: "GTM Review", url: "https://gtmreview.org" },
-      { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM 100", url: "https://gtm100.org" },
+      { name: "B2BIndex.org", url: "https://b2bindex.org" },
+      { name: "BestFit.org", url: "https://bestfit.org" },
+      { name: "WhatisBest.com", url: "https://whatisbest.com" },
     ],
   },
 ];
@@ -294,6 +271,7 @@ export function NewNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
+          <a href="/partners" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Partners</a>
           <ConnectButton compact onClick={() => setConnectOpen(true)} testId="v2-nav-connect" />
         </div>
       </div>
@@ -430,7 +408,7 @@ function HowItWorksSection() {
           </h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {networks.map((n, i) => {
             const accent = {
               purple: {
@@ -464,37 +442,20 @@ function HowItWorksSection() {
                   <p className="text-sm text-white/50 mb-10">{n.description}</p>
 
                   <div>
-                    {n.examples.map((ex, j) => {
-                      const rowClass = `flex items-center justify-between gap-2 py-3.5 text-base transition-colors duration-300 ${
-                        j > 0 ? "border-t border-white/[0.06]" : ""
-                      }`;
-                      return ex.url ? (
-                        <a
-                          key={ex.name}
-                          href={ex.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`group ${rowClass} text-white/70 hover:text-white`}
-                        >
-                          <span className="flex items-center gap-2">
-                            {ex.name}
-                            {"badge" in ex && ex.badge && (
-                              <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{ex.badge}</span>
-                            )}
-                          </span>
-                          <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors shrink-0" />
-                        </a>
-                      ) : (
-                        <div key={ex.name} className={`${rowClass} text-white/70`}>
-                          <span className="flex items-center gap-2">
-                            {ex.name}
-                            {"badge" in ex && ex.badge && (
-                              <span className="text-[10px] tracking-wide font-medium text-amber-300/60 border border-amber-300/20 rounded px-1.5 py-0.5 leading-none">{ex.badge}</span>
-                            )}
-                          </span>
-                        </div>
-                      );
-                    })}
+                    {n.examples.map((ex, j) => (
+                      <a
+                        key={ex.name}
+                        href={ex.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group flex items-center justify-between gap-2 py-3.5 text-base transition-colors duration-300 text-white/70 hover:text-white ${
+                          j > 0 ? "border-t border-white/[0.06]" : ""
+                        }`}
+                      >
+                        <span className="flex items-center gap-2">{ex.name}</span>
+                        <ExternalLink className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors shrink-0" />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
