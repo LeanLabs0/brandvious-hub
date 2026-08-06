@@ -686,7 +686,7 @@ function PartnerPricingSection() {
           </div>
 
           <div className="rounded-3xl border border-purple-300/30 bg-purple-400/[0.06] p-8 backdrop-blur-sm" data-testid="pricing-card-concierge">
-            <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Concierge</span>
+            <span className="inline-block rounded-full border border-purple-300/25 bg-purple-400/[0.1] px-3 py-1 text-xs text-purple-200/90">Done For You</span>
             <p className="mt-8 text-5xl font-bold text-white tracking-tight">$250</p>
             <p className="mt-2 text-sm text-white/50">per article we write in full for you*</p>
             <ProcessFlow
