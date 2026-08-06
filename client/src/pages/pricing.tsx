@@ -389,6 +389,14 @@ export default function Pricing() {
       {/* the full stack — graphical bundle with icons, compare-at price, term & renewal */}
       <section id="full-stack" className="relative px-6 pb-14 scroll-mt-24" data-testid="pricing-section-bundle">
         <div className="max-w-6xl mx-auto">
+          <p
+            className={`text-xs uppercase tracking-[0.2em] text-white/40 mb-8 transition-all duration-1000 ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+            style={{ transitionDelay: "500ms" }}
+          >
+            Best Value and ROI
+          </p>
           <div
             className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-md bg-black/60 border border-white/[0.07] transition-all duration-1000 ${
               party
