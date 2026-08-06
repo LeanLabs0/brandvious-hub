@@ -8,7 +8,6 @@ import {
   FloatingParticles,
 } from "@/pages/home-new";
 import {
-  Wrench,
   PenLine,
   Cog,
   ClipboardList,
@@ -22,6 +21,7 @@ import {
   FileEdit,
   ListOrdered,
   Trophy,
+  Rocket,
   type LucideIcon,
 } from "lucide-react";
 
@@ -34,11 +34,12 @@ import {
 type RedirectItem = { name: string; icon: LucideIcon };
 
 const toolItems: RedirectItem[] = [
-  { name: "CopyRocket.ai", icon: PenLine },
+  { name: "CopyRocket.app", icon: PenLine },
   { name: "SprocketRocket.ai", icon: Cog },
   { name: "SurveyRocket.ai", icon: ClipboardList },
   { name: "AnswerRocket.io", icon: MessageSquare },
   { name: "RocketRank.ai", icon: TrendingUp },
+  { name: "GrowthRocket.ai", icon: Rocket },
 ];
 
 const domainItems: RedirectItem[] = [
@@ -54,20 +55,18 @@ const domainItems: RedirectItem[] = [
 
 function RedirectColumn({
   title,
-  sub,
   items,
   visible,
   delay,
 }: {
   title: string;
-  sub: string;
   items: RedirectItem[];
   visible: boolean;
   delay: number;
 }) {
   return (
     <div
-      className={`relative rounded-2xl border border-white/[0.07] bg-white/[0.03] backdrop-blur-sm p-6 sm:p-7 shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-1000 ${
+      className={`relative rounded-2xl border border-white/[0.07] bg-black/40 backdrop-blur-md p-6 sm:p-7 shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] transition-all duration-1000 ${
         visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
       style={{ transitionDelay: `${delay}ms` }}
@@ -87,8 +86,7 @@ function RedirectColumn({
         }}
       />
 
-      <p className="text-white/30 uppercase tracking-widest text-[11px]">{title}</p>
-      <p className="text-white/45 text-xs mt-1.5 mb-6">{sub}</p>
+      <p className="text-white/30 uppercase tracking-widest text-[11px] mb-6">{title}</p>
 
       <div className="space-y-2.5">
         {items.map((item) => (
@@ -133,13 +131,16 @@ export default function Redirects() {
           <div
             className={`transition-all duration-1000 ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
           >
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-4 py-1.5 mb-8">
-              <Wrench className="w-3.5 h-3.5 text-purple-300/70" />
-              <span className="text-xs text-white/50 tracking-wide">Live updates in progress</span>
+            <div className="inline-flex items-center gap-2.5 rounded-full border border-white/[0.08] bg-[hsl(220,10%,6%)] px-4 py-1.5 mb-8 shadow-[0_0_24px_rgba(0,0,0,0.6)]">
+              <span className="relative flex w-2 h-2">
+                <span className="absolute inline-flex w-full h-full rounded-full bg-purple-400/50 animate-ping" />
+                <span className="relative inline-flex w-2 h-2 rounded-full bg-purple-300/80" />
+              </span>
+              <span className="text-xs text-white/55 tracking-wide">Live updates in progress</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight" data-testid="redirects-text-headline">
-              <span className="text-white">You caught us mid-build.</span>
+              <span className="text-white">You caught us mid-sprint.</span>
               <br />
               <span
                 className="bg-clip-text text-transparent"
@@ -147,28 +148,25 @@ export default function Redirects() {
                   backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
                 }}
               >
-                These pages are next.
+                These builds launch next.
               </span>
             </h1>
 
             <p className="mt-6 max-w-xl mx-auto text-sm sm:text-base text-white/45 leading-relaxed" data-testid="redirects-text-sub">
               We redirected you here because the page you were looking for is one
-              of a handful we're still building. They're being shipped as we
-              go — and they're coming very soon.
+              of a handful we're still building. They're being shipped within weeks.
             </p>
           </div>
 
           <div className="mt-14 grid md:grid-cols-2 gap-6 w-full items-start text-left">
             <RedirectColumn
               title="GrowthRocket Tools"
-              sub="The AI authority toolstack."
               items={toolItems}
               visible={visible}
               delay={150}
             />
             <RedirectColumn
               title="AEO Authority Domains"
-              sub="The publishing network."
               items={domainItems}
               visible={visible}
               delay={300}
