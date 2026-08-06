@@ -257,7 +257,7 @@ export default function Pricing() {
               <button
                 type="button"
                 onClick={toggleAll}
-                className="group flex items-center gap-2.5 cursor-pointer"
+                className="group flex items-center gap-2.5 cursor-pointer mr-[30px]"
                 data-testid="pricing-select-all"
               >
                 <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/60 transition-colors">
