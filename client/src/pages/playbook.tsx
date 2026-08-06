@@ -250,10 +250,6 @@ function WaveSection() {
             data-testid="playbook-img-waves"
           />
         </div>
-        <p className={`mt-6 text-sm text-white/45 leading-relaxed transition-all duration-700 delay-300 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} data-testid="playbook-text-buffett">
-          "It's not about how hard you row. It's about what boat you're in."{" "}
-          <span className="text-white/60">Warren Buffett</span>
-        </p>
         <div id="wave-cards" className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10">
           {waves.map((w, i) => (
             <div 
@@ -273,6 +269,19 @@ function WaveSection() {
               <p className={`mt-5 text-base leading-relaxed ${w.highlight ? "text-purple-200/90" : "text-white/55"}`}>{w.line}</p>
             </div>
           ))}
+        </div>
+        <div className={`mt-20 text-center transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`} style={{ transitionDelay: "600ms" }} data-testid="playbook-text-buffett">
+          <p className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug tracking-tight max-w-4xl mx-auto">
+            <span
+              className="bg-clip-text text-transparent"
+              style={{
+                backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.45))",
+              }}
+            >
+              "It's not about how hard you row. It's about what boat you're in."
+            </span>
+          </p>
+          <p className="mt-5 text-sm text-white/50">Warren Buffett</p>
         </div>
       </div>
     </section>
