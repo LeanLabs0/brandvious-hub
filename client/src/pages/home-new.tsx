@@ -104,8 +104,8 @@ const footerColumns = [
     cols: [
       [
         { name: "Entities.org", url: "https://entities.org" },
-        { name: "DesignRocket", url: "https://designrocket.ai" },
         { name: "CopyRocket", url: "https://copyrocket.app" },
+        { name: "DesignRocket", url: "https://designrocket.ai" },
         { name: "SprocketRocket", url: "https://sprocketrocket.ai" },
         { name: "SchemaRocket", url: "https://schemarocket.ai" },
       ],
@@ -113,6 +113,7 @@ const footerColumns = [
         { name: "SurveyRocket", url: "https://surveyrocket.ai" },
         { name: "ReputationRocket", url: "https://reputationrocket.ai" },
         { name: "AnswerRocket", url: "https://answerrocket.io" },
+        { name: "RocketRank", url: "https://rocketrank.ai" },
         { name: "GrowthRocket", url: "https://growthrocket.ai" },
       ],
     ],
