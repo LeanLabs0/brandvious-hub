@@ -99,15 +99,27 @@ const networks = [
 const footerColumns = [
   {
     title: "Products",
-    links: [
-      { name: "Entities.org", url: "https://entities.org" },
-      { name: "SchemaRocket", url: "https://schemarocket.ai" },
-      { name: "ReputationRocket", url: "https://reputationrocket.ai" },
-      { name: "SurveyRocket", url: "https://surveyrocket.ai" },
+    wide: true,
+    span: 2,
+    cols: [
+      [
+        { name: "Entities.org", url: "https://entities.org" },
+        { name: "DesignRocket", url: "https://designrocket.ai" },
+        { name: "CopyRocket", url: "https://copyrocket.app" },
+        { name: "SprocketRocket", url: "https://sprocketrocket.ai" },
+        { name: "SchemaRocket", url: "https://schemarocket.ai" },
+      ],
+      [
+        { name: "SurveyRocket", url: "https://surveyrocket.ai" },
+        { name: "ReputationRocket", url: "https://reputationrocket.ai" },
+        { name: "AnswerRocket", url: "https://answerrocket.io" },
+        { name: "GrowthRocket", url: "https://growthrocket.ai" },
+      ],
     ],
   },
   {
     title: "Partners",
+    span: 1,
     links: [
       { name: "Certified Partners", url: "/partners" },
       { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
@@ -117,6 +129,7 @@ const footerColumns = [
   {
     title: "Properties",
     wide: true,
+    span: 3,
     cols: [
       [
         { name: "AnswerStack", url: "https://answerstack.io" },
@@ -126,11 +139,12 @@ const footerColumns = [
         { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
       ],
       [
-        { name: "GTM Strategy", url: "/gtm", badge: "Coming Soon" },
-        { name: "GTM Journal", url: "https://gtmjournal.org", badge: "Coming Soon" },
-        { name: "GTM Review", url: "https://gtmreview.org", badge: "Coming Soon" },
-        { name: "GTM Index", url: "https://gtmindex.org", badge: "Coming Soon" },
-        { name: "GTM 100", url: "https://gtm100.org", badge: "Coming Soon" },
+        { name: "Coming Next", url: "", isHeader: true },
+        { name: "GTM Strategy", url: "/gtm" },
+        { name: "GTM Journal", url: "https://gtmjournal.org" },
+        { name: "GTM Review", url: "https://gtmreview.org" },
+        { name: "GTM Index", url: "https://gtmindex.org" },
+        { name: "GTM 100", url: "https://gtm100.org" },
       ],
     ],
   },
@@ -593,15 +607,20 @@ export function NewFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-12 gap-y-4 text-sm">
+          <div className="grid grid-cols-2 sm:grid-cols-6 gap-x-12 gap-y-4 text-sm">
             {footerColumns.map((col) => (
-              <div key={col.title} className={col.wide ? "col-span-2" : ""}>
+              <div key={col.title} className={`col-span-${("span" in col && col.span) ? col.span : 1}`}>
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
                 {"cols" in col ? (
                   <div className="grid grid-cols-2 gap-x-12 gap-y-3">
-                    {(col as { cols: { name: string; url: string; badge?: string }[][] }).cols.map((colLinks, ci) => (
+                    {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
                       <div key={ci} className="space-y-3">
-                        {colLinks.map((link) => (
+                        {colLinks.map((link) =>
+                          link.isHeader ? (
+                            <p key={link.name} className="text-[10px] uppercase tracking-widest text-white/25 pt-1">
+                              {link.name}
+                            </p>
+                          ) : (
                           <a
                             key={link.name}
                             href={link.url}
@@ -611,10 +630,11 @@ export function NewFooter() {
                           >
                             {link.name}
                             {link.badge && (
-                              <span className={`text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border ${link.badge === "Coming Soon" ? "text-white/30 border-white/10" : "text-amber-300/50 border-amber-300/15"}`}>{link.badge}</span>
+                              <span className="text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border text-amber-300/50 border-amber-300/15">{link.badge}</span>
                             )}
                           </a>
-                        ))}
+                          )
+                        )}
                       </div>
                     ))}
                   </div>
