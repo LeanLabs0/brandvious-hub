@@ -14,8 +14,8 @@ import {
   Star,
   BarChart3,
   Target,
-  Type,
-  DraftingCompass,
+  Quote,
+  LayoutPanelLeft,
   Blocks,
   Braces,
   ClipboardList,
@@ -105,7 +105,7 @@ const growthRocketTools: ProductItem[] = [
     name: "CopyRocket",
     domain: "copyrocket.app",
     url: "https://copyrocket.app",
-    icon: Type,
+    icon: Quote,
     category: "Copy",
     tag: "Words that convert.",
     desc: "Conversion copy for pages, emails, and campaigns.",
@@ -114,7 +114,7 @@ const growthRocketTools: ProductItem[] = [
     name: "DesignRocket",
     domain: "designrocket.ai",
     url: "https://designrocket.ai",
-    icon: DraftingCompass,
+    icon: LayoutPanelLeft,
     category: "Design",
     tag: "On-brand, on demand.",
     desc: "On-brand design for web, ads, and collateral.",
@@ -204,7 +204,13 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
             className="absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.35), transparent)" }}
           />
-          <item.icon className="absolute -bottom-8 -right-8 w-44 h-44 text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-500 pointer-events-none" />
+          <item.icon
+            className="absolute -bottom-8 -right-8 w-44 h-44 text-white/[0.05] group-hover:text-white/[0.08] transition-colors duration-500 pointer-events-none"
+            style={{
+              maskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+            }}
+          />
           {item.status && (
             <span className={`absolute top-6 left-6 text-[10px] uppercase tracking-[0.2em] font-medium ${statusColor[item.status]}`}>
               {item.status}
@@ -280,7 +286,13 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
             className="absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.35), transparent)" }}
           />
-          <item.icon className="absolute -bottom-8 -right-8 w-40 h-40 text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-500 pointer-events-none" />
+          <item.icon
+            className="absolute -bottom-8 -right-8 w-40 h-40 text-white/[0.05] group-hover:text-white/[0.08] transition-colors duration-500 pointer-events-none"
+            style={{
+              maskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+              WebkitMaskImage: "radial-gradient(circle at 35% 35%, black 20%, transparent 75%)",
+            }}
+          />
           {item.category && (
             <span className="absolute top-6 left-6 text-[10px] uppercase tracking-[0.2em] font-medium text-sky-300/60">
               {item.category}
