@@ -509,6 +509,13 @@ export default function Products() {
                   Find a Partner <ArrowRight className="w-4 h-4" />
                 </a>
                 <a
+                  href="/pricing"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white/75 hover:text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.2]"
+                  data-testid="products-cta-see-pricing"
+                >
+                  See Pricing <ArrowRight className="w-4 h-4" />
+                </a>
+                <a
                   href="/partner-playbook"
                   className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white/75 hover:text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-white/[0.12] bg-white/[0.03] hover:bg-white/[0.06] hover:border-white/[0.2]"
                   data-testid="products-cta-become-partner"
