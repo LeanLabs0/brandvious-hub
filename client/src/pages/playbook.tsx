@@ -181,31 +181,19 @@ function PlaybookHero() {
 
 const waves = [
   {
-    label: "Wave 1 \u00b7 2010\u20132020",
+    label: "Wave 1 · 2010–2020",
     name: "Inbound Agency",
-    stats: [
-      { value: "$70B", label: "industry built on content and SEO" },
-      { value: "-75%", label: "organic traffic and ROI over the last five years" },
-    ],
-    note: "Google rankings have never mattered less.",
+    line: "$70B market, until AI took over Google",
   },
   {
-    label: "Wave 2 \u00b7 2016\u20132025",
+    label: "Wave 2 · 2016–2025",
     name: "RevOps Agency",
-    stats: [
-      { value: "$5B", label: "market built in under a decade" },
-      { value: "17%", label: "yearly growth, now being absorbed by AI agents" },
-    ],
-    note: "AI tools make RevOps easier than ever.",
+    line: "$5B market, until AI tools absorbed it",
   },
   {
-    label: "Wave 3 \u00b7 2026 and on",
+    label: "Wave 3 · 2026 forward",
     name: "AEO Agentcy",
-    stats: [
-      { value: "$7B", label: "AEO market accelerating as we speak" },
-      { value: "94%", label: "of buyers use AI to research companies" },
-    ],
-    note: "An offsite challenge brands can't solve themselves.",
+    line: "$7B and accelerating as buyers shift to AI",
     highlight: true,
   },
 ];
@@ -282,15 +270,7 @@ function WaveSection() {
                 className={`block mt-2 h-[2px] w-10 rounded-full ${w.highlight ? "bg-purple-300/80" : "bg-white/[0.25]"}`}
                 aria-hidden="true"
               />
-              <div className="mt-5 space-y-4">
-                {w.stats.map((st) => (
-                  <div key={st.value}>
-                    <p className={`text-3xl font-bold tracking-tight ${w.highlight ? "text-purple-200" : "text-white"}`}>{st.value}</p>
-                    <p className="mt-0.5 text-sm text-white/50">{st.label}</p>
-                  </div>
-                ))}
-              </div>
-              <p className={`mt-5 text-sm ${w.highlight ? "text-purple-200/80" : "text-white/50"}`}>{w.note}</p>
+              <p className={`mt-5 text-base leading-relaxed ${w.highlight ? "text-purple-200/90" : "text-white/55"}`}>{w.line}</p>
             </div>
           ))}
         </div>
