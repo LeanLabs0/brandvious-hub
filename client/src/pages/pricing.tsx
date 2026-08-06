@@ -39,7 +39,7 @@ const includedWith: Record<string, string> = {
 
 // perks that ship with a tool — shown in the summary when selected
 const bonuses: Record<string, string> = {
-  SchemaRocket: "premium Entities.org listing ($1,000 value)",
+  SchemaRocket: "Entities.org listing ($1,000 value)",
 };
 
 const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
@@ -333,7 +333,7 @@ export default function Pricing() {
                         data-testid={`pricing-bonus-${t.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                       >
                         <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
-                        <span>Includes a {bonuses[t.name]}.</span>
+                        <span>Includes {bonuses[t.name]}.</span>
                       </p>
                     ))}
                   {selUpfront >= bundle.upfront && (
