@@ -139,6 +139,7 @@ const footerColumns = [
   },
   {
     title: "Coming Next",
+    noDivider: true,
     links: [
       { name: "GTM Loop", url: "/gtm" },
       { name: "GTM Journal", url: "https://gtmjournal.org" },
@@ -608,7 +609,7 @@ export function NewFooter() {
 
           <div className="flex flex-wrap gap-y-8 text-sm divide-x divide-white/[0.07]">
             {footerColumns.map((col) => (
-              <div key={col.title} className={`shrink-0 ${"noDivider" in col && col.noDivider ? "!border-l-0 ml-10 pl-0" : "px-10 first:pl-0"}`}>
+              <div key={col.title} className={`shrink-0 ${"noDivider" in col && col.noDivider ? "!border-l-0 px-10" : "px-10 first:pl-0"}`}>
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
                 {"cols" in col ? (
                   <div className="flex gap-x-10">
