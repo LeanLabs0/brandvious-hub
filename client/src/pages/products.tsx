@@ -14,9 +14,9 @@ import {
   Star,
   BarChart3,
   Target,
-  PenLine,
-  Palette,
-  Cog,
+  Type,
+  DraftingCompass,
+  Blocks,
   Braces,
   ClipboardList,
   ShieldCheck,
@@ -105,7 +105,7 @@ const growthRocketTools: ProductItem[] = [
     name: "CopyRocket",
     domain: "copyrocket.app",
     url: "https://copyrocket.app",
-    icon: PenLine,
+    icon: Type,
     category: "Copy",
     tag: "Words that convert.",
     desc: "Conversion copy for pages, emails, and campaigns.",
@@ -114,7 +114,7 @@ const growthRocketTools: ProductItem[] = [
     name: "DesignRocket",
     domain: "designrocket.ai",
     url: "https://designrocket.ai",
-    icon: Palette,
+    icon: DraftingCompass,
     category: "Design",
     tag: "On-brand, on demand.",
     desc: "On-brand design for web, ads, and collateral.",
@@ -123,7 +123,7 @@ const growthRocketTools: ProductItem[] = [
     name: "SprocketRocket",
     domain: "sprocketrocket.ai",
     url: "https://sprocketrocket.ai",
-    icon: Cog,
+    icon: Blocks,
     category: "Website",
     tag: "Fast & modular.",
     desc: "HubSpot CMS themes and modules built for speed.",
@@ -212,12 +212,14 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
           )}
           <span className="absolute bottom-6 left-6 right-6 block">
             <span className="block text-xl font-semibold text-white tracking-tight">{item.name}</span>
-            <span className="block text-[11px] text-white/35 mt-1">{item.domain}</span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
         </button>
         {/* back — description + actions */}
-        <div className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-purple-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col">
+        <div
+          onClick={() => setFlipped(false)}
+          className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-purple-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col cursor-pointer"
+        >
           <div
             className="absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), transparent)" }}
@@ -231,6 +233,7 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="group/link inline-flex items-center gap-1.5 text-[12px] font-medium text-white/80 hover:text-white transition-colors"
             >
               Visit site
@@ -238,7 +241,10 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
             </a>
             <button
               type="button"
-              onClick={() => setFlipped(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setFlipped(false);
+              }}
               className="text-[12px] text-white/40 hover:text-white/80 transition-colors"
             >
               Back
@@ -282,12 +288,14 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
           )}
           <span className="absolute bottom-6 left-6 right-6 block">
             <span className="block text-lg font-semibold text-white tracking-tight">{item.name}</span>
-            <span className="block text-[11px] text-white/35 mt-1">{item.domain}</span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
         </button>
         {/* back — description + actions */}
-        <div className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-sky-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col">
+        <div
+          onClick={() => setFlipped(false)}
+          className="flip-face flip-back absolute inset-0 rounded-2xl overflow-hidden p-6 border border-sky-300/[0.15] bg-white/[0.05] backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] flex flex-col cursor-pointer"
+        >
           <div
             className="absolute inset-x-0 top-0 h-px"
             style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), transparent)" }}
@@ -301,6 +309,7 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
               href={item.url}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
               className="group/link inline-flex items-center gap-1.5 text-[12px] font-medium text-white/80 hover:text-white transition-colors"
             >
               Visit site
@@ -308,7 +317,10 @@ function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolea
             </a>
             <button
               type="button"
-              onClick={() => setFlipped(false)}
+              onClick={(e) => {
+                e.stopPropagation();
+                setFlipped(false);
+              }}
               className="text-[12px] text-white/40 hover:text-white/80 transition-colors"
             >
               Back
