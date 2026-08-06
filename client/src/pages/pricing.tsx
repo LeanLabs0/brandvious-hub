@@ -20,13 +20,14 @@ import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 type Price = { upfront: number; renewal: number };
 
 const prices: Record<string, Price> = {
-  DesignRocket: { upfront: 2997, renewal: 50 },
+  DesignRocket: { upfront: 3000, renewal: 100 },
+  CopyRocket: { upfront: 0, renewal: 40 },
   SprocketRocket: { upfront: 997, renewal: 97 },
-  SchemaRocket: { upfront: 3000, renewal: 75 },
-  SurveyRocket: { upfront: 2000, renewal: 50 },
-  ReputationRocket: { upfront: 3000, renewal: 75 },
-  AnswerRocket: { upfront: 2500, renewal: 60 },
-  RocketRank: { upfront: 2000, renewal: 50 },
+  SchemaRocket: { upfront: 4000, renewal: 75 },
+  SurveyRocket: { upfront: 1000, renewal: 25 },
+  ReputationRocket: { upfront: 3000, renewal: 50 },
+  AnswerRocket: { upfront: 5000, renewal: 75 },
+  RocketRank: { upfront: 500, renewal: 75 },
 };
 
 const bundle = { upfront: 15000, renewal: 400 };
@@ -34,6 +35,11 @@ const bundle = { upfront: 15000, renewal: 400 };
 // tools with no standalone license — they ride along with another tool
 const includedWith: Record<string, string> = {
   CopyRocket: "DesignRocket",
+};
+
+// perks that ship with a tool — shown in the summary when selected
+const bonuses: Record<string, string> = {
+  SchemaRocket: "premium Entities.org listing ($1,000 value)",
 };
 
 const fmt = (n: number) => `$${n.toLocaleString("en-US")}`;
@@ -49,6 +55,7 @@ function PriceRow({
   tool,
   price,
   includedBy,
+  lockedIncluded,
   active,
   onToggle,
   visible,
@@ -56,8 +63,9 @@ function PriceRow({
   last,
 }: {
   tool: { name: string; category?: string; tag?: string; icon: LucideIcon };
-  price?: Price;
+  price: Price;
   includedBy?: string;
+  lockedIncluded: boolean;
   active: boolean;
   onToggle?: () => void;
   visible: boolean;
@@ -93,15 +101,15 @@ function PriceRow({
         </span>
       </span>
       <span className="shrink-0 text-right">
-        {price ? (
-          <>
-            <span className="block text-lg font-bold text-white tracking-tight">{fmt(price.upfront)}</span>
-            <span className="block mt-0.5 text-[11px] text-white/40">then {fmt(price.renewal)}/mo</span>
-          </>
-        ) : (
+        {lockedIncluded ? (
           <>
             <span className="block text-[12px] font-medium text-white/55">Included</span>
             <span className="block mt-0.5 text-[11px] text-white/40">with {includedBy}</span>
+          </>
+        ) : (
+          <>
+            <span className="block text-lg font-bold text-white tracking-tight">{fmt(price.upfront)}</span>
+            <span className="block mt-0.5 text-[11px] text-white/40">then {fmt(price.renewal)}/mo</span>
           </>
         )}
       </span>
@@ -118,7 +126,7 @@ function PriceRow({
     </>
   );
 
-  if (includedBy) {
+  if (lockedIncluded) {
     return (
       <div
         className={rowClass}
@@ -164,15 +172,21 @@ export default function Pricing() {
       return next;
     });
 
-  // a tool with no standalone price activates when its parent is selected
+  // a child tool is active when selected on its own or included by its parent
   const activeFor = (name: string) => {
     const parent = includedWith[name];
-    return parent ? selected.has(parent) : selected.has(name);
+    return parent ? selected.has(parent) || selected.has(name) : selected.has(name);
+  };
+
+  // a selected child whose parent is also selected bills nothing — it is included
+  const billable = (t: (typeof tools)[number]) => {
+    const parent = includedWith[t.name];
+    return selected.has(t.name) && !(parent && selected.has(parent));
   };
 
   const activeTools = tools.filter((t) => activeFor(t.name));
-  const selUpfront = tools.reduce((s, t) => s + (selected.has(t.name) && t.price ? t.price.upfront : 0), 0);
-  const selRenewal = tools.reduce((s, t) => s + (selected.has(t.name) && t.price ? t.price.renewal : 0), 0);
+  const selUpfront = tools.reduce((s, t) => s + (billable(t) ? t.price.upfront : 0), 0);
+  const selRenewal = tools.reduce((s, t) => s + (billable(t) ? t.price.renewal : 0), 0);
   const selCount = activeTools.length;
 
   return (
@@ -240,8 +254,13 @@ export default function Pricing() {
                   tool={tool}
                   price={tool.price}
                   includedBy={includedWith[tool.name]}
+                  lockedIncluded={Boolean(includedWith[tool.name] && selected.has(includedWith[tool.name]))}
                   active={activeFor(tool.name)}
-                  onToggle={includedWith[tool.name] ? undefined : () => toggle(tool.name)}
+                  onToggle={
+                    includedWith[tool.name] && selected.has(includedWith[tool.name])
+                      ? undefined
+                      : () => toggle(tool.name)
+                  }
                   visible={visible}
                   delay={350 + i * 40}
                   last={i === tools.length - 1}
@@ -288,6 +307,20 @@ export default function Pricing() {
                     </p>
                     <p className="mt-1.5 text-[13px] text-white/45">then {fmt(selRenewal)}/mo</p>
                   </div>
+                  {tools
+                    .filter((t) => activeFor(t.name) && bonuses[t.name])
+                    .map((t) => (
+                      <p
+                        key={t.name}
+                        className="mt-4 flex items-start gap-2 text-[12px] text-white/50 leading-relaxed"
+                        data-testid={`pricing-bonus-${t.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+                      >
+                        <Check className="w-3.5 h-3.5 mt-px shrink-0 text-purple-300/70" />
+                        <span>
+                          {t.name} includes a {bonuses[t.name]}.
+                        </span>
+                      </p>
+                    ))}
                   {selUpfront >= bundle.upfront && (
                     <p className="mt-4 text-[12px] text-purple-300/60" data-testid="pricing-bundle-hint">
                       The Full Stack license costs less: all eight tools for {fmt(bundle.upfront)}.
