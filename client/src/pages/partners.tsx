@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
+import { ConnectWidget, ConnectButton } from "@/components/connect-widget";
 import leanLabsLogo from "@/assets/partner-logos/lean-labs.svg";
 import getGrowthLogo from "@/assets/partner-logos/get-growth.svg";
 import digitalMomentumLogo from "@/assets/partner-logos/digital-momentum.svg";
@@ -220,6 +221,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 // ---------------------------------------------------------------------------
 
 function PartnersNavbar() {
+  const [connectOpen, setConnectOpen] = useState(false);
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -235,9 +237,10 @@ function PartnersNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="/new" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="partners-nav-how">How Brandvious Works</a>
+          <ConnectButton compact onClick={() => setConnectOpen(true)} testId="partners-nav-connect" />
         </div>
       </div>
+      <ConnectWidget open={connectOpen} onClose={() => setConnectOpen(false)} />
     </nav>
   );
 }

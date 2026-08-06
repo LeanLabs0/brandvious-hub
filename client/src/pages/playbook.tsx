@@ -2,6 +2,7 @@ import { useMemo, useEffect, useRef, useState } from "react";
 import { useTheme } from "@/components/theme-provider";
 import { ConsensusGraph, type ConsensusRingNode } from "@/components/consensus-graph";
 import { NewFooter } from "@/pages/home-new";
+import { ConnectWidget, ConnectButton } from "@/components/connect-widget";
 import waveGraphic from "@assets/aeo_wave_brandvious.png";
 
 // ---------------------------------------------------------------------------
@@ -118,6 +119,7 @@ function FloatingParticles({ party }: { party: boolean }) {
 }
 
 function PlaybookNavbar() {
+  const [connectOpen, setConnectOpen] = useState(false);
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -133,10 +135,10 @@ function PlaybookNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="/gtm" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="playbook-nav-gtm">Brandvious for GTM</a>
-          <a href="/partners" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="playbook-nav-partners">Certified Partners</a>
+          <ConnectButton compact onClick={() => setConnectOpen(true)} testId="playbook-nav-connect" />
         </div>
       </div>
+      <ConnectWidget open={connectOpen} onClose={() => setConnectOpen(false)} />
     </nav>
   );
 }

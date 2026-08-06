@@ -8,6 +8,7 @@ import {
   Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ConnectWidget, ConnectButton } from "@/components/connect-widget";
 import { useTheme } from "@/components/theme-provider";
 
 // ---------------------------------------------------------------------------
@@ -277,6 +278,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 // ---------------------------------------------------------------------------
 
 export function NewNavbar() {
+  const [connectOpen, setConnectOpen] = useState(false);
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -292,9 +294,10 @@ export function NewNavbar() {
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="/partners" className="text-sm text-white/70 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Certified Partners</a>
+          <ConnectButton compact onClick={() => setConnectOpen(true)} testId="v2-nav-connect" />
         </div>
       </div>
+      <ConnectWidget open={connectOpen} onClose={() => setConnectOpen(false)} />
     </nav>
   );
 }
@@ -558,6 +561,7 @@ function PartnerCTASection() {
 
 export function NewFooter() {
   const { theme, toggleTheme } = useTheme();
+  const [connectOpen, setConnectOpen] = useState(false);
   const party = theme === "sparkle";
   const themeIcon =
     theme === "dark" ? <Sun className="w-4 h-4" /> :
@@ -663,31 +667,7 @@ export function NewFooter() {
                 </a>
               </div>
 
-              <a
-                href="tel:+19138716500"
-                className="group relative inline-flex items-center gap-2.5 mt-7 rounded-full pl-4 pr-5 py-2.5 text-white/75 hover:text-white transition-colors duration-300"
-                data-testid="v2-footer-link-connect"
-              >
-                {/* glass fill + ring */}
-                <span className="absolute inset-0 rounded-full bg-white/[0.03] border border-white/[0.10] group-hover:bg-purple-500/[0.07] group-hover:border-purple-300/25 backdrop-blur-sm transition-all duration-300" />
-                {/* top hairline glow */}
-                <span
-                  className="absolute top-0 left-[18%] right-[18%] h-[1px]"
-                  style={{ background: "linear-gradient(90deg, transparent, rgba(170,130,255,0.45), transparent)" }}
-                />
-                {/* hover aura */}
-                <span
-                  className="absolute -inset-3 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-lg pointer-events-none"
-                  style={{ background: "radial-gradient(ellipse at center, rgba(120,60,255,0.18), transparent 70%)" }}
-                />
-                {/* shine sweep on hover */}
-                <span className="absolute inset-0 rounded-full overflow-hidden pointer-events-none">
-                  <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out bg-gradient-to-r from-transparent via-white/[0.08] to-transparent" />
-                </span>
-                <Sparkles className="relative w-3.5 h-3.5 text-purple-300/70 group-hover:text-purple-300 transition-colors duration-300" />
-                <span className="relative tracking-wide text-[13px] font-medium">Connect with Us</span>
-                <ArrowRight className="relative w-3.5 h-3.5 text-white/35 group-hover:text-purple-300/90 group-hover:translate-x-0.5 transition-all duration-300" />
-              </a>
+              <ConnectButton onClick={() => setConnectOpen(true)} className="mt-7" />
             </div>
             {renderFooterColumn(footerColumns[0], "px-0")}
           </div>
@@ -716,6 +696,8 @@ export function NewFooter() {
           </p>
         </div>
       </div>
+
+      <ConnectWidget open={connectOpen} onClose={() => setConnectOpen(false)} />
     </footer>
   );
 }
