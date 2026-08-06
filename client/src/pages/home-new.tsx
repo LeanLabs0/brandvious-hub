@@ -103,7 +103,6 @@ const footerColumns = [
     span: 2,
     cols: [
       [
-        { name: "Entities.org", url: "https://entities.org" },
         { name: "CopyRocket", url: "https://copyrocket.app" },
         { name: "DesignRocket", url: "https://designrocket.ai" },
         { name: "SprocketRocket", url: "https://sprocketrocket.ai" },
@@ -125,6 +124,7 @@ const footerColumns = [
       { name: "Certified Partners", url: "/partners" },
       { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
       { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
+      { name: "Entities.org", url: "https://entities.org" },
     ],
   },
   {
@@ -135,9 +135,9 @@ const footerColumns = [
       [
         { name: "AnswerStack", url: "https://answerstack.io" },
         { name: "WhatisBest", url: "https://whatisbest.com" },
-        { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "Launched Sept '26" },
-        { name: "B2BIndex", url: "https://b2bindex.org", badge: "Launched Sept '26" },
-        { name: "BestFit", url: "https://bestfit.org", badge: "Launched Sept '26" },
+        { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "New" },
+        { name: "B2BIndex", url: "https://b2bindex.org", badge: "New" },
+        { name: "BestFit", url: "https://bestfit.org", badge: "New" },
       ],
       [
         { name: "Coming Next", url: "", isHeader: true },
@@ -608,12 +608,12 @@ export function NewFooter() {
             </div>
           </div>
 
-          <div className="grid grid-cols-2 sm:grid-cols-6 gap-x-12 gap-y-4 text-sm">
+          <div className="flex flex-wrap gap-x-10 gap-y-8 text-sm">
             {footerColumns.map((col) => (
-              <div key={col.title} className={`col-span-${("span" in col && col.span) ? col.span : 1}`}>
+              <div key={col.title} className="shrink-0">
                 <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
                 {"cols" in col ? (
-                  <div className="grid grid-cols-2 gap-x-12 gap-y-3">
+                  <div className="flex gap-x-10">
                     {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
                       <div key={ci} className="space-y-3">
                         {colLinks.map((link) =>
@@ -622,49 +622,44 @@ export function NewFooter() {
                               {link.name}
                             </p>
                           ) : (
-                          <a
-                            key={link.name}
-                            href={link.url}
-                            {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                            className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
-                            data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-                          >
-                            {link.name}
-                            {link.badge && (
-                              <span className="text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border text-amber-300/50 border-amber-300/15">{link.badge}</span>
-                            )}
-                          </a>
+                            <a
+                              key={link.name}
+                              href={link.url}
+                              {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                              className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                              data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+                            >
+                              {link.name}
+                              {link.badge && (
+                                <span className="text-[9px] tracking-wide font-medium rounded px-1 py-0.5 leading-none border text-amber-300/50 border-amber-300/15">{link.badge}</span>
+                              )}
+                            </a>
                           )
                         )}
                       </div>
                     ))}
                   </div>
                 ) : (
-                <div className="space-y-3">
-                {"links" in col && (col as { links: { name: string; url?: string; badge?: string }[] }).links.map((link) => {
-                  if (!link.url) {
-                    return (
-                      <span key={link.name} className="block text-white/50">
-                        {link.name}
-                      </span>
-                    );
-                  }
-                  return (
-                    <a
-                      key={link.name}
-                      href={link.url}
-                      {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
-                      data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-                    >
-                      {link.name}
-                      {link.badge && (
-                        <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
-                      )}
-                    </a>
-                  );
-                })}
-                </div>
+                  <div className="space-y-3">
+                    {"links" in col && (col as { links: { name: string; url?: string; badge?: string }[] }).links.map((link) =>
+                      link.url ? (
+                        <a
+                          key={link.name}
+                          href={link.url}
+                          {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                          className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                          data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
+                        >
+                          {link.name}
+                          {link.badge && (
+                            <span className="text-[9px] tracking-wide font-medium text-amber-300/50 border border-amber-300/15 rounded px-1 py-0.5 leading-none">{link.badge}</span>
+                          )}
+                        </a>
+                      ) : (
+                        <span key={link.name} className="block text-white/50">{link.name}</span>
+                      )
+                    )}
+                  </div>
                 )}
               </div>
             ))}

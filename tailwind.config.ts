@@ -3,6 +3,10 @@ import type { Config } from "tailwindcss";
 export default {
   darkMode: ["class"],
   content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  safelist: [
+    "col-span-1", "col-span-2", "col-span-3",
+    "sm:col-span-1", "sm:col-span-2", "sm:col-span-3",
+  ],
   theme: {
     extend: {
       borderRadius: {
