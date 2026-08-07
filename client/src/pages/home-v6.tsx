@@ -20,29 +20,35 @@ const heroHeadline = {
   gradient: "work for businesses.",
 };
 
-type InsightProof = { text: string; source: string; url: string | null };
-type VisibilityStat = { claim: string; stat: string; detail: string; client: string };
-
-const insightProofs: InsightProof[] = [
-  { text: "Trusted company information", source: "Entities.org", url: "https://entities.org" },
-  { text: "Original research", source: "WhatisBest.com", url: "https://whatisbest.com" },
-  { text: "Verified entities", source: "r/B2Bstack community signals", url: null },
-  { text: "Expert interviews", source: "GTM Journal", url: "https://gtmjournal.org" },
-  { text: "Reviews & comparisons", source: "ReviewInsight.com", url: "https://reviewinsight.com" },
-  { text: "Rankings & benchmarks", source: "B2BIndex.org", url: "https://b2bindex.org" },
-  { text: "Structured answers", source: "AnswerStack.io", url: "https://answerstack.io" },
-  { text: "Citable sources", source: "The Brandvious network", url: "/products" },
-];
+type VisibilityStat = { stat: string; detail: string; client: string };
+type InsightSource = { kind: string; site: string; example: string; url: string };
 
 const visibilityStats: VisibilityStat[] = [
-  { claim: "Greater AI visibility", stat: "+240%", detail: "AI mentions in 6 months", client: "[Client]" },
-  { claim: "Stronger authority", stat: "3x", detail: "authority score in 9 months", client: "[Client]" },
-  { claim: "Better competitive positioning", stat: "#1", detail: "category ranking on 3 networks", client: "[Client]" },
-  { claim: "Trusted editorial coverage", stat: "12", detail: "editorial features in 6 months", client: "[Client]" },
-  { claim: "More citations and recommendations", stat: "65%", detail: "of category AI answers cite the brand", client: "[Client]" },
-  { claim: "Recognized category leadership", stat: "GTM 100", detail: "named a category leader", client: "[Client]" },
-  { claim: "Greater buyer confidence", stat: "+30%", detail: "close rate after coverage", client: "[Client]" },
-  { claim: "Stronger validation from AI systems", stat: "4 of 5", detail: "major LLMs recommend the brand", client: "[Client]" },
+  { stat: "+240%", detail: "AI mentions in 6 months", client: "[Client]" },
+  { stat: "65%", detail: "of category AI answers cite the brand", client: "[Client]" },
+  { stat: "#1", detail: "category ranking on 3 networks", client: "[Client]" },
+  { stat: "4 of 5", detail: "major LLMs recommend the brand", client: "[Client]" },
+];
+
+const insightSources: InsightSource[] = [
+  {
+    kind: "Verified entity records",
+    site: "Entities.org",
+    example: "Stripe · Organization · Verified. Founded 2010, HQ San Francisco, per-fact citations, sameAs links.",
+    url: "https://entities.org/entity/stripe",
+  },
+  {
+    kind: "Original B2B research",
+    site: "WhatisBest.com",
+    example: "SAP Ariba vs. Coupa: which procurement platform has a lower total cost of ownership?",
+    url: "https://www.whatisbest.com/procurement/sap-ariba-vs-coupa-which-procurement-platform-has-a-lower-total-cost-of-ownership",
+  },
+  {
+    kind: "Structured Q&A",
+    site: "AnswerStack.io",
+    example: "What is a UCaaS platform? Answers authored by the organizations that know the subject.",
+    url: "https://www.answerstack.io/search?q=What%20is%20a%20UCaaS%20platform%3F",
+  },
 ];
 
 const focusQuote =
@@ -330,68 +336,57 @@ function ExchangeSectionPremium() {
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="v2-section-exchange-premium">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-10">The Value Prop</p>
-        <div className="space-y-6">
-          {/* Module 1: insights AI needs, each backed by a live property */}
-          <div
-            className={`relative rounded-2xl overflow-hidden p-8 md:p-10 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${party ? cardShadowParty : ""}`}
-            data-testid="v2-card-premium-give-ai"
-          >
-            <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), transparent)" }} />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(500px circle at 50% 0%, rgba(110,60,240,0.10), transparent 65%)" }} />
-            <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">We deliver insights AI needs</h2>
-              <p className="mt-2 text-sm text-white/50">Published across the Brandvious network. Every claim has a source.</p>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {insightProofs.map((item) => {
-                  const inner = (
-                    <>
-                      <p className="text-sm text-white/75 leading-snug">{item.text}</p>
-                      <p className={`mt-4 inline-flex items-center gap-1.5 text-xs font-medium ${item.url ? "text-purple-300/80 group-hover:text-purple-200 transition-colors" : "text-white/40"}`}>
-                        {item.source}
-                        {item.url && <ArrowUpRight className="w-3 h-3" />}
-                      </p>
-                    </>
-                  );
-                  return item.url ? (
-                    <a
-                      key={item.text}
-                      href={item.url}
-                      target={item.url.startsWith("http") ? "_blank" : undefined}
-                      rel="noopener noreferrer"
-                      className="group rounded-xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-300 hover:border-purple-300/25 hover:bg-white/[0.04]"
-                    >
-                      {inner}
-                    </a>
-                  ) : (
-                    <div key={item.text} className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
-                      {inner}
-                    </div>
-                  );
-                })}
-              </div>
+        {/* One combined story: the visibility brands want, delivered via insights AI can trust */}
+        <div
+          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${party ? cardShadowParty : ""}`}
+          data-testid="v2-card-premium-combined"
+        >
+          <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), rgba(160,120,255,0.5), transparent)" }} />
+          <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(600px circle at 30% 0%, rgba(50,120,240,0.08), transparent 60%), radial-gradient(600px circle at 80% 100%, rgba(110,60,240,0.08), transparent 60%)" }} />
+          <div className="relative z-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight max-w-3xl">
+              We deliver the AI visibility brands want.
+            </h2>
+            <div className="mt-10 grid grid-cols-2 lg:grid-cols-4 gap-4">
+              {visibilityStats.map((item) => (
+                <div key={item.stat} className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
+                  <p className="text-3xl font-bold text-white tracking-tight">{item.stat}</p>
+                  <p className="mt-1 text-xs text-white/50">{item.detail}</p>
+                  <p className="mt-4 text-[11px] text-sky-300/60">{item.client}</p>
+                </div>
+              ))}
             </div>
-          </div>
-
-          {/* Module 2: visibility brands want, proven with client stats */}
-          <div
-            className={`relative rounded-2xl overflow-hidden p-8 md:p-10 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${party ? cardShadowParty : ""}`}
-            data-testid="v2-card-premium-brands-earn"
-          >
-            <div className="absolute inset-x-0 top-0 h-px" style={{ background: "linear-gradient(90deg, transparent, rgba(100,170,255,0.5), transparent)" }} />
-            <div className="absolute inset-0 pointer-events-none" style={{ background: "radial-gradient(500px circle at 50% 0%, rgba(50,120,240,0.10), transparent 65%)" }} />
-            <div className="relative z-10">
-              <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">We deliver visibility brands want</h2>
-              <p className="mt-2 text-sm text-white/50">Measured client outcomes from the same network.</p>
-              <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {visibilityStats.map((item) => (
-                  <div key={item.claim} className="rounded-xl border border-white/[0.07] bg-white/[0.02] p-5">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-white/40 leading-snug">{item.claim}</p>
-                    <p className="mt-3 text-3xl font-bold text-white tracking-tight">{item.stat}</p>
-                    <p className="mt-1 text-xs text-white/50">{item.detail}</p>
-                    <p className="mt-4 text-[11px] text-sky-300/60">{item.client}</p>
-                  </div>
-                ))}
-              </div>
+            <p className="mt-12 text-lg text-white/60">
+              by delivering <span className="text-white">insights AI can trust</span>.
+            </p>
+            <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {insightSources.map((item) => (
+                <a
+                  key={item.site}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-300 hover:border-purple-300/25 hover:bg-white/[0.04]"
+                >
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">{item.kind}</p>
+                  <p className="mt-3 text-sm font-semibold text-white inline-flex items-center gap-1.5">
+                    {item.site}
+                    <ArrowUpRight className="w-3.5 h-3.5 text-purple-300/80 group-hover:text-purple-200 transition-colors" />
+                  </p>
+                  <p className="mt-2 text-xs text-white/50 leading-relaxed">{item.example}</p>
+                </a>
+              ))}
+              <a
+                href="/products"
+                className="group rounded-xl border border-white/[0.07] bg-white/[0.02] p-5 transition-all duration-300 hover:border-purple-300/25 hover:bg-white/[0.04]"
+              >
+                <p className="text-[11px] uppercase tracking-[0.14em] text-white/40">And more</p>
+                <p className="mt-3 text-sm font-semibold text-white inline-flex items-center gap-1.5">
+                  The Brandvious network
+                  <ArrowUpRight className="w-3.5 h-3.5 text-purple-300/80 group-hover:text-purple-200 transition-colors" />
+                </p>
+                <p className="mt-2 text-xs text-white/50 leading-relaxed">Reviews, expert interviews, rankings, and benchmarks across every property.</p>
+              </a>
             </div>
           </div>
         </div>
