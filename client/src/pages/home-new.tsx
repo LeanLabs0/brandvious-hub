@@ -21,25 +21,25 @@ const heroHeadline = {
 };
 
 const giveAI = [
-  { claim: "Trusted information", proof: "Trusted company information via Entities.org" },
-  { claim: "Original research", proof: "Original research published on WhatisBest.com" },
-  { claim: "Verified entities", proof: "Verified entities via community signals on r/B2Bstack" },
-  { claim: "Expert interviews", proof: "Expert interviews published in GTM Journal" },
-  { claim: "Reviews & comparisons", proof: "Reviews and comparisons on ReviewInsight.com" },
-  { claim: "Rankings & benchmarks", proof: "Rankings and benchmarks on B2BIndex.org" },
-  { claim: "Structured answers", proof: "Structured answers published on AnswerStack.io" },
-  { claim: "Citable sources", proof: "Citable sources across the Brandvious network" },
+  "Trusted information",
+  "Original research",
+  "Verified entities",
+  "Expert interviews",
+  "Reviews & comparisons",
+  "Rankings & benchmarks",
+  "Structured answers",
+  "Citable sources",
 ];
 
 const brandsEarn = [
-  { claim: "Greater AI visibility", proof: "+240% AI mentions in 6 months · [Client]" },
-  { claim: "Stronger authority", proof: "3x authority score in 9 months · [Client]" },
-  { claim: "Better competitive positioning", proof: "#1 category ranking on 3 networks · [Client]" },
-  { claim: "Trusted editorial coverage", proof: "12 editorial features in 6 months · [Client]" },
-  { claim: "More citations and recommendations", proof: "Cited in 65% of category AI answers · [Client]" },
-  { claim: "Recognized category leadership", proof: "Named a category leader by GTM 100 · [Client]" },
-  { claim: "Greater buyer confidence", proof: "30% higher close rate after coverage · [Client]" },
-  { claim: "Stronger validation from AI systems", proof: "Recommended by 4 of 5 major LLMs · [Client]" },
+  "Greater AI visibility",
+  "Stronger authority",
+  "Better competitive positioning",
+  "Trusted editorial coverage",
+  "More citations and recommendations",
+  "Recognized category leadership",
+  "Greater buyer confidence",
+  "Stronger validation from AI systems",
 ];
 
 const focusQuote =
@@ -363,7 +363,7 @@ function ExchangeSectionPremium() {
                 <ul>
                   {col.items.map((item, j) => (
                     <li
-                      key={item.claim}
+                      key={item}
                       className={`group flex items-center gap-3.5 py-3 text-white/70 hover:text-white transition-colors duration-300 ${
                         j > 0 ? "border-t border-white/[0.05]" : ""
                       }`}
@@ -371,10 +371,7 @@ function ExchangeSectionPremium() {
                       <span className={`w-6 h-6 rounded-md bg-white/[0.04] border border-white/[0.08] flex items-center justify-center shrink-0 ${col.accent.chip}`}>
                         <Check className="w-3 h-3" />
                       </span>
-                      <span>
-                        <span className="block text-sm sm:text-base">{item.claim}</span>
-                        <span className="block mt-0.5 text-xs sm:text-sm text-white/40 group-hover:text-white/55 transition-colors duration-300">{item.proof}</span>
-                      </span>
+                      <span className="text-sm sm:text-base">{item}</span>
                     </li>
                   ))}
                 </ul>
