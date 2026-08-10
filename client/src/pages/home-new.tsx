@@ -90,7 +90,8 @@ const footerColumns = [
         { name: "SurveyRocket", url: "https://surveyrocket.ai" },
         { name: "ReputationRocket", url: "https://reputationrocket.ai" },
         { name: "AnswerRocket", url: "https://answerrocket.io" },
-        { name: "RocketRank", url: "https://rocketrank.ai" },
+        { name: "GrowthRocket Bundle", url: "/pricing" },
+        { name: "RocketRank", url: "https://rocketrank.ai", dim: true },
       ],
     ],
   },
@@ -112,17 +113,6 @@ const footerColumns = [
       { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "New" },
       { name: "B2BIndex", url: "https://b2bindex.org", badge: "New" },
       { name: "BestFit", url: "https://bestfit.org", badge: "New" },
-    ],
-  },
-  {
-    title: "Coming Next",
-    noDivider: true,
-    links: [
-      { name: "GTM Loop", url: "/gtm" },
-      { name: "GTM 100", url: "https://gtm100.org" },
-      { name: "GTM Review", url: "https://gtmreview.org" },
-      { name: "GTM Index", url: "https://gtmindex.org" },
-      { name: "GTM Journal", url: "https://gtmjournal.org" },
     ],
   },
 ];
@@ -562,7 +552,7 @@ export function NewFooter() {
       <p className="text-white/30 uppercase tracking-wider text-xs mb-3">{col.title}</p>
       {"cols" in col ? (
         <div className="flex gap-x-8">
-          {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean }[][] }).cols.map((colLinks, ci) => (
+          {(col as { cols: { name: string; url: string; badge?: string; isHeader?: boolean; dim?: boolean }[][] }).cols.map((colLinks, ci) => (
             <div key={ci} className="space-y-3">
               {colLinks.map((link) =>
                 link.isHeader ? (
@@ -574,7 +564,7 @@ export function NewFooter() {
                     key={link.name}
                     href={link.url}
                     {...(link.url.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    className="flex items-center gap-1.5 text-white/50 hover:text-white transition-colors"
+                    className={`flex items-center gap-1.5 transition-colors ${link.dim ? "text-white/25 hover:text-white/50" : "text-white/50 hover:text-white"}`}
                     data-testid={`v2-footer-link-${link.name.toLowerCase().replace(/[\s.]/g, "-")}`}
                   >
                     {link.name}
@@ -666,6 +656,19 @@ export function NewFooter() {
             {footerColumns.slice(1).map((col) =>
               renderFooterColumn(col, "noDivider" in col && col.noDivider ? "!border-l-0 px-8" : "px-8")
             )}
+            <div className="shrink-0 !border-l-0 px-8">
+              <p className="text-white/30 uppercase tracking-wider text-xs mb-3">Is AI recommending you?</p>
+              <p className="text-white/50 text-sm leading-relaxed max-w-[200px]">Find out where your brand stands in AI answers.</p>
+              <a
+                href="https://aeobaseline.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] px-4 py-2 text-xs font-medium text-white/75 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.2] transition-all"
+                data-testid="v2-footer-cta-baseline"
+              >
+                Get your baseline <ArrowRight className="w-3.5 h-3.5" />
+              </a>
+            </div>
           </div>
         </div>
 
