@@ -656,18 +656,19 @@ export function NewFooter() {
             {footerColumns.slice(1).map((col) =>
               renderFooterColumn(col, "noDivider" in col && col.noDivider ? "!border-l-0 px-8" : "px-8")
             )}
-            <div className="shrink-0 !border-l-0 px-8">
-              <p className="text-white/30 uppercase tracking-wider text-xs mb-3">Is AI recommending you?</p>
-              <p className="text-white/50 text-sm leading-relaxed max-w-[200px]">Find out where your brand stands in AI answers.</p>
-              <a
-                href="https://aeobaseline.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] px-4 py-2 text-xs font-medium text-white/75 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.2] transition-all"
-                data-testid="v2-footer-cta-baseline"
-              >
-                Get your baseline <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+            <div className="basis-full !border-l-0 px-8">
+              <div className="flex items-center justify-between gap-4 rounded-xl border border-white/[0.07] bg-white/[0.02] px-5 py-3.5">
+                <p className="text-sm text-white/60">Is AI recommending your brand?</p>
+                <a
+                  href="https://aeobaseline.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.12] bg-white/[0.03] px-4 py-1.5 text-xs font-medium text-white/75 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.2] transition-all whitespace-nowrap"
+                  data-testid="v2-footer-cta-baseline"
+                >
+                  Get your baseline <ArrowRight className="w-3.5 h-3.5" />
+                </a>
+              </div>
             </div>
           </div>
         </div>
