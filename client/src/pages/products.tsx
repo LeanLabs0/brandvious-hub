@@ -124,7 +124,7 @@ export const growthRocketTools: ProductItem[] = [
     name: "SprocketRocket",
     sup: "AI",
     domain: "sprocketrocket.ai",
-    url: "https://sprocketrocket.ai",
+    url: "/sprocketrocket",
     icon: Blocks,
     category: "Modules",
     tag: "Core Stack + AI Modules.",
