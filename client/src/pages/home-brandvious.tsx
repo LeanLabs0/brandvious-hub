@@ -8,8 +8,14 @@ import {
   LightBeam,
   FloatingParticles,
   PartyAtmosphere,
+  PartnerCTASection,
 } from "@/pages/home-new";
 import { growthRocketTools, ToolCard } from "@/pages/products";
+
+// ---------------------------------------------------------------------------
+// /brandvious — frozen backup of the public homepage as it was before the
+// GrowthRocket rebrand (Brandvious wordmark + original hero/statement/CTA copy)
+// ---------------------------------------------------------------------------
 
 function PartyLayer() {
   const { theme } = useTheme();
@@ -17,7 +23,7 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
-function PublicHero() {
+function BrandviousHero() {
   const { theme } = useTheme();
   const party = theme === "sparkle";
   const [visible, setVisible] = useState(false);
@@ -27,7 +33,7 @@ function PublicHero() {
   }, []);
 
   return (
-    <section className="relative flex flex-col items-start justify-center px-6 pt-40 pb-28 overflow-hidden" data-testid="pub-section-hero">
+    <section className="relative flex flex-col items-start justify-center px-6 pt-40 pb-28 overflow-hidden" data-testid="bv-section-hero">
       <LightBeam party={party} />
       <FloatingParticles party={party} />
 
@@ -38,9 +44,9 @@ function PublicHero() {
       >
         <h1
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight max-w-5xl"
-          data-testid="pub-text-headline"
+          data-testid="bv-text-headline"
         >
-          <span className="text-white">GrowthRocket powers </span>
+          <span className="text-white">Brandvious tools power </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
@@ -50,22 +56,23 @@ function PublicHero() {
             AI-native agencies.
           </span>
         </h1>
-        <p className="mt-8 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="pub-text-subhead">
-          GrowthRocket gives AI engines like ChatGPT, Gemini, and Perplexity everything
-          they need to understand, trust, and recommend your clients' brands.
+        <p className="mt-8 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="bv-text-subhead">
+          GrowthRocket is the AEO toolstack by Brandvious Digital: schema, surveys,
+          reputation, and answer content that give engines like ChatGPT, Gemini, and
+          Perplexity a reason to cite you.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <a
             href="/products"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)]"
-            data-testid="pub-button-explore-stack"
+            data-testid="bv-button-explore-stack"
           >
             Explore the stack <ArrowRight className="w-4 h-4" />
           </a>
           <a
             href="/pricing"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white/70 hover:text-white text-sm font-medium transition-all duration-300 border border-white/[0.12] bg-white/[0.02] hover:bg-white/[0.05]"
-            data-testid="pub-button-see-bundle"
+            data-testid="bv-button-see-bundle"
           >
             See the bundle
           </a>
@@ -99,7 +106,7 @@ function StackSection() {
   }, []);
 
   return (
-    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="pub-section-stack">
+    <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="bv-section-stack">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The GrowthRocket Stack</p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-12 max-w-2xl">
@@ -122,7 +129,7 @@ function StackSection() {
         <a
           href="/products"
           className="mt-8 inline-flex items-center gap-1.5 text-sm text-white/50 hover:text-white transition-colors"
-          data-testid="pub-link-full-stack"
+          data-testid="bv-link-full-stack"
         >
           See the full stack <ArrowRight className="w-3.5 h-3.5" />
         </a>
@@ -133,7 +140,7 @@ function StackSection() {
 
 function BundleStatement() {
   return (
-    <section className="relative py-28 px-6 border-t border-white/[0.06]" data-testid="pub-section-statement">
+    <section className="relative py-28 px-6 border-t border-white/[0.06]" data-testid="bv-section-statement">
       <div className="max-w-4xl mx-auto relative z-10 text-center">
         <p className="text-2xl sm:text-3xl md:text-4xl font-bold leading-snug tracking-tight">
           <span
@@ -142,7 +149,7 @@ function BundleStatement() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.45))",
             }}
           >
-            The stack is how you drive AEO wins for your clients and scale your agentcy.
+            Run the full stack, and every AI engine hears the same trusted story about your brand.
           </span>
         </p>
       </div>
@@ -150,70 +157,17 @@ function BundleStatement() {
   );
 }
 
-function AgencyCTASection() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-
+export default function HomeBrandvious() {
   return (
-    <section className="relative py-20 px-6 border-t border-white/[0.06]" data-testid="pub-section-agency-cta">
-      <div className="max-w-6xl mx-auto relative z-10">
-        <div
-          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] ${
-            party
-              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
-              : "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]"
-          }`}
-        >
-          <div
-            className="absolute inset-x-0 top-0 h-px"
-            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), rgba(120,180,255,0.35), transparent)" }}
-          />
-          <div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: "radial-gradient(600px circle at 0% 50%, rgba(110,60,240,0.08), transparent 55%), radial-gradient(500px circle at 100% 50%, rgba(60,120,255,0.06), transparent 55%)",
-            }}
-          />
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-purple-300/70 mb-3">For agencies &amp; in-house teams</p>
-              <h2 className="text-xl sm:text-2xl font-semibold text-white">
-                Become a{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
-                  }}
-                >
-                  Certified GrowthRocket Partner.
-                </span>
-              </h2>
-            </div>
-            <a
-              href="/agentcy-model"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)] shrink-0 self-start md:self-auto"
-              data-testid="pub-button-agency-model"
-            >
-              Learn the agency model <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-export default function HomePublic() {
-  return (
-    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="pub-page">
+    <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="bv-page">
       <PartyLayer />
       <NoiseOverlay />
-      <NewNavbar grBrand />
-      <PublicHero />
+      <NewNavbar />
+      <BrandviousHero />
       <StackSection />
       <BundleStatement />
-      <AgencyCTASection />
-      <NewFooter grBrand />
+      <PartnerCTASection />
+      <NewFooter />
     </div>
   );
 }

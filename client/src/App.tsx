@@ -35,6 +35,8 @@ import Pricing from "@/pages/pricing";
 import NotFound from "@/pages/not-found";
 import Login from "@/pages/login";
 import HomePublic from "@/pages/home-public";
+import HomeBrandvious from "@/pages/home-brandvious";
+import AgentcyModel from "@/pages/agentcy-model";
 import ProductsPublic from "@/pages/products-public";
 import { PrivateGate } from "@/components/private-gate";
 
@@ -53,6 +55,8 @@ function Router() {
       <Route path="/partners" component={Partners} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/login" component={Login} />
+      <Route path="/brandvious" component={HomeBrandvious} />
+      <Route path="/agentcy-model" component={AgentcyModel} />
       <Route path="/partner-playbook">
         <Redirect to="/private/partner-playbook" />
       </Route>

@@ -108,6 +108,7 @@ const footerColumns = [
     title: "Partners",
     links: [
       { name: "Certified Partners", url: "/partners" },
+      { name: "Agentcy Partner Program", url: "/agentcy-model" },
     ],
   },
 ];
@@ -632,7 +633,7 @@ export function NewFooter({ grBrand = false }: { grBrand?: boolean }) {
                 data-testid="v2-footer-link-home"
               >
                 {grBrand ? (
-                  <img src="/gr-logo.png" alt="GrowthRocket" className="h-9 w-auto" />
+                  <img src="/gr-logo-white.png" alt="GrowthRocket" className="h-9 w-auto" />
                 ) : (
                   <>Brandvious<span className="font-light text-white/60">, Inc.</span></>
                 )}
