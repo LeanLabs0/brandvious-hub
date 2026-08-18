@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import {
   NewNavbar,
@@ -10,14 +10,7 @@ import {
   PartyAtmosphere,
   PartnerCTASection,
 } from "@/pages/home-new";
-import { growthRocketTools } from "@/pages/products";
-
-const glassCard = "backdrop-blur-sm bg-white/[0.03]";
-const glassCardBorder = "border border-white/[0.07]";
-const glassCardHover = "hover:bg-white/[0.06] hover:border-white/[0.14]";
-const cardShadowBase = "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]";
-const cardShadowHover = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]";
-const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
+import { growthRocketTools, ToolCard } from "@/pages/products";
 
 function PartyLayer() {
   const { theme } = useTheme();
@@ -85,8 +78,11 @@ function PublicHero() {
 }
 
 function StackSection() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="pub-section-stack">
@@ -103,29 +99,9 @@ function StackSection() {
             trust AI can cite.
           </span>
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {growthRocketTools.map((tool) => (
-            <a
-              key={tool.name}
-              href={tool.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`group relative rounded-2xl overflow-hidden p-6 transition-all duration-500 transform hover:-translate-y-1 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-              data-testid={`pub-tool-${tool.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-            >
-              <div className="flex items-center justify-between mb-5">
-                <span className="w-9 h-9 rounded-lg bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-purple-300/80">
-                  <tool.icon className="w-4 h-4" />
-                </span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-white/20 group-hover:text-white/60 transition-colors" />
-              </div>
-              <p className="text-[10px] uppercase tracking-widest text-white/30 mb-1">{tool.category}</p>
-              <h3 className="text-base font-semibold text-white mb-1">
-                {tool.name}
-                {tool.sup && <sup className="text-[9px] text-purple-300/70 ml-0.5">{tool.sup}</sup>}
-              </h3>
-              <p className="text-xs text-white/45">{tool.tag}</p>
-            </a>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          {growthRocketTools.map((tool, i) => (
+            <ToolCard key={tool.name} item={tool} visible={visible} delay={150 + i * 60} />
           ))}
         </div>
         <a
