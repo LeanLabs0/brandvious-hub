@@ -83,7 +83,7 @@ const footerColumns = [
       [
         { name: "DesignRocket", url: "https://designrocket.ai" },
         { name: "CopyRocket", url: "https://copyrocket.app" },
-        { name: "SprocketRocket", url: "https://sprocketrocket.ai" },
+        { name: "SprocketRocket", url: "/sprocketrocket" },
         { name: "SchemaRocket", url: "https://schemarocket.ai" },
       ],
       [
