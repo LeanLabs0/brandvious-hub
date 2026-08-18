@@ -81,8 +81,8 @@ const footerColumns = [
     span: 2,
     cols: [
       [
-        { name: "CopyRocket", url: "https://copyrocket.app" },
         { name: "DesignRocket", url: "https://designrocket.ai" },
+        { name: "CopyRocket", url: "https://copyrocket.app" },
         { name: "SprocketRocket", url: "https://sprocketrocket.ai" },
         { name: "SchemaRocket", url: "https://schemarocket.ai" },
       ],
