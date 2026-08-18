@@ -51,8 +51,7 @@ function PublicHero() {
           </span>
         </h1>
         <p className="mt-8 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="pub-text-subhead">
-          GrowthRocket gives AI engines like ChatGPT, Gemini, and Perplexity everything
-          they need to understand, trust, and recommend your clients' brands.
+          Sell more, deliver faster, and scale without adding headcount.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <a
