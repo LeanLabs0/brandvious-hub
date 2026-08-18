@@ -226,19 +226,19 @@ export default function Pricing() {
             className="text-4xl sm:text-5xl font-bold leading-[1.08] tracking-tight"
             data-testid="pricing-text-headline"
           >
-            <span className="block text-white">License the stack.</span>
+            <span className="block text-white">Sell the full stack.</span>
             <span
               className="block bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
               }}
             >
-              Keep the margins.
+              Pocket the profits.
             </span>
           </h1>
           <p className="mt-5 text-sm sm:text-base text-white/45 leading-relaxed max-w-xl">
-            One license fee per tool, plus a flat monthly tokens & support
-            fee from day one.
+            GrowthRocket can be sold individually or as a bundle.<br />
+            Spend less time building &amp; more time scaling.
           </p>
         </div>
       </section>
