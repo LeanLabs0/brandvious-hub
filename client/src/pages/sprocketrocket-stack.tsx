@@ -58,14 +58,14 @@ export default function SprocketRocketStack() {
             className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight max-w-4xl"
             data-testid="sprocket-text-headline"
           >
-            <span className="text-white">The stack your </span>
+            <span className="text-white">Build bolder </span>
             <span
               className="bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
               }}
             >
-              agentcy runs on.
+              with Stack.
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-base sm:text-lg text-white/50 leading-relaxed">
