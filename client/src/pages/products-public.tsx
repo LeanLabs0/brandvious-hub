@@ -49,8 +49,8 @@ function ProductsHero({ visible }: { visible: boolean }) {
           </span>
         </h1>
         <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="ppub-text-subhead">
-          Eight AEO tools with one job: make AI understand, trust, and recommend your
-          brand. Run any tool on its own, or run the whole stack as the GrowthRocket Bundle.
+          GrowthRocket tools give AI everything it needs to understand, trust, and
+          recommend your brand. It's an AEO stack for agencies &amp; in-house teams.
         </p>
       </div>
     </section>
