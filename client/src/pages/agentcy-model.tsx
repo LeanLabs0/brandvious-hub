@@ -60,7 +60,7 @@ export default function AgentcyModel() {
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="agentcy-text-subhead">
-            Agencies will become an &ldquo;agentcy&rdquo; or a dinosaur.<br />
+            Agencies will shift into an &ldquo;agentcy&rdquo; model or go extinct.<br />
             The full Agentcy Growth Model drops soon.
           </p>
         </div>
