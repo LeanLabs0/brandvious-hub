@@ -102,17 +102,8 @@ function StackSection() {
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="pub-section-stack">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The GrowthRocket Stack</p>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-12 max-w-2xl">
-          The GrowthRocket product suite is how{" "}
-          <span
-            className="bg-clip-text text-transparent"
-            style={{
-              backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(180,140,255,0.85), rgba(255,255,255,0.95))",
-            }}
-          >
-            AEO micro &ldquo;agentcies&rdquo;
-          </span>{" "}
-          <FlipWord words={["start.", "succeed.", "scale."]} />
+        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-12 whitespace-nowrap">
+          The GrowthRocket product suite is how micro &ldquo;agentcies&rdquo; <FlipWord words={["start.", "succeed.", "scale."]} />
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {growthRocketTools.map((tool, i) => (
@@ -142,7 +133,7 @@ function BundleStatement() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.45))",
             }}
           >
-            The stack is how you drive AEO wins for your clients and scale your agentcy.
+            Growth Rocket drives wins for your clients and a scalable flow for your agentcy.
           </span>
         </p>
       </div>
