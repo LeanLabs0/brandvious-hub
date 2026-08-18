@@ -101,22 +101,17 @@ export default function SprocketRocketStack() {
               <div className="flex-1 p-10 md:p-14 flex flex-col justify-between gap-8">
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-white/35 mb-6">Get started</p>
-                  {/* old price */}
-                  <p className="text-white/30 text-sm font-normal mb-1 line-through decoration-white/25 tracking-wide">
-                    was $997
-                  </p>
-                  {/* new price */}
                   <div className="flex items-end gap-3 leading-none mb-2">
                     <span
-                      className="text-[80px] sm:text-[100px] font-bold tracking-tight bg-clip-text text-transparent"
+                      className="text-[80px] sm:text-[100px] font-bold tracking-tight bg-clip-text text-transparent line-through decoration-white/30"
                       style={{
-                        backgroundImage: "linear-gradient(160deg, rgba(255,255,255,1) 30%, rgba(180,140,255,0.65) 100%)",
+                        backgroundImage: "linear-gradient(160deg, rgba(255,255,255,0.4) 30%, rgba(180,140,255,0.3) 100%)",
                       }}
                     >
-                      $1
+                      $997
                     </span>
                   </div>
-                  <p className="text-white/40 text-sm mt-1">to launch a 5-day trial</p>
+                  <p className="text-white/55 text-sm mt-1">Now just $1 to launch a 5-day trial</p>
                   <p className="mt-5 text-white/55 text-sm leading-relaxed max-w-xs">
                     Start the full SprocketRocket stack for a dollar. No catch — just get it live.
                   </p>
