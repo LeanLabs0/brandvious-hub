@@ -194,7 +194,7 @@ function AgencyCTASection() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)] shrink-0 self-start md:self-auto"
               data-testid="pub-button-agency-model"
             >
-              Learn the agency model <ArrowRight className="w-4 h-4" />
+              Learn the &ldquo;agentcy&rdquo; model <ArrowRight className="w-4 h-4" />
             </a>
           </div>
         </div>
