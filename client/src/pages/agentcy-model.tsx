@@ -56,12 +56,12 @@ export default function AgentcyModel() {
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
               }}
             >
-              Agentcies run on AI.
+              &ldquo;Agentcies&rdquo; own the future.
             </span>
           </h1>
           <p className="mt-6 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="agentcy-text-subhead">
-            A new kind of agency: AI-native, productized, and powered by the
-            GrowthRocket stack. The full model drops soon.
+            Agencies will become an &ldquo;agentcy&rdquo; or a dinosaur.<br />
+            The full Agentcy Growth Model drops soon.
           </p>
         </div>
       </section>
