@@ -442,20 +442,11 @@ export default function Products() {
               tools for agency partners.
             </h2>
             <p className="mt-4 text-sm sm:text-base text-white/45 leading-relaxed">
-              GrowthRocket is the web & AEO stack built by{" "}
-              <a
-                href="https://leanlabs.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-white/75 hover:text-white transition-colors"
-              >
-                Lean Labs
-              </a>{" "}
-              that{" "}
+              GrowthRocket is the web & AEO stack that{" "}
               <a href="/partners" className="font-medium text-white/75 hover:text-white transition-colors">
                 Certified Partners
               </a>{" "}
-              may license & use for great experiences & great margins.
+              license & use for great experiences & great margins.
             </p>
           </div>
           <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
