@@ -99,8 +99,8 @@ const footerColumns = [
     title: "Programs",
     span: 1,
     links: [
+      { name: "The future of web", url: "/future" },
       { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
-      { name: "AEO Baseline", url: "https://aeobaseline.com" },
       { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
     ],
   },
