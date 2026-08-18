@@ -41,14 +41,14 @@ function PublicHero() {
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight max-w-5xl"
           data-testid="pub-text-headline"
         >
-          <span className="text-white">Tools that make AI </span>
+          <span className="text-white">Brandvious tools power </span>
           <span
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
             }}
           >
-            recommend your brand.
+            AI-native agencies.
           </span>
         </h1>
         <p className="mt-8 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="pub-text-subhead">
@@ -77,6 +77,22 @@ function PublicHero() {
   );
 }
 
+/** Cycles the final word of the stack headline; the period travels with the word. */
+function FlipWord({ words, interval = 2200 }: { words: string[]; interval?: number }) {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setI((v) => (v + 1) % words.length), interval);
+    return () => clearInterval(t);
+  }, [words.length, interval]);
+  return (
+    <span className="inline-block overflow-hidden align-bottom">
+      <span key={i} className="inline-block animate-flip-word">
+        {words[i]}
+      </span>
+    </span>
+  );
+}
+
 function StackSection() {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -89,15 +105,16 @@ function StackSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The GrowthRocket Stack</p>
         <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-12 max-w-2xl">
-          Eight tools. Every one builds the same signal:{" "}
+          The GrowthRocket product suite is how{" "}
           <span
             className="bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(180,140,255,0.85), rgba(255,255,255,0.95))",
             }}
           >
-            trust AI can cite.
-          </span>
+            AEO micro &ldquo;agentcies&rdquo;
+          </span>{" "}
+          <FlipWord words={["start.", "succeed.", "scale."]} />
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {growthRocketTools.map((tool, i) => (
