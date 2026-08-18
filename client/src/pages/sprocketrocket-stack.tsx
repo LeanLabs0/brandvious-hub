@@ -55,7 +55,7 @@ export default function SprocketRocketStack() {
         >
           <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">SprocketRocket Stack</p>
           <h1
-            className="text-5xl sm:text-6xl md:text-7xl font-bold leading-[1.05] tracking-tight max-w-4xl"
+            className="text-6xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight max-w-4xl"
             data-testid="sprocket-text-headline"
           >
             <span className="text-white">Build bolder </span>
@@ -69,7 +69,8 @@ export default function SprocketRocketStack() {
             </span>
           </h1>
           <p className="mt-6 max-w-xl text-base sm:text-lg text-white/50 leading-relaxed">
-            Everything you need to launch a GrowthRocket-powered site: core web stack, AI modules, schema layer, and full support — pre-configured and ready to sell.
+            Stack gives you the essential components to launch fast,
+            convert more, and scale without ever touching code.
           </p>
         </div>
       </section>
