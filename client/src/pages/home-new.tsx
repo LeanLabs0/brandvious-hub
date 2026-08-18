@@ -254,7 +254,7 @@ export function NewNavbar({ grBrand = false }: { grBrand?: boolean }) {
       <div className="max-w-6xl mx-auto flex items-center justify-between">
         <a href={inPrivate ? "/private" : "/"} className="flex items-center text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           {grBrand ? (
-            <img src="/gr-logo.png" alt="GrowthRocket" className="h-6 w-auto" />
+            <img src="/gr-logo.png" alt="GrowthRocket" className="h-8 w-auto" />
           ) : (
             <>Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span></>
           )}
@@ -632,7 +632,7 @@ export function NewFooter({ grBrand = false }: { grBrand?: boolean }) {
                 data-testid="v2-footer-link-home"
               >
                 {grBrand ? (
-                  <img src="/gr-logo.png" alt="GrowthRocket" className="h-7 w-auto" />
+                  <img src="/gr-logo.png" alt="GrowthRocket" className="h-9 w-auto" />
                 ) : (
                   <>Brandvious<span className="font-light text-white/60">, Inc.</span></>
                 )}
