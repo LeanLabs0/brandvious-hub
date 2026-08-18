@@ -58,9 +58,9 @@ export default function SprocketRocketStack() {
             className="text-6xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight max-w-4xl"
             data-testid="sprocket-text-headline"
           >
-            <span className="text-white">Build bolder </span>
+            <span className="block text-white">Build bolder</span>
             <span
-              className="bg-clip-text text-transparent"
+              className="block bg-clip-text text-transparent"
               style={{
                 backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
               }}
