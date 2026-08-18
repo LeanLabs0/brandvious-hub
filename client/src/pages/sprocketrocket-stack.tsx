@@ -102,8 +102,8 @@ export default function SprocketRocketStack() {
                 <div>
                   <p className="text-xs uppercase tracking-[0.2em] text-white/35 mb-6">Get started</p>
                   {/* old price */}
-                  <p className="text-white/30 text-lg font-medium mb-1 line-through decoration-white/30">
-                    $997
+                  <p className="text-white/30 text-sm font-normal mb-1 line-through decoration-white/25 tracking-wide">
+                    was $997
                   </p>
                   {/* new price */}
                   <div className="flex items-end gap-3 leading-none mb-2">
