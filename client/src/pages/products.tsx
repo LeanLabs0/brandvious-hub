@@ -221,7 +221,7 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
           <span className="absolute bottom-6 left-6 right-6 block">
             <span className="block text-xl font-semibold text-white tracking-tight">
               {item.name}
-              {item.sup && <sup className="ml-0.5 text-[10px] font-normal text-white/50">{item.sup}</sup>}
+              {item.sup && <sup className="ml-0.5 text-[10px] font-semibold text-purple-400">{item.sup}</sup>}
             </span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
@@ -238,7 +238,7 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
           <p className="text-[11px] text-white/40">
             <span className="text-white/70 font-medium">
               {item.name}
-              {item.sup && <sup className="ml-0.5 text-[8px] font-normal text-white/50">{item.sup}</sup>}
+              {item.sup && <sup className="ml-0.5 text-[8px] font-semibold text-purple-400">{item.sup}</sup>}
             </span>{" "}
             · {item.domain}
           </p>
@@ -310,7 +310,7 @@ export function ToolCard({ item, visible, delay }: { item: ProductItem; visible:
           <span className="absolute bottom-6 left-6 right-6 block">
             <span className="block text-lg font-semibold text-white tracking-tight">
               {item.name}
-              {item.sup && <sup className="ml-0.5 text-[9px] font-normal text-white/50">{item.sup}</sup>}
+              {item.sup && <sup className="ml-0.5 text-[9px] font-semibold text-purple-400">{item.sup}</sup>}
             </span>
             <span className="block text-[12px] text-white/45 mt-1.5">{item.tag}</span>
           </span>
@@ -327,7 +327,7 @@ export function ToolCard({ item, visible, delay }: { item: ProductItem; visible:
           <p className="text-[11px] text-white/40">
             <span className="text-white/70 font-medium">
               {item.name}
-              {item.sup && <sup className="ml-0.5 text-[8px] font-normal text-white/50">{item.sup}</sup>}
+              {item.sup && <sup className="ml-0.5 text-[8px] font-semibold text-purple-400">{item.sup}</sup>}
             </span>{" "}
             · {item.domain}
           </p>
