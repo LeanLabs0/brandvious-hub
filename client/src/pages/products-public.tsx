@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
-import { NewNavbar, NewFooter, NoiseOverlay, PartyAtmosphere } from "@/pages/home-new";
-import { growthRocketTools } from "@/pages/products";
+import {
+  NewNavbar,
+  NewFooter,
+  NoiseOverlay,
+  LightBeam,
+  FloatingParticles,
+  PartyAtmosphere,
+} from "@/pages/home-new";
+import { growthRocketTools, ToolCard } from "@/pages/products";
 
 const glassCard = "backdrop-blur-sm bg-white/[0.03]";
 const glassCardBorder = "border border-white/[0.07]";
-const glassCardHover = "hover:bg-white/[0.06] hover:border-white/[0.14]";
 const cardShadowBase = "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]";
-const cardShadowHover = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_0_1px_rgba(255,255,255,0.06),inset_0_1px_0_rgba(255,255,255,0.06)]";
-const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(100,40,200,0.08),inset_0_1px_0_rgba(255,255,255,0.06)]";
 
 function PartyLayer() {
   const { theme } = useTheme();
@@ -17,28 +21,26 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
-function ProductsHero() {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 100);
-    return () => clearTimeout(t);
-  }, []);
+function ProductsHero({ visible }: { visible: boolean }) {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
 
   return (
     <section className="relative px-6 pt-40 pb-20 overflow-hidden" data-testid="ppub-section-hero">
+      <LightBeam party={party} />
+      <FloatingParticles party={party} />
       <div
         className={`relative z-10 max-w-6xl mx-auto transition-all duration-1000 ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
-        <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Products</p>
         <h1
-          className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.08] tracking-tight max-w-4xl"
+          className="text-4xl sm:text-5xl font-bold leading-[1.08] tracking-tight"
           data-testid="ppub-text-headline"
         >
-          <span className="text-white">The </span>
+          <span className="block text-white">The</span>
           <span
-            className="bg-clip-text text-transparent"
+            className="block bg-clip-text text-transparent"
             style={{
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.55))",
             }}
@@ -55,52 +57,19 @@ function ProductsHero() {
   );
 }
 
-function ToolGrid() {
-  const { theme } = useTheme();
-  const party = theme === "sparkle";
-
+function ToolGrid({ visible }: { visible: boolean }) {
   return (
     <section className="relative pb-24 px-6" data-testid="ppub-section-grid">
-      <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 md:grid-cols-2 gap-5">
+      <div className="max-w-6xl mx-auto relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {growthRocketTools.map((tool, i) => (
-          <a
-            key={tool.name}
-            href={tool.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`group relative rounded-2xl overflow-hidden p-8 transition-all duration-500 transform hover:-translate-y-1 ${glassCard} ${glassCardBorder} ${glassCardHover} ${cardShadowBase} ${party ? cardShadowParty : cardShadowHover}`}
-            data-testid={`ppub-card-${tool.name.toLowerCase().replace(/[\s.]/g, "-")}`}
-          >
-            <div
-              className="absolute inset-x-0 top-0 h-px"
-              style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.4), transparent)" }}
-            />
-            <div className="relative z-10">
-              <div className="flex items-start justify-between mb-8">
-                <span className="w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-purple-300/80">
-                  <tool.icon className="w-5 h-5" />
-                </span>
-                <span className="text-xs font-mono text-white/20">{String(i + 1).padStart(2, "0")}</span>
-              </div>
-              <p className="text-[10px] uppercase tracking-widest text-white/30 mb-2">{tool.category}</p>
-              <h2 className="text-xl font-semibold text-white mb-1">
-                {tool.name}
-                {tool.sup && <sup className="text-[10px] text-purple-300/70 ml-0.5">{tool.sup}</sup>}
-              </h2>
-              <p className="text-sm text-white/70 font-medium mb-2">{tool.tag}</p>
-              <p className="text-sm text-white/45 leading-relaxed mb-6">{tool.desc}</p>
-              <span className="inline-flex items-center gap-1.5 text-xs text-white/35 group-hover:text-white/70 transition-colors">
-                {tool.domain} <ArrowUpRight className="w-3 h-3" />
-              </span>
-            </div>
-          </a>
+          <ToolCard key={tool.name} item={tool} visible={visible} delay={150 + i * 60} />
         ))}
       </div>
     </section>
   );
 }
 
-function BundleBand() {
+function BundleBand({ visible }: { visible: boolean }) {
   const { theme } = useTheme();
   const party = theme === "sparkle";
 
@@ -108,9 +77,12 @@ function BundleBand() {
     <section className="relative py-20 px-6 border-t border-white/[0.06]" data-testid="ppub-section-bundle">
       <div className="max-w-6xl mx-auto relative z-10">
         <div
-          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 ${glassCard} ${glassCardBorder} ${cardShadowBase} ${
-            party ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]" : ""
-          }`}
+          className={`relative rounded-2xl overflow-hidden p-8 md:p-12 ${glassCard} ${glassCardBorder} transition-all duration-1000 ${
+            party
+              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
+              : cardShadowBase
+          } ${visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
+          style={{ transitionDelay: "350ms" }}
         >
           <div
             className="absolute inset-x-0 top-0 h-px"
@@ -161,14 +133,20 @@ function BundleBand() {
 }
 
 export default function ProductsPublic() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 100);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="ppub-page">
       <PartyLayer />
       <NoiseOverlay />
       <NewNavbar />
-      <ProductsHero />
-      <ToolGrid />
-      <BundleBand />
+      <ProductsHero visible={visible} />
+      <ToolGrid visible={visible} />
+      <BundleBand visible={visible} />
       <NewFooter />
     </div>
   );

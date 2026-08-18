@@ -271,7 +271,7 @@ function DomainCard({ item, visible, delay }: { item: ProductItem; visible: bool
   );
 }
 
-function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolean; delay: number }) {
+export function ToolCard({ item, visible, delay }: { item: ProductItem; visible: boolean; delay: number }) {
   const [flipped, setFlipped] = useState(false);
   const slug = item.name.toLowerCase().replace(/[\s.]/g, "-");
 
