@@ -157,12 +157,12 @@ export default function HomePublic() {
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="pub-page">
       <PartyLayer />
       <NoiseOverlay />
-      <NewNavbar />
+      <NewNavbar grBrand />
       <PublicHero />
       <StackSection />
       <BundleStatement />
       <PartnerCTASection />
-      <NewFooter />
+      <NewFooter grBrand />
     </div>
   );
 }

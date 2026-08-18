@@ -238,7 +238,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 // Sections
 // ---------------------------------------------------------------------------
 
-export function NewNavbar() {
+export function NewNavbar({ grBrand = false }: { grBrand?: boolean }) {
   const [connectOpen, setConnectOpen] = useState(false);
   const inPrivate = window.location.pathname.startsWith("/private");
   return (
@@ -252,8 +252,12 @@ export function NewNavbar() {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href={inPrivate ? "/private" : "/"} className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
-          Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
+        <a href={inPrivate ? "/private" : "/"} className="flex items-center text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+          {grBrand ? (
+            <img src="/gr-logo.png" alt="GrowthRocket" className="h-6 w-auto" />
+          ) : (
+            <>Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span></>
+          )}
         </a>
         <div className="flex items-center gap-6">
           <a href={inPrivate ? "/private/products" : "/products"} className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
@@ -534,7 +538,7 @@ export function PartnerCTASection() {
   );
 }
 
-export function NewFooter() {
+export function NewFooter({ grBrand = false }: { grBrand?: boolean }) {
   const { theme, toggleTheme } = useTheme();
   const [connectOpen, setConnectOpen] = useState(false);
   const inPrivate = window.location.pathname.startsWith("/private");
@@ -624,10 +628,14 @@ export function NewFooter() {
             <div className="min-w-[200px]">
               <a
                 href={inPrivate ? "/private" : "/"}
-                className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
+                className="inline-flex items-center text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
                 data-testid="v2-footer-link-home"
               >
-                Brandvious<span className="font-light text-white/60">, Inc.</span>
+                {grBrand ? (
+                  <img src="/gr-logo.png" alt="GrowthRocket" className="h-7 w-auto" />
+                ) : (
+                  <>Brandvious<span className="font-light text-white/60">, Inc.</span></>
+                )}
               </a>
               <div className="space-y-1 mt-2">
                 <p className="text-xs text-white/30 leading-relaxed" data-testid="v2-text-address">
