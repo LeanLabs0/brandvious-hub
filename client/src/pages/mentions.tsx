@@ -736,17 +736,17 @@ export default function MentionsPage() {
   const isLight = theme === "light";
   const [, navigate] = useLocation();
 
-  const [, entityParams] = useRoute("/mentions/:entityId");
+  const [, entityParams] = useRoute("/private/mentions/:entityId");
   const activeEntity = entityParams?.entityId || null;
   const view = activeEntity ? "entity" : "home";
 
   const handleSelectEntity = (id: string) => {
-    navigate(`/mentions/${id}`);
+    navigate(`/private/mentions/${id}`);
     window.scrollTo(0, 0);
   };
 
   const handleHome = () => {
-    navigate("/mentions");
+    navigate("/private/mentions");
     window.scrollTo(0, 0);
   };
 

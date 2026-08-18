@@ -96,23 +96,18 @@ const footerColumns = [
     ],
   },
   {
-    title: "Partners",
+    title: "Programs",
     span: 1,
     links: [
-      { name: "Certified Partners", url: "/partners" },
-      { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
       { name: "AEO Accelerator", url: "https://www.getgrowth.com" },
-      { name: "Entities.org", url: "https://entities.org" },
+      { name: "AEO Baseline", url: "https://aeobaseline.com" },
+      { name: "HubSpot for Startups", url: "https://www.hubspot.com/startups" },
     ],
   },
   {
-    title: "Properties",
+    title: "Partners",
     links: [
-      { name: "AnswerStack", url: "https://answerstack.io" },
-      { name: "WhatisBest", url: "https://whatisbest.com" },
-      { name: "ReviewInsight", url: "https://reviewinsight.com", badge: "New" },
-      { name: "B2BIndex", url: "https://b2bindex.org", badge: "New" },
-      { name: "BestFit", url: "https://bestfit.org", badge: "New" },
+      { name: "Certified Partners", url: "/partners" },
     ],
   },
 ];
@@ -207,7 +202,7 @@ export function FloatingParticles({ party }: { party: boolean }) {
   );
 }
 
-function PartyAtmosphere() {
+export function PartyAtmosphere() {
   return (
     <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
       <div
@@ -245,6 +240,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 
 export function NewNavbar() {
   const [connectOpen, setConnectOpen] = useState(false);
+  const inPrivate = window.location.pathname.startsWith("/private");
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -256,12 +252,12 @@ export function NewNavbar() {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href="/" className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+        <a href={inPrivate ? "/private" : "/"} className="text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           Brandvious<span className="font-light text-white/60 ml-0.5">Digital</span>
         </a>
         <div className="flex items-center gap-6">
-          <a href="/products" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
-          <a href="/partners" className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Partners</a>
+          <a href={inPrivate ? "/private/products" : "/products"} className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-products">Products</a>
+          <a href={inPrivate ? "/private/partners" : "/partners"} className="text-sm text-white/60 hover:text-white transition-colors hidden sm:block" data-testid="v2-nav-partners">Partners</a>
           <ConnectButton compact onClick={() => setConnectOpen(true)} testId="v2-nav-connect" />
         </div>
       </div>
@@ -485,7 +481,7 @@ function HowItWorksSection() {
   );
 }
 
-function PartnerCTASection() {
+export function PartnerCTASection() {
   const { theme } = useTheme();
   const party = theme === "sparkle";
 
@@ -541,6 +537,7 @@ function PartnerCTASection() {
 export function NewFooter() {
   const { theme, toggleTheme } = useTheme();
   const [connectOpen, setConnectOpen] = useState(false);
+  const inPrivate = window.location.pathname.startsWith("/private");
   const party = theme === "sparkle";
   const themeIcon =
     theme === "dark" ? <Sun className="w-4 h-4" /> :
@@ -626,7 +623,7 @@ export function NewFooter() {
           <div className="md:w-1/2 flex items-start justify-between gap-8 md:pr-8">
             <div className="min-w-[200px]">
               <a
-                href="/"
+                href={inPrivate ? "/private" : "/"}
                 className="inline-block text-base font-semibold text-white mb-2 hover:text-white/80 transition-colors"
                 data-testid="v2-footer-link-home"
               >
@@ -687,6 +684,13 @@ export function NewFooter() {
           <p className="text-xs text-white/30">
             &copy; {new Date().getFullYear()} Brandvious, Inc. All rights reserved.
           </p>
+          <a
+            href="/login"
+            className="ml-auto text-xs text-white/30 hover:text-white/70 transition-colors"
+            data-testid="v2-footer-link-login"
+          >
+            Login
+          </a>
         </div>
       </div>
 

@@ -2211,8 +2211,8 @@ export default function WhatisBestV3() {
   const isSparkle = theme === "sparkle";
   const [, navigate] = useLocation();
 
-  const [, sectorParams] = useRoute("/whatisbest/sector/:sectorId");
-  const [, articleParams] = useRoute("/whatisbest/sector/:sectorId/:articleId");
+  const [, sectorParams] = useRoute("/private/whatisbest/sector/:sectorId");
+  const [, articleParams] = useRoute("/private/whatisbest/sector/:sectorId/:articleId");
 
   const activeSector = articleParams?.sectorId || sectorParams?.sectorId || null;
   const activeArticle = articleParams?.articleId || null;
@@ -2221,20 +2221,20 @@ export default function WhatisBestV3() {
   const article = activeArticle ? ARTICLES.find(a => a.id === activeArticle) : null;
 
   const handleSelectSector = (id: string) => {
-    navigate(`/whatisbest/sector/${id}`);
+    navigate(`/private/whatisbest/sector/${id}`);
     window.scrollTo(0, 0);
   };
 
   const handleSelectArticle = (id: string) => {
     const a = ARTICLES.find(a => a.id === id);
     if (a) {
-      navigate(`/whatisbest/sector/${a.sectorId}/${id}`);
+      navigate(`/private/whatisbest/sector/${a.sectorId}/${id}`);
       window.scrollTo(0, 0);
     }
   };
 
   const handleHome = () => {
-    navigate("/whatisbest");
+    navigate("/private/whatisbest");
     window.scrollTo(0, 0);
   };
 
@@ -2245,10 +2245,10 @@ export default function WhatisBestV3() {
         block: "start",
       });
     };
-    if (window.location.pathname === "/whatisbest") {
+    if (window.location.pathname === "/private/whatisbest") {
       scrollToAnchor();
     } else {
-      navigate("/whatisbest");
+      navigate("/private/whatisbest");
       setTimeout(scrollToAnchor, 80);
     }
   };

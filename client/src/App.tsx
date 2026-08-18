@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect } from "wouter";
+import { Switch, Route, Redirect, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -33,41 +33,85 @@ import Redirects from "@/pages/redirects";
 import Products from "@/pages/products";
 import Pricing from "@/pages/pricing";
 import NotFound from "@/pages/not-found";
+import Login from "@/pages/login";
+import HomePublic from "@/pages/home-public";
+import ProductsPublic from "@/pages/products-public";
+import { PrivateGate } from "@/components/private-gate";
+
+/** Redirects a legacy public URL to its /private equivalent (preserves params, query string, and hash). */
+function MoveToPrivate() {
+  const [location] = useLocation();
+  return <Redirect to={`/private${location}${window.location.search}${window.location.hash}`} />;
+}
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={HomeNew} />
-      <Route path="/new">
-        <Redirect to="/" />
-      </Route>
-      <Route path="/v5" component={HomeV5} />
-      <Route path="/v6" component={HomeV6} />
+      {/* Public site: AEO tools focus */}
+      <Route path="/" component={HomePublic} />
+      <Route path="/products" component={ProductsPublic} />
       <Route path="/partners" component={Partners} />
-      <Route path="/gtm" component={Gtm} />
-      <Route path="/partner-playbook" component={Playbook} />
-      <Route path="/redirects" component={Redirects} />
-      <Route path="/products" component={Products} />
       <Route path="/pricing" component={Pricing} />
+      <Route path="/login" component={Login} />
+      <Route path="/partner-playbook">
+        <Redirect to="/private/partner-playbook" />
+      </Route>
       <Route path="/playbook">
         <Redirect to="/partner-playbook" />
       </Route>
-      <Route path="/v1" component={Home} />
-      <Route path="/entities" component={EntitiesHome} />
-      <Route path="/entitiespreview" component={EntitiesPreview} />
-      <Route path="/schema" component={Schema} />
-      <Route path="/whatisbest" component={WhatisBestV3} />
-      <Route path="/whatisbest/sector/:sectorId" component={WhatisBestV3} />
-      <Route path="/whatisbest/sector/:sectorId/:articleId" component={WhatisBestV3} />
-      <Route path="/whatisbest/v1" component={WhatisBest} />
-      <Route path="/whatisbest/v2" component={WhatisBestV2} />
-      <Route path="/answerstack" component={AnswerStack} />
-      <Route path="/reviewradar" component={ReviewRadar} />
-      <Route path="/mentions" component={Mentions} />
-      <Route path="/mentions/:entityId" component={Mentions} />
-      <Route path="/v2" component={HomeV2} />
-      <Route path="/v3" component={HomeV3} />
-      <Route path="/v4" component={HomeV4} />
+      <Route path="/new">
+        <Redirect to="/private" />
+      </Route>
+
+      {/* Private site (password-gated): the previous public stack, preserved as-is */}
+      <Route path="/private"><PrivateGate><HomeNew /></PrivateGate></Route>
+      <Route path="/private/v1"><PrivateGate><Home /></PrivateGate></Route>
+      <Route path="/private/v2"><PrivateGate><HomeV2 /></PrivateGate></Route>
+      <Route path="/private/v3"><PrivateGate><HomeV3 /></PrivateGate></Route>
+      <Route path="/private/v4"><PrivateGate><HomeV4 /></PrivateGate></Route>
+      <Route path="/private/v5"><PrivateGate><HomeV5 /></PrivateGate></Route>
+      <Route path="/private/v6"><PrivateGate><HomeV6 /></PrivateGate></Route>
+      <Route path="/private/products"><PrivateGate><Products /></PrivateGate></Route>
+      <Route path="/private/pricing"><PrivateGate><Pricing /></PrivateGate></Route>
+      <Route path="/private/partners"><PrivateGate><Partners /></PrivateGate></Route>
+      <Route path="/private/partner-playbook"><PrivateGate><Playbook /></PrivateGate></Route>
+      <Route path="/private/gtm"><PrivateGate><Gtm /></PrivateGate></Route>
+      <Route path="/private/redirects"><PrivateGate><Redirects /></PrivateGate></Route>
+      <Route path="/private/entities"><PrivateGate><EntitiesHome /></PrivateGate></Route>
+      <Route path="/private/entitiespreview"><PrivateGate><EntitiesPreview /></PrivateGate></Route>
+      <Route path="/private/schema"><PrivateGate><Schema /></PrivateGate></Route>
+      <Route path="/private/whatisbest/v1"><PrivateGate><WhatisBest /></PrivateGate></Route>
+      <Route path="/private/whatisbest/v2"><PrivateGate><WhatisBestV2 /></PrivateGate></Route>
+      <Route path="/private/whatisbest/sector/:sectorId/:articleId"><PrivateGate><WhatisBestV3 /></PrivateGate></Route>
+      <Route path="/private/whatisbest/sector/:sectorId"><PrivateGate><WhatisBestV3 /></PrivateGate></Route>
+      <Route path="/private/whatisbest"><PrivateGate><WhatisBestV3 /></PrivateGate></Route>
+      <Route path="/private/answerstack"><PrivateGate><AnswerStack /></PrivateGate></Route>
+      <Route path="/private/reviewradar"><PrivateGate><ReviewRadar /></PrivateGate></Route>
+      <Route path="/private/mentions/:entityId"><PrivateGate><Mentions /></PrivateGate></Route>
+      <Route path="/private/mentions"><PrivateGate><Mentions /></PrivateGate></Route>
+
+      {/* Legacy public URLs moved behind the gate */}
+      <Route path="/v1"><MoveToPrivate /></Route>
+      <Route path="/v2"><MoveToPrivate /></Route>
+      <Route path="/v3"><MoveToPrivate /></Route>
+      <Route path="/v4"><MoveToPrivate /></Route>
+      <Route path="/v5"><MoveToPrivate /></Route>
+      <Route path="/v6"><MoveToPrivate /></Route>
+      <Route path="/gtm"><MoveToPrivate /></Route>
+      <Route path="/redirects"><MoveToPrivate /></Route>
+      <Route path="/entities"><MoveToPrivate /></Route>
+      <Route path="/entitiespreview"><MoveToPrivate /></Route>
+      <Route path="/schema"><MoveToPrivate /></Route>
+      <Route path="/whatisbest/sector/:sectorId/:articleId"><MoveToPrivate /></Route>
+      <Route path="/whatisbest/sector/:sectorId"><MoveToPrivate /></Route>
+      <Route path="/whatisbest/v1"><MoveToPrivate /></Route>
+      <Route path="/whatisbest/v2"><MoveToPrivate /></Route>
+      <Route path="/whatisbest"><MoveToPrivate /></Route>
+      <Route path="/answerstack"><MoveToPrivate /></Route>
+      <Route path="/reviewradar"><MoveToPrivate /></Route>
+      <Route path="/mentions/:entityId"><MoveToPrivate /></Route>
+      <Route path="/mentions"><MoveToPrivate /></Route>
+
       <Route component={NotFound} />
     </Switch>
   );
