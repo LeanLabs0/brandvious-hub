@@ -19,24 +19,14 @@ function PartyLayer() {
   return <PartyAtmosphere />;
 }
 
+const MEETING_EMBED_URL = "https://www.lean-labs.com/meetings/kevin930?embed=true";
+
 function HubSpotMeetingEmbed() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
-    script.type = "text/javascript";
-    script.async = true;
-    script.dataset.growthrocketMeetings = "true";
-    document.body.appendChild(script);
-
-    return () => {
-      script.remove();
-    };
-  }, []);
-
   return (
-    <div
-      className="meetings-iframe-container min-h-[690px] [&>iframe]:min-h-[690px] [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:border-0"
-      data-src="https://www.lean-labs.com/meetings/kevin930?embed=true"
+    <iframe
+      src={MEETING_EMBED_URL}
+      title="Book a Growth Call"
+      className="min-h-[690px] w-full rounded-xl border-0"
       data-testid="agentcy-booking-calendar"
     />
   );
