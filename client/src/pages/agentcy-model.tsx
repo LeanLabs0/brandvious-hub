@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { ArrowRight } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import {
   NewNavbar,
@@ -18,6 +17,29 @@ function PartyLayer() {
   const { theme } = useTheme();
   if (theme !== "sparkle") return null;
   return <PartyAtmosphere />;
+}
+
+function HubSpotMeetingEmbed() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://static.hsappstatic.net/MeetingsEmbed/ex/MeetingsEmbedCode.js";
+    script.type = "text/javascript";
+    script.async = true;
+    script.dataset.growthrocketMeetings = "true";
+    document.body.appendChild(script);
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
+  return (
+    <div
+      className="meetings-iframe-container min-h-[690px] [&>iframe]:min-h-[690px] [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:border-0"
+      data-src="https://www.lean-labs.com/meetings/kevin9?embed=true"
+      data-testid="agentcy-booking-calendar"
+    />
+  );
 }
 
 export default function AgentcyModel() {
@@ -92,33 +114,44 @@ export default function AgentcyModel() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="relative py-20 px-6" data-testid="agentcy-section-cta">
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="relative rounded-2xl overflow-hidden p-8 md:p-12 backdrop-blur-sm bg-white/[0.03] border border-white/[0.07] shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]">
+      {/* Live booking calendar */}
+      <section className="relative px-6 py-20" data-testid="agentcy-section-booking">
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03] p-6 shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-sm md:p-10">
             <div
               className="absolute inset-x-0 top-0 h-px"
               style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), rgba(120,180,255,0.35), transparent)" }}
             />
-            <div className="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-              <h2 className="text-xl sm:text-2xl font-semibold text-white">
-                Ready to run{" "}
-                <span
-                  className="bg-clip-text text-transparent"
-                  style={{
-                    backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
-                  }}
-                >
-                  the Agentcy model?
-                </span>
-              </h2>
-              <a
-                href="/partners"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-medium transition-all duration-300 backdrop-blur-sm border border-purple-300/25 bg-purple-400/[0.08] hover:bg-purple-400/[0.14] hover:border-purple-300/40 hover:shadow-[0_0_24px_rgba(140,80,255,0.18)] shrink-0 self-start md:self-auto"
-                data-testid="agentcy-button-become-partner"
-              >
-                Become a Certified GrowthRocket Partner <ArrowRight className="w-4 h-4" />
-              </a>
+            <div
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background: "radial-gradient(620px circle at 0% 35%, rgba(110,60,240,0.08), transparent 58%), radial-gradient(560px circle at 100% 70%, rgba(60,120,255,0.06), transparent 58%)",
+              }}
+            />
+            <div className="relative z-10 grid gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:items-start">
+              <div className="pt-2 lg:sticky lg:top-28">
+                <p className="mb-4 text-xs uppercase tracking-[0.2em] text-purple-300/70">Talk to a real human</p>
+                <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
+                  Book an Agentcy{" "}
+                  <span
+                    className="bg-clip-text text-transparent"
+                    style={{
+                      backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(160,120,255,0.58))",
+                    }}
+                  >
+                    Growth Call.
+                  </span>
+                </h2>
+                <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/50 sm:text-base">
+                  Pick a time that works. We&apos;ll talk through where your agency is today and what an agentcy model could unlock next.
+                </p>
+                <p className="mt-8 text-xs leading-relaxed text-white/35">
+                  The calendar shows Kevin&apos;s live availability in your local timezone.
+                </p>
+              </div>
+              <div className="min-w-0 overflow-hidden rounded-xl border border-white/[0.08] bg-white">
+                <HubSpotMeetingEmbed />
+              </div>
             </div>
           </div>
         </div>

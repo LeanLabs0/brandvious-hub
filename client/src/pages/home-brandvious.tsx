@@ -8,7 +8,6 @@ import {
   LightBeam,
   FloatingParticles,
   PartyAtmosphere,
-  PartnerCTASection,
 } from "@/pages/home-new";
 import { growthRocketTools, ToolCard } from "@/pages/products";
 
@@ -57,9 +56,7 @@ function BrandviousHero() {
           </span>
         </h1>
         <p className="mt-8 max-w-2xl text-base sm:text-lg text-white/50 leading-relaxed" data-testid="bv-text-subhead">
-          GrowthRocket is the AEO toolstack by Brandvious Digital: schema, surveys,
-          reputation, and answer content that give engines like ChatGPT, Gemini, and
-          Perplexity a reason to cite you.
+          Sell more, deliver faster, and scale without adding headcount.
         </p>
         <div className="mt-10 flex flex-wrap items-center gap-4">
           <a
@@ -109,7 +106,7 @@ function StackSection() {
     <section className="relative py-24 px-6 border-t border-white/[0.06]" data-testid="bv-section-stack">
       <div className="max-w-6xl mx-auto relative z-10">
         <p className="text-xs uppercase tracking-[0.2em] text-white/40 mb-4">The GrowthRocket Stack</p>
-        <h2 className="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-12 max-w-2xl">
+        <h2 className="mb-12 whitespace-nowrap text-[clamp(1rem,2.45vw,1.875rem)] font-bold tracking-tight text-white">
           The GrowthRocket product suite is how{" "}
           <span
             className="bg-clip-text text-transparent"
@@ -117,7 +114,7 @@ function StackSection() {
               backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.95), rgba(180,140,255,0.85), rgba(255,255,255,0.95))",
             }}
           >
-            AEO micro &ldquo;agentcies&rdquo;
+            micro &ldquo;agentcies&rdquo;
           </span>{" "}
           <FlipWord words={["start.", "succeed.", "scale."]} />
         </h2>
@@ -149,9 +146,62 @@ function BundleStatement() {
               backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.45))",
             }}
           >
-            Run the full stack, and every AI engine hears the same trusted story about your brand.
+            Growth Rocket drives wins for your clients and a scalable flow for your agentcy.
           </span>
         </p>
+      </div>
+    </section>
+  );
+}
+
+function AgencyCTASection() {
+  const { theme } = useTheme();
+  const party = theme === "sparkle";
+
+  return (
+    <section className="relative border-t border-white/[0.06] px-6 py-20" data-testid="bv-section-agency-cta">
+      <div className="relative z-10 mx-auto max-w-6xl">
+        <div
+          className={`relative overflow-hidden rounded-2xl border border-white/[0.07] bg-white/[0.03] p-8 backdrop-blur-sm md:p-12 ${
+            party
+              ? "shadow-[0_2px_20px_rgba(0,0,0,0.3),0_0_40px_rgba(100,40,200,0.05),inset_0_1px_0_rgba(255,255,255,0.04)]"
+              : "shadow-[0_2px_20px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.04)]"
+          }`}
+        >
+          <div
+            className="absolute inset-x-0 top-0 h-px"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(160,120,255,0.5), rgba(120,180,255,0.35), transparent)" }}
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: "radial-gradient(600px circle at 0% 50%, rgba(110,60,240,0.08), transparent 55%), radial-gradient(500px circle at 100% 50%, rgba(60,120,255,0.06), transparent 55%)",
+            }}
+          />
+          <div className="relative z-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+              <p className="mb-3 text-xs uppercase tracking-[0.2em] text-purple-300/70">For agencies &amp; in-house teams</p>
+              <h2 className="text-xl font-semibold text-white sm:text-2xl">
+                Become a{" "}
+                <span
+                  className="bg-clip-text text-transparent"
+                  style={{
+                    backgroundImage: "linear-gradient(90deg, rgba(190,150,255,0.95), rgba(140,180,255,0.9))",
+                  }}
+                >
+                  Certified Brandvious Partner.
+                </span>
+              </h2>
+            </div>
+            <a
+              href="/agentcy-model"
+              className="inline-flex shrink-0 self-start rounded-full border border-purple-300/25 bg-purple-400/[0.08] px-6 py-3 text-sm font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-purple-300/40 hover:bg-purple-400/[0.14] hover:shadow-[0_0_24px_rgba(140,80,255,0.18)] md:self-auto"
+              data-testid="bv-button-agency-model"
+            >
+              Learn the &ldquo;agentcy&rdquo; model <ArrowRight className="ml-2 h-4 w-4" />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -166,7 +216,7 @@ export default function HomeBrandvious() {
       <BrandviousHero />
       <StackSection />
       <BundleStatement />
-      <PartnerCTASection />
+      <AgencyCTASection />
       <NewFooter />
     </div>
   );
