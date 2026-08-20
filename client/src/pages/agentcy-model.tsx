@@ -36,7 +36,7 @@ function HubSpotMeetingEmbed() {
   return (
     <div
       className="meetings-iframe-container min-h-[690px] [&>iframe]:min-h-[690px] [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:border-0"
-      data-src="https://www.lean-labs.com/meetings/kevin9?embed=true"
+      data-src="https://www.lean-labs.com/meetings/kevin930?embed=true"
       data-testid="agentcy-booking-calendar"
     />
   );
@@ -128,11 +128,11 @@ export default function AgentcyModel() {
                 background: "radial-gradient(620px circle at 0% 35%, rgba(110,60,240,0.08), transparent 58%), radial-gradient(560px circle at 100% 70%, rgba(60,120,255,0.06), transparent 58%)",
               }}
             />
-            <div className="relative z-10 grid gap-10 lg:grid-cols-[0.42fr_0.58fr] lg:items-start">
+            <div className="relative z-10 grid gap-10 lg:grid-cols-[0.3fr_0.7fr] lg:items-start">
               <div className="pt-2 lg:sticky lg:top-28">
-                <p className="mb-4 text-xs uppercase tracking-[0.2em] text-purple-300/70">Talk to a real human</p>
+                <p className="mb-4 text-xs uppercase tracking-[0.2em] text-purple-300/70">Marketing Agencies Only:</p>
                 <h2 className="text-3xl font-semibold tracking-tight text-white sm:text-4xl">
-                  Book an Agentcy{" "}
+                  Book a{" "}
                   <span
                     className="bg-clip-text text-transparent"
                     style={{
@@ -143,7 +143,7 @@ export default function AgentcyModel() {
                   </span>
                 </h2>
                 <p className="mt-5 max-w-sm text-sm leading-relaxed text-white/50 sm:text-base">
-                  Pick a time that works. We&apos;ll talk through where your agency is today and what an agentcy model could unlock next.
+                  Our Head of Growth to discuss how your agency can grow and see what the agentcy model could unlock next.
                 </p>
                 <p className="mt-8 text-xs leading-relaxed text-white/35">
                   The calendar shows Kevin&apos;s live availability in your local timezone.
