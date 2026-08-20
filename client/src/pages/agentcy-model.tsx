@@ -148,6 +148,15 @@ export default function AgentcyModel() {
                 <p className="mt-8 text-xs leading-relaxed text-white/35">
                   The calendar shows Kevin&apos;s live availability in your local timezone.
                 </p>
+                <a
+                  href="https://www.lean-labs.com/meetings/kevin930"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-4 inline-flex text-xs text-white/45 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+                  data-testid="agentcy-booking-direct-link"
+                >
+                  Open the full booking page
+                </a>
               </div>
               <div className="min-w-0 overflow-hidden rounded-xl border border-white/[0.08] bg-white">
                 <HubSpotMeetingEmbed />
