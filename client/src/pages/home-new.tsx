@@ -242,6 +242,7 @@ const cardShadowParty = "hover:shadow-[0_8px_40px_rgba(0,0,0,0.4),0_0_30px_rgba(
 export function NewNavbar({ grBrand = false }: { grBrand?: boolean }) {
   const [connectOpen, setConnectOpen] = useState(false);
   const inPrivate = window.location.pathname.startsWith("/private");
+  const homePath = inPrivate ? "/private" : grBrand ? "/growthrocket" : "/";
   return (
     <nav
       className="fixed top-0 left-0 right-0 z-50 px-6 py-4"
@@ -253,7 +254,7 @@ export function NewNavbar({ grBrand = false }: { grBrand?: boolean }) {
       data-testid="v2-navbar"
     >
       <div className="max-w-6xl mx-auto flex items-center justify-between">
-        <a href={inPrivate ? "/private" : "/"} className="flex items-center text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
+        <a href={homePath} className="flex items-center text-base font-semibold tracking-tight text-white" data-testid="v2-link-home">
           {grBrand ? (
             <img src="/gr-logo.png" alt="GrowthRocket" className="h-8 w-auto" />
           ) : (

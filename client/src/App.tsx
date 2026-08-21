@@ -52,8 +52,9 @@ function MoveToPrivate() {
 function Router() {
   return (
     <Switch>
-      {/* Public site: AEO tools focus */}
-      <Route path="/" component={HomePublic} />
+      {/* Public site */}
+      <Route path="/" component={HomeBrandvious} />
+      <Route path="/growthrocket" component={HomePublic} />
       <Route path="/products" component={ProductsPublic} />
       <Route path="/partners" component={Partners} />
       <Route path="/pricing" component={Pricing} />
