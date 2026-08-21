@@ -13,10 +13,10 @@ import { useTheme } from "@/components/theme-provider";
 import { NewFooter } from "@/pages/home-new";
 import { ConnectWidget, ConnectButton } from "@/components/connect-widget";
 import leanLabsLogo from "@/assets/partner-logos/lean-labs.svg";
-import getGrowthLogo from "@/assets/partner-logos/get-growth.svg";
-import digitalMomentumLogo from "@/assets/partner-logos/digital-momentum.svg";
-import smartBugLogo from "@/assets/partner-logos/smartbug.svg";
-import impulseCreativeLogo from "@/assets/partner-logos/impulse-creative.svg";
+// import getGrowthLogo from "@/assets/partner-logos/get-growth.svg";
+// import digitalMomentumLogo from "@/assets/partner-logos/digital-momentum.svg";
+// import smartBugLogo from "@/assets/partner-logos/smartbug.svg";
+// import impulseCreativeLogo from "@/assets/partner-logos/impulse-creative.svg";
 
 // ---------------------------------------------------------------------------
 // Content
@@ -56,6 +56,7 @@ const partners: { name: string; tier: PartnerTier; description: string; logo: st
     logo: leanLabsLogo,
     url: "https://www.lean-labs.com",
   },
+  /*
   {
     name: "Digital Momentum",
     tier: "certified",
@@ -84,6 +85,7 @@ const partners: { name: string; tier: PartnerTier; description: string; logo: st
     logo: smartBugLogo,
     url: "https://www.smartbugmedia.com",
   },
+  */
 ];
 
 const partnerBenefits = [

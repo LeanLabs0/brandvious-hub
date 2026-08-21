@@ -45,7 +45,7 @@ export default function AgentcyModel() {
     <div className="min-h-screen bg-[hsl(220,10%,4%)] text-white relative" data-testid="agentcy-page">
       <PartyLayer />
       <NoiseOverlay />
-      <NewNavbar grBrand />
+      <NewNavbar />
 
       {/* hero */}
       <section className="relative px-6 pt-40 pb-10 overflow-hidden" data-testid="agentcy-section-hero">
@@ -156,7 +156,7 @@ export default function AgentcyModel() {
         </div>
       </section>
 
-      <NewFooter grBrand />
+      <NewFooter />
     </div>
   );
 }
